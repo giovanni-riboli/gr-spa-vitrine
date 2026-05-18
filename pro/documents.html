@@ -6,64 +6,58 @@
   <title>Documents — Espace Pro Giovanni Riboli</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    :root { --bg-dark:#1a2d3e; --bg-card:#253a4c; --accent:#c7a260; --text-light:#ccd8e0; --text-muted:#7a8a9a; }
     *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:'Inter',sans-serif;background:#0f1e2c;min-height:100vh;display:flex}
-    .sidebar{width:250px;background:#1a2d3e;color:#fff;min-height:100vh;position:fixed;left:0;top:0;z-index:100;transition:transform .3s}
-    .sidebar .logo-area{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
-    .sidebar .logo-area img{height:32px}
-    .sidebar .logo-area .brand{font-size:14px;font-weight:600;color:#c7a260;margin-top:6px}
+    body{font-family:'Inter',sans-serif;background:#0f1e2c;color:var(--text-light);min-height:100vh;display:flex}
+    .sidebar{width:250px;background:var(--bg-dark);min-height:100vh;position:fixed;left:0;top:0;z-index:100;transition:transform .3s;border-right:1px solid rgba(255,255,255,.06)}
+    .sidebar .logo-area{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,.06)}
+    .sidebar .logo-area img{height:32px;filter:brightness(0) invert(1)}
+    .sidebar .logo-area .brand{font-size:13px;font-weight:600;color:var(--accent);margin-top:6px;letter-spacing:.5px}
     .sidebar nav{padding:16px 0}
-    .sidebar nav a{display:flex;align-items:center;gap:10px;padding:12px 24px;color:rgba(255,255,255,.7);text-decoration:none;font-size:14px;font-weight:500;transition:all .2s}
-    .sidebar nav a:hover,.sidebar nav a.active{color:#c7a260;background:rgba(199,162,96,.08)}
-    .sidebar nav a.active{border-right:3px solid #c7a260}
+    .sidebar nav a{display:flex;align-items:center;gap:10px;padding:12px 24px;color:rgba(255,255,255,.5);text-decoration:none;font-size:13px;font-weight:500;transition:all .2s;border-left:3px solid transparent}
+    .sidebar nav a:hover,.sidebar nav a.active{color:var(--accent);background:rgba(199,162,96,.06);border-left-color:var(--accent)}
     .sidebar nav a svg{width:18px;height:18px;flex-shrink:0}
     .main{margin-left:250px;flex:1;min-height:100vh}
-    .header{background:#fff;border-bottom:1px solid #e5e7eb;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
-    .header .title{font-size:16px;font-weight:600;color:#253a4c}
-    .header .user-area{display:flex;align-items:center;gap:16px;font-size:13px;color:#7a8a9a}
-    .header .user-area strong{color:#253a4c}
-    .btn-logout{padding:8px 16px;background:none;border:1px solid #dce1e8;border-radius:6px;font-size:12px;font-family:'Inter',sans-serif;cursor:pointer;color:#253a4c;transition:all .2s}
-    .btn-logout:hover{border-color:#c7a260;color:#c7a260}
+    .header{background:var(--bg-dark);border-bottom:1px solid rgba(255,255,255,.06);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+    .header .title{font-size:15px;font-weight:600;color:#fff}
+    .header .user-area{display:flex;align-items:center;gap:16px;font-size:13px;color:var(--text-muted)}
+    .header .user-area strong{color:#fff}
+    .btn-logout{padding:8px 16px;background:none;border:1px solid rgba(255,255,255,.12);border-radius:6px;font-size:12px;font-family:'Inter',sans-serif;cursor:pointer;color:var(--text-muted);transition:all .2s}
+    .btn-logout:hover{border-color:var(--accent);color:var(--accent)}
     .content{padding:32px}
+    .page-title{font-size:22px;font-weight:600;color:#fff;margin-bottom:6px}
+    .page-sub{font-size:13px;color:var(--text-muted);margin-bottom:28px}
     .hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px}
-    .hamburger svg{width:24px;height:24px;color:#253a4c}
-    .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:90}
+    .hamburger svg{width:24px;height:24px;color:#fff}
+    .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:90}
+
     /* Filters */
     .filters{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
-    .filter-btn{padding:8px 18px;border-radius:20px;border:1px solid #dce1e8;background:#fff;font-size:13px;font-family:'Inter',sans-serif;cursor:pointer;color:#253a4c;transition:all .2s}
-    .filter-btn:hover,.filter-btn.active{background:#253a4c;color:#fff;border-color:#253a4c}
-    /* Docs grid */
-    .docs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-    .doc-card{background:#fff;border-radius:10px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,.05);border-top:3px solid #c7a260;display:flex;gap:16px;align-items:flex-start}
-    .doc-icon{width:44px;height:44px;background:#fef3c7;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-    .doc-icon.drive{background:#ecfdf5}
-    .doc-info{flex:1}
-    .doc-info h3{font-size:14px;font-weight:600;color:#253a4c;margin-bottom:4px}
-    .doc-info .meta{font-size:12px;color:#7a8a9a;margin-bottom:10px}
-    .btn-dl{padding:6px 14px;background:#253a4c;color:#fff;border:none;border-radius:6px;font-size:12px;font-family:'Inter',sans-serif;cursor:pointer;text-decoration:none;transition:background .2s}
-    .btn-dl:hover{background:#1a2d3e}
-    .page-title{font-size:22px;font-weight:600;color:#253a4c;margin-bottom:20px}
+    .filter-btn{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid rgba(255,255,255,.1);background:none;color:var(--text-muted);font-family:'Inter',sans-serif;transition:all .2s}
+    .filter-btn.active,.filter-btn:hover{border-color:var(--accent);color:var(--accent);background:rgba(199,162,96,.08)}
+
+    /* Doc sections */
+    .section-label{font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin:28px 0 14px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.06)}
+    .doc-section{margin-bottom:8px}
+    .docs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+    .doc-card{background:var(--bg-card);border-radius:10px;padding:16px 20px;display:flex;align-items:center;gap:14px;border:1px solid rgba(255,255,255,.04);transition:all .2s}
+    .doc-card:hover{border-color:rgba(199,162,96,.2)}
+    .doc-icon{font-size:24px;flex-shrink:0}
+    .doc-info{flex:1;min-width:0}
+    .doc-name{font-size:13px;font-weight:600;color:#fff;margin-bottom:3px}
+    .doc-meta{font-size:11px;color:var(--text-muted)}
+    .doc-actions{display:flex;gap:6px;flex-shrink:0;flex-direction:column}
+    .btn-view{font-size:11px;padding:5px 10px;border:1px solid rgba(255,255,255,.12);color:var(--text-light);border-radius:6px;text-decoration:none;text-align:center;font-weight:500;transition:.2s}
+    .btn-view:hover{border-color:var(--accent);color:var(--accent)}
+    .btn-dl{font-size:11px;padding:5px 10px;background:rgba(199,162,96,.1);border:1px solid rgba(199,162,96,.3);color:var(--accent);border-radius:6px;text-decoration:none;text-align:center;font-weight:600;transition:.2s}
+    .btn-dl:hover{background:rgba(199,162,96,.2)}
+
     @media(max-width:768px){
       .sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.overlay.open{display:block}
       .main{margin-left:0}.hamburger{display:block}.content{padding:20px}
+      .docs-grid{grid-template-columns:1fr}
     }
-  
-        .section-label { font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #c7a260; margin: 32px 0 16px; padding-bottom: 10px; border-bottom: 1px solid #f0ece6; }
-        .doc-section { margin-bottom: 24px; }
-        .docs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
-        .doc-card { background: #fff; border: 1px solid #eee; border-radius: 4px; padding: 20px; display: flex; align-items: center; gap: 16px; transition: box-shadow .2s; }
-        .doc-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.08); border-color: #c7a260; }
-        .doc-icon { font-size: 28px; flex-shrink: 0; }
-        .doc-info { flex: 1; }
-        .doc-name { font-size: 14px; font-weight: 600; color: #253a4c; margin-bottom: 4px; }
-        .doc-meta { font-size: 12px; color: #999; }
-        .doc-actions { display: flex; gap: 8px; flex-shrink: 0; flex-direction: column; }
-        .btn-view { font-size: 11px; padding: 6px 12px; border: 1.5px solid #253a4c; color: #253a4c; border-radius: 3px; text-decoration: none; text-align: center; font-weight: 600; transition: .2s; }
-        .btn-view:hover { background: #253a4c; color: #fff; }
-        .btn-dl { font-size: 11px; padding: 6px 12px; background: #c7a260; color: #fff; border-radius: 3px; text-decoration: none; text-align: center; font-weight: 600; transition: .2s; }
-        .btn-dl:hover { background: #b8925a; }
-        @media(max-width:600px) { .docs-grid { grid-template-columns: 1fr; } .doc-card { flex-wrap: wrap; } }
-</style>
+  </style>
 </head>
 <body>
   <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
@@ -73,10 +67,11 @@
       <div class="brand">Espace Revendeur</div>
     </div>
     <nav>
-      <a href='dashboard.html'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Tableau de bord</a>
-      <a class='active' href='documents.html'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Documents</a>
-      <a href='stocks.html'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>Stocks</a>
-      <a href='profil.html'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Mon profil</a>
+      <a href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard</a>
+      <a href="offres.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>Offres en cours</a>
+      <a class="active" href="documents.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Documents</a>
+      <a href="stocks.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>Stocks</a>
+      <a href="profil.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Mon profil</a>
     </nav>
   </aside>
 
@@ -87,15 +82,15 @@
         <span class="title">Documents</span>
       </div>
       <div class="user-area">
-        <span>Connecté : <strong id="userName"></strong></span>
+        <span id="userName"></span>
         <button class="btn-logout" onclick="logout()">Déconnexion</button>
       </div>
     </header>
 
     <div class="content">
       <h1 class="page-title">Bibliothèque de documents</h1>
+      <p class="page-sub">Fiches techniques, notices, catalogues et fiches FranFinance</p>
 
-      <!-- Filtres par gamme -->
       <div class="filters">
         <button class="filter-btn active" data-cat="all" onclick="filterDocs('all', this)">Tous</button>
         <button class="filter-btn" data-cat="relax" onclick="filterDocs('relax', this)">Gamme Relax</button>
@@ -114,50 +109,10 @@
       <div class="doc-section" data-cat="relax">
         <h2 class="section-label">Gamme Relax — Fiches Techniques</h2>
         <div class="docs-grid">
-          <div class="doc-card">
-            <div class="doc-icon">📄</div>
-            <div class="doc-info">
-              <p class="doc-name">R.1 — Fiche Technique 2026</p>
-              <p class="doc-meta">PDF · Mars 2026</p>
-            </div>
-            <div class="doc-actions">
-              <a href="https://drive.google.com/file/d/1MWY_j5Ju1I6x0PaDdIqm6GVMI5lRfZHm/view" target="_blank" class="btn-view">Voir</a>
-              <a href="https://drive.google.com/uc?export=download&id=1MWY_j5Ju1I6x0PaDdIqm6GVMI5lRfZHm" class="btn-dl" download>Télécharger</a>
-            </div>
-          </div>
-          <div class="doc-card">
-            <div class="doc-icon">📄</div>
-            <div class="doc-info">
-              <p class="doc-name">R.2 — Fiche Technique 2026</p>
-              <p class="doc-meta">PDF · Mars 2026</p>
-            </div>
-            <div class="doc-actions">
-              <a href="https://drive.google.com/file/d/1ub5pUxVEY2UybELpc9lHTKLravA-Zkeg/view" target="_blank" class="btn-view">Voir</a>
-              <a href="https://drive.google.com/uc?export=download&id=1ub5pUxVEY2UybELpc9lHTKLravA-Zkeg" class="btn-dl" download>Télécharger</a>
-            </div>
-          </div>
-          <div class="doc-card">
-            <div class="doc-icon">📄</div>
-            <div class="doc-info">
-              <p class="doc-name">R.4 — Fiche Technique 2026</p>
-              <p class="doc-meta">PDF · Mars 2026</p>
-            </div>
-            <div class="doc-actions">
-              <a href="https://drive.google.com/file/d/1BUMxyvWzx1N8xHvfwW6x7Ax3ShOvKk7l/view" target="_blank" class="btn-view">Voir</a>
-              <a href="https://drive.google.com/uc?export=download&id=1BUMxyvWzx1N8xHvfwW6x7Ax3ShOvKk7l" class="btn-dl" download>Télécharger</a>
-            </div>
-          </div>
-          <div class="doc-card">
-            <div class="doc-icon">📄</div>
-            <div class="doc-info">
-              <p class="doc-name">R.5 — Fiche Technique 2026</p>
-              <p class="doc-meta">PDF · Mars 2026</p>
-            </div>
-            <div class="doc-actions">
-              <a href="https://drive.google.com/file/d/1wI3Mxzni4CQijBoekXC4oDdxQJ0Xxje-/view" target="_blank" class="btn-view">Voir</a>
-              <a href="https://drive.google.com/uc?export=download&id=1wI3Mxzni4CQijBoekXC4oDdxQJ0Xxje-" class="btn-dl" download>Télécharger</a>
-            </div>
-          </div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">R.1 — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1MWY_j5Ju1I6x0PaDdIqm6GVMI5lRfZHm/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1MWY_j5Ju1I6x0PaDdIqm6GVMI5lRfZHm" class="btn-dl" download>Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">R.2 — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1ub5pUxVEY2UybELpc9lHTKLravA-Zkeg/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1ub5pUxVEY2UybELpc9lHTKLravA-Zkeg" class="btn-dl" download>Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">R.4 — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1BUMxyvWzx1N8xHvfwW6x7Ax3ShOvKk7l/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1BUMxyvWzx1N8xHvfwW6x7Ax3ShOvKk7l" class="btn-dl" download>Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">R.5 — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1wI3Mxzni4CQijBoekXC4oDdxQJ0Xxje-/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1wI3Mxzni4CQijBoekXC4oDdxQJ0Xxje-" class="btn-dl" download>Télécharger</a></div></div>
         </div>
       </div>
 
@@ -197,7 +152,6 @@
         </div>
       </div>
 
-      
       <!-- Notices Relax -->
       <div class="doc-section" data-cat="notices-relax">
         <h2 class="section-label">Gamme Relax — Notices d'utilisation</h2>
@@ -246,7 +200,6 @@
         </div>
       </div>
 
-      
       <!-- FranFinance Relax -->
       <div class="doc-section" data-cat="franfi-relax">
         <h2 class="section-label">Gamme Relax — Fiches FranFinance</h2>
@@ -293,7 +246,6 @@
         </div>
       </div>
 
-      
       <!-- Catalogues -->
       <div class="doc-section" data-cat="catalogues">
         <h2 class="section-label">Catalogues 2026</h2>
@@ -304,16 +256,7 @@
         </div>
       </div>
 
-      <script>
-      function filterDocs(cat, btn) {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        document.querySelectorAll('.doc-section').forEach(s => {
-          s.style.display = (cat === 'all' || s.dataset.cat === cat) ? 'block' : 'none';
-        });
-      }
-      </script>
-</div>
+    </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -321,48 +264,19 @@
   <script>
     function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('open')}
 
-    // Mock documents (no documents table in Supabase yet)
-    const docs = [
-      {name:'Catalogue Relax 2026',category:'catalogues',type:'pdf',date:'Mars 2026',size:'12 MB',url:'#'},
-      {name:'Catalogue Energy 2026',category:'catalogues',type:'pdf',date:'Mars 2026',size:'14 MB',url:'#'},
-      {name:'Catalogue Luxury 2026',category:'catalogues',type:'pdf',date:'Mars 2026',size:'18 MB',url:'#'},
-      {name:'Fiche technique Relax 4',category:'fiches',type:'pdf',date:'Fév 2026',size:'2 MB',url:'#'},
-      {name:'Fiche technique Energy 7',category:'fiches',type:'pdf',date:'Fév 2026',size:'2 MB',url:'#'},
-      {name:'Argumentaire Offre Électrisante',category:'argumentaires',type:'pdf',date:'Mai 2026',size:'4 MB',url:'#'},
-      {name:'Visuels Offre Électrisante',category:'visuels',type:'drive',date:'Mai 2026',size:'Drive',url:'https://drive.google.com'},
-      {name:'Pack réseaux sociaux Mai',category:'visuels',type:'drive',date:'Mai 2026',size:'Drive',url:'https://drive.google.com'},
-    ];
-    const grid = document.getElementById('docsGrid');
-    const catNames = {catalogues:'Catalogue',fiches:'Fiche technique',argumentaires:'Argumentaire',visuels:'Visuel'};
-
-    function renderDocs(cat) {
-      const filtered = cat === 'all' ? docs : docs.filter(d => d.category === cat);
-      grid.innerHTML = filtered.map(d => `
-        <div class="doc-card">
-          <div class="doc-icon ${d.type === 'drive' ? 'drive' : ''}">${d.type === 'pdf' ? '📄' : '🖼️'}</div>
-          <div class="doc-info">
-            <h3>${d.name}</h3>
-            <div class="meta">${catNames[d.category]} · ${d.date} · ${d.size}</div>
-            <a href="${d.url}" class="btn-dl" target="_blank">${d.type === 'drive' ? 'Ouvrir le Drive' : 'Télécharger'}</a>
-          </div>
-        </div>
-      `).join('');
+    function filterDocs(cat, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.doc-section').forEach(s => {
+        s.style.display = (cat === 'all' || s.dataset.cat === cat) ? 'block' : 'none';
+      });
     }
 
     (async () => {
       const user = await requireAuth();
       if (!user) return;
-      document.getElementById('userName').textContent = user.nom;
-      renderDocs('all');
+      document.getElementById('userName').innerHTML = `<strong>${user.nom}</strong>`;
     })();
-
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        renderDocs(btn.dataset.cat);
-      });
-    });
   </script>
 </body>
 </html>
