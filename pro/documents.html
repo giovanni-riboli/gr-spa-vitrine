@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documents — Espace Pro Giovanni Riboli</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Inter',sans-serif;background:#f5f7fa;min-height:100vh;display:flex}
+    .sidebar{width:250px;background:#1a2d3e;color:#fff;min-height:100vh;position:fixed;left:0;top:0;z-index:100;transition:transform .3s}
+    .sidebar .logo-area{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
+    .sidebar .logo-area img{height:32px}
+    .sidebar .logo-area .brand{font-size:14px;font-weight:600;color:#c7a260;margin-top:6px}
+    .sidebar nav{padding:16px 0}
+    .sidebar nav a{display:flex;align-items:center;gap:10px;padding:12px 24px;color:rgba(255,255,255,.7);text-decoration:none;font-size:14px;font-weight:500;transition:all .2s}
+    .sidebar nav a:hover,.sidebar nav a.active{color:#c7a260;background:rgba(199,162,96,.08)}
+    .sidebar nav a.active{border-right:3px solid #c7a260}
+    .sidebar nav a svg{width:18px;height:18px;flex-shrink:0}
+    .main{margin-left:250px;flex:1;min-height:100vh}
+    .header{background:#fff;border-bottom:1px solid #e5e7eb;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+    .header .title{font-size:16px;font-weight:600;color:#253a4c}
+    .header .user-area{display:flex;align-items:center;gap:16px;font-size:13px;color:#7a8a9a}
+    .header .user-area strong{color:#253a4c}
+    .btn-logout{padding:8px 16px;background:none;border:1px solid #dce1e8;border-radius:6px;font-size:12px;font-family:'Inter',sans-serif;cursor:pointer;color:#253a4c;transition:all .2s}
+    .btn-logout:hover{border-color:#c7a260;color:#c7a260}
+    .content{padding:32px}
+    .hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+    .hamburger svg{width:24px;height:24px;color:#253a4c}
+    .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:90}
+    /* Filters */
+    .filters{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+    .filter-btn{padding:8px 18px;border-radius:20px;border:1px solid #dce1e8;background:#fff;font-size:13px;font-family:'Inter',sans-serif;cursor:pointer;color:#253a4c;transition:all .2s}
+    .filter-btn:hover,.filter-btn.active{background:#253a4c;color:#fff;border-color:#253a4c}
+    /* Docs grid */
+    .docs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+    .doc-card{background:#fff;border-radius:10px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,.05);border-top:3px solid #c7a260;display:flex;gap:16px;align-items:flex-start}
+    .doc-icon{width:44px;height:44px;background:#fef3c7;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+    .doc-icon.drive{background:#ecfdf5}
+    .doc-info{flex:1}
+    .doc-info h3{font-size:14px;font-weight:600;color:#253a4c;margin-bottom:4px}
+    .doc-info .meta{font-size:12px;color:#7a8a9a;margin-bottom:10px}
+    .btn-dl{padding:6px 14px;background:#253a4c;color:#fff;border:none;border-radius:6px;font-size:12px;font-family:'Inter',sans-serif;cursor:pointer;text-decoration:none;transition:background .2s}
+    .btn-dl:hover{background:#1a2d3e}
+    .page-title{font-size:22px;font-weight:600;color:#253a4c;margin-bottom:20px}
+    @media(max-width:768px){
+      .sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.overlay.open{display:block}
+      .main{margin-left:0}.hamburger{display:block}.content{padding:20px}
+    }
+  
+        .section-label { font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #c7a260; margin: 32px 0 16px; padding-bottom: 10px; border-bottom: 1px solid #f0ece6; }
+        .doc-section { margin-bottom: 24px; }
+        .docs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+        .doc-card { background: #fff; border: 1px solid #eee; border-radius: 4px; padding: 20px; display: flex; align-items: center; gap: 16px; transition: box-shadow .2s; }
+        .doc-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.08); border-color: #c7a260; }
+        .doc-icon { font-size: 28px; flex-shrink: 0; }
+        .doc-info { flex: 1; }
+        .doc-name { font-size: 14px; font-weight: 600; color: #253a4c; margin-bottom: 4px; }
+        .doc-meta { font-size: 12px; color: #999; }
+        .doc-actions { display: flex; gap: 8px; flex-shrink: 0; flex-direction: column; }
+        .btn-view { font-size: 11px; padding: 6px 12px; border: 1.5px solid #253a4c; color: #253a4c; border-radius: 3px; text-decoration: none; text-align: center; font-weight: 600; transition: .2s; }
+        .btn-view:hover { background: #253a4c; color: #fff; }
+        .btn-dl { font-size: 11px; padding: 6px 12px; background: #c7a260; color: #fff; border-radius: 3px; text-decoration: none; text-align: center; font-weight: 600; transition: .2s; }
+        .btn-dl:hover { background: #b8925a; }
+        @media(max-width:600px) { .docs-grid { grid-template-columns: 1fr; } .doc-card { flex-wrap: wrap; } }
+</style>
+</head>
+<body>
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="logo-area">
+      <img src="../assets/logo-blanc.svg" alt="GR" onerror="this.style.display='none'">
+      <div class="brand">Espace Revendeur</div>
+    </div>
+    <nav>
+      <a href='/pro/dashboard'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Tableau de bord</a>
+      <a class='active' href='/pro/documents'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Documents</a>
+      <a href='/pro/stocks'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>Stocks</a>
+      <a href='/pro/profil'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Mon profil</a>
+    </nav>
+  </aside>
+
+  <div class="main">
+    <header class="header">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="hamburger" onclick="toggleSidebar()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+        <span class="title">Documents</span>
+      </div>
+      <div class="user-area">
+        <span>Connecté : <strong id="userName"></strong></span>
+        <button class="btn-logout" onclick="AUTH.logout()">Déconnexion</button>
+      </div>
+    </header>
+
+    <div class="content">
+      <h1 class="page-title">Bibliothèque de documents</h1>
+
+      <!-- Filtres par gamme -->
+      <div class="filters">
+        <button class="filter-btn active" data-cat="all" onclick="filterDocs('all', this)">Tous</button>
+        <button class="filter-btn" data-cat="relax" onclick="filterDocs('relax', this)">Gamme Relax</button>
+        <button class="filter-btn" data-cat="energy" onclick="filterDocs('energy', this)">Gamme Energy</button>
+        <button class="filter-btn" data-cat="luxury" onclick="filterDocs('luxury', this)">Gamme Luxury</button>
+        <button class="filter-btn" data-cat="notices-relax" onclick="filterDocs('notices-relax', this)">Notices Relax</button>
+        <button class="filter-btn" data-cat="notices-energy" onclick="filterDocs('notices-energy', this)">Notices Energy</button>
+        <button class="filter-btn" data-cat="notices-luxury" onclick="filterDocs('notices-luxury', this)">Notices Luxury</button>
+        <button class="filter-btn" data-cat="franfi-relax" onclick="filterDocs('franfi-relax', this)">FranFinance Relax</button>
+        <button class="filter-btn" data-cat="franfi-energy" onclick="filterDocs('franfi-energy', this)">FranFinance Energy</button>
+        <button class="filter-btn" data-cat="franfi-luxury" onclick="filterDocs('franfi-luxury', this)">FranFinance Luxury</button>
+        <button class="filter-btn" data-cat="catalogues" onclick="filterDocs('catalogues', this)">Catalogues</button>
+      </div>
+
+      <!-- Gamme Relax -->
+      <div class="doc-section" data-cat="relax">
+        <h2 class="section-label">Gamme Relax — Fiches Techniques</h2>
+        <div class="docs-grid">
+          <div class="doc-card">
+            <div class="doc-icon">📄</div>
+            <div class="doc-info">
+              <p class="doc-name">R.1 — Fiche Technique 2026</p>
+              <p class="doc-meta">PDF · Mars 2026</p>
+            </div>
+            <div class="doc-actions">
+              <a href="https://drive.google.com/file/d/1MWY_j5Ju1I6x0PaDdIqm6GVMI5lRfZHm/view" target="_blank" class="btn-view">Voir</a>
+              <a href="https://drive.google.com/uc?export=download&id=1MWY_j5Ju1I6x0PaDdIqm6GVMI5lRfZHm" class="btn-dl" download>Télécharger</a>
+            </div>
+          </div>
+          <div class="doc-card">
+            <div class="doc-icon">📄</div>
+            <div class="doc-info">
+              <p class="doc-name">R.2 — Fiche Technique 2026</p>
+              <p class="doc-meta">PDF · Mars 2026</p>
+            </div>
+            <div class="doc-actions">
+              <a href="https://drive.google.com/file/d/1ub5pUxVEY2UybELpc9lHTKLravA-Zkeg/view" target="_blank" class="btn-view">Voir</a>
+              <a href="https://drive.google.com/uc?export=download&id=1ub5pUxVEY2UybELpc9lHTKLravA-Zkeg" class="btn-dl" download>Télécharger</a>
+            </div>
+          </div>
+          <div class="doc-card">
+            <div class="doc-icon">📄</div>
+            <div class="doc-info">
+              <p class="doc-name">R.4 — Fiche Technique 2026</p>
+              <p class="doc-meta">PDF · Mars 2026</p>
+            </div>
+            <div class="doc-actions">
+              <a href="https://drive.google.com/file/d/1BUMxyvWzx1N8xHvfwW6x7Ax3ShOvKk7l/view" target="_blank" class="btn-view">Voir</a>
+              <a href="https://drive.google.com/uc?export=download&id=1BUMxyvWzx1N8xHvfwW6x7Ax3ShOvKk7l" class="btn-dl" download>Télécharger</a>
+            </div>
+          </div>
+          <div class="doc-card">
+            <div class="doc-icon">📄</div>
+            <div class="doc-info">
+              <p class="doc-name">R.5 — Fiche Technique 2026</p>
+              <p class="doc-meta">PDF · Mars 2026</p>
+            </div>
+            <div class="doc-actions">
+              <a href="https://drive.google.com/file/d/1wI3Mxzni4CQijBoekXC4oDdxQJ0Xxje-/view" target="_blank" class="btn-view">Voir</a>
+              <a href="https://drive.google.com/uc?export=download&id=1wI3Mxzni4CQijBoekXC4oDdxQJ0Xxje-" class="btn-dl" download>Télécharger</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gamme Energy -->
+      <div class="doc-section" data-cat="energy">
+        <h2 class="section-label">Gamme Energy — Fiches Techniques</h2>
+        <div class="docs-grid">
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">Amalfi — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/18zgljh4euOr3DFkRyLY0njtz_k0MDdUY/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=18zgljh4euOr3DFkRyLY0njtz_k0MDdUY" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">Bari — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1mdOtMN9zSD1JTfnQ2fp4Quk460DLiP7s/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1mdOtMN9zSD1JTfnQ2fp4Quk460DLiP7s" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">Bolzano — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1n_Bkt8YEGbACTvj8IC8SSHyYHR7pZHb3/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1n_Bkt8YEGbACTvj8IC8SSHyYHR7pZHb3" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">Capri — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1RlTujVLwtpVizfrvDVjLKw7W1HkVuBf7/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1RlTujVLwtpVizfrvDVjLKw7W1HkVuBf7" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">Positano — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/14XukWXT6Bvu3fXbvyPgEAc0SQK5e9Nko/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=14XukWXT6Bvu3fXbvyPgEAc0SQK5e9Nko" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">Rimini — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1YzdGqjgr7iegvAhszi2xuLqG6ax7Aa4t/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1YzdGqjgr7iegvAhszi2xuLqG6ax7Aa4t" class="btn-dl">Télécharger</a></div></div>
+        </div>
+      </div>
+
+      <!-- Gamme Luxury -->
+      <div class="doc-section" data-cat="luxury">
+        <h2 class="section-label">Gamme Luxury — Fiches Techniques</h2>
+        <div class="docs-grid">
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">Napoli — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1hcXLc9qoyOw5WTQy91B3ubLtdCE-DYFW/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1hcXLc9qoyOw5WTQy91B3ubLtdCE-DYFW" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">Napoli Anniversaire — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1c1RV-ZBixZlCBeuJoX0z5lct1Ctq0iHd/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1c1RV-ZBixZlCBeuJoX0z5lct1Ctq0iHd" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">Napoli Luxe — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1Yquq_c5IlM4_Oe_Pk-7tWELNTRBOujE2/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1Yquq_c5IlM4_Oe_Pk-7tWELNTRBOujE2" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">Napoli XL — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1KsiyhkR4NIqK9WJi4D2pmWxu0gR_Yv3V/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1KsiyhkR4NIqK9WJi4D2pmWxu0gR_Yv3V" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">Roma — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1D29J75UNtrcGqKjC6mqbLLBITmoUqpKr/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1D29J75UNtrcGqKjC6mqbLLBITmoUqpKr" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">Roma Anniversaire — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1RdHZzjkRTG_dlAzedPDh-kcj9lhK3G3Z/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1RdHZzjkRTG_dlAzedPDh-kcj9lhK3G3Z" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">Roma Luxe — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1khVhHEi0nKT_yuAWZWW343Lm9XfE2K67/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1khVhHEi0nKT_yuAWZWW343Lm9XfE2K67" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">Roma XL — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1F4f4UGE3xqNPHzIoB3tzEZRs4Z5x5Aqw/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1F4f4UGE3xqNPHzIoB3tzEZRs4Z5x5Aqw" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">Signature S — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1-7RxJht0R5bXy0M20doKQQFLS_H_h4PO/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1-7RxJht0R5bXy0M20doKQQFLS_H_h4PO" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">Signature M — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1vJrsnbD-nTG3KcEklbytG-0bfhWBtz0D/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1vJrsnbD-nTG3KcEklbytG-0bfhWBtz0D" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">Signature XL — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1Fti2P9Gws886fKd2ksdQOpISTLJ52zTN/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1Fti2P9Gws886fKd2ksdQOpISTLJ52zTN" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">SwimSPA 1R 3.9 — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1qnbD3uYNg996JvnfIcZ_gIyXh1FDukQs/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1qnbD3uYNg996JvnfIcZ_gIyXh1FDukQs" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">SwimSPA 1R 5.0 — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1JbpxH6Fj6QURB3VNzwzjW6G9Ysx5ZvTO/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1JbpxH6Fj6QURB3VNzwzjW6G9Ysx5ZvTO" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">SwimSPA 2R — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1B1jrWQkExJpypLBmoMzSmEHzxZlf4l_C/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1B1jrWQkExJpypLBmoMzSmEHzxZlf4l_C" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">Torino — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1WFMOD5pVI5wH84jPqxZoddj5YFd1aj1S/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1WFMOD5pVI5wH84jPqxZoddj5YFd1aj1S" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📄</div><div class="doc-info"><p class="doc-name">Torino Luxe — Fiche Technique 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/136Dhc6kovUu4yze1uGCGvvMnsVeYJuBQ/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=136Dhc6kovUu4yze1uGCGvvMnsVeYJuBQ" class="btn-dl">Télécharger</a></div></div>
+        </div>
+      </div>
+
+      
+      <!-- Notices Relax -->
+      <div class="doc-section" data-cat="notices-relax">
+        <h2 class="section-label">Gamme Relax — Notices d'utilisation</h2>
+        <div class="docs-grid">
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">R.1 — Notice d'utilisation 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1i5myN02-xxo6QrsL6Me7rHBhXOz-G8w4/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1i5myN02-xxo6QrsL6Me7rHBhXOz-G8w4" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">R.2 — Notice d'utilisation 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1aCI_QMRxZcxQNVscm4mj4YSIid3jUBGj/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1aCI_QMRxZcxQNVscm4mj4YSIid3jUBGj" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">R.4 — Notice d'utilisation 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1DXy1eG_ShwLim6opeR0pPRFdt1Fr4xzb/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1DXy1eG_ShwLim6opeR0pPRFdt1Fr4xzb" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">R.5 — Notice d'utilisation 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1rjwQnKnSWjzACZ3rWJpN7chThI9qA6oF/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1rjwQnKnSWjzACZ3rWJpN7chThI9qA6oF" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">R.5 — Notice complémentaire 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1RlznwHer-xGhjGNPj7-8aDlpd6NSk5fv/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1RlznwHer-xGhjGNPj7-8aDlpd6NSk5fv" class="btn-dl">Télécharger</a></div></div>
+        </div>
+      </div>
+
+      <!-- Notices Energy -->
+      <div class="doc-section" data-cat="notices-energy">
+        <h2 class="section-label">Gamme Energy — Notices d'utilisation</h2>
+        <div class="docs-grid">
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">Amalfi — Notice d'utilisation</p><p class="doc-meta">PDF</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1J-9iuTfHrjT0vyMbq2A_zH0RPTtpPzD3/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1J-9iuTfHrjT0vyMbq2A_zH0RPTtpPzD3" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">Bari — Notice d'utilisation</p><p class="doc-meta">PDF</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1sxKSGPaL9VT69Jx7ODfdfvWdd420f3ax/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1sxKSGPaL9VT69Jx7ODfdfvWdd420f3ax" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">Bolzano — Notice d'utilisation</p><p class="doc-meta">PDF</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1ztI3DCyWUkAZqw8HsseANAp-RM2gkvdZ/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1ztI3DCyWUkAZqw8HsseANAp-RM2gkvdZ" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">Capri — Notice d'utilisation</p><p class="doc-meta">PDF</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1HyFPhrvssuHOKxRbtlI0HeKN9On0QS4m/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1HyFPhrvssuHOKxRbtlI0HeKN9On0QS4m" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">Positano — Notice d'utilisation</p><p class="doc-meta">PDF</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1leGdROckliSCGGzTyeYoLTN7Re3nEtfc/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1leGdROckliSCGGzTyeYoLTN7Re3nEtfc" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">Rimini — Notice d'utilisation</p><p class="doc-meta">PDF</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1SrXg00NWpTO0mFl0Gi0547gpv9d27qi7/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1SrXg00NWpTO0mFl0Gi0547gpv9d27qi7" class="btn-dl">Télécharger</a></div></div>
+        </div>
+      </div>
+
+      <!-- Notices Luxury -->
+      <div class="doc-section" data-cat="notices-luxury">
+        <h2 class="section-label">Gamme Luxury — Notices d'utilisation</h2>
+        <div class="docs-grid">
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">Napoli — Notice d'utilisation</p><p class="doc-meta">PDF</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1lCGbuhF6hAx3KDM6iI-BzBDzgPbYRQjh/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1lCGbuhF6hAx3KDM6iI-BzBDzgPbYRQjh" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">Napoli Anniversaire — Notice d'utilisation</p><p class="doc-meta">PDF</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1GXLfpQYqpdta8VB5P9mMNIYaSV_MtMBh/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1GXLfpQYqpdta8VB5P9mMNIYaSV_MtMBh" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">Napoli Luxe — Notice d'utilisation</p><p class="doc-meta">PDF</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1UvsCKZgWnDCPZkRiddeFqBTMsIi8wOxz/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1UvsCKZgWnDCPZkRiddeFqBTMsIi8wOxz" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">Napoli XL — Notice d'utilisation</p><p class="doc-meta">PDF</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/16zDVcQtTw27mF1xBHvAm88tGegG3X8KK/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=16zDVcQtTw27mF1xBHvAm88tGegG3X8KK" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">Roma — Notice d'utilisation</p><p class="doc-meta">PDF</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1x7iRtu_ozFowP6b2oQi5wXPm8gqo41NM/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1x7iRtu_ozFowP6b2oQi5wXPm8gqo41NM" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">Roma Anniversaire — Notice d'utilisation</p><p class="doc-meta">PDF</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1mIfMDacL-v1zblIRLUcIn9Ee_Mvgcfy7/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1mIfMDacL-v1zblIRLUcIn9Ee_Mvgcfy7" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">Roma Luxe — Notice d'utilisation</p><p class="doc-meta">PDF</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1p70uJBaiBUywL3u9ZJcbZdsorCWZdEIR/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1p70uJBaiBUywL3u9ZJcbZdsorCWZdEIR" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">Roma XL — Notice d'utilisation</p><p class="doc-meta">PDF</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/14AzsFHAbTPTrbOjNQbuIGsRCvc3uKvSW/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=14AzsFHAbTPTrbOjNQbuIGsRCvc3uKvSW" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">Signature S — Notice d'utilisation</p><p class="doc-meta">PDF</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1tyPfDrh-fZqvKB_GLlBcJemYCoMfLWmc/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1tyPfDrh-fZqvKB_GLlBcJemYCoMfLWmc" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">Signature M — Notice d'utilisation</p><p class="doc-meta">PDF</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1EiOEEiNoXTpRTM5enAdM4ekOHs0nhoO0/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1EiOEEiNoXTpRTM5enAdM4ekOHs0nhoO0" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">Signature XL — Notice d'utilisation</p><p class="doc-meta">PDF</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1YTmFv3GrrEb5fvYk3Pt0XhXyXS-U5KkL/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1YTmFv3GrrEb5fvYk3Pt0XhXyXS-U5KkL" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">Torino — Notice d'utilisation</p><p class="doc-meta">PDF</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/153y3CWkJkXjVzcpt7I652m-KcjJ0RlU7/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=153y3CWkJkXjVzcpt7I652m-KcjJ0RlU7" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">Torino Luxe — Notice d'utilisation</p><p class="doc-meta">PDF</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1YUrJ0kCIPxJfbDzAnVVb7V5Z_TXyFIrG/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1YUrJ0kCIPxJfbDzAnVVb7V5Z_TXyFIrG" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">SwimSPA 1R 3.9 — Notice d'utilisation</p><p class="doc-meta">PDF</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1lBF2L-2pU9E0OaiHbGxvBSpgo5IpK3El/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1lBF2L-2pU9E0OaiHbGxvBSpgo5IpK3El" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">SwimSPA 1R 5.0 — Notice d'utilisation</p><p class="doc-meta">PDF</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1fATlovCjM4DQ3Y0L08LjKA9XGH4Zd3Jw/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1fATlovCjM4DQ3Y0L08LjKA9XGH4Zd3Jw" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📋</div><div class="doc-info"><p class="doc-name">SwimSPA 2R — Notice d'utilisation</p><p class="doc-meta">PDF</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/14bkFJqVJpNwkho4CSfgL7qDWtKlP_ZwD/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=14bkFJqVJpNwkho4CSfgL7qDWtKlP_ZwD" class="btn-dl">Télécharger</a></div></div>
+        </div>
+      </div>
+
+      
+      <!-- FranFinance Relax -->
+      <div class="doc-section" data-cat="franfi-relax">
+        <h2 class="section-label">Gamme Relax — Fiches FranFinance</h2>
+        <div class="docs-grid">
+          <div class="doc-card"><div class="doc-icon">💳</div><div class="doc-info"><p class="doc-name">R.1 — Fiche FranFinance 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1I6Y895h1z8E2H-lXcVHSts1z37VXuBaS/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1I6Y895h1z8E2H-lXcVHSts1z37VXuBaS" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">💳</div><div class="doc-info"><p class="doc-name">R.2 — Fiche FranFinance 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1MtO7IQGB9QWbtPkLraRf8Rg_ZybM6v0U/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1MtO7IQGB9QWbtPkLraRf8Rg_ZybM6v0U" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">💳</div><div class="doc-info"><p class="doc-name">R.4 — Fiche FranFinance 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1BGGQ5F-70hzWkh-8ntfzyMqEXDZGMR1e/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1BGGQ5F-70hzWkh-8ntfzyMqEXDZGMR1e" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">💳</div><div class="doc-info"><p class="doc-name">R.5 — Fiche FranFinance 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1Tp-maNZz2pJVRRQ5c_tCVeMltrKx4L8n/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1Tp-maNZz2pJVRRQ5c_tCVeMltrKx4L8n" class="btn-dl">Télécharger</a></div></div>
+        </div>
+      </div>
+
+      <!-- FranFinance Energy -->
+      <div class="doc-section" data-cat="franfi-energy">
+        <h2 class="section-label">Gamme Energy — Fiches FranFinance</h2>
+        <div class="docs-grid">
+          <div class="doc-card"><div class="doc-icon">💳</div><div class="doc-info"><p class="doc-name">Amalfi — Fiche FranFinance 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1oBPpNUyG8UI6gXgE5SIXQ73Hf2agavmy/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1oBPpNUyG8UI6gXgE5SIXQ73Hf2agavmy" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">💳</div><div class="doc-info"><p class="doc-name">Bari — Fiche FranFinance 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1Cpw6V8yt0ai0nwBO1tBn9GShPeguvGGn/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1Cpw6V8yt0ai0nwBO1tBn9GShPeguvGGn" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">💳</div><div class="doc-info"><p class="doc-name">Bolzano — Fiche FranFinance 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/178L1UzB85WX4MHPqu4sf8LUUY0gZ5oX3/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=178L1UzB85WX4MHPqu4sf8LUUY0gZ5oX3" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">💳</div><div class="doc-info"><p class="doc-name">Capri — Fiche FranFinance 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1L3d7I5xLm_GVQCEULapKXebE6oEu65zT/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1L3d7I5xLm_GVQCEULapKXebE6oEu65zT" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">💳</div><div class="doc-info"><p class="doc-name">Positano — Fiche FranFinance 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1BHOeNc04OiRBHw5C-RqIoyqzlKmb8iAb/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1BHOeNc04OiRBHw5C-RqIoyqzlKmb8iAb" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">💳</div><div class="doc-info"><p class="doc-name">Rimini — Fiche FranFinance 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1A1jSzUe_HNUXRvP-FMC60CDfE63g-dRn/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1A1jSzUe_HNUXRvP-FMC60CDfE63g-dRn" class="btn-dl">Télécharger</a></div></div>
+        </div>
+      </div>
+
+      <!-- FranFinance Luxury -->
+      <div class="doc-section" data-cat="franfi-luxury">
+        <h2 class="section-label">Gamme Luxury — Fiches FranFinance</h2>
+        <div class="docs-grid">
+          <div class="doc-card"><div class="doc-icon">💳</div><div class="doc-info"><p class="doc-name">Napoli — Fiche FranFinance 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1ZFFVQLDYhfCObIwYIv2Zi9bpbH4ulJ2s/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1ZFFVQLDYhfCObIwYIv2Zi9bpbH4ulJ2s" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">💳</div><div class="doc-info"><p class="doc-name">Napoli Luxe — Fiche FranFinance 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1USkPpqYa7sx-XZ6PZOkofWsYRB5FIwDo/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1USkPpqYa7sx-XZ6PZOkofWsYRB5FIwDo" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">💳</div><div class="doc-info"><p class="doc-name">Napoli XL — Fiche FranFinance 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1GUfGJiOIybUNkPpFOpi07LplEQb6-1Uj/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1GUfGJiOIybUNkPpFOpi07LplEQb6-1Uj" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">💳</div><div class="doc-info"><p class="doc-name">Roma — Fiche FranFinance 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1N43j-jpgkGrnqM3oDu4UVHACvAxfk8xR/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1N43j-jpgkGrnqM3oDu4UVHACvAxfk8xR" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">💳</div><div class="doc-info"><p class="doc-name">Roma Anniversaire — Fiche FranFinance 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/14jGpMEXHXS-cPl4RZu-k-e5g-Mf6PfxR/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=14jGpMEXHXS-cPl4RZu-k-e5g-Mf6PfxR" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">💳</div><div class="doc-info"><p class="doc-name">Roma Luxe — Fiche FranFinance 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1K-g0TmfvI2F3415YbGUx3zNkRgvSHmWz/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1K-g0TmfvI2F3415YbGUx3zNkRgvSHmWz" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">💳</div><div class="doc-info"><p class="doc-name">Roma XL — Fiche FranFinance 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1uqgrbB8waoVfe-ndbbaIUOzgtwBecmrQ/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1uqgrbB8waoVfe-ndbbaIUOzgtwBecmrQ" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">💳</div><div class="doc-info"><p class="doc-name">Signature S — Fiche FranFinance 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/12LXCGY9zrFTi1Dj83SSHE3auI89jkoI2/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=12LXCGY9zrFTi1Dj83SSHE3auI89jkoI2" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">💳</div><div class="doc-info"><p class="doc-name">Signature M — Fiche FranFinance 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1nO8uNK_BANiTm4aiMoJMpq56LESwhKFZ/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1nO8uNK_BANiTm4aiMoJMpq56LESwhKFZ" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">💳</div><div class="doc-info"><p class="doc-name">Signature XL — Fiche FranFinance 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1hUjx4-RAbqNdvD2CwYbE1DTz1qQ0ijYx/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1hUjx4-RAbqNdvD2CwYbE1DTz1qQ0ijYx" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">💳</div><div class="doc-info"><p class="doc-name">Torino — Fiche FranFinance 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1vbIlXpoyIq8MUQDcJ42oNA-RJb3IW3Vv/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1vbIlXpoyIq8MUQDcJ42oNA-RJb3IW3Vv" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">💳</div><div class="doc-info"><p class="doc-name">Torino Luxe — Fiche FranFinance 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1SnnHFG3KkkevW4HZf7z3yS6DfKTPlY9l/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1SnnHFG3KkkevW4HZf7z3yS6DfKTPlY9l" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">💳</div><div class="doc-info"><p class="doc-name">SwimSPA 1R 3.9 — Fiche FranFinance 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1qIOO3fsHpSDa-O5-OyLpN3LIfMOuFNJQ/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1qIOO3fsHpSDa-O5-OyLpN3LIfMOuFNJQ" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">💳</div><div class="doc-info"><p class="doc-name">SwimSPA 1R 5.0 — Fiche FranFinance 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1vYe-4z70hj7DTkqVjJCdaL2BnbxtaKnj/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1vYe-4z70hj7DTkqVjJCdaL2BnbxtaKnj" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">💳</div><div class="doc-info"><p class="doc-name">SwimSPA 2R — Fiche FranFinance 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1RyROT7SL0fICPaEcykOi-f4e8NqvVbiA/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1RyROT7SL0fICPaEcykOi-f4e8NqvVbiA" class="btn-dl">Télécharger</a></div></div>
+        </div>
+      </div>
+
+      
+      <!-- Catalogues -->
+      <div class="doc-section" data-cat="catalogues">
+        <h2 class="section-label">Catalogues 2026</h2>
+        <div class="docs-grid">
+          <div class="doc-card"><div class="doc-icon">📚</div><div class="doc-info"><p class="doc-name">Catalogue Gamme Relax 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1NJhxBAYoJe3vSvZ52a62K4QnlGEvgaDX/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1NJhxBAYoJe3vSvZ52a62K4QnlGEvgaDX" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📚</div><div class="doc-info"><p class="doc-name">Catalogue Gamme Energy 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1gnlF93l5cGYehyyWUvk3-RWhYh6M1W-t/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1gnlF93l5cGYehyyWUvk3-RWhYh6M1W-t" class="btn-dl">Télécharger</a></div></div>
+          <div class="doc-card"><div class="doc-icon">📚</div><div class="doc-info"><p class="doc-name">Catalogue Gamme Luxury 2026</p><p class="doc-meta">PDF · Mars 2026</p></div><div class="doc-actions"><a href="https://drive.google.com/file/d/1Q8JUzjcSJwQUrAz_1m_RkRrgBlqoHBhF/view" target="_blank" class="btn-view">Voir</a><a href="https://drive.google.com/uc?export=download&id=1Q8JUzjcSJwQUrAz_1m_RkRrgBlqoHBhF" class="btn-dl">Télécharger</a></div></div>
+        </div>
+      </div>
+
+      <script>
+      function filterDocs(cat, btn) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.doc-section').forEach(s => {
+          s.style.display = (cat === 'all' || s.dataset.cat === cat) ? 'block' : 'none';
+        });
+      }
+      </script>
+</div>
+  </div>
+
+  <script src="api-mock.js"></script>
+  <script src="auth.js"></script>
+  <script>
+    const user = AUTH.requireAuth();
+    if (user) document.getElementById('userName').textContent = user.name;
+
+    function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('open')}
+
+    const docs = mockGetDocuments();
+    const grid = document.getElementById('docsGrid');
+    const catNames = {catalogues:'Catalogue',fiches:'Fiche technique',argumentaires:'Argumentaire',visuels:'Visuel'};
+
+    function renderDocs(cat) {
+      const filtered = cat === 'all' ? docs : docs.filter(d => d.category === cat);
+      grid.innerHTML = filtered.map(d => `
+        <div class="doc-card">
+          <div class="doc-icon ${d.type === 'drive' ? 'drive' : ''}">${d.type === 'pdf' ? '📄' : '🖼️'}</div>
+          <div class="doc-info">
+            <h3>${d.name}</h3>
+            <div class="meta">${catNames[d.category]} · ${d.date} · ${d.size}</div>
+            <a href="#" class="btn-dl">${d.type === 'drive' ? 'Ouvrir le Drive' : 'Télécharger'}</a>
+          </div>
+        </div>
+      `).join('');
+    }
+    renderDocs('all');
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderDocs(btn.dataset.cat);
+      });
+    });
+  </script>
+</body>
+</html>

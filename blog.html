@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Actualités & Conseils | Giovanni Riboli</title>
+  <meta name="description" content="Conseils d'entretien, guides d'achat et actualités Giovanni Riboli. Tout savoir sur le spa, l'hydrothérapie et le bien-être à domicile.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:2.5rem;max-width:1100px;margin:0 auto}
+    .blog-card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,0.06);transition:transform .3s,box-shadow .3s}
+    .blog-card:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,0,0,0.1)}
+    .blog-card__img{height:220px;background:linear-gradient(135deg,#253a4c 0%,#1a2d3d 60%,#c7a260 100%);display:flex;align-items:center;justify-content:center;position:relative}
+    .blog-card__img span{font-family:'Inter',sans-serif;color:rgba(255,255,255,0.25);font-size:.75rem;letter-spacing:2px;text-transform:uppercase}
+    .blog-card__body{padding:2rem}
+    .blog-card__cat{font-family:'Inter',sans-serif;font-weight:600;font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:#c7a260;margin-bottom:.75rem;display:inline-block}
+    .blog-card__title{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.4rem;color:#253a4c;line-height:1.3;margin-bottom:.5rem}
+    .blog-card__date{font-family:'Inter',sans-serif;font-size:.8rem;color:#aaa;margin-bottom:.75rem}
+    .blog-card__excerpt{font-family:'Inter',sans-serif;font-weight:300;font-size:.95rem;color:#666;line-height:1.7;margin-bottom:1.25rem}
+    .blog-card__link{font-family:'Inter',sans-serif;font-weight:500;font-size:.85rem;color:#253a4c;text-decoration:none;letter-spacing:.5px;border-bottom:1px solid #c7a260;padding-bottom:2px;transition:color .3s}
+    .blog-card__link:hover{color:#c7a260}
+    .blog-pagination{display:flex;justify-content:center;align-items:center;gap:1rem;margin-top:4rem;font-family:'Inter',sans-serif}
+    .blog-pagination a,.blog-pagination span{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;font-size:.9rem;text-decoration:none;color:#253a4c;transition:all .3s}
+    .blog-pagination .active{background:#253a4c;color:#fff}
+    .blog-pagination a:hover{background:#f8f6f2}
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <!-- NAV — Mega Menu -->
+  <header class="nav nav--solid" id="nav">
+    <div class="nav__inner">
+      <a class='nav__logo' href='/'>
+        <img src="assets/logo-noir.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-dark">
+        <img src="assets/logo-blanc.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-light">
+      </a>
+      <ul class="nav__menu">
+        <li>
+          <a href="#">Nos spas</a>
+          <div class="mega-menu">
+            <div class="mega-menu__inner">
+              <div class="mega-menu__col">
+                <div class="mega-menu__col-title">Nos gammes</div>
+                <ul>
+                  <li><a href='/gammes/relax'>Gamme Relax</a></li>
+                  <li><a href='/gammes/energy'>Gamme Energy</a></li>
+                  <li><a href='/gammes/luxury'>Gamme Luxury</a></li>
+                  <li><a href='/gammes/spa-de-nage'>Spa de nage</a></li>
+                </ul>
+              </div>
+              <div class="mega-menu__col">
+                <div class="mega-menu__col-title">Nos modèles</div>
+                <ul>
+                  <li><a href='/produits/amalfi'>Amalfi</a></li>
+                  <li><a href='/produits/bari'>Bari</a></li>
+                  <li><a href='/produits/capri'>Capri</a></li>
+                  <li><a href='/produits/roma'>Roma</a></li>
+                  <li><a href='/produits/napoli'>Napoli</a></li>
+                  <li><a href='/produits/torino'>Torino</a></li>
+                  <li><a href='/produits/napoli-luxe'>Napoli Luxe</a></li>
+                  <li><a href='/produits/roma-luxe'>Roma Luxe</a></li>
+                  <li><a href='/produits/torino-luxe'>Torino Luxe</a></li>
+                </ul>
+              </div>
+              <div class="mega-menu__visual">
+                <div class="mega-menu__visual-placeholder"></div>
+                <a href="#" class="mega-cta">Voir tous les modèles</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a href="#">La marque</a>
+          <div class="mega-menu mega-menu--brand">
+            <div class="mega-menu__inner">
+              <div class="mega-menu__col">
+                <ul>
+                  <li><a href='/a-propos'>Notre histoire</a></li>
+                  <li><a href='/a-propos#engagements'>Nos engagements</a></li>
+                  <li><a href='/a-propos#technologies'>Nos technologies</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href='/revendeurs'>Nos magasins</a></li>
+        <li><a href='/blog'>Blog</a></li>
+        <li><a href='/espace-pro'>Espace pro</a></li>
+      </ul>
+      <div class="nav__right">
+        <a class='nav__cta' href='/revendeurs'>Trouver un revendeur</a>
+        <button class="nav__search-btn" aria-label="Rechercher"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35" stroke-linecap="round"/></svg></button>
+      </div>
+      <button class="nav__burger" id="navBurger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <!-- Mobile overlay -->
+    <div class="nav__mobile-overlay" id="navMobile">
+      <ul>
+        <li>
+          <button class="mobile-accordion-toggle">Nos spas <span class="mobile-arrow">▾</span></button>
+          <div class="mobile-submenu">
+            <div class="mobile-sub-title">Nos gammes</div>
+            <ul>
+              <li><a href='/gammes/relax'>Gamme Relax</a></li>
+              <li><a href='/gammes/energy'>Gamme Energy</a></li>
+              <li><a href='/gammes/luxury'>Gamme Luxury</a></li>
+              <li><a href='/gammes/spa-de-nage'>Spa de nage</a></li>
+            </ul>
+            <div class="mobile-sub-title">Nos modèles</div>
+            <ul>
+              <li><a href='/produits/amalfi'>Amalfi</a></li>
+              <li><a href='/produits/bari'>Bari</a></li>
+              <li><a href='/produits/capri'>Capri</a></li>
+              <li><a href='/produits/roma'>Roma</a></li>
+              <li><a href='/produits/napoli'>Napoli</a></li>
+              <li><a href='/produits/torino'>Torino</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <button class="mobile-accordion-toggle">La marque <span class="mobile-arrow">▾</span></button>
+          <div class="mobile-submenu">
+            <ul>
+              <li><a href='/a-propos'>Notre histoire</a></li>
+              <li><a href='/a-propos#engagements'>Nos engagements</a></li>
+              <li><a href='/a-propos#technologies'>Nos technologies</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a href='/revendeurs'>Nos magasins</a></li>
+        <li><a href='/blog'>Blog</a></li>
+        <li><a href='/espace-pro'>Espace pro</a></li>
+      </ul>
+      <a class='nav__mobile-cta' href='/revendeurs'>Trouver un revendeur</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="page-hero" style="background-color: #253a4c;">
+    <div class="container">
+      <p class="page-hero__eyebrow" style="color: #c7a260; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.5rem;">Blog</p>
+      <h1 style="color: #fff; font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.1; margin: 0;">Actualités &amp; Conseils</h1>
+      <p style="color: rgba(255,255,255,0.7); font-family: 'Inter', sans-serif; font-weight: 300; font-size: 1.1rem; margin-top: 1.5rem; max-width: 520px;">Guides, tendances et coulisses de l'univers Giovanni Riboli.</p>
+    </div>
+  </section>
+
+  <!-- ARTICLES -->
+  <section style="padding: 5rem 0 6rem; background: #f8f6f2;">
+    <div class="container">
+      <div class="blog-grid">
+
+        <!-- Article 1 -->
+        <article class="blog-card">
+          <div class="blog-card__img"><span>[ Photo — spa en terrasse ]</span></div>
+          <div class="blog-card__body">
+            <span class="blog-card__cat">Guide</span>
+            <h2 class="blog-card__title">Comment choisir son spa&nbsp;: notre guide complet</h2>
+            <p class="blog-card__date">28 mars 2026</p>
+            <p class="blog-card__excerpt">Taille, nombre de places, jets, isolation… Tous les critères pour trouver le spa qui correspond à votre mode de vie.</p>
+            <a href="#" class="blog-card__link">Lire l'article →</a>
+          </div>
+        </article>
+
+        <!-- Article 2 -->
+        <article class="blog-card">
+          <div class="blog-card__img" style="background:linear-gradient(135deg,#1a2d3d 0%,#253a4c 60%,#4a7a9b 100%)"><span>[ Photo — hydrothérapie ]</span></div>
+          <div class="blog-card__body">
+            <span class="blog-card__cat">Bien-être</span>
+            <h2 class="blog-card__title">Les bienfaits de l'hydrothérapie au quotidien</h2>
+            <p class="blog-card__date">15 mars 2026</p>
+            <p class="blog-card__excerpt">Détente musculaire, amélioration du sommeil, réduction du stress&nbsp;: découvrez ce que la science dit de l'hydrothérapie.</p>
+            <a href="#" class="blog-card__link">Lire l'article →</a>
+          </div>
+        </article>
+
+        <!-- Article 3 -->
+        <article class="blog-card">
+          <div class="blog-card__img" style="background:linear-gradient(135deg,#c7a260 0%,#253a4c 100%)"><span>[ Photo — panneau solaire ]</span></div>
+          <div class="blog-card__body">
+            <span class="blog-card__cat">Offre</span>
+            <h2 class="blog-card__title">Offre Électrisante&nbsp;: un panneau solaire offert avec votre spa</h2>
+            <p class="blog-card__date">1<sup>er</sup> mars 2026</p>
+            <p class="blog-card__excerpt">Profitez de notre offre exclusive&nbsp;: pour tout achat d'un spa, un panneau solaire vous est offert. Économies garanties.</p>
+            <a href="#" class="blog-card__link">Lire l'article →</a>
+          </div>
+        </article>
+
+        <!-- Article 4 -->
+        <article class="blog-card">
+          <div class="blog-card__img" style="background:linear-gradient(135deg,#253a4c 0%,#3a5a6c 100%)"><span>[ Photo — entretien spa ]</span></div>
+          <div class="blog-card__body">
+            <span class="blog-card__cat">Entretien</span>
+            <h2 class="blog-card__title">Entretien de votre spa&nbsp;: les bons gestes</h2>
+            <p class="blog-card__date">18 février 2026</p>
+            <p class="blog-card__excerpt">Filtration, pH, nettoyage de la coque… Les gestes simples pour maintenir votre spa en parfait état toute l'année.</p>
+            <a href="#" class="blog-card__link">Lire l'article →</a>
+          </div>
+        </article>
+
+        <!-- Article 5 -->
+        <article class="blog-card">
+          <div class="blog-card__img" style="background:linear-gradient(135deg,#1a2d3d 0%,#c7a260 100%)"><span>[ Photo — showroom ]</span></div>
+          <div class="blog-card__body">
+            <span class="blog-card__cat">Actualité</span>
+            <h2 class="blog-card__title">Giovanni Riboli ouvre 3 nouveaux showrooms en 2026</h2>
+            <p class="blog-card__date">5 février 2026</p>
+            <p class="blog-card__excerpt">Lyon, Bordeaux, Strasbourg&nbsp;: trois nouvelles adresses pour découvrir nos spas et bénéficier de conseils personnalisés.</p>
+            <a href="#" class="blog-card__link">Lire l'article →</a>
+          </div>
+        </article>
+
+        <!-- Article 6 -->
+        <article class="blog-card">
+          <div class="blog-card__img" style="background:linear-gradient(135deg,#4a7a9b 0%,#253a4c 60%,#c7a260 100%)"><span>[ Photo — chromothérapie ]</span></div>
+          <div class="blog-card__body">
+            <span class="blog-card__cat">Bien-être</span>
+            <h2 class="blog-card__title">Chromothérapie&nbsp;: comment les couleurs influencent votre bien-être</h2>
+            <p class="blog-card__date">20 janvier 2026</p>
+            <p class="blog-card__excerpt">Rouge, bleu, vert… Chaque couleur agit sur le corps et l'esprit. Découvrez les principes de la chromothérapie intégrée à nos spas.</p>
+            <a href="#" class="blog-card__link">Lire l'article →</a>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- PAGINATION -->
+      <nav class="blog-pagination" aria-label="Pagination">
+        <span class="active">1</span>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#" style="width:auto;padding:0 1rem;font-size:.85rem;">Suivant →</a>
+      </nav>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="contact">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img src="./assets/logo-blanc.svg" alt="Giovanni Riboli" class="footer__logo">
+        <p class="footer__tagline">L'art du spa à domicile.</p>
+        <p class="footer__address">Giovanni Riboli SAS — France</p>
+      </div>
+      <div class="footer__nav">
+        <h4>Nos spas</h4>
+        <a href='/gammes/luxury'>Gamme Luxury</a>
+        <a href='/gammes/energy'>Gamme Energy</a>
+        <a href='/gammes/relax'>Gamme Relax</a>
+        <a href='/gammes/spa-de-nage'>Spa de nage</a>
+      </div>
+      <div class="footer__nav">
+        <h4>La marque</h4>
+        <a href='/a-propos'>À propos</a>
+        <a href='/revendeurs'>Nos magasins</a>
+        <a href='/quiz'>Configurateur</a>
+        <a href='/espace-pro'>Espace revendeur</a>
+      </div>
+      <div class="footer__nav">
+        <h4>Contact</h4>
+        <a href="mailto:contact@gr-spa.com">contact@gr-spa.com</a>
+        <a href='/blog'>Blog &amp; Actualités</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container">
+        <p>© 2026 Giovanni Riboli SAS — Tous droits réservés</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>À propos — Giovanni Riboli | Fabricant de Spas Premium</title>
+  <meta name="description" content="Découvrez l'histoire de Giovanni Riboli, fabricant européen de spas haut de gamme. Une marque familiale portée par l'innovation, la qualité et l'accessibilité.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <!-- NAV — Mega Menu -->
+  <header class="nav nav--solid" id="nav">
+    <div class="nav__inner">
+      <a class='nav__logo' href='/'>
+        <img src="assets/logo-noir.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-dark">
+        <img src="assets/logo-blanc.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-light">
+      </a>
+      <ul class="nav__menu">
+        <li>
+          <a href="#">Nos spas</a>
+          <div class="mega-menu">
+            <div class="mega-menu__inner">
+              <div class="mega-menu__col">
+                <div class="mega-menu__col-title">Nos gammes</div>
+                <ul>
+                  <li><a href='/gammes/relax'>Gamme Relax</a></li>
+                  <li><a href='/gammes/energy'>Gamme Energy</a></li>
+                  <li><a href='/gammes/luxury'>Gamme Luxury</a></li>
+                  <li><a href='/gammes/spa-de-nage'>Spa de nage</a></li>
+                </ul>
+              </div>
+              <div class="mega-menu__col">
+                <div class="mega-menu__col-title">Nos modèles</div>
+                <ul>
+                  <li><a href='/produits/amalfi'>Amalfi</a></li>
+                  <li><a href='/produits/bari'>Bari</a></li>
+                  <li><a href='/produits/capri'>Capri</a></li>
+                  <li><a href='/produits/roma'>Roma</a></li>
+                  <li><a href='/produits/napoli'>Napoli</a></li>
+                  <li><a href='/produits/torino'>Torino</a></li>
+                  <li><a href='/produits/napoli-luxe'>Napoli Luxe</a></li>
+                  <li><a href='/produits/roma-luxe'>Roma Luxe</a></li>
+                  <li><a href='/produits/torino-luxe'>Torino Luxe</a></li>
+                </ul>
+              </div>
+              <div class="mega-menu__visual">
+                <div class="mega-menu__visual-placeholder"></div>
+                <a href="#" class="mega-cta">Voir tous les modèles</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a href="#">La marque</a>
+          <div class="mega-menu mega-menu--brand">
+            <div class="mega-menu__inner">
+              <div class="mega-menu__col">
+                <ul>
+                  <li><a href='/a-propos'>Notre histoire</a></li>
+                  <li><a href='/a-propos#engagements'>Nos engagements</a></li>
+                  <li><a href='/a-propos#technologies'>Nos technologies</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href='/revendeurs'>Nos magasins</a></li>
+        <li><a href='/blog'>Blog</a></li>
+        <li><a href='/espace-pro'>Espace pro</a></li>
+      </ul>
+      <div class="nav__right">
+        <a class='nav__cta' href='/revendeurs'>Trouver un revendeur</a>
+        <button class="nav__search-btn" aria-label="Rechercher"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35" stroke-linecap="round"/></svg></button>
+      </div>
+      <button class="nav__burger" id="navBurger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <!-- Mobile overlay -->
+    <div class="nav__mobile-overlay" id="navMobile">
+      <ul>
+        <li>
+          <button class="mobile-accordion-toggle">Nos spas <span class="mobile-arrow">▾</span></button>
+          <div class="mobile-submenu">
+            <div class="mobile-sub-title">Nos gammes</div>
+            <ul>
+              <li><a href='/gammes/relax'>Gamme Relax</a></li>
+              <li><a href='/gammes/energy'>Gamme Energy</a></li>
+              <li><a href='/gammes/luxury'>Gamme Luxury</a></li>
+              <li><a href='/gammes/spa-de-nage'>Spa de nage</a></li>
+            </ul>
+            <div class="mobile-sub-title">Nos modèles</div>
+            <ul>
+              <li><a href='/produits/amalfi'>Amalfi</a></li>
+              <li><a href='/produits/bari'>Bari</a></li>
+              <li><a href='/produits/capri'>Capri</a></li>
+              <li><a href='/produits/roma'>Roma</a></li>
+              <li><a href='/produits/napoli'>Napoli</a></li>
+              <li><a href='/produits/torino'>Torino</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <button class="mobile-accordion-toggle">La marque <span class="mobile-arrow">▾</span></button>
+          <div class="mobile-submenu">
+            <ul>
+              <li><a href='/a-propos'>Notre histoire</a></li>
+              <li><a href='/a-propos#engagements'>Nos engagements</a></li>
+              <li><a href='/a-propos#technologies'>Nos technologies</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a href='/revendeurs'>Nos magasins</a></li>
+        <li><a href='/blog'>Blog</a></li>
+        <li><a href='/espace-pro'>Espace pro</a></li>
+      </ul>
+      <a class='nav__mobile-cta' href='/revendeurs'>Trouver un revendeur</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="page-hero" style="background-color: #253a4c;">
+    <div class="container">
+      <p class="page-hero__eyebrow" style="color: #c7a260; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.5rem;">Depuis 2007</p>
+      <h1 class="page-hero__title" style="color: #fff; font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.1; margin: 0;">L'esprit<br>Giovanni Riboli</h1>
+      <p class="page-hero__subtitle" style="color: rgba(255,255,255,0.7); font-family: 'Inter', sans-serif; font-weight: 300; font-size: 1.1rem; margin-top: 1.5rem; max-width: 500px;">Le spa comme art de vivre.</p>
+    </div>
+  </section>
+
+  <!-- HISTOIRE -->
+  <section style="padding: 6rem 0; background: #fff;">
+    <div class="container" style="max-width: 800px; margin: 0 auto;">
+      <p style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; color: #c7a260; margin-bottom: 2rem;">Notre histoire</p>
+
+      <h2 style="font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: clamp(1.8rem, 3vw, 2.8rem); color: #253a4c; line-height: 1.25; margin-bottom: 2rem;">Il y a des lieux où l'on vient pour se détendre. Et puis il y a ceux où l'on vient pour se retrouver.</h2>
+
+      <div style="font-family: 'Inter', sans-serif; font-weight: 300; font-size: 1.05rem; line-height: 1.9; color: #444;">
+        <p style="margin-bottom: 1.8rem;">Avec Giovanni Riboli, le spa quitte le registre du luxe lointain pour devenir une évidence quotidienne. Pensée comme une maison ouverte, la marque familiale répond à l'aspiration contemporaine au bien-être, avec une approche directe, sincère et profondément humaine.</p>
+
+        <p style="margin-bottom: 1.8rem;">Dans l'univers très codifié des spas, Giovanni Riboli avance à contre-courant. Pas de discours formaté ni de parcours académique balisé&nbsp;: ici, tout commence par l'instinct. Très jeune, Monsieur Riboli choisit d'entreprendre, porté par le goût du risque et une énergie autodidacte. Pendant plusieurs années, il observe, écoute, revend. Surtout, il apprend.</p>
+
+        <p style="margin-bottom: 1.8rem;">Les critiques de ses clients — positives comme négatives — deviennent sa matière première. De cette immersion naît une idée simple&nbsp;: imaginer le spa le plus juste possible, celui qui conjugue performance technique, esthétique et accessibilité.</p>
+
+        <p style="margin-bottom: 1.8rem;">La marque Giovanni Riboli ne s'est pas construite comme une entreprise classique, mais comme une famille. Une constellation de collaborateurs, de revendeurs et de particuliers réunis autour d'un même objectif&nbsp;: démocratiser un bien-être exigeant. Dans cet écosystème, chacun participe à l'amélioration continue des modèles.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMAGE BREAK -->
+  <section style="height: 400px; background: linear-gradient(135deg, #253a4c 0%, #1a2d3d 100%); display: flex; align-items: center; justify-content: center;">
+    <p style="font-family: 'Inter', sans-serif; color: rgba(255,255,255,0.3); font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase;">[ Photo ambiance — atelier ou spa en situation ]</p>
+  </section>
+
+  <!-- CHIFFRES CLÉS -->
+  <section style="padding: 6rem 0; background: #f8f6f2;">
+    <div class="container">
+      <p style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; color: #c7a260; text-align: center; margin-bottom: 3.5rem;">Chiffres clés</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; text-align: center; max-width: 900px; margin: 0 auto;">
+        <div>
+          <p style="font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 4rem; color: #253a4c; line-height: 1;">2007</p>
+          <p style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 0.9rem; color: #888; margin-top: 0.5rem;">Année de fondation</p>
+        </div>
+        <div>
+          <p style="font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 4rem; color: #253a4c; line-height: 1;">+40</p>
+          <p style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 0.9rem; color: #888; margin-top: 0.5rem;">Magasins en France</p>
+        </div>
+        <div>
+          <p style="font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 4rem; color: #253a4c; line-height: 1;">10<span style="font-size: 2rem;"> ans</span></p>
+          <p style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 0.9rem; color: #888; margin-top: 0.5rem;">Garantie fabricant</p>
+        </div>
+        <div>
+          <p style="font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 4rem; color: #253a4c; line-height: 1;">🇪🇺</p>
+          <p style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 0.9rem; color: #888; margin-top: 0.5rem;">Fabrication européenne</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALEURS -->
+  <section style="padding: 6rem 0; background: #fff;">
+    <div class="container">
+      <p style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; color: #c7a260; text-align: center; margin-bottom: 1rem;">Ce qui nous guide</p>
+      <h2 style="font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: clamp(1.8rem, 3vw, 2.8rem); color: #253a4c; text-align: center; margin-bottom: 4rem;">Nos valeurs</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2.5rem; max-width: 1000px; margin: 0 auto;">
+        <div style="text-align: center; padding: 2.5rem 2rem;">
+          <div style="width: 56px; height: 56px; border-radius: 50%; background: #f8f6f2; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 1.5rem;">💡</div>
+          <h3 style="font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 1.5rem; color: #253a4c; margin-bottom: 0.75rem;">Innovation</h3>
+          <p style="font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.95rem; color: #666; line-height: 1.7;">Des technologies brevetées au service du bien-être. Chaque modèle intègre le meilleur de la recherche en hydrothérapie.</p>
+        </div>
+        <div style="text-align: center; padding: 2.5rem 2rem;">
+          <div style="width: 56px; height: 56px; border-radius: 50%; background: #f8f6f2; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 1.5rem;">✦</div>
+          <h3 style="font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 1.5rem; color: #253a4c; margin-bottom: 0.75rem;">Qualité</h3>
+          <p style="font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.95rem; color: #666; line-height: 1.7;">Fabrication européenne, composants premium, garantie 10 ans. Nous ne transigeons jamais sur l'essentiel.</p>
+        </div>
+        <div style="text-align: center; padding: 2.5rem 2rem;">
+          <div style="width: 56px; height: 56px; border-radius: 50%; background: #f8f6f2; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 1.5rem;">🤝</div>
+          <h3 style="font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 1.5rem; color: #253a4c; margin-bottom: 0.75rem;">Famille</h3>
+          <p style="font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.95rem; color: #666; line-height: 1.7;">Une marque construite comme une famille. Collaborateurs, revendeurs et clients participent ensemble à chaque évolution.</p>
+        </div>
+        <div style="text-align: center; padding: 2.5rem 2rem;">
+          <div style="width: 56px; height: 56px; border-radius: 50%; background: #f8f6f2; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 1.5rem;">🌍</div>
+          <h3 style="font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 1.5rem; color: #253a4c; margin-bottom: 0.75rem;">Accessibilité</h3>
+          <p style="font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.95rem; color: #666; line-height: 1.7;">Démocratiser le bien-être haut de gamme. Un spa d'exception ne devrait pas être réservé à une élite.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECHNOLOGIES -->
+  <section style="padding: 6rem 0; background: #253a4c;">
+    <div class="container">
+      <p style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; color: #c7a260; text-align: center; margin-bottom: 1rem;">Expertise</p>
+      <h2 style="font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: clamp(1.8rem, 3vw, 2.8rem); color: #fff; text-align: center; margin-bottom: 4rem;">Nos technologies</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto;">
+        <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 2.5rem 2rem;">
+          <h3 style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 1.1rem; color: #c7a260; margin-bottom: 0.75rem;">UV PURE</h3>
+          <p style="font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.7;">Traitement de l'eau par lampe UV. Une eau pure, sans excès de produits chimiques, pour un bain plus sain et plus agréable.</p>
+        </div>
+        <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 2.5rem 2rem;">
+          <h3 style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 1.1rem; color: #c7a260; margin-bottom: 0.75rem;">ISOPLUS®</h3>
+          <p style="font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.7;">Isolation renforcée haute performance. Conserve la chaleur, réduit la consommation énergétique et protège votre spa en toute saison.</p>
+        </div>
+        <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 2.5rem 2rem;">
+          <h3 style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 1.1rem; color: #c7a260; margin-bottom: 0.75rem;">Massage séquentiel robotisé</h3>
+          <p style="font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.7;">Technologie brevetée de jets programmables qui reproduisent les gestes d'un masseur professionnel. Détente ciblée, intense et personnalisable.</p>
+        </div>
+        <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 2.5rem 2rem;">
+          <h3 style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 1.1rem; color: #c7a260; margin-bottom: 0.75rem;">Balboa®</h3>
+          <p style="font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.7;">Système de contrôle reconnu mondialement pour sa fiabilité. Pilotage intuitif de la température, des jets et des programmes de massage.</p>
+        </div>
+        <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 2.5rem 2rem;">
+          <h3 style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 1.1rem; color: #c7a260; margin-bottom: 0.75rem;">Chromo & Aromathérapie</h3>
+          <p style="font-family: 'Inter', sans-serif; font-weight: 300; font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.7;">Lumières LED d'ambiance et diffusion d'huiles essentielles pour une expérience sensorielle complète, à chaque bain.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="padding: 6rem 0; background: #f8f6f2; text-align: center;">
+    <div class="container">
+      <h2 style="font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: clamp(1.8rem, 3vw, 2.8rem); color: #253a4c; margin-bottom: 1rem;">Prêt à découvrir votre spa&nbsp;?</h2>
+      <p style="font-family: 'Inter', sans-serif; font-weight: 300; font-size: 1.05rem; color: #666; margin-bottom: 2.5rem; max-width: 500px; margin-left: auto; margin-right: auto;">Explorez nos gammes et trouvez le modèle qui correspond à votre art de vivre.</p>
+      <a class='btn btn--primary' href='/' style='display: inline-block; padding: 1rem 2.5rem; background: #253a4c; color: #fff; font-family: \'Inter\', sans-serif; font-weight: 500; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; border-radius: 4px; transition: background 0.3s;'>Découvrir nos spas</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="contact">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img src="./assets/logo-blanc.svg" alt="Giovanni Riboli" class="footer__logo">
+        <p class="footer__tagline">L'art du spa à domicile.</p>
+        <p class="footer__address">Giovanni Riboli SAS — France</p>
+      </div>
+      <div class="footer__nav">
+        <h4>Nos spas</h4>
+        <a href='/gammes/luxury'>Gamme Luxury</a>
+        <a href='/gammes/energy'>Gamme Energy</a>
+        <a href='/gammes/relax'>Gamme Relax</a>
+        <a href='/gammes/spa-de-nage'>Spa de nage</a>
+      </div>
+      <div class="footer__nav">
+        <h4>La marque</h4>
+        <a href='/a-propos'>À propos</a>
+        <a href='/revendeurs'>Nos magasins</a>
+        <a href='/quiz'>Configurateur</a>
+        <a href='/espace-pro'>Espace revendeur</a>
+      </div>
+      <div class="footer__nav">
+        <h4>Contact</h4>
+        <a href="mailto:contact@gr-spa.com">contact@gr-spa.com</a>
+        <a href='/blog'>Blog &amp; Actualités</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container">
+        <p>© 2026 Giovanni Riboli SAS — Tous droits réservés</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

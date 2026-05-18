@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GR SPA MAUGUIO — Giovanni Riboli</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .shop-hero {
+            background: #253a4c;
+            padding: 140px 24px 60px;
+            text-align: center;
+        }
+        .shop-hero .breadcrumb {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 0.08em;
+            margin-bottom: 24px;
+        }
+        .shop-hero .breadcrumb a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .shop-hero .breadcrumb a:hover { color: #c7a260; }
+        .shop-hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.2rem, 5vw, 3.4rem);
+            font-weight: 400;
+            color: #fff;
+            margin: 0 0 12px;
+            letter-spacing: 0.03em;
+        }
+        .shop-hero .subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: #c7a260;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .shop-info {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+        }
+        .shop-info-left h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #253a4c;
+            margin: 0 0 24px;
+        }
+        .store-detail {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            color: #555;
+            line-height: 1.8;
+            margin: 0 0 12px;
+        }
+        .store-detail a {
+            color: #253a4c;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .store-detail a:hover { color: #c7a260; }
+        .store-detail-icon { margin-right: 8px; }
+        .store-hours {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            color: #888;
+            font-style: italic;
+            margin-top: 20px;
+        }
+        .shop-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+            flex-wrap: wrap;
+        }
+        .btn-store-action {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 12px 28px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        .btn-itineraire {
+            background: #253a4c;
+            color: #fff;
+            border: 1px solid #253a4c;
+        }
+        .btn-itineraire:hover { background: #1a2c3a; }
+        .btn-call {
+            background: transparent;
+            color: #253a4c;
+            border: 1px solid #253a4c;
+        }
+        .btn-call:hover { background: #253a4c; color: #fff; }
+
+        .shop-map-placeholder {
+            background: #e8e6e2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 360px;
+            text-align: center;
+        }
+        .shop-map-placeholder p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .shop-contact {
+            background: #f8f6f2;
+            padding: 60px 24px;
+        }
+        .shop-contact-inner {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .shop-contact h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            color: #253a4c;
+            text-align: center;
+            margin: 0 0 32px;
+        }
+        .shop-contact form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .shop-contact input,
+        .shop-contact textarea {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            padding: 14px 18px;
+            border: 1px solid #ddd;
+            background: #fff;
+            color: #253a4c;
+            outline: none;
+            transition: border-color 0.3s;
+            border-radius: 0;
+        }
+        .shop-contact input:focus,
+        .shop-contact textarea:focus { border-color: #c7a260; }
+        .shop-contact textarea {
+            grid-column: 1 / -1;
+            min-height: 120px;
+            resize: vertical;
+        }
+        .shop-contact .btn-submit {
+            grid-column: 1 / -1;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            background: #c7a260;
+            color: #fff;
+            border: none;
+            padding: 16px 40px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        .shop-contact .btn-submit:hover { background: #b08940; }
+
+        .shop-gammes {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 24px 80px;
+            text-align: center;
+        }
+        .shop-gammes h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            color: #253a4c;
+            margin: 0 0 40px;
+        }
+        .gammes-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        .gamme-card {
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 32px 20px;
+            text-align: center;
+            text-decoration: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .gamme-card:hover {
+            border-color: #c7a260;
+            box-shadow: 0 4px 24px rgba(37,58,76,0.06);
+        }
+        .gamme-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #253a4c;
+            margin: 0 0 8px;
+        }
+        .gamme-card p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            color: #c7a260;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .shop-info { grid-template-columns: 1fr; }
+            .gammes-grid { grid-template-columns: 1fr 1fr; }
+            .shop-contact form { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 480px) {
+            .gammes-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+  <header class="nav nav--solid" id="nav">
+    <div class="nav__inner">
+      <a class='nav__logo' href='/'>
+        <img src="../assets/logo-noir.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-dark">
+        <img src="../assets/logo-blanc.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-light">
+      </a>
+      <ul class="nav__menu">
+        <li>
+          <a href="#">Nos spas</a>
+          <div class="mega-menu">
+            <div class="mega-menu__inner">
+              <div class="mega-menu__col">
+                <div class="mega-menu__col-title">Nos gammes</div>
+                <ul>
+                  <li><a href='/gammes/relax'>Gamme Relax</a></li>
+                  <li><a href='/gammes/energy'>Gamme Energy</a></li>
+                  <li><a href='/gammes/luxury'>Gamme Luxury</a></li>
+                  <li><a href='/gammes/spa-de-nage'>Spa de nage</a></li>
+                </ul>
+              </div>
+              <div class="mega-menu__col">
+                <div class="mega-menu__col-title">Nos modèles</div>
+                <ul>
+                  <li><a href='/produits/amalfi'>Amalfi</a></li>
+                  <li><a href='/produits/bari'>Bari</a></li>
+                  <li><a href='/produits/capri'>Capri</a></li>
+                  <li><a href='/produits/roma'>Roma</a></li>
+                  <li><a href='/produits/napoli'>Napoli</a></li>
+                  <li><a href='/produits/torino'>Torino</a></li>
+                  <li><a href='/produits/napoli-luxe'>Napoli Luxe</a></li>
+                  <li><a href='/produits/roma-luxe'>Roma Luxe</a></li>
+                  <li><a href='/produits/torino-luxe'>Torino Luxe</a></li>
+                </ul>
+              </div>
+              <div class="mega-menu__visual">
+                <div class="mega-menu__visual-placeholder"></div>
+                <a class='mega-cta' href='/gammes/luxury'>Voir tous les modèles</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a href="#">La marque</a>
+          <div class="mega-menu mega-menu--brand">
+            <div class="mega-menu__inner">
+              <div class="mega-menu__col">
+                <ul>
+                  <li><a href='/a-propos'>Notre histoire</a></li>
+                  <li><a href='/a-propos#engagements'>Nos engagements</a></li>
+                  <li><a href='/a-propos#technologies'>Nos technologies</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href='/revendeurs'>Nos magasins</a></li>
+        <li><a href='/blog'>Blog</a></li>
+        <li><a href='/espace-pro'>Espace pro</a></li>
+      </ul>
+      <div class="nav__right">
+        <a class='nav__cta' href='/revendeurs'>Trouver un revendeur</a>
+        <button class="nav__search-btn" aria-label="Rechercher"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35" stroke-linecap="round"/></svg></button>
+      </div>
+      <button class="nav__burger" id="navBurger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile-overlay" id="navMobile">
+      <ul>
+        <li>
+          <button class="mobile-accordion-toggle">Nos spas <span class="mobile-arrow">▾</span></button>
+          <div class="mobile-submenu">
+            <div class="mobile-sub-title">Nos gammes</div>
+            <ul>
+              <li><a href='/gammes/relax'>Gamme Relax</a></li>
+              <li><a href='/gammes/energy'>Gamme Energy</a></li>
+              <li><a href='/gammes/luxury'>Gamme Luxury</a></li>
+              <li><a href='/gammes/spa-de-nage'>Spa de nage</a></li>
+            </ul>
+            <div class="mobile-sub-title">Nos modèles</div>
+            <ul>
+              <li><a href='/produits/amalfi'>Amalfi</a></li>
+              <li><a href='/produits/bari'>Bari</a></li>
+              <li><a href='/produits/capri'>Capri</a></li>
+              <li><a href='/produits/roma'>Roma</a></li>
+              <li><a href='/produits/napoli'>Napoli</a></li>
+              <li><a href='/produits/torino'>Torino</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <button class="mobile-accordion-toggle">La marque <span class="mobile-arrow">▾</span></button>
+          <div class="mobile-submenu">
+            <ul>
+              <li><a href='/a-propos'>Notre histoire</a></li>
+              <li><a href='/a-propos#engagements'>Nos engagements</a></li>
+              <li><a href='/a-propos#technologies'>Nos technologies</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a href='/revendeurs'>Nos magasins</a></li>
+        <li><a href='/blog'>Blog</a></li>
+        <li><a href='/espace-pro'>Espace pro</a></li>
+      </ul>
+      <a class='nav__mobile-cta' href='/revendeurs'>Trouver un revendeur</a>
+    </div>
+  </header>
+
+
+    <!-- NAV -->
+    <nav style="background:#fff;padding:20px 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #eee;position:fixed;top:0;left:0;right:0;z-index:100;">
+        <a href='/'><img src="../assets/logo-noir.svg" alt="Giovanni Riboli" style="height:36px;"></a>
+        <div style="display:flex;gap:32px;font-family:'Inter',sans-serif;font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;">
+            <a href='/' style='color:#253a4c;text-decoration:none;'>Accueil</a>
+            <a href='/revendeurs' style='color:#253a4c;text-decoration:none;'>Magasins</a>
+            <a href='/quiz' style='color:#253a4c;text-decoration:none;'>Trouver mon spa</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="shop-hero">
+        <p class="breadcrumb"><a href='/'>Accueil</a> &gt; <a href='/revendeurs'>Nos magasins</a> &gt; GR SPA MAUGUIO</p>
+        <h1>Giovanni Riboli Toulouse</h1>
+        <p class="subtitle">MAUGUIO — Département 34</p>
+    </section>
+
+    <!-- INFO -->
+    <section class="shop-info">
+        <div class="shop-info-left">
+            <h2>Informations</h2>
+            <p class="store-detail"><span class="store-detail-icon">📍</span> 72 Route de Paris 31790 Saint-Jory</p>
+            
+            
+            
+            <p class="store-hours">Contactez le magasin pour connaître les horaires d'ouverture.</p>
+            <div class="shop-buttons">
+                <a href="https://www.google.com/maps/search/?api=1&query=34130+MAUGUIO" target="_blank" rel="noopener" class="btn-store-action btn-itineraire">Itinéraire</a>
+                
+            </div>
+        </div>
+        
+    <div id="shopMap" style="width:100%;height:360px;border-radius:4px;"></div>
+    <script>
+    function initShopMap() {
+        var geocoder = new google.maps.Geocoder();
+        var addr = "Giovanni Riboli SAS — France, France";
+        geocoder.geocode({address: addr}, function(results, status) {
+            if (status === 'OK') {
+                var map = new google.maps.Map(document.getElementById('shopMap'), {
+                    center: results[0].geometry.location,
+                    zoom: 14,
+                    styles: [
+                        {featureType:'poi',elementType:'all',stylers:[{visibility:'off'}]},
+                        {featureType:'water',elementType:'geometry',stylers:[{color:'#e8f0f4'}]},
+                        {featureType:'landscape',elementType:'geometry',stylers:[{color:'#f8f6f2'}]},
+                        {featureType:'road',elementType:'geometry',stylers:[{color:'#ffffff'}]}
+                    ]
+                });
+                new google.maps.Marker({
+                    position: results[0].geometry.location,
+                    map: map,
+                    icon: {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        scale: 10,
+                        fillColor: '#c7a260',
+                        fillOpacity: 1,
+                        strokeColor: '#ffffff',
+                        strokeWeight: 2
+                    }
+                });
+            }
+        });
+    }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIhhwEmidNOgH7GGmUSOXJlqq8aJ2cKeE&callback=initShopMap"></script>
+    
+        </div>
+    </section>
+
+    <!-- CONTACT FORM -->
+    <section class="shop-contact">
+        <div class="shop-contact-inner">
+            <h2>Contactez GR SPA MAUGUIO</h2>
+            <form action="#">
+                <input type="text" name="prenom" placeholder="Prénom" required>
+                <input type="text" name="nom" placeholder="Nom" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="tel" name="telephone" placeholder="Téléphone">
+                <textarea name="message" placeholder="Votre message…" required></textarea>
+                <button type="submit" class="btn-submit">Envoyer ma demande</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- GAMMES -->
+    <section class="shop-gammes">
+        <h2>Nos gammes disponibles</h2>
+        <div class="gammes-grid">
+            <a class='gamme-card' href='/gammes/relax'>
+                <h3>Relax</h3>
+                <p>Découvrir</p>
+            </a>
+            <a class='gamme-card' href='/gammes/energy'>
+                <h3>Energy</h3>
+                <p>Découvrir</p>
+            </a>
+            <a class='gamme-card' href='/gammes/luxury'>
+                <h3>Luxury</h3>
+                <p>Découvrir</p>
+            </a>
+            <a class='gamme-card' href='/gammes/spa-de-nage'>
+                <h3>Spa de nage</h3>
+                <p>Découvrir</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer" id="contact">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img src="../assets/logo-blanc.svg" alt="Giovanni Riboli" class="footer__logo">
+        <p class="footer__tagline">L'art du spa à domicile.</p>
+        <p class="footer__address">Giovanni Riboli SAS — France</p>
+      </div>
+      <div class="footer__nav">
+        <h4>Nos spas</h4>
+        <a href='/gammes/luxury'>Gamme Luxury</a>
+        <a href='/gammes/energy'>Gamme Energy</a>
+        <a href='/gammes/relax'>Gamme Relax</a>
+        <a href='/gammes/spa-de-nage'>Spa de nage</a>
+      </div>
+      <div class="footer__nav">
+        <h4>La marque</h4>
+        <a href='/a-propos'>À propos</a>
+        <a href='/revendeurs'>Nos magasins</a>
+        <a href='/quiz'>Configurateur</a>
+        <a href='/espace-pro'>Espace revendeur</a>
+      </div>
+      <div class="footer__nav">
+        <h4>Contact</h4>
+        <a href="mailto:contact@gr-spa.com">contact@gr-spa.com</a>
+        <a href='/blog'>Blog &amp; Actualités</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container">
+        <p>© 2026 Giovanni Riboli SAS — Tous droits réservés</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

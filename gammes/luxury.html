@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gamme Luxury — Giovanni Riboli</title>
+  <meta name="description" content="Gamme Luxury Giovanni Riboli : spas haut de gamme avec massage séquentiel robotisé breveté, jusqu'à 106 hydrojets. L'excellence du spa à domicile.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <!-- NAV — Mega Menu -->
+  <header class="nav nav--solid" id="nav">
+    <div class="nav__inner">
+      <a class='nav__logo' href='/'>
+        <img src="../assets/logo-noir.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-dark">
+        <img src="../assets/logo-blanc.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-light">
+      </a>
+      <ul class="nav__menu">
+        <li>
+          <a href="#">Nos spas</a>
+          <div class="mega-menu">
+            <div class="mega-menu__inner">
+              <div class="mega-menu__col">
+                <div class="mega-menu__col-title">Nos gammes</div>
+                <ul>
+                  <li><a href='/gammes/relax'>Gamme Relax</a></li>
+                  <li><a href='/gammes/energy'>Gamme Energy</a></li>
+                  <li><a href='/gammes/luxury'>Gamme Luxury</a></li>
+                  <li><a href='/gammes/spa-de-nage'>Spa de nage</a></li>
+                </ul>
+              </div>
+              <div class="mega-menu__col">
+                <div class="mega-menu__col-title">Nos modèles</div>
+                <ul>
+                  <li><a href='/produits/amalfi'>Amalfi</a></li>
+                  <li><a href='/produits/bari'>Bari</a></li>
+                  <li><a href='/produits/capri'>Capri</a></li>
+                  <li><a href='/produits/roma'>Roma</a></li>
+                  <li><a href='/produits/napoli'>Napoli</a></li>
+                  <li><a href='/produits/torino'>Torino</a></li>
+                  <li><a href='/produits/napoli-luxe'>Napoli Luxe</a></li>
+                  <li><a href='/produits/roma-luxe'>Roma Luxe</a></li>
+                  <li><a href='/produits/torino-luxe'>Torino Luxe</a></li>
+                </ul>
+              </div>
+              <div class="mega-menu__visual">
+                <div class="mega-menu__visual-placeholder"></div>
+                <a href="#" class="mega-cta">Voir tous les modèles</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a href="#">La marque</a>
+          <div class="mega-menu mega-menu--brand">
+            <div class="mega-menu__inner">
+              <div class="mega-menu__col">
+                <ul>
+                  <li><a href='/a-propos'>Notre histoire</a></li>
+                  <li><a href='/a-propos#engagements'>Nos engagements</a></li>
+                  <li><a href='/a-propos#technologies'>Nos technologies</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href='/revendeurs'>Nos magasins</a></li>
+        <li><a href='/blog'>Blog</a></li>
+        <li><a href='/espace-pro'>Espace pro</a></li>
+      </ul>
+      <div class="nav__right">
+        <a class='nav__cta' href='/revendeurs'>Trouver un revendeur</a>
+        <button class="nav__search-btn" aria-label="Rechercher"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35" stroke-linecap="round"/></svg></button>
+      </div>
+      <button class="nav__burger" id="navBurger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <!-- Mobile overlay -->
+    <div class="nav__mobile-overlay" id="navMobile">
+      <ul>
+        <li>
+          <button class="mobile-accordion-toggle">Nos spas <span class="mobile-arrow">▾</span></button>
+          <div class="mobile-submenu">
+            <div class="mobile-sub-title">Nos gammes</div>
+            <ul>
+              <li><a href='/gammes/relax'>Gamme Relax</a></li>
+              <li><a href='/gammes/energy'>Gamme Energy</a></li>
+              <li><a href='/gammes/luxury'>Gamme Luxury</a></li>
+              <li><a href='/gammes/spa-de-nage'>Spa de nage</a></li>
+            </ul>
+            <div class="mobile-sub-title">Nos modèles</div>
+            <ul>
+              <li><a href='/produits/amalfi'>Amalfi</a></li>
+              <li><a href='/produits/bari'>Bari</a></li>
+              <li><a href='/produits/capri'>Capri</a></li>
+              <li><a href='/produits/roma'>Roma</a></li>
+              <li><a href='/produits/napoli'>Napoli</a></li>
+              <li><a href='/produits/torino'>Torino</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <button class="mobile-accordion-toggle">La marque <span class="mobile-arrow">▾</span></button>
+          <div class="mobile-submenu">
+            <ul>
+              <li><a href='/a-propos'>Notre histoire</a></li>
+              <li><a href='/a-propos#engagements'>Nos engagements</a></li>
+              <li><a href='/a-propos#technologies'>Nos technologies</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a href='/revendeurs'>Nos magasins</a></li>
+        <li><a href='/blog'>Blog</a></li>
+        <li><a href='/espace-pro'>Espace pro</a></li>
+      </ul>
+      <a class='nav__mobile-cta' href='/revendeurs'>Trouver un revendeur</a>
+    </div>
+  </header>
+
+  <!-- HERO GAMME -->
+  <section class="gamme-hero" style="background-color: #253a4c;">
+    <div class="container">
+      <p class="gamme-hero__eyebrow">Gamme</p>
+      <h1 class="gamme-hero__title">Luxury</h1>
+      <p class="gamme-hero__tagline">L'excellence absolue,<br><em>brevetée et sans compromis.</em></p>
+    </div>
+  </section>
+
+  <!-- LIGNE MASSAGE -->
+  <section class="gamme-models">
+    <div class="container">
+      <div class="gamme-models__intro">
+        <h2>Ligne <em>Massage</em></h2>
+        <p>Des spas conçus pour un massage puissant et ciblé, avec des buses positionnées pour couvrir chaque zone du corps.</p>
+      </div>
+
+      <div class="gamme-models__grid">
+
+        <!-- Roma -->
+        <article class="model-card">
+          <div class="model-card__image">
+            <div class="model-card__placeholder">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c7a260" stroke-width="1">
+                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+              </svg>
+              <span>Photo Roma</span>
+            </div>
+          </div>
+          <div class="model-card__content">
+            <h3 class="model-card__name"><a href='/produits/roma'>Roma</a></h3>
+            <p class="model-card__subtitle">Le grand classique familial</p>
+            <div class="model-card__specs">
+              <div class="spec">
+                <span class="spec__label">Places</span>
+                <span class="spec__value">5 assises + 1 allongée</span>
+              </div>
+              <div class="spec">
+                <span class="spec__label">Hydrojets</span>
+                <span class="spec__value">58 buses</span>
+              </div>
+              <div class="spec">
+                <span class="spec__label">Dimensions</span>
+                <span class="spec__value">210 × 210 × 88 cm</span>
+              </div>
+            </div>
+          
+            <a class='model-card__link' href='/produits/roma'>Découvrir ce spa →</a>
+          </div></article>
+
+        <!-- Napoli -->
+        <article class="model-card">
+          <div class="model-card__image">
+            <div class="model-card__placeholder">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c7a260" stroke-width="1">
+                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+              </svg>
+              <span>Photo Napoli</span>
+            </div>
+          </div>
+          <div class="model-card__content">
+            <h3 class="model-card__name"><a href='/produits/napoli'>Napoli</a></h3>
+            <p class="model-card__subtitle">L'allongé par excellence</p>
+            <div class="model-card__specs">
+              <div class="spec">
+                <span class="spec__label">Places</span>
+                <span class="spec__value">3 assises + 2 allongées</span>
+              </div>
+              <div class="spec">
+                <span class="spec__label">Hydrojets</span>
+                <span class="spec__value">68 buses</span>
+              </div>
+              <div class="spec">
+                <span class="spec__label">Dimensions</span>
+                <span class="spec__value">210 × 210 × 88 cm</span>
+              </div>
+            </div>
+          
+            <a class='model-card__link' href='/produits/napoli'>Découvrir ce spa →</a>
+          </div></article>
+
+        <!-- Torino -->
+        <article class="model-card">
+          <div class="model-card__image">
+            <div class="model-card__placeholder">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c7a260" stroke-width="1">
+                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+              </svg>
+              <span>Photo Torino</span>
+            </div>
+          </div>
+          <div class="model-card__content">
+            <h3 class="model-card__name"><a href='/produits/torino'>Torino</a></h3>
+            <p class="model-card__subtitle">Le compact premium</p>
+            <div class="model-card__specs">
+              <div class="spec">
+                <span class="spec__label">Places</span>
+                <span class="spec__value">2 assises + 1 allongée</span>
+              </div>
+              <div class="spec">
+                <span class="spec__label">Hydrojets</span>
+                <span class="spec__value">50 buses</span>
+              </div>
+              <div class="spec">
+                <span class="spec__label">Dimensions</span>
+                <span class="spec__value">210 × 170 × 88 cm</span>
+              </div>
+            </div>
+          
+            <a class='model-card__link' href='/produits/torino'>Découvrir ce spa →</a>
+          </div></article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGNE THÉRAPEUTIQUE -->
+  <section class="gamme-models gamme-models--alt">
+    <div class="container">
+      <div class="gamme-models__intro">
+        <h2>Ligne <em>Thérapeutique</em></h2>
+        <p>La quintessence du soin à domicile. Des spas grand format avec un nombre de buses exceptionnel pour un massage thérapeutique complet.</p>
+      </div>
+
+      <div class="gamme-models__grid">
+
+        <!-- Roma Luxe -->
+        <article class="model-card">
+          <div class="model-card__image">
+            <div class="model-card__placeholder">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c7a260" stroke-width="1">
+                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+              </svg>
+              <span>Photo Roma Luxe</span>
+            </div>
+          </div>
+          <div class="model-card__content">
+            <span class="model-card__badge">Luxe</span>
+            <h3 class="model-card__name"><a href='/produits/roma-luxe'>Roma Luxe</a></h3>
+            <p class="model-card__subtitle">Le sommet de la gamme</p>
+            <div class="model-card__specs">
+              <div class="spec">
+                <span class="spec__label">Places</span>
+                <span class="spec__value">5 assises + 1 allongée</span>
+              </div>
+              <div class="spec">
+                <span class="spec__label">Hydrojets</span>
+                <span class="spec__value">106 buses</span>
+              </div>
+              <div class="spec">
+                <span class="spec__label">Dimensions</span>
+                <span class="spec__value">230 × 230 × 88 cm</span>
+              </div>
+            </div>
+          
+            <a class='model-card__link' href='/produits/roma-luxe'>Découvrir ce spa →</a>
+          </div></article>
+
+        <!-- Napoli Luxe -->
+        <article class="model-card">
+          <div class="model-card__image">
+            <div class="model-card__placeholder">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c7a260" stroke-width="1">
+                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+              </svg>
+              <span>Photo Napoli Luxe</span>
+            </div>
+          </div>
+          <div class="model-card__content">
+            <span class="model-card__badge">Luxe</span>
+            <h3 class="model-card__name"><a href='/produits/napoli-luxe'>Napoli Luxe</a></h3>
+            <p class="model-card__subtitle">L'immersion thérapeutique</p>
+            <div class="model-card__specs">
+              <div class="spec">
+                <span class="spec__label">Places</span>
+                <span class="spec__value">3 assises + 2 allongées</span>
+              </div>
+              <div class="spec">
+                <span class="spec__label">Hydrojets</span>
+                <span class="spec__value">104 buses</span>
+              </div>
+              <div class="spec">
+                <span class="spec__label">Dimensions</span>
+                <span class="spec__value">230 × 230 × 88 cm</span>
+              </div>
+            </div>
+          
+            <a class='model-card__link' href='/produits/napoli-luxe'>Découvrir ce spa →</a>
+          </div></article>
+
+        <!-- Torino Luxe -->
+        <article class="model-card">
+          <div class="model-card__image">
+            <div class="model-card__placeholder">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c7a260" stroke-width="1">
+                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+              </svg>
+              <span>Photo Torino Luxe</span>
+            </div>
+          </div>
+          <div class="model-card__content">
+            <span class="model-card__badge">Luxe</span>
+            <h3 class="model-card__name"><a href='/produits/torino-luxe'>Torino Luxe</a></h3>
+            <p class="model-card__subtitle">Le thérapeutique compact</p>
+            <div class="model-card__specs">
+              <div class="spec">
+                <span class="spec__label">Places</span>
+                <span class="spec__value">2 assises + 1 allongée</span>
+              </div>
+              <div class="spec">
+                <span class="spec__label">Hydrojets</span>
+                <span class="spec__value">68 buses</span>
+              </div>
+              <div class="spec">
+                <span class="spec__label">Dimensions</span>
+                <span class="spec__value">210 × 170 × 88 cm</span>
+              </div>
+            </div>
+          
+            <a class='model-card__link' href='/produits/torino-luxe'>Découvrir ce spa →</a>
+          </div></article>
+
+        <!-- Napoli XL -->
+        <article class="model-card">
+          <div class="model-card__image"><div class="model-card__placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c7a260" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Photo Napoli XL</span></div></div>
+          <div class="model-card__content">
+            <h3 class="model-card__name"><a href='../produits/napoli-xl.html'>Napoli XL</a></h3>
+            <p class="model-card__subtitle">Gamme Massage — Format XL</p>
+            <div class="model-card__specs">
+              <div class="spec"><span class="spec__label">Places</span><span class="spec__value">3 assises + 2 allongées</span></div>
+              <div class="spec"><span class="spec__label">Buses</span><span class="spec__value">64</span></div>
+              <div class="spec"><span class="spec__label">Dimensions</span><span class="spec__value">230 × 230 × 88 cm</span></div>
+            </div>
+            <a class='model-card__link' href='../produits/napoli-xl.html'>Découvrir ce spa →</a>
+          </div>
+        </article>
+
+        <!-- Napoli Anniversaire -->
+        <article class="model-card">
+          <div class="model-card__image"><div class="model-card__placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c7a260" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Photo Napoli Anniversaire</span></div></div>
+          <div class="model-card__content">
+            <h3 class="model-card__name"><a href='../produits/napoli-anniversaire.html'>Napoli Anniversaire</a></h3>
+            <p class="model-card__subtitle">Gamme Massage — Édition spéciale</p>
+            <div class="model-card__specs">
+              <div class="spec"><span class="spec__label">Places</span><span class="spec__value">3 assises + 2 allongées</span></div>
+              <div class="spec"><span class="spec__label">Buses</span><span class="spec__value">75</span></div>
+              <div class="spec"><span class="spec__label">Dimensions</span><span class="spec__value">210 × 210 × 85 cm</span></div>
+            </div>
+            <a class='model-card__link' href='../produits/napoli-anniversaire.html'>Découvrir ce spa →</a>
+          </div>
+        </article>
+
+        <!-- Roma XL -->
+        <article class="model-card">
+          <div class="model-card__image"><div class="model-card__placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c7a260" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Photo Roma XL</span></div></div>
+          <div class="model-card__content">
+            <h3 class="model-card__name"><a href='../produits/roma-xl.html'>Roma XL</a></h3>
+            <p class="model-card__subtitle">Gamme Massage — Format XL</p>
+            <div class="model-card__specs">
+              <div class="spec"><span class="spec__label">Places</span><span class="spec__value">5 assises + 1 allongée</span></div>
+              <div class="spec"><span class="spec__label">Buses</span><span class="spec__value">62</span></div>
+              <div class="spec"><span class="spec__label">Dimensions</span><span class="spec__value">230 × 230 × 88 cm</span></div>
+            </div>
+            <a class='model-card__link' href='../produits/roma-xl.html'>Découvrir ce spa →</a>
+          </div>
+        </article>
+
+        <!-- Roma Anniversaire -->
+        <article class="model-card">
+          <div class="model-card__image"><div class="model-card__placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c7a260" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Photo Roma Anniversaire</span></div></div>
+          <div class="model-card__content">
+            <h3 class="model-card__name"><a href='../produits/roma-anniversaire.html'>Roma Anniversaire</a></h3>
+            <p class="model-card__subtitle">Gamme Massage — Édition spéciale</p>
+            <div class="model-card__specs">
+              <div class="spec"><span class="spec__label">Places</span><span class="spec__value">5 assises + 1 allongée</span></div>
+              <div class="spec"><span class="spec__label">Buses</span><span class="spec__value">64</span></div>
+              <div class="spec"><span class="spec__label">Dimensions</span><span class="spec__value">210 × 210 × 85 cm</span></div>
+            </div>
+            <a class='model-card__link' href='../produits/roma-anniversaire.html'>Découvrir ce spa →</a>
+          </div>
+        </article>
+
+        <!-- Signature S -->
+        <article class="model-card">
+          <div class="model-card__image"><div class="model-card__placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c7a260" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Photo Signature S</span></div></div>
+          <div class="model-card__content">
+            <h3 class="model-card__name"><a href='../produits/signature-s.html'>Signature S</a></h3>
+            <p class="model-card__subtitle">Gamme Thérapeutique — 2 allongées</p>
+            <div class="model-card__specs">
+              <div class="spec"><span class="spec__label">Places</span><span class="spec__value">2 allongées</span></div>
+              <div class="spec"><span class="spec__label">Buses</span><span class="spec__value">36</span></div>
+              <div class="spec"><span class="spec__label">Dimensions</span><span class="spec__value">220 × 170 × 88 cm</span></div>
+            </div>
+            <a class='model-card__link' href='../produits/signature-s.html'>Découvrir ce spa →</a>
+          </div>
+        </article>
+
+        <!-- Signature M -->
+        <article class="model-card">
+          <div class="model-card__image"><div class="model-card__placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c7a260" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Photo Signature M</span></div></div>
+          <div class="model-card__content">
+            <h3 class="model-card__name"><a href='../produits/signature-m.html'>Signature M</a></h3>
+            <p class="model-card__subtitle">Gamme Thérapeutique — 4 allongées</p>
+            <div class="model-card__specs">
+              <div class="spec"><span class="spec__label">Places</span><span class="spec__value">4 allongées</span></div>
+              <div class="spec"><span class="spec__label">Buses</span><span class="spec__value">50</span></div>
+              <div class="spec"><span class="spec__label">Dimensions</span><span class="spec__value">220 × 225 × 88 cm</span></div>
+            </div>
+            <a class='model-card__link' href='../produits/signature-m.html'>Découvrir ce spa →</a>
+          </div>
+        </article>
+
+        <!-- Signature XL -->
+        <article class="model-card">
+          <div class="model-card__image"><div class="model-card__placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c7a260" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Photo Signature XL</span></div></div>
+          <div class="model-card__content">
+            <h3 class="model-card__name"><a href='../produits/signature-xl.html'>Signature XL</a></h3>
+            <p class="model-card__subtitle">Gamme Thérapeutique — 6 allongées</p>
+            <div class="model-card__specs">
+              <div class="spec"><span class="spec__label">Places</span><span class="spec__value">6 allongées</span></div>
+              <div class="spec"><span class="spec__label">Buses</span><span class="spec__value">68</span></div>
+              <div class="spec"><span class="spec__label">Dimensions</span><span class="spec__value">380 × 220 × 88 cm</span></div>
+            </div>
+            <a class='model-card__link' href='../produits/signature-xl.html'>Découvrir ce spa →</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ÉQUIPEMENTS DE SÉRIE -->
+  <section class="gamme-equipment">
+    <div class="container">
+      <h2>Équipements <em>de série</em></h2>
+      <p class="gamme-equipment__intro">La gamme Luxury intègre l'ensemble des technologies Giovanni Riboli, plus des exclusivités brevetées.</p>
+      <div class="gamme-equipment__grid">
+        <div class="equip-item">
+          <div class="equip-item__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c7a260" stroke-width="1.5" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <h4>Massage séquentiel robotisé</h4>
+          <p>Technologie brevetée Giovanni Riboli : les buses s'activent en séquence pour simuler les mains d'un masseur professionnel.</p>
+        </div>
+        <div class="equip-item">
+          <div class="equip-item__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c7a260" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h4>Aromathérapie</h4>
+          <p>Diffuseur d'essences intégré pour une stimulation olfactive relaxante.</p>
+        </div>
+        <div class="equip-item">
+          <div class="equip-item__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c7a260" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+          </div>
+          <h4>Commande tactile</h4>
+          <p>Interface tactile intuitive pour un contrôle total de votre expérience spa.</p>
+        </div>
+        <div class="equip-item">
+          <div class="equip-item__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c7a260" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72 1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          </div>
+          <h4>Chromothérapie</h4>
+          <p>Éclairage LED multicolore pour une ambiance sur mesure.</p>
+        </div>
+        <div class="equip-item">
+          <div class="equip-item__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c7a260" stroke-width="1.5" stroke-linecap="round"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"/></svg>
+          </div>
+          <h4>UV PURE + Balboa</h4>
+          <p>Désinfection UV et système Balboa pour une eau pure et un contrôle précis.</p>
+        </div>
+        <div class="equip-item">
+          <div class="equip-item__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c7a260" stroke-width="1.5" stroke-linecap="round"><path d="M12 3v18m-6-6 6 6 6-6"/></svg>
+          </div>
+          <h4>Couverture isotherme + Isolation</h4>
+          <p>Isolation haute performance et couverture pour un maintien thermique optimal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="gamme-cta">
+    <div class="container">
+      <h2>Vivez l'expérience Luxury <em>en magasin</em></h2>
+      <p>Nos conseillers vous accueillent pour une démonstration personnalisée de nos modèles haut de gamme.</p>
+      <a class='btn btn--primary' href='/revendeurs'>Trouver un revendeur</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="contact">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img src="../assets/logo-blanc.svg" alt="Giovanni Riboli" class="footer__logo">
+        <p class="footer__tagline">L'art du spa à domicile.</p>
+        <p class="footer__address">Giovanni Riboli SAS — France</p>
+      </div>
+      <div class="footer__nav">
+        <h4>Nos spas</h4>
+        <a href='/gammes/luxury'>Gamme Luxury</a>
+        <a href='/gammes/energy'>Gamme Energy</a>
+        <a href='/gammes/relax'>Gamme Relax</a>
+        <a href='/gammes/spa-de-nage'>Spa de nage</a>
+      </div>
+      <div class="footer__nav">
+        <h4>La marque</h4>
+        <a href='/a-propos'>À propos</a>
+        <a href='/revendeurs'>Nos magasins</a>
+        <a href='/quiz'>Configurateur</a>
+        <a href='/espace-pro'>Espace revendeur</a>
+      </div>
+      <div class="footer__nav">
+        <h4>Contact</h4>
+        <a href="mailto:contact@gr-spa.com">contact@gr-spa.com</a>
+        <a href='/blog'>Blog &amp; Actualités</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container">
+        <p>© 2026 Giovanni Riboli SAS — Tous droits réservés</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

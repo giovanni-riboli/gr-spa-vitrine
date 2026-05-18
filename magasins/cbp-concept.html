@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBP CONCEPT — Giovanni Riboli</title>
+    <meta name="description" content="Revendeur Giovanni Riboli — CBP CONCEPT à CLERMONT FERRAND. Spas et spas de nage haut de gamme.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .shop-hero {
+            background: #253a4c;
+            padding: 140px 24px 60px;
+            text-align: center;
+        }
+        .shop-hero .breadcrumb {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 0.08em;
+            margin-bottom: 24px;
+        }
+        .shop-hero .breadcrumb a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .shop-hero .breadcrumb a:hover { color: #c7a260; }
+        .shop-hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.2rem, 5vw, 3.4rem);
+            font-weight: 400;
+            color: #fff;
+            margin: 0 0 12px;
+            letter-spacing: 0.03em;
+        }
+        .shop-hero .subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: #c7a260;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        .shop-info {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+        }
+        .shop-info-left h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #253a4c;
+            margin: 0 0 24px;
+        }
+        .store-detail {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            color: #555;
+            line-height: 1.8;
+            margin: 0 0 12px;
+        }
+        .store-detail a {
+            color: #253a4c;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .store-detail a:hover { color: #c7a260; }
+        .shop-info-right {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .map-placeholder {
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, #e8e4df 0%, #d4cfc8 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+        }
+        .shop-gammes {
+            background: #f8f6f2;
+            padding: 60px 24px;
+            text-align: center;
+        }
+        .shop-gammes h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #253a4c;
+            margin: 0 0 32px;
+        }
+        .gammes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .gamme-card {
+            background: #fff;
+            padding: 32px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #253a4c;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .gamme-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+        .gamme-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin: 0 0 8px;
+        }
+        .gamme-card p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            color: #c7a260;
+            margin: 0;
+        }
+        @media (max-width: 768px) {
+            .shop-info { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+  <header class="nav nav--solid" id="nav">
+    <div class="nav__inner">
+      <a class='nav__logo' href='/'>
+        <img src="../assets/logo-noir.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-dark">
+        <img src="../assets/logo-blanc.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-light">
+      </a>
+      <ul class="nav__menu">
+        <li>
+          <a href="#">Nos spas</a>
+          <div class="mega-menu">
+            <div class="mega-menu__inner">
+              <div class="mega-menu__col">
+                <div class="mega-menu__col-title">Nos gammes</div>
+                <ul>
+                  <li><a href='/gammes/relax'>Gamme Relax</a></li>
+                  <li><a href='/gammes/energy'>Gamme Energy</a></li>
+                  <li><a href='/gammes/luxury'>Gamme Luxury</a></li>
+                  <li><a href='/gammes/spa-de-nage'>Spa de nage</a></li>
+                </ul>
+              </div>
+              <div class="mega-menu__col">
+                <div class="mega-menu__col-title">Nos modèles</div>
+                <ul>
+                  <li><a href='/produits/amalfi'>Amalfi</a></li>
+                  <li><a href='/produits/bari'>Bari</a></li>
+                  <li><a href='/produits/capri'>Capri</a></li>
+                  <li><a href='/produits/roma'>Roma</a></li>
+                  <li><a href='/produits/napoli'>Napoli</a></li>
+                  <li><a href='/produits/torino'>Torino</a></li>
+                  <li><a href='/produits/napoli-luxe'>Napoli Luxe</a></li>
+                  <li><a href='/produits/roma-luxe'>Roma Luxe</a></li>
+                  <li><a href='/produits/torino-luxe'>Torino Luxe</a></li>
+                </ul>
+              </div>
+              <div class="mega-menu__visual">
+                <div class="mega-menu__visual-placeholder"></div>
+                <a class='mega-cta' href='/gammes/luxury'>Voir tous les modèles</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a href="#">La marque</a>
+          <div class="mega-menu mega-menu--brand">
+            <div class="mega-menu__inner">
+              <div class="mega-menu__col">
+                <ul>
+                  <li><a href='/a-propos'>Notre histoire</a></li>
+                  <li><a href='/a-propos#engagements'>Nos engagements</a></li>
+                  <li><a href='/a-propos#technologies'>Nos technologies</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href='/revendeurs'>Nos magasins</a></li>
+        <li><a href='/blog'>Blog</a></li>
+        <li><a href='/espace-pro'>Espace pro</a></li>
+      </ul>
+      <div class="nav__right">
+        <a class='nav__cta' href='/revendeurs'>Trouver un revendeur</a>
+        <button class="nav__search-btn" aria-label="Rechercher"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35" stroke-linecap="round"/></svg></button>
+      </div>
+      <button class="nav__burger" id="navBurger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <!-- Mobile overlay -->
+    <div class="nav__mobile-overlay" id="navMobile">
+      <ul>
+        <li>
+          <button class="mobile-accordion-toggle">Nos spas <span class="mobile-arrow">▾</span></button>
+          <div class="mobile-submenu">
+            <div class="mobile-sub-title">Nos gammes</div>
+            <ul>
+              <li><a href='/gammes/relax'>Gamme Relax</a></li>
+              <li><a href='/gammes/energy'>Gamme Energy</a></li>
+              <li><a href='/gammes/luxury'>Gamme Luxury</a></li>
+              <li><a href='/gammes/spa-de-nage'>Spa de nage</a></li>
+            </ul>
+            <div class="mobile-sub-title">Nos modèles</div>
+            <ul>
+              <li><a href='/produits/amalfi'>Amalfi</a></li>
+              <li><a href='/produits/bari'>Bari</a></li>
+              <li><a href='/produits/capri'>Capri</a></li>
+              <li><a href='/produits/roma'>Roma</a></li>
+              <li><a href='/produits/napoli'>Napoli</a></li>
+              <li><a href='/produits/torino'>Torino</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <button class="mobile-accordion-toggle">La marque <span class="mobile-arrow">▾</span></button>
+          <div class="mobile-submenu">
+            <ul>
+              <li><a href='/a-propos'>Notre histoire</a></li>
+              <li><a href='/a-propos#engagements'>Nos engagements</a></li>
+              <li><a href='/a-propos#technologies'>Nos technologies</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a href='/revendeurs'>Nos magasins</a></li>
+        <li><a href='/blog'>Blog</a></li>
+        <li><a href='/espace-pro'>Espace pro</a></li>
+      </ul>
+      <a class='nav__mobile-cta' href='/revendeurs'>Trouver un revendeur</a>
+    </div>
+  </header>
+
+    <!-- HERO -->
+    <section class="shop-hero">
+        <div class="breadcrumb">
+            <a href='/revendeurs'>Nos magasins</a> / CBP CONCEPT
+        </div>
+        <h1>CBP CONCEPT</h1>
+        <p class="subtitle">Revendeur agréé Giovanni Riboli</p>
+    </section>
+
+    <!-- INFOS -->
+    <section class="shop-info">
+        <div class="shop-info-left">
+            <h2>Informations</h2>
+            <p class="store-detail">📍 17 BIS BLD JEAN MOULIN<br>63000 CLERMONT FERRAND</p>
+            <p class="store-detail">📞 <a href="tel:0744937143">07-44-93-71-43</a></p>
+            <p class="store-detail">✉️ <a href="mailto:cbp.contact63@gmail.com">cbp.contact63@gmail.com</a></p>
+            <p class="store-detail">👤 Philippe LEDUC</p>
+        </div>
+        <div class="shop-info-right">
+            <div id="shopMap" style="width:100%;height:360px;border-radius:4px;"></div>
+    <script>
+    function initShopMap_cbp_concept() {
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({address: "17 BIS BLD JEAN MOULIN 63000 CLERMONT FERRAND, France"}, function(results, status) {
+            if (status === 'OK') {
+                var map = new google.maps.Map(document.getElementById('shopMap'), {
+                    center: results[0].geometry.location, zoom: 14,
+                    styles:[{featureType:'poi',elementType:'all',stylers:[{visibility:'off'}]},{featureType:'water',elementType:'geometry',stylers:[{color:'#e8f0f4'}]},{featureType:'landscape',elementType:'geometry',stylers:[{color:'#f8f6f2'}]}]
+                });
+                new google.maps.Marker({position:results[0].geometry.location,map:map,icon:{path:google.maps.SymbolPath.CIRCLE,scale:10,fillColor:'#c7a260',fillOpacity:1,strokeColor:'#ffffff',strokeWeight:2}});
+            }
+        });
+    }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIhhwEmidNOgH7GGmUSOXJlqq8aJ2cKeE&callback=initShopMap_cbp_concept"></script>
+        </div>
+    </section>
+
+    <!-- GAMMES -->
+    <section class="shop-gammes">
+        <h2>Nos gammes disponibles</h2>
+        <div class="gammes-grid">
+            <a class='gamme-card' href='/gammes/relax'>
+                <h3>Relax</h3>
+                <p>Découvrir</p>
+            </a>
+            <a class='gamme-card' href='/gammes/energy'>
+                <h3>Energy</h3>
+                <p>Découvrir</p>
+            </a>
+            <a class='gamme-card' href='/gammes/luxury'>
+                <h3>Luxury</h3>
+                <p>Découvrir</p>
+            </a>
+            <a class='gamme-card' href='/gammes/spa-de-nage'>
+                <h3>Spa de nage</h3>
+                <p>Découvrir</p>
+            </a>
+        </div>
+    </section>
+
+    <footer class="footer" id="contact">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img src="../assets/logo-blanc.svg" alt="Giovanni Riboli" class="footer__logo">
+        <p class="footer__tagline">L'art du spa à domicile.</p>
+        <p class="footer__address">Giovanni Riboli SAS — France</p>
+      </div>
+      <div class="footer__nav">
+        <h4>Nos spas</h4>
+        <a href='/gammes/luxury'>Gamme Luxury</a>
+        <a href='/gammes/energy'>Gamme Energy</a>
+        <a href='/gammes/relax'>Gamme Relax</a>
+        <a href='/gammes/spa-de-nage'>Spa de nage</a>
+      </div>
+      <div class="footer__nav">
+        <h4>La marque</h4>
+        <a href='/a-propos'>À propos</a>
+        <a href='/revendeurs'>Nos magasins</a>
+        <a href='/quiz'>Configurateur</a>
+        <a href='/espace-pro'>Espace revendeur</a>
+      </div>
+      <div class="footer__nav">
+        <h4>Contact</h4>
+        <a href="mailto:contact@gr-spa.com">contact@gr-spa.com</a>
+        <a href='/blog'>Blog &amp; Actualités</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container">
+        <p>© 2026 Giovanni Riboli SAS — Tous droits réservés</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

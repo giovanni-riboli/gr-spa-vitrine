@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Giovanni Riboli — Votre retour</title>
+  <style>
+    body{margin:0;padding:20px;background:#1a2d3e;font-family:Arial,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh}
+    .card{background:#253a4c;border-radius:12px;padding:48px 40px;max-width:480px;width:100%;border-top:4px solid #c7a260;text-align:center}
+    img{width:140px;margin-bottom:24px}
+    h1{font-size:26px;color:#fff;margin:0 0 16px}
+    p{color:#ccd8e0;line-height:1.7;font-size:15px;margin:0 0 12px}
+    .spinner{border:3px solid #3a5570;border-top:3px solid #c7a260;border-radius:50%;width:32px;height:32px;animation:spin 1s linear infinite;margin:20px auto}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    a{display:inline-block;margin-top:20px;background:#c7a260;color:#1a2d3e;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:700}
+  </style>
+</head>
+<body>
+<div class="card">
+  <img src="/assets/logo-blanc.svg" alt="Giovanni Riboli">
+  <div class="spinner" id="spinner"></div>
+  <div id="content"></div>
+</div>
+<script>
+const params = new URLSearchParams(window.location.search);
+const id = params.get('id');
+const rep = params.get('rep');
+
+const SUPABASE_URL = 'https://ohjzggceozamhdesecxi.supabase.co';
+const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oanpnZ2Nlb3phbWhkZXNlY3hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Njc5MDYsImV4cCI6MjA5MjM0MzkwNn0.wW-tqXBDUtKURR31bh3CUWIcuYMUJTZLqq2LLT1kJnA';
+
+async function process() {
+  if (!id || !rep) {
+    show('Lien invalide.', false);
+    return;
+  }
+
+  try {
+    const statut = rep === 'oui' ? 'contacte' : 'non_contacte';
+
+    // Mettre à jour Supabase (CORS OK car domaine autorisé)
+    await fetch(`${SUPABASE_URL}/rest/v1/leads?id=eq.${encodeURIComponent(id)}`, {
+      method: 'PATCH',
+      headers: {
+        'apikey': ANON_KEY,
+        'Authorization': `Bearer ${ANON_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ statut, feedback_at: new Date().toISOString() })
+    });
+
+    document.getElementById('spinner').style.display = 'none';
+
+    if (rep === 'oui') {
+      document.getElementById('content').innerHTML = '<h1 style="color:#2d7a3a">✅ Merci pour votre retour !</h1><p>Nous sommes ravis que notre équipe ait pu vous contacter.<br>À bientôt chez Giovanni Riboli !</p><a href="https://gr-spa.com">Visiter notre site</a>';
+    } else {
+      document.getElementById('content').innerHTML = '<h1 style="color:#c7a260">📩 Message bien reçu</h1><p>Nous avons transmis votre retour à notre équipe.<br>Un responsable va vous recontacter très prochainement.<br>Toutes nos excuses pour ce délai.</p><a href="https://gr-spa.com">Visiter notre site</a>';
+    }
+  } catch(e) {
+    document.getElementById('spinner').style.display = 'none';
+    document.getElementById('content').innerHTML = '<p>Une erreur est survenue. Merci de réessayer.</p>';
+  }
+}
+
+process();
+</script>
+</body>
+</html>

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giovanni Riboli — Fabricant de Spas Premium</title>
+  <meta name="description" content="Giovanni Riboli, fabricant européen de spas et spas de nage haut de gamme. Garantie 10 ans, +40 magasins en France.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <!-- NAV — Mega Menu -->
+  <header class="nav nav--transparent" id="nav">
+    <div class="nav__inner">
+      <a class='nav__logo' href='/'>
+        <img src="assets/logo-noir.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-dark">
+        <img src="assets/logo-blanc.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-light">
+      </a>
+      <ul class="nav__menu">
+        <li>
+          <a href="#">Nos spas</a>
+          <div class="mega-menu">
+            <div class="mega-menu__inner">
+              <div class="mega-menu__col">
+                <div class="mega-menu__col-title">Nos gammes</div>
+                <ul>
+                  <li><a href='/gammes/relax'>Gamme Relax</a></li>
+                  <li><a href='/gammes/energy'>Gamme Energy</a></li>
+                  <li><a href='/gammes/luxury'>Gamme Luxury</a></li>
+                  <li><a href='/gammes/spa-de-nage'>Spa de nage</a></li>
+                </ul>
+              </div>
+              <div class="mega-menu__col">
+                <div class="mega-menu__col-title">Nos modèles</div>
+                <ul>
+                  <li><a href='/produits/amalfi'>Amalfi</a></li>
+                  <li><a href='/produits/bari'>Bari</a></li>
+                  <li><a href='/produits/capri'>Capri</a></li>
+                  <li><a href='/produits/roma'>Roma</a></li>
+                  <li><a href='/produits/napoli'>Napoli</a></li>
+                  <li><a href='/produits/torino'>Torino</a></li>
+                  <li><a href='/produits/napoli-luxe'>Napoli Luxe</a></li>
+                  <li><a href='/produits/roma-luxe'>Roma Luxe</a></li>
+                  <li><a href='/produits/torino-luxe'>Torino Luxe</a></li>
+                </ul>
+              </div>
+              <div class="mega-menu__visual">
+                <div class="mega-menu__visual-placeholder"></div>
+                <a href="#" class="mega-cta">Voir tous les modèles</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a href="#">La marque</a>
+          <div class="mega-menu mega-menu--brand">
+            <div class="mega-menu__inner">
+              <div class="mega-menu__col">
+                <ul>
+                  <li><a href='/a-propos'>Notre histoire</a></li>
+                  <li><a href='/a-propos#engagements'>Nos engagements</a></li>
+                  <li><a href='/a-propos#technologies'>Nos technologies</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href='/revendeurs'>Nos magasins</a></li>
+        <li><a href='/blog'>Blog</a></li>
+        <li><a href='/espace-pro'>Espace pro</a></li>
+      </ul>
+      <div class="nav__right">
+        <a class='nav__cta' href='/revendeurs'>Trouver un revendeur</a>
+        <button class="nav__search-btn" aria-label="Rechercher"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35" stroke-linecap="round"/></svg></button>
+      </div>
+      <button class="nav__burger" id="navBurger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <!-- Mobile overlay -->
+    <div class="nav__mobile-overlay" id="navMobile">
+      <ul>
+        <li>
+          <button class="mobile-accordion-toggle">Nos spas <span class="mobile-arrow">▾</span></button>
+          <div class="mobile-submenu">
+            <div class="mobile-sub-title">Nos gammes</div>
+            <ul>
+              <li><a href='/gammes/relax'>Gamme Relax</a></li>
+              <li><a href='/gammes/energy'>Gamme Energy</a></li>
+              <li><a href='/gammes/luxury'>Gamme Luxury</a></li>
+              <li><a href='/gammes/spa-de-nage'>Spa de nage</a></li>
+            </ul>
+            <div class="mobile-sub-title">Nos modèles</div>
+            <ul>
+              <li><a href='/produits/amalfi'>Amalfi</a></li>
+              <li><a href='/produits/bari'>Bari</a></li>
+              <li><a href='/produits/capri'>Capri</a></li>
+              <li><a href='/produits/roma'>Roma</a></li>
+              <li><a href='/produits/napoli'>Napoli</a></li>
+              <li><a href='/produits/torino'>Torino</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <button class="mobile-accordion-toggle">La marque <span class="mobile-arrow">▾</span></button>
+          <div class="mobile-submenu">
+            <ul>
+              <li><a href='/a-propos'>Notre histoire</a></li>
+              <li><a href='/a-propos#engagements'>Nos engagements</a></li>
+              <li><a href='/a-propos#technologies'>Nos technologies</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a href='/revendeurs'>Nos magasins</a></li>
+        <li><a href='/blog'>Blog</a></li>
+        <li><a href='/espace-pro'>Espace pro</a></li>
+      </ul>
+      <a class='nav__mobile-cta' href='/revendeurs'>Trouver un revendeur</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__bg">
+      <!-- Placeholder photo — sera remplacé par photo ambiance -->
+      <div class="hero__placeholder"></div>
+    </div>
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <p class="hero__eyebrow">Fabricant européen depuis 2007</p>
+      <h1 class="hero__title">L'art du spa<br><em>à domicile</em></h1>
+      <p class="hero__subtitle">Des spas conçus pour transformer votre quotidien.<br>Garantie fabricant 10 ans. +40 magasins en France.</p>
+      <div class="hero__actions">
+        <a href="#gammes" class="btn btn--primary">Découvrir nos gammes</a>
+        <a href="#quiz" class="btn btn--ghost">Trouver mon spa</a>
+      </div>
+    </div>
+    <div class="hero__scroll">
+      <span>Défiler</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- CHIFFRES CLÉS -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats__grid">
+        <div class="stats__item">
+          <span class="stats__number">+40</span>
+          <span class="stats__label">Magasins en France</span>
+        </div>
+        <div class="stats__divider"></div>
+        <div class="stats__item">
+          <span class="stats__number">10</span>
+          <span class="stats__label">Ans de garantie fabricant</span>
+        </div>
+        <div class="stats__divider"></div>
+        <div class="stats__item">
+          <span class="stats__number">–90%</span>
+          <span class="stats__label">De produits chimiques</span>
+        </div>
+        <div class="stats__divider"></div>
+        <div class="stats__item">
+          <span class="stats__number">2007</span>
+          <span class="stats__label">Fondation de la marque</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO MARQUE -->
+  <section class="brand-intro">
+    <div class="container brand-intro__inner">
+      <div class="brand-intro__text">
+        <p class="label">Notre philosophie</p>
+        <h2 class="brand-intro__title">Un spa Giovanni Riboli<br>n'est pas un produit.<br><em>C'est une expérience.</em></h2>
+        <p class="brand-intro__body">Chaque modèle naît d'un cahier des charges exigeant : ergonomie pensée pour le corps, technologie de massage thérapeutique, design intemporel. Fabriqués en Europe, nos spas sont conçus pour durer et pour transformer votre espace extérieur en sanctuaire de bien-être.</p>
+        <a href="#pourquoi" class="link-arrow">Découvrir la marque</a>
+      </div>
+      <div class="brand-intro__visual">
+        <div class="placeholder-img placeholder-img--tall">
+          <span>Photo ambiance spa</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GAMMES -->
+  <section class="gammes" id="gammes">
+    <div class="container">
+      <div class="section-header">
+        <p class="label">Nos collections</p>
+        <h2 class="section-title">Trouvez votre gamme</h2>
+        <p class="section-subtitle">Quatre univers, une seule promesse : l'excellence.</p>
+      </div>
+
+      <div class="gammes__grid">
+
+        <article class="gamme-card gamme-card--large">
+          <div class="gamme-card__img">
+            <div class="placeholder-img"><span>Gamme Luxury</span></div>
+          </div>
+          <div class="gamme-card__content">
+            <p class="gamme-card__tag">Luxury</p>
+            <h3 class="gamme-card__title">L'excellence sans compromis</h3>
+            <p class="gamme-card__body">Nos spas Luxury intègrent les dernières innovations technologiques et les finitions les plus exigeantes. Jusqu'à 106 buses de massage, chromothérapie, aromathérapie.</p>
+            <a class='link-arrow' href='/gammes/luxury'>Explorer la gamme</a>
+          </div>
+        </article>
+
+        <article class="gamme-card">
+          <div class="gamme-card__img">
+            <div class="placeholder-img"><span>Gamme Energy</span></div>
+          </div>
+          <div class="gamme-card__content">
+            <p class="gamme-card__tag">Energy</p>
+            <h3 class="gamme-card__title">Performance & bien-être</h3>
+            <p class="gamme-card__body">La gamme Energy associe puissance de massage et rapport qualité-prix exceptionnel. Le choix des connaisseurs.</p>
+            <a class='link-arrow' href='/gammes/energy'>Explorer la gamme</a>
+          </div>
+        </article>
+
+        <article class="gamme-card">
+          <div class="gamme-card__img">
+            <div class="placeholder-img"><span>Gamme Relax</span></div>
+          </div>
+          <div class="gamme-card__content">
+            <p class="gamme-card__tag">Relax</p>
+            <h3 class="gamme-card__title">L'essentiel, à la perfection</h3>
+            <p class="gamme-card__body">Conçus pour les espaces restreints, les spas Relax apportent confort et détente sans contrainte d'installation.</p>
+            <a class='link-arrow' href='/gammes/relax'>Explorer la gamme</a>
+          </div>
+        </article>
+
+        <article class="gamme-card gamme-card--wide">
+          <div class="gamme-card__img">
+            <div class="placeholder-img"><span>Spa de nage</span></div>
+          </div>
+          <div class="gamme-card__content">
+            <p class="gamme-card__tag">Spa de nage</p>
+            <h3 class="gamme-card__title">Nagez, résistez, dépassez-vous</h3>
+            <p class="gamme-card__body">Jusqu'à 5,80m de longueur avec système de nage à contre-courant. L'alternative intelligente à la piscine, pour ceux qui veulent tout.</p>
+            <a class='link-arrow' href='/gammes/spa-de-nage'>Explorer la gamme</a>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="gammes__cta">
+        <a href="gammes.html" class="btn btn--outline">Voir tous nos modèles</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- POURQUOI GR -->
+  <section class="pourquoi" id="pourquoi">
+    <div class="pourquoi__bg">
+      <div class="placeholder-img"><span>Photo ambiance</span></div>
+    </div>
+    <div class="pourquoi__overlay"></div>
+    <div class="container pourquoi__inner">
+      <div class="pourquoi__content">
+        <p class="label label--light">Pourquoi nous choisir</p>
+        <h2 class="pourquoi__title">Giovanni Riboli,<br>c'est une différence<br><em>que l'on ressent.</em></h2>
+        <div class="pourquoi__items">
+          <div class="pourquoi__item">
+            <div class="pourquoi__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <div>
+              <h4>Fabrication européenne</h4>
+              <p>Qualité de fabrication supérieure, contrôlée à chaque étape de la production.</p>
+            </div>
+          </div>
+          <div class="pourquoi__item">
+            <div class="pourquoi__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636"/></svg>
+            </div>
+            <div>
+              <h4>–90% de produits chimiques</h4>
+              <p>Notre technologie de traitement de l'eau réduit drastiquement les produits chimiques. Une eau plus saine, une utilisation plus simple.</p>
+            </div>
+          </div>
+          <div class="pourquoi__item">
+            <div class="pourquoi__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>
+            </div>
+            <div>
+              <h4>Massage thérapeutique breveté</h4>
+              <p>Un système de massage séquentiel unique, conçu pour le bien-être réel de votre corps.</p>
+            </div>
+          </div>
+          <div class="pourquoi__item">
+            <div class="pourquoi__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+            </div>
+            <div>
+              <h4>Garantie fabricant 10 ans</h4>
+              <p>La tranquillité d'esprit incluse dans chaque achat. SAV réactif, pièces disponibles.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="quiz" id="quiz">
+    <div class="container quiz__inner">
+      <div class="quiz__visual">
+        <div class="placeholder-img placeholder-img--tall"><span>Photo spa installé</span></div>
+      </div>
+      <div class="quiz__content">
+        <p class="label">Outil de sélection</p>
+        <h2 class="quiz__title">Quel spa<br>est fait pour vous ?</h2>
+        <p class="quiz__body">En 3 minutes, notre configurateur analyse vos besoins — espace disponible, nombre d'utilisateurs, usages souhaités — et vous guide vers le modèle idéal.</p>
+        <a class='btn btn--primary' href='/quiz'>Commencer le quiz</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TÉMOIGNAGES -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <p class="label">Ils nous font confiance</p>
+        <h2 class="section-title">Ce que disent<br>nos clients</h2>
+      </div>
+      <div class="testimonials__grid">
+        <blockquote class="testimonial">
+          <div class="testimonial__stars">★★★★★</div>
+          <p class="testimonial__text">«&nbsp;Très satisfaite de mon spa, équipe à l'écoute et disponible. Installation parfaite, utilisation simple, SAV au top. Ravie de mon achat.&nbsp;»</p>
+          <cite class="testimonial__author">Marie L. — Bordeaux</cite>
+        </blockquote>
+        <blockquote class="testimonial">
+          <div class="testimonial__stars">★★★★★</div>
+          <p class="testimonial__text">«&nbsp;Spa Napoli acquis il y a 3 mois, un vrai bonheur quotidien. Excellente expérience avec une équipe sympa, sérieuse et très compétente.&nbsp;»</p>
+          <cite class="testimonial__author">Thomas B. — Lyon</cite>
+        </blockquote>
+        <blockquote class="testimonial">
+          <div class="testimonial__stars">★★★★★</div>
+          <p class="testimonial__text">«&nbsp;Ravis du spa acheté il y a un an. Service après-vente toujours disponible, professionnel et cordial. Un achat vraiment satisfaisant.&nbsp;»</p>
+          <cite class="testimonial__author">Sophie M. — Toulouse</cite>
+        </blockquote>
+        <blockquote class="testimonial">
+          <div class="testimonial__stars">★★★★★</div>
+          <p class="testimonial__text">«&nbsp;Très bon produit, utilisé depuis un an sans problème. Fourniture de pièces et suivi sérieux auprès de mon agence locale.&nbsp;»</p>
+          <cite class="testimonial__author">Pierre D. — Bordeaux</cite>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORE LOCATOR TEASER -->
+  <section class="locator" id="trouver-magasin">
+    <div class="locator__map-placeholder"><div id="homeMap" style="width:100%;height:100%;min-height:500px;"></div></div>
+<div class="locator__panel">
+      <p class="label">+40 points de vente</p>
+      <h2 class="locator__title">Un revendeur<br>près de chez vous</h2>
+      <p class="locator__body">Nos revendeurs agréés vous accueillent en showroom pour vous faire découvrir et tester nos spas en conditions réelles.</p>
+      <div class="locator__search">
+        <input type="text" placeholder="Votre ville ou code postal" class="locator__input" id="locatorInput">
+        <button class="locator__btn" onclick="searchLocator()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+      </div>
+      <a class='link-arrow' href='/revendeurs'>Voir tous les magasins</a>
+    </div>
+  </section>
+
+  <!-- OFFRE TVA BANNER -->
+  <section class="promo-banner">
+    <div class="container promo-banner__inner">
+      <div class="promo-banner__text">
+        <p class="promo-banner__eyebrow">Offre nationale — Du 16 mai au 21 juin 2026</p>
+        <h3 class="promo-banner__title">TVA offerte sur la gamme Luxury</h3>
+        <p class="promo-banner__subtitle">20% de remise immédiate — Voir conditions en magasin</p>
+      </div>
+      <a href="https://go.gr-spa.com/" class="btn btn--gold">En profiter maintenant</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="contact">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img src="./assets/logo-blanc.svg" alt="Giovanni Riboli" class="footer__logo">
+        <p class="footer__tagline">L'art du spa à domicile.</p>
+        <p class="footer__address">Giovanni Riboli SAS — France</p>
+      </div>
+      <div class="footer__nav">
+        <h4>Nos spas</h4>
+        <a href='/gammes/luxury'>Gamme Luxury</a>
+        <a href='/gammes/energy'>Gamme Energy</a>
+        <a href='/gammes/relax'>Gamme Relax</a>
+        <a href='/gammes/spa-de-nage'>Spa de nage</a>
+      </div>
+      <div class="footer__nav">
+        <h4>La marque</h4>
+        <a href='/a-propos'>À propos</a>
+        <a href='/revendeurs'>Nos magasins</a>
+        <a href='/quiz'>Configurateur</a>
+        <a href='/espace-pro'>Espace revendeur</a>
+      </div>
+      <div class="footer__nav">
+        <h4>Contact</h4>
+        <a href="mailto:contact@gr-spa.com">contact@gr-spa.com</a>
+        <a href='/blog'>Blog &amp; Actualités</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container">
+        <p>© 2026 Giovanni Riboli SAS — Tous droits réservés</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- COOKIE BANNER -->
+  <div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-banner__inner">
+      <div class="cookie-banner__text">
+        <p><strong>Nous utilisons des cookies</strong> pour améliorer votre expérience et analyser notre trafic. Vous pouvez accepter ou personnaliser vos préférences.</p>
+      </div>
+      <div class="cookie-banner__actions">
+        <button class="btn btn--outline btn--sm" id="cookieCustomize">Personnaliser</button>
+        <button class="btn btn--ghost-dark btn--sm" id="cookieRefuse">Refuser</button>
+        <button class="btn btn--primary btn--sm" id="cookieAccept">Tout accepter</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+
+    <script>
+    function initHomeMap() {
+        const map = new google.maps.Map(document.getElementById('homeMap'), {
+            center: { lat: 46.5, lng: 2.5 },
+            zoom: 5,
+            disableDefaultUI: true,
+            zoomControl: true,
+            styles: [
+                { featureType: 'all', elementType: 'labels.text.fill', stylers: [{ color: '#253a4c' }] },
+                { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#e8f0f4' }] },
+                { featureType: 'landscape', elementType: 'geometry', stylers: [{ color: '#f8f6f2' }] },
+                { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#ffffff' }] },
+                { featureType: 'poi', elementType: 'all', stylers: [{ visibility: 'off' }] }
+            ]
+        });
+        const geocoder = new google.maps.Geocoder();
+        const infoWindow = new google.maps.InfoWindow();
+
+        const allStores = [
+            {name:"Giovanni Riboli Vaux-sur-Mer", addr:"2 Rue Paul Emile Victor, 17640 Vaux-sur-Mer, France", own:true},
+            {name:"Giovanni Riboli La Rochelle", addr:"152 Rue Emile Normandin, 17000 La Rochelle, France", own:true},
+            {name:"Giovanni Riboli Niort", addr:"264 Avenue de Paris, 79000 Niort, France", own:true},
+            {name:"Giovanni Riboli Bordeaux", addr:"2816 Avenue de Bordeaux, 33127 Saint-Jean-d'Illac, France", own:true},
+            {name:"Giovanni Riboli Toulouse", addr:"72 Route de Paris, 31790 Saint-Jory, France", own:true},
+            {name:"Giovanni Riboli Montpellier", addr:"57 Rue de la Jasse, 34130 Mauguio, France", own:true},
+            {name:"PASSION BIEN ETRE", addr:"18 AVENUE EMILE DIDIER, 05000 GAP, France", own:false},
+            {name:"EAU DIVINE", addr:"8 ROUTE DE VERRIERES, 10450 BREVIANDES, France", own:false},
+            {name:"PMV PISCINES", addr:"LE GIRATOIR DE LA COMBE, 16710 SAINT YRIEX, France", own:false},
+            {name:"ILE DE RE PISCINE", addr:"10 RUE DU COUTORD, 17580 LE BOIS PLAGE EN RE, France", own:false},
+            {name:"L'ILOT FLEURS", addr:"1 ROUTE DES MIROUELLES, 17310 ST PIERRE D'OLERON, France", own:false},
+            {name:"LES SPAS GAILLARDS", addr:"60 AVENUE RIBOT, 19100 BRIVE LA GAILLARDE, France", own:false},
+            {name:"CORSE PISCINE", addr:"ZONE INDUSTRIELLE DE MIGLIACCIARO, 20243 PRUNELLI DI FIUMORBO, France", own:false},
+            {name:"FEVRE VIELLARD PAYSAGE", addr:"50 ROUTE DE DIJON, 21470 BRAZEY EN PLEINE, France", own:false},
+            {name:"PISCINE NOUVELLE VAGUE", addr:"122 ROUTE DE BORDEAUX, 24430 MARSAC SUR LISLE, France", own:false},
+            {name:"CUINET Aménagement Extérieur", addr:"3 RUE DES GOUTTES, 25260 TARCENAY FOUCHERANS, France", own:false},
+            {name:"JL PISCINES", addr:"ROUTE DU MANS, 28400 NOGENT-LE-ROTROU, France", own:false},
+            {name:"MAISON COULEUR", addr:"120 AVENUE JEAN MOULIN, 30900 NIMES, France", own:false},
+            {name:"GE3M TOUT POUR L'EAU", addr:"ZA LES CHAMPAGNES, 31290 VILLEFRANCHE DE LAURAGAIS, France", own:false},
+            {name:"NATURE ET PAYSAGE", addr:"335 RUE DES FRERES LUMIERE, 33400 TALENCE, France", own:false},
+            {name:"AQUATECH", addr:"ZA DE MAGRET, 33430 MARCHEPRIME, France", own:false},
+            {name:"SARL AXELDISTRI ALTI PISCINES", addr:"2 RUE RAYMOND BADIOU, 34500 BEZIERS, France", own:false},
+            {name:"AM PISCINES", addr:"ROUTE DE MONTPELLIER, 34740 VENDARGUES, France", own:false},
+            {name:"ETS COUDRAY", addr:"ROUTE DE SAINT NAZAIRE, 44110 CHATEAUBRIANT, France", own:false},
+            {name:"OCEANO SPA", addr:"220 RUE DU 8 MAI 1945, 44600 SAINT-NAZAIRE, France", own:false},
+            {name:"SARL STEPHANE ABRAHAM", addr:"LES PROMENADES DES SORINS, 47300 VILLENEUVE SUR LOT, France", own:false},
+            {name:"LA MAISON DU SPA", addr:"RUE DU MOULIN, 49250 BEAUFORT EN ANJOU, France", own:false},
+            {name:"JARDI'SPA", addr:"L'ISLE BRIAND, 49140 LE LION D'ANGERS, France", own:false},
+            {name:"SABIAUX-DUBRECQ", addr:"44 RUE DE LA LIBERATION, 59400 CAMBRAI, France", own:false},
+            {name:"CBP CONCEPT", addr:"RUE DES ENTREPRENEURS, 62000 ARRAS, France", own:false},
+            {name:"LARCADE BOIS", addr:"ZA MONDEBAT, 64300 ORTHEZ, France", own:false},
+            {name:"MIDOT PISCINE", addr:"72 ROUTE DE PARIS, 67120 DACHSTEIN, France", own:false},
+            {name:"MY ABRI", addr:"6 RUE AMPERE, 68720 ILLFURTH, France", own:false},
+            {name:"AID'EAU PISCINE", addr:"ZA DU BAS MOULIN, 72700 ROUILLON, France", own:false},
+            {name:"EFFERVESCENCE", addr:"6 ZA LES COMBES, 73800 MONTMELIAN, France", own:false},
+            {name:"ESPACES ET PISCINES", addr:"390 RUE AMPERE, 74130 BONNEVILLE, France", own:false},
+            {name:"AZUR SPA DESIGN", addr:"1530 ROUTE DE GRASSE, 06560 VALBONNE, France", own:false},
+            {name:"NICOLAZI", addr:"66 TRAVERSE DES PUITS NEUFS, 13009 MARSEILLE, France", own:false},
+            {name:"AK PISCINES ET JARDINS", addr:"2 RUE DU MOULIN A VENT, 77380 COMBS LA VILLE, France", own:false},
+            {name:"O'CONCEPT", addr:"9 RUE PASTEUR, 79230 SAINT GELAIS, France", own:false},
+            {name:"ACTUA PISCINE", addr:"8 RUE DE LA VALLEE, 86000 POITIERS, France", own:false},
+            {name:"PISCINES DU VEXIN", addr:"RUE DE LA GARE, 95420 MAGNY EN VEXIN, France", own:false},
+            {name:"MAISON BALI", addr:"380 Rue Simone Veil, 59300 VALENCIENNES, France", own:false},
+            {name:"INNOV'PISCINE", addr:"33 RUE DES ARTISANS, 37230 FONDETTES, France", own:false},
+            {name:"SP(ha!)MMAM", addr:"12 RUE DES TANNEURS, 67000 STRASBOURG, France", own:false},
+            {name:"GR ALTEA SPAS", addr:"Altea, Espagne", own:false},
+        ];
+
+        allStores.forEach((store, i) => {
+            setTimeout(() => {
+                geocoder.geocode({ address: store.addr }, (results, status) => {
+                    if (status === 'OK') {
+                        const marker = new google.maps.Marker({
+                            position: results[0].geometry.location,
+                            map: map,
+                            title: store.name,
+                            icon: {
+                                path: google.maps.SymbolPath.CIRCLE,
+                                scale: store.own ? 10 : 7,
+                                fillColor: store.own ? '#c7a260' : '#253a4c',
+                                fillOpacity: 1,
+                                strokeColor: '#ffffff',
+                                strokeWeight: 2
+                            }
+                        });
+                        marker.addListener('click', () => {
+                            infoWindow.setContent(`<div style="font-family:Inter,sans-serif;padding:4px">${store.own ? '<span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#c7a260;font-weight:600">Magasin officiel</span><br>' : ''}<strong style="color:#253a4c">${store.name}</strong><br><a href="revendeurs.html" style="font-size:11px;color:#c7a260;font-weight:600;text-transform:uppercase;letter-spacing:1px">Voir tous les magasins →</a></div>`);
+                            infoWindow.open(map, marker);
+                        });
+                    }
+                });
+            }, i * 150);
+        });
+    }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIhhwEmidNOgH7GGmUSOXJlqq8aJ2cKeE&callback=initHomeMap"></script>
+
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon profil — Espace Pro Giovanni Riboli</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Inter',sans-serif;background:#f5f7fa;min-height:100vh;display:flex}
+    .sidebar{width:250px;background:#1a2d3e;color:#fff;min-height:100vh;position:fixed;left:0;top:0;z-index:100;transition:transform .3s}
+    .sidebar .logo-area{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
+    .sidebar .logo-area img{height:32px}
+    .sidebar .logo-area .brand{font-size:14px;font-weight:600;color:#c7a260;margin-top:6px}
+    .sidebar nav{padding:16px 0}
+    .sidebar nav a{display:flex;align-items:center;gap:10px;padding:12px 24px;color:rgba(255,255,255,.7);text-decoration:none;font-size:14px;font-weight:500;transition:all .2s}
+    .sidebar nav a:hover,.sidebar nav a.active{color:#c7a260;background:rgba(199,162,96,.08)}
+    .sidebar nav a.active{border-right:3px solid #c7a260}
+    .sidebar nav a svg{width:18px;height:18px;flex-shrink:0}
+    .main{margin-left:250px;flex:1;min-height:100vh}
+    .header{background:#fff;border-bottom:1px solid #e5e7eb;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+    .header .title{font-size:16px;font-weight:600;color:#253a4c}
+    .header .user-area{display:flex;align-items:center;gap:16px;font-size:13px;color:#7a8a9a}
+    .header .user-area strong{color:#253a4c}
+    .btn-logout{padding:8px 16px;background:none;border:1px solid #dce1e8;border-radius:6px;font-size:12px;font-family:'Inter',sans-serif;cursor:pointer;color:#253a4c;transition:all .2s}
+    .btn-logout:hover{border-color:#c7a260;color:#c7a260}
+    .content{padding:32px}
+    .page-title{font-size:22px;font-weight:600;color:#253a4c;margin-bottom:24px}
+    .profile-card{background:#fff;border-radius:10px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,.05);margin-bottom:20px}
+    .profile-card h2{font-size:17px;font-weight:600;color:#253a4c;margin-bottom:16px}
+    .info-row{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid #f0f2f5;font-size:14px}
+    .info-row:last-child{border-bottom:none}
+    .info-label{width:160px;color:#7a8a9a;font-weight:500;flex-shrink:0}
+    .info-value{color:#253a4c;font-weight:600}
+    .badge{display:inline-block;padding:6px 16px;background:linear-gradient(135deg,#c7a260,#e0c88a);color:#fff;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:.3px;margin-top:12px}
+    .form-group{margin-bottom:16px}
+    .form-group label{display:block;font-size:13px;font-weight:500;color:#7a8a9a;margin-bottom:6px}
+    .form-group input{width:100%;max-width:400px;padding:10px 14px;border:1px solid #dce1e8;border-radius:8px;font-size:14px;font-family:'Inter',sans-serif;transition:border-color .2s}
+    .form-group input:focus{outline:none;border-color:#c7a260}
+    .btn-primary{padding:12px 28px;background:#c7a260;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:background .2s}
+    .btn-primary:hover{background:#b08d4a}
+    .btn-outline{padding:12px 24px;background:none;border:1px solid #dce1e8;border-radius:8px;font-size:14px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;color:#253a4c;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .2s}
+    .btn-outline:hover{border-color:#c7a260;color:#c7a260}
+    .contact-text{font-size:14px;color:#7a8a9a;line-height:1.6;margin-bottom:16px}
+    .contact-buttons{display:flex;gap:12px;flex-wrap:wrap}
+    .quick-access{display:flex;gap:12px;flex-wrap:wrap}
+    .btn-quick{padding:12px 24px;background:#253a4c;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;text-decoration:none;transition:background .2s}
+    .btn-quick:hover{background:#1a2d3e}
+    .hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+    .hamburger svg{width:24px;height:24px;color:#253a4c}
+    .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:90}
+    @media(max-width:768px){
+      .sidebar{transform:translateX(-100%)}
+      .sidebar.open{transform:translateX(0)}
+      .overlay.open{display:block}
+      .main{margin-left:0}
+      .hamburger{display:block}
+      .content{padding:20px}
+      .info-row{flex-direction:column;gap:4px}
+      .info-label{width:auto}
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="logo-area">
+      <img src="../assets/logo-blanc.svg" alt="GR" onerror="this.style.display='none'">
+      <div class="brand">Espace Revendeur</div>
+    </div>
+    <nav>
+      <a href='/pro/dashboard'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Tableau de bord</a>
+      <a href='/pro/documents'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Documents</a>
+      <a href='/pro/stocks'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>Stocks</a>
+      <a class='active' href='/pro/profil'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Mon profil</a>
+    </nav>
+  </aside>
+
+  <div class="main">
+    <header class="header">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="hamburger" onclick="toggleSidebar()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+        <span class="title">Mon profil</span>
+      </div>
+      <div class="user-area">
+        <span>Connecté : <strong id="userName"></strong></span>
+        <button class="btn-logout" onclick="AUTH.logout()">Déconnexion</button>
+      </div>
+    </header>
+
+    <div class="content">
+      <h1 class="page-title">Mon profil</h1>
+
+      <!-- Section 1 — Informations du compte -->
+      <div class="profile-card">
+        <h2>Informations du compte</h2>
+        <div class="info-row"><span class="info-label">Nom du magasin</span><span class="info-value" id="infoName">—</span></div>
+        <div class="info-row"><span class="info-label">Région</span><span class="info-value" id="infoRegion">—</span></div>
+        <div class="info-row"><span class="info-label">Email</span><span class="info-value" id="infoEmail">—</span></div>
+        <div class="info-row"><span class="info-label">ID magasin</span><span class="info-value" id="infoId">—</span></div>
+        <div class="badge">✦ Revendeur agréé Giovanni Riboli</div>
+      </div>
+
+      <!-- Section 2 — Changer le mot de passe -->
+      <div class="profile-card">
+        <h2>Changer le mot de passe</h2>
+        <form id="passwordForm" onsubmit="return handlePassword(event)">
+          <div class="form-group"><label>Mot de passe actuel</label><input type="password" required></div>
+          <div class="form-group"><label>Nouveau mot de passe</label><input type="password" required></div>
+          <div class="form-group"><label>Confirmer le nouveau mot de passe</label><input type="password" required></div>
+          <button type="submit" class="btn-primary">Mettre à jour</button>
+        </form>
+      </div>
+
+      <!-- Section 3 — Contact gestionnaire -->
+      <div class="profile-card">
+        <h2>Contact gestionnaire</h2>
+        <p class="contact-text">Pour toute question concernant votre compte, votre gestionnaire Giovanni Riboli est votre interlocuteur privilégié.</p>
+        <div class="contact-buttons">
+          <a href="mailto:contact@gr-spa.com" class="btn-outline">✉️ Contacter par email</a>
+          <a href="tel:0546380252" class="btn-outline">📞 Appeler le siège</a>
+        </div>
+      </div>
+
+      <!-- Section 4 — Accès rapides -->
+      <div class="profile-card">
+        <h2>Accès rapides</h2>
+        <div class="quick-access">
+          <a class='btn-quick' href='/pro/dashboard'>📊 Tableau de bord</a>
+          <a class='btn-quick' href='/pro/documents'>📄 Documents</a>
+          <a class='btn-quick' href='/pro/stocks'>📦 Stocks</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="api-mock.js"></script>
+  <script src="auth.js"></script>
+  <script>
+    const user = AUTH.requireAuth();
+    if (user) {
+      document.getElementById('userName').textContent = user.name;
+      document.getElementById('infoName').textContent = user.name;
+      document.getElementById('infoRegion').textContent = user.region;
+      document.getElementById('infoEmail').textContent = user.email;
+      document.getElementById('infoId').textContent = user.id;
+    }
+    function handlePassword(e) {
+      e.preventDefault();
+      alert('Fonctionnalité disponible prochainement');
+      return false;
+    }
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('overlay').classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

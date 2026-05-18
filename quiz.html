@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trouvez votre spa idéal — Giovanni Riboli</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@23.1.0/build/css/intlTelInput.css">
+    <style>
+      .iti { width: 100%; display: block; }
+      .iti__tel-input {
+        width: 100% !important;
+        padding: 14px 14px 14px 90px !important;
+        border: 1.5px solid #e0ddd8 !important;
+        font-family: 'Inter', sans-serif !important;
+        font-size: 16px !important;
+        color: #253a4c !important;
+        outline: none !important;
+        transition: border-color 0.2s;
+        -webkit-appearance: none;
+        background: #fff !important;
+        box-sizing: border-box !important;
+        border-radius: 0 !important;
+      }
+      .iti__tel-input:focus { border-color: #c7a260 !important; }
+      .iti__country-container { position: absolute; top: 0; bottom: 0; left: 0; display: flex; align-items: center; }
+      .iti--separate-dial-code .iti__selected-flag { height: 100%; padding: 0 8px 0 10px; background: transparent; }
+      .iti--separate-dial-code .iti__selected-dial-code { font-size: 13px; color: #253a4c; margin-left: 4px; }
+      .iti__dropdown-content { z-index: 9999; }
+    </style>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #f8f6f2; min-height: 100vh; }
+
+        .progress-bar {
+            height: 3px;
+            background: #e8e6e2;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .progress-bar .fill {
+            height: 100%;
+            background: #c7a260;
+            transition: width 0.5s ease;
+            width: 14%;
+        }
+
+        .quiz-container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 160px 24px 120px;
+        }
+
+        /* Header quiz */
+        .quiz-eyebrow {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #c7a260;
+            margin-bottom: 10px;
+        }
+
+        .step { display: none; }
+        .step.active { display: block; animation: fadeUp 0.35s ease; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.7rem, 4vw, 2.5rem);
+            font-weight: 400;
+            color: #253a4c;
+            margin-bottom: 10px;
+            letter-spacing: 0.01em;
+            line-height: 1.2;
+        }
+
+        .step .subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            color: #999;
+            margin-bottom: 44px;
+        }
+
+        /* Grilles de choix */
+        .options {
+            display: grid;
+            gap: 14px;
+        }
+        .options.cols-2 { grid-template-columns: 1fr 1fr; }
+        .options.cols-3 { grid-template-columns: repeat(3, 1fr); }
+
+        .option-card {
+            font-family: 'Inter', sans-serif;
+            background: #fff;
+            border: 1.5px solid #e0ddd8;
+            padding: 22px 20px;
+            cursor: pointer;
+            transition: all 0.25s;
+            user-select: none;
+            text-align: left;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+        .option-card:hover { border-color: #c7a260; background: #fdf9f3; }
+        .option-card.selected {
+            background: #253a4c;
+            border-color: #253a4c;
+            color: #fff;
+        }
+        .option-card.selected .option-sub { color: rgba(255,255,255,0.6); }
+
+        .option-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+        .option-label { display: flex; flex-direction: column; gap: 3px; }
+        .option-title { font-size: 0.92rem; font-weight: 600; color: #253a4c; }
+        .option-card.selected .option-title { color: #fff; }
+        .option-sub { font-size: 0.78rem; color: #999; }
+
+        /* Boutons de navigation */
+        .quiz-nav-btns {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 44px;
+        }
+
+        .btn-back {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #bbb;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            white-space: nowrap;
+        }
+        .btn-back:hover { color: #253a4c; }
+
+        .btn-continue {
+            flex: 1;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            background: #253a4c;
+            color: #fff;
+            border: none;
+            padding: 16px 40px;
+            cursor: pointer;
+            transition: background 0.25s, opacity 0.25s;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        .btn-continue.enabled { opacity: 1; pointer-events: auto; }
+        .btn-continue:hover { background: #1a2c3a; }
+
+        /* Formulaire contact */
+        .form-fields { display: flex; flex-direction: column; gap: 14px; margin-bottom: 0; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #253a4c;
+        }
+        .form-group input {
+            padding: 14px 16px;
+            border: 1.5px solid #e0ddd8;
+            background: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px !important;
+            color: #253a4c;
+            outline: none;
+            transition: border-color 0.2s;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+        .form-group input:focus { border-color: #c7a260; }
+        .form-group input::placeholder { color: #bbb; }
+
+        .trust-line {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            color: #bbb;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Loading */
+        .quiz-loading {
+            display: none;
+            text-align: center;
+            padding: 60px 0;
+        }
+        .quiz-loading .spinner {
+            width: 36px;
+            height: 36px;
+            border: 2px solid #e0ddd8;
+            border-top-color: #c7a260;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .quiz-loading p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            color: #999;
+        }
+
+        /* Résultats */
+        .quiz-result { display: none; }
+        .quiz-result.active { display: block; animation: fadeUp 0.4s ease; }
+
+        .result-intro {
+            margin-bottom: 40px;
+        }
+        .result-intro .eyebrow {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #c7a260;
+            margin-bottom: 10px;
+        }
+        .result-intro h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            font-weight: 400;
+            color: #253a4c;
+            margin-bottom: 8px;
+        }
+        .result-intro p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            color: #999;
+        }
+
+        .product-cards { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+
+        .product-card {
+            background: #fff;
+            border: 1.5px solid #e0ddd8;
+            padding: 22px 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            cursor: pointer;
+            transition: border-color 0.25s;
+        }
+        .product-card:hover, .product-card.featured { border-color: #c7a260; }
+        .product-card.featured { background: #fdf9f3; }
+
+        .product-badge {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            background: #c7a260;
+            color: #fff;
+            padding: 3px 8px;
+            margin-bottom: 6px;
+            display: inline-block;
+        }
+        .product-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #253a4c;
+            display: block;
+        }
+        .product-gamme {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #c7a260;
+            margin-bottom: 4px;
+            display: block;
+        }
+        .product-desc {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            color: #999;
+            margin-top: 3px;
+        }
+        .product-price {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            color: #253a4c;
+            font-weight: 600;
+            white-space: nowrap;
+            margin-left: auto;
+        }
+        .product-arrow { color: #c7a260; font-size: 1.2rem; flex-shrink: 0; }
+
+        .result-showroom {
+            background: #253a4c;
+            color: #fff;
+            padding: 24px 28px;
+            margin-bottom: 16px;
+        }
+        .result-showroom .sh-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 6px;
+        }
+        .result-showroom .sh-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        .result-showroom .sh-info {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.6);
+        }
+        .result-showroom .sh-tel {
+            color: #c7a260;
+            font-weight: 600;
+        }
+
+        .btn-result-cta {
+            display: block;
+            width: 100%;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            background: #253a4c;
+            color: #fff;
+            border: none;
+            padding: 16px;
+            cursor: pointer;
+            transition: background 0.25s;
+            text-align: center;
+            text-decoration: none;
+        }
+        .btn-result-cta:hover { background: #1a2c3a; }
+
+        .btn-restart {
+            display: block;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            color: #bbb;
+            text-decoration: underline;
+            cursor: pointer;
+            background: none;
+            border: none;
+            margin-top: 20px;
+            width: 100%;
+        }
+        .btn-restart:hover { color: #253a4c; }
+
+        /* Responsive */
+        @media (max-width: 560px) {
+            .options.cols-2, .options.cols-3 { grid-template-columns: 1fr; }
+            .quiz-container { padding: 140px 16px 80px; }
+        }
+    </style>
+</head>
+<body>
+
+  <!-- NAV identique au reste du site -->
+  <header class="nav nav--solid" id="nav">
+    <div class="nav__inner">
+      <a class='nav__logo' href='/'>
+        <img src="/assets/logo-noir.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-dark">
+        <img src="/assets/logo-blanc.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-light">
+      </a>
+      <ul class="nav__menu">
+        <li>
+          <a href="#">Nos spas</a>
+          <div class="mega-menu">
+            <div class="mega-menu__inner">
+              <div class="mega-menu__col">
+                <div class="mega-menu__col-title">Nos gammes</div>
+                <ul>
+                  <li><a href='/gammes/relax'>Gamme Relax</a></li>
+                  <li><a href='/gammes/energy'>Gamme Energy</a></li>
+                  <li><a href='/gammes/luxury'>Gamme Luxury</a></li>
+                  <li><a href='/gammes/spa-de-nage'>Spa de nage</a></li>
+                </ul>
+              </div>
+              <div class="mega-menu__col">
+                <div class="mega-menu__col-title">Nos modèles</div>
+                <ul>
+                  <li><a href='/produits/amalfi'>Amalfi</a></li>
+                  <li><a href='/produits/bari'>Bari</a></li>
+                  <li><a href='/produits/capri'>Capri</a></li>
+                  <li><a href='/produits/roma'>Roma</a></li>
+                  <li><a href='/produits/napoli'>Napoli</a></li>
+                  <li><a href='/produits/torino'>Torino</a></li>
+                </ul>
+              </div>
+              <div class="mega-menu__visual">
+                <div class="mega-menu__visual-placeholder"></div>
+                <a href="#" class="mega-cta">Voir tous les modèles</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a href="#">La marque</a>
+          <div class="mega-menu mega-menu--brand">
+            <div class="mega-menu__inner">
+              <div class="mega-menu__col">
+                <ul>
+                  <li><a href='/a-propos'>Notre histoire</a></li>
+                  <li><a href='/a-propos#engagements'>Nos engagements</a></li>
+                  <li><a href='/a-propos#technologies'>Nos technologies</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href='/revendeurs'>Nos magasins</a></li>
+        <li><a href='/blog'>Blog</a></li>
+        <li><a href='/espace-pro'>Espace pro</a></li>
+      </ul>
+      <div class="nav__right">
+        <a class='nav__cta' href='/revendeurs'>Trouver un revendeur</a>
+      </div>
+      <button class="nav__burger" id="navBurger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile-overlay" id="navMobile">
+      <ul>
+        <li><a href='/gammes/relax'>Gamme Relax</a></li>
+        <li><a href='/gammes/energy'>Gamme Energy</a></li>
+        <li><a href='/gammes/luxury'>Gamme Luxury</a></li>
+        <li><a href='/gammes/spa-de-nage'>Spa de nage</a></li>
+        <li><a href='/revendeurs'>Nos magasins</a></li>
+        <li><a href='/espace-pro'>Espace pro</a></li>
+      </ul>
+      <a class='nav__mobile-cta' href='/revendeurs'>Trouver un revendeur</a>
+    </div>
+  </header>
+
+  <div class="progress-bar"><div class="fill" id="progressFill"></div></div>
+
+  <div class="quiz-container">
+
+    <!-- ÉTAPE 1 — Ambiance -->
+    <div class="step active" data-step="1">
+      <div class="quiz-eyebrow">Question 1 sur 7</div>
+      <h2>Vous imaginez votre spa plutôt…</h2>
+      <p class="subtitle">Sélectionnez ce qui vous correspond le mieux</p>
+      <div class="options">
+        <div class="option-card" data-field="ambiance" data-value="jardin" onclick="select(this)">
+          <span class="option-icon">🌿</span>
+          <div class="option-label">
+            <span class="option-title">Dans un jardin</span>
+            <span class="option-sub">Entouré de nature, espace extérieur</span>
+          </div>
+        </div>
+        <div class="option-card" data-field="ambiance" data-value="terrasse" onclick="select(this)">
+          <span class="option-icon">🏠</span>
+          <div class="option-label">
+            <span class="option-title">Sur une terrasse ou en intérieur</span>
+            <span class="option-sub">Espace aménagé, proche de la maison</span>
+          </div>
+        </div>
+        <div class="option-card" data-field="ambiance" data-value="nage" onclick="select(this)">
+          <span class="option-icon">🏊</span>
+          <div class="option-label">
+            <span class="option-title">Avec un espace de nage</span>
+            <span class="option-sub">Pour nager et pratiquer une activité physique</span>
+          </div>
+        </div>
+      </div>
+      <div class="quiz-nav-btns">
+        <button class="btn-continue" id="btn1" onclick="nextStep(2)">Continuer</button>
+      </div>
+    </div>
+
+    <!-- ÉTAPE 2 — Objectif -->
+    <div class="step" data-step="2">
+      <div class="quiz-eyebrow">Question 2 sur 7</div>
+      <h2>Votre spa, c'est avant tout pour…</h2>
+      <p class="subtitle">Votre usage principal</p>
+      <div class="options cols-2">
+        <div class="option-card" data-field="objectif" data-value="detente" onclick="select(this)">
+          <span class="option-icon">💆</span>
+          <div class="option-label">
+            <span class="option-title">Se détendre</span>
+            <span class="option-sub">Décompresser après une longue journée</span>
+          </div>
+        </div>
+        <div class="option-card" data-field="objectif" data-value="therapie" onclick="select(this)">
+          <span class="option-icon">💪</span>
+          <div class="option-label">
+            <span class="option-title">Soulager les douleurs</span>
+            <span class="option-sub">Thérapie et bien-être du corps</span>
+          </div>
+        </div>
+        <div class="option-card" data-field="objectif" data-value="famille" onclick="select(this)">
+          <span class="option-icon">👨‍👩‍👧</span>
+          <div class="option-label">
+            <span class="option-title">Partager en famille</span>
+            <span class="option-sub">Moments conviviaux ensemble</span>
+          </div>
+        </div>
+        <div class="option-card" data-field="objectif" data-value="sport" onclick="select(this)">
+          <span class="option-icon">🏃</span>
+          <div class="option-label">
+            <span class="option-title">Nager et faire du sport</span>
+            <span class="option-sub">Activité physique régulière</span>
+          </div>
+        </div>
+      </div>
+      <div class="quiz-nav-btns">
+        <button class="btn-back" onclick="prevStep(1)">← Retour</button>
+        <button class="btn-continue" id="btn2" onclick="nextStep(3)">Continuer</button>
+      </div>
+    </div>
+
+    <!-- ÉTAPE 3 — Personnes -->
+    <div class="step" data-step="3">
+      <div class="quiz-eyebrow">Question 3 sur 7</div>
+      <h2>Combien utiliseront le spa en même temps ?</h2>
+      <p class="subtitle">Régulièrement</p>
+      <div class="options cols-3">
+        <div class="option-card" data-field="nb_personnes" data-value="1-2" onclick="select(this)">
+          <span class="option-icon">👤</span>
+          <div class="option-label">
+            <span class="option-title">1 à 2</span>
+            <span class="option-sub">Individuel ou duo</span>
+          </div>
+        </div>
+        <div class="option-card" data-field="nb_personnes" data-value="3-4" onclick="select(this)">
+          <span class="option-icon">👥</span>
+          <div class="option-label">
+            <span class="option-title">3 à 4</span>
+            <span class="option-sub">Famille ou amis</span>
+          </div>
+        </div>
+        <div class="option-card" data-field="nb_personnes" data-value="5+" onclick="select(this)">
+          <span class="option-icon">👨‍👩‍👧‍👦</span>
+          <div class="option-label">
+            <span class="option-title">5 et plus</span>
+            <span class="option-sub">Grande famille</span>
+          </div>
+        </div>
+      </div>
+      <div class="quiz-nav-btns">
+        <button class="btn-back" onclick="prevStep(2)">← Retour</button>
+        <button class="btn-continue" id="btn3" onclick="nextStep(4)">Continuer</button>
+      </div>
+    </div>
+
+    <!-- ÉTAPE 4 — Délai -->
+    <div class="step" data-step="4">
+      <div class="quiz-eyebrow">Question 4 sur 7</div>
+      <h2>Votre projet, c'est pour quand ?</h2>
+      <p class="subtitle">Cela nous aide à mieux vous accompagner</p>
+      <div class="options cols-2">
+        <div class="option-card" data-field="delai" data-value="urgent" onclick="select(this)">
+          <span class="option-icon">🔥</span>
+          <div class="option-label">
+            <span class="option-title">C'est décidé — cet été</span>
+            <span class="option-sub">Je veux être équipé rapidement</span>
+          </div>
+        </div>
+        <div class="option-card" data-field="delai" data-value="3-6mois" onclick="select(this)">
+          <span class="option-icon">📅</span>
+          <div class="option-label">
+            <span class="option-title">D'ici 3 à 6 mois</span>
+            <span class="option-sub">Je prépare mon projet</span>
+          </div>
+        </div>
+        <div class="option-card" data-field="delai" data-value="6mois+" onclick="select(this)">
+          <span class="option-icon">🏗️</span>
+          <div class="option-label">
+            <span class="option-title">Plus de 6 mois</span>
+            <span class="option-sub">Construction ou rénovation en cours</span>
+          </div>
+        </div>
+        <div class="option-card" data-field="delai" data-value="decouverte" onclick="select(this)">
+          <span class="option-icon">🤔</span>
+          <div class="option-label">
+            <span class="option-title">Je découvre</span>
+            <span class="option-sub">Pas encore décidé</span>
+          </div>
+        </div>
+      </div>
+      <div class="quiz-nav-btns">
+        <button class="btn-back" onclick="prevStep(3)">← Retour</button>
+        <button class="btn-continue" id="btn4" onclick="nextStep(5)">Continuer</button>
+      </div>
+    </div>
+
+    <!-- ÉTAPE 5 — Budget -->
+    <div class="step" data-step="5">
+      <div class="quiz-eyebrow">Question 5 sur 7</div>
+      <h2>Votre enveloppe budgétaire ?</h2>
+      <p class="subtitle">Toutes les réponses sont les bienvenues</p>
+      <div class="options cols-2">
+        <div class="option-card" data-field="budget" data-value="moins_8k" onclick="select(this)">
+          <span class="option-icon">💡</span>
+          <div class="option-label">
+            <span class="option-title">Moins de 8 000€</span>
+            <span class="option-sub">Premier équipement</span>
+          </div>
+        </div>
+        <div class="option-card" data-field="budget" data-value="8k_15k" onclick="select(this)">
+          <span class="option-icon">⭐</span>
+          <div class="option-label">
+            <span class="option-title">8 000€ — 15 000€</span>
+            <span class="option-sub">Confort et qualité</span>
+          </div>
+        </div>
+        <div class="option-card" data-field="budget" data-value="15k_25k" onclick="select(this)">
+          <span class="option-icon">✨</span>
+          <div class="option-label">
+            <span class="option-title">15 000€ — 25 000€</span>
+            <span class="option-sub">Haut de gamme</span>
+          </div>
+        </div>
+        <div class="option-card" data-field="budget" data-value="plus_25k" onclick="select(this)">
+          <span class="option-icon">👑</span>
+          <div class="option-label">
+            <span class="option-title">Plus de 25 000€</span>
+            <span class="option-sub">Le meilleur, sans compromis</span>
+          </div>
+        </div>
+      </div>
+      <div class="quiz-nav-btns">
+        <button class="btn-back" onclick="prevStep(4)">← Retour</button>
+        <button class="btn-continue" id="btn5" onclick="nextStep(6)">Continuer</button>
+      </div>
+    </div>
+
+    <!-- ÉTAPE 6 — Code postal -->
+    <div class="step" data-step="6">
+      <div class="quiz-eyebrow">Question 6 sur 7</div>
+      <h2>Pour vous orienter vers le showroom le plus proche</h2>
+      <p class="subtitle">Votre code postal</p>
+      <div class="form-fields">
+        <div class="form-group">
+          <label>Code postal</label>
+          <input type="text" id="input-cp" placeholder="Ex : 34000" maxlength="5" inputmode="numeric" oninput="validateCP()" />
+        </div>
+      </div>
+      <div class="quiz-nav-btns">
+        <button class="btn-back" onclick="prevStep(5)">← Retour</button>
+        <button class="btn-continue" id="btn6" onclick="nextStep(7)">Continuer</button>
+      </div>
+    </div>
+
+    <!-- ÉTAPE 7 — Contact -->
+    <div class="step" data-step="7">
+      <div class="quiz-eyebrow">Dernière étape</div>
+      <h2>Recevez votre sélection personnalisée</h2>
+      <p class="subtitle">Un conseiller vous rappelle dans l'heure</p>
+      <div class="form-fields">
+        <div class="form-group">
+          <label>Prénom *</label>
+          <input type="text" id="input-prenom" placeholder="Votre prénom" oninput="validateContact()" />
+        </div>
+        <div class="form-group">
+          <label>Téléphone *</label>
+          <input type="tel" id="input-tel" placeholder="06 00 00 00 00" inputmode="tel" />
+        </div>
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" id="input-email" placeholder="votre@email.fr" inputmode="email" oninput="validateContact()" />
+        </div>
+      </div>
+      <p class="trust-line">🔒 Vos données sont confidentielles et ne sont jamais partagées.</p>
+      <div class="quiz-nav-btns">
+        <button class="btn-back" onclick="prevStep(6)">← Retour</button>
+        <button class="btn-continue enabled" id="btn7" onclick="submitQuiz()" style="opacity:0.3;pointer-events:none;">Voir mes spas recommandés</button>
+      </div>
+    </div>
+
+    <!-- LOADING -->
+    <div class="quiz-loading" id="quizLoading">
+      <div class="spinner"></div>
+      <p>Nous analysons vos réponses…</p>
+    </div>
+
+    <!-- RÉSULTATS -->
+    <div class="quiz-result" id="quizResult">
+      <div class="result-intro">
+        <div class="eyebrow">Notre recommandation</div>
+        <h2 id="resultTitle">Votre sélection personnalisée</h2>
+        <p id="resultSubtitle">Basée sur vos réponses</p>
+      </div>
+      <div class="product-cards" id="productCards"></div>
+      <div class="result-showroom" id="resultShowroom"></div>
+      <a href="/revendeurs" class="btn-result-cta">📍 Voir le showroom et prendre rendez-vous</a>
+      <button class="btn-restart" onclick="restart()">Recommencer le quiz</button>
+    </div>
+
+  </div><!-- fin quiz-container -->
+
+  <footer class="footer" id="contact">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img src="/assets/logo-blanc.svg" alt="Giovanni Riboli" class="footer__logo">
+        <p class="footer__tagline">L'art du spa à domicile.</p>
+        <p class="footer__address">Giovanni Riboli SAS — France</p>
+      </div>
+      <div class="footer__nav">
+        <h4>Nos spas</h4>
+        <a href='/gammes/luxury'>Gamme Luxury</a>
+        <a href='/gammes/energy'>Gamme Energy</a>
+        <a href='/gammes/relax'>Gamme Relax</a>
+        <a href='/gammes/spa-de-nage'>Spa de nage</a>
+      </div>
+      <div class="footer__nav">
+        <h4>La marque</h4>
+        <a href='/a-propos'>À propos</a>
+        <a href='/revendeurs'>Nos magasins</a>
+        <a href='/quiz'>Configurateur</a>
+        <a href='/espace-pro'>Espace revendeur</a>
+      </div>
+      <div class="footer__nav">
+        <h4>Contact</h4>
+        <a href="mailto:contact@gr-spa.com">contact@gr-spa.com</a>
+        <a href='/blog'>Blog & Actualités</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container">
+        <p>© 2026 Giovanni Riboli SAS — Tous droits réservés</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.1.0/build/js/intlTelInput.min.js"></script>
+  <script>
+  // ============================================================
+  // CONFIGURATION
+  // ============================================================
+  const SUPABASE_URL = 'https://ohjzggceozamhdesecxi.supabase.co';
+  const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oanpnZ2Nlb3phbWhkZXNlY3hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Njc5MDYsImV4cCI6MjA5MjM0MzkwNn0.wW-tqXBDUtKURR31bh3CUWIcuYMUJTZLqq2LLT1kJnA';
+
+  const quizData = {
+    ambiance: null, objectif: null, nb_personnes: null,
+    delai: null, budget: null, code_postal: null,
+    prenom: null, telephone: null, email: null,
+    utm_source: null, utm_medium: null, utm_campaign: null,
+    utm_content: null, gclid: null, fbclid: null, source: 'quiz'
+  };
+
+  // Capture UTMs
+  (function() {
+    const p = new URLSearchParams(window.location.search);
+    quizData.utm_source = p.get('utm_source');
+    quizData.utm_medium = p.get('utm_medium');
+    quizData.utm_campaign = p.get('utm_campaign');
+    quizData.utm_content = p.get('utm_content');
+    quizData.gclid = p.get('gclid');
+    quizData.fbclid = p.get('fbclid');
+    if (quizData.gclid) quizData.source = 'google_ads';
+    else if (quizData.fbclid) quizData.source = 'meta_ads';
+    else if (quizData.utm_source) quizData.source = quizData.utm_source;
+  })();
+
+  let currentStep = 1;
+  const totalSteps = 7;
+
+  // Mapping département → magasin
+  const magasins = [
+    { nom: 'Giovanni Riboli Montpellier', ville: 'Mauguio', tel: '04 99 58 85 99', depts: ['34','30','11','12','48'] },
+    { nom: 'Giovanni Riboli Toulouse', ville: 'Saint-Jory', tel: '05 61 56 62 68', depts: ['31','32','09','81','82','65'] },
+    { nom: 'Giovanni Riboli Bordeaux', ville: 'Saint-Jean-d\'Illac', tel: '05 57 95 46 30', depts: ['33','24','40','47'] },
+    { nom: 'Giovanni Riboli Vaux-sur-Mer', ville: 'Vaux-sur-Mer', tel: '05 46 38 02 52', depts: ['17','85'] },
+    { nom: 'Giovanni Riboli La Rochelle', ville: 'La Rochelle', tel: '05 17 26 12 50', depts: ['17','44'] },
+    { nom: 'Giovanni Riboli Niort', ville: 'Niort', tel: '05 49 16 61 41', depts: ['79','86','87','23'] },
+  ];
+
+  function getMagasin(cp) {
+    if (!cp || cp.length < 2) return magasins[0];
+    const dept = cp.substring(0, 2);
+    return magasins.find(m => m.depts.includes(dept)) || magasins[0];
+  }
+
+  // Recommandation modèle précis selon les réponses
+  function getRecommendations() {
+    const isSpa = quizData.ambiance === 'nage' || quizData.objectif === 'sport';
+    const isTherapie = quizData.objectif === 'therapie';
+    const places = quizData.nb_personnes;
+
+    if (isSpa) {
+      if (['15k_25k', 'plus_25k'].includes(quizData.budget)) {
+        return [
+          { name: 'SwimSPA 2R', gamme: 'Spa de Nage Luxury', desc: 'Double zone — nage et relaxation', url: '/produits/swimspa-2r', featured: true },
+          { name: 'SwimSPA 1R 5.0', gamme: 'Spa de Nage Luxury', desc: '5 mètres de nage à contre-courant', url: '/produits/swimspa-1r50', featured: false },
+        ];
+      }
+      return [
+        { name: 'Positano', gamme: 'Spa de Nage Energy', desc: 'Nage à contre-courant — gamme Energy', url: '/produits/positano', featured: true },
+        { name: 'Bolzano', gamme: 'Spa de Nage Energy', desc: 'Bi-zone nage et détente', url: '/produits/bolzano', featured: false },
+      ];
+    }
+
+    if (isTherapie) {
+      // Priorité aux 3 modèles avec massage robotisé (Torino Luxe, Napoli Luxe, Roma Luxe)
+      if (places === '1-2') return [
+        { name: 'Torino Luxe', gamme: 'Luxury — Massage Robotisé', desc: '3 places, 68 buses — seul spa avec massage robotisé en petite taille', url: '/produits/torino-luxe', featured: true },
+        { name: 'Signature S', gamme: 'Luxury', desc: '2 places, 36 buses — thérapeutique sans robotisé', url: '/produits/signature-s', featured: false },
+      ];
+      if (places === '3-4') return [
+        { name: 'Napoli Luxe', gamme: 'Luxury — Massage Robotisé', desc: '5 places, 104 buses — massage robotisé thérapeutique', url: '/produits/napoli-luxe', featured: true },
+        { name: 'Signature M', gamme: 'Luxury', desc: '4 places, 50 buses — alternative sans robotisé', url: '/produits/signature-m', featured: false },
+      ];
+      return [
+        { name: 'Roma Luxe', gamme: 'Luxury — Massage Robotisé', desc: '6 places, 106 buses — le summum du massage thérapeutique robotisé', url: '/produits/roma-luxe', featured: true },
+        { name: 'Signature XL', gamme: 'Luxury', desc: '6 places, 68 buses — alternative sans robotisé', url: '/produits/signature-xl', featured: false },
+      ];
+    }
+
+    if (['plus_25k', '15k_25k'].includes(quizData.budget)) {
+      if (places === '1-2') return [
+        { name: 'Torino', gamme: 'Luxury Massage', desc: '3 places, 50 buses — élégance et massage', url: '/produits/torino', featured: true },
+        { name: 'Torino Luxe', gamme: 'Luxury Thérapeutique', desc: 'Version thérapeutique du Torino', url: '/produits/torino-luxe', featured: false },
+      ];
+      if (places === '3-4') return [
+        { name: 'Napoli', gamme: 'Luxury Massage', desc: '5 places, 68 buses — massage d&#39;exception', url: '/produits/napoli', featured: true },
+        { name: 'Napoli Luxe', gamme: 'Luxury Thérapeutique', desc: '5 places, 104 buses thérapeutiques', url: '/produits/napoli-luxe', featured: false },
+      ];
+      return [
+        { name: 'Roma', gamme: 'Luxury Massage', desc: '6 places, 58 buses — convivialité Luxury', url: '/produits/roma', featured: true },
+        { name: 'Roma Luxe', gamme: 'Luxury Thérapeutique', desc: '6 places, 106 buses — l&#39;excellence absolue', url: '/produits/roma-luxe', featured: false },
+      ];
+    }
+
+    if (quizData.budget === '8k_15k') {
+      if (places === '1-2') return [
+        { name: 'Capri', gamme: 'Energy', desc: '3 places, 38 buses — compact et performant', url: '/produits/capri', featured: true },
+        { name: 'Amalfi', gamme: 'Energy', desc: '5 places, 62 buses — confort Energy', url: '/produits/amalfi', featured: false },
+      ];
+      if (places === '3-4') return [
+        { name: 'Amalfi', gamme: 'Energy', desc: '5 places, 62 buses — notre best-seller', url: '/produits/amalfi', featured: true },
+        { name: 'Rimini', gamme: 'Energy', desc: '5 places, 42 buses — design contemporain', url: '/produits/rimini', featured: false },
+      ];
+      return [
+        { name: 'Bari', gamme: 'Energy', desc: '6 places, 64 buses — généreux et convivial', url: '/produits/bari', featured: true },
+        { name: 'Amalfi', gamme: 'Energy', desc: '5 places, 62 buses — polyvalent', url: '/produits/amalfi', featured: false },
+      ];
+    }
+
+    // Relax
+    if (places === '1-2') return [
+      { name: 'R.2', gamme: 'Relax', desc: '2 places, 32 buses — l&#39;essentiel à la perfection', url: '/produits/r2', featured: true },
+      { name: 'R.4', gamme: 'Relax', desc: '4 places si vous souhaitez plus d&#39;espace', url: '/produits/r4', featured: false },
+    ];
+    if (places === '3-4') return [
+      { name: 'R.4', gamme: 'Relax', desc: '4 places, 34 buses — confort et simplicité', url: '/produits/r4', featured: true },
+      { name: 'Capri', gamme: 'Energy', desc: 'Une gamme au-dessus si votre budget le permet', url: '/produits/capri', featured: false },
+    ];
+    return [
+      { name: 'R.5', gamme: 'Relax', desc: '5 places, 48 buses — convivialité Relax', url: '/produits/r5', featured: true },
+      { name: 'Bari', gamme: 'Energy', desc: 'Montez en gamme avec 6 places Energy', url: '/produits/bari', featured: false },
+    ];
+  }
+
+    function getScore() {
+    let s = 5;
+    const scores = { urgent: 4, '3-6mois': 2, '6mois+': -1, decouverte: -3 };
+    const bscores = { plus_25k: 2, '15k_25k': 1, '8k_15k': 0, moins_8k: -1 };
+    s += (scores[quizData.delai] || 0);
+    s += (bscores[quizData.budget] || 0);
+    return Math.max(1, Math.min(10, s));
+  }
+
+  // Sélection d'une option
+  function select(card) {
+    const field = card.dataset.field;
+    const step = card.closest('.step');
+    step.querySelectorAll(`[data-field="${field}"]`).forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    quizData[field] = card.dataset.value;
+    const btn = document.getElementById('btn' + step.dataset.step);
+    if (btn) { btn.classList.add('enabled'); btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; }
+  }
+
+  function validateCP() {
+    const cp = document.getElementById('input-cp').value.trim();
+    quizData.code_postal = cp;
+    const btn = document.getElementById('btn6');
+    const valid = cp.length === 5 && /^\d{5}$/.test(cp);
+    btn.style.opacity = valid ? '1' : '0.3';
+    btn.style.pointerEvents = valid ? 'auto' : 'none';
+  }
+
+  let itiInstance = null;
+
+  function validateContact() {
+    const prenom = document.getElementById('input-prenom').value.trim();
+    const email = document.getElementById('input-email').value.trim();
+    quizData.prenom = prenom;
+    quizData.email = email;
+
+    // Récupérer le numéro formaté avec indicatif
+    if (itiInstance) {
+      quizData.telephone = itiInstance.getNumber(); // format E.164 ex: +33612345678
+    } else {
+      quizData.telephone = document.getElementById('input-tel').value.trim();
+    }
+
+    const telValid = itiInstance ? itiInstance.isValidNumber() : quizData.telephone.replace(/\s/g,'').length >= 10;
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const valid = prenom && telValid && emailValid;
+
+    const btn = document.getElementById('btn7');
+    btn.style.opacity = valid ? '1' : '0.3';
+    btn.style.pointerEvents = valid ? 'auto' : 'none';
+  }
+
+  // Initialiser intl-tel-input après chargement
+  document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('input-tel');
+    if (input && window.intlTelInput) {
+      itiInstance = intlTelInput(input, {
+        initialCountry: 'fr',
+        preferredCountries: ['fr', 'be', 'ch', 'lu'],
+        separateDialCode: true,
+        utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@23.1.0/build/js/utils.js',
+        autoInsertDialCode: false,
+        formatOnDisplay: true,
+        nationalMode: true,
+      });
+      // Formatage automatique à la saisie
+      function formatPhoneInput(val, country) {
+        const d = val.replace(/\D/g, '');
+        if (!d) return '';
+        switch(country) {
+          case 'fr': // 06 12 34 56 78
+            return d.replace(/(\d{2})(?=\d)/g, '$1 ').trim().substring(0, 14);
+          case 'be': // 0471 23 45 67
+            if (d.length <= 4) return d;
+            if (d[0] === '0' && d[1] === '4') return d.replace(/(\d{4})(\d{2})(\d{2})(\d{2})/, '$1 $2 $3 $4').trim();
+            return d.replace(/(\d{3})(\d{2})(\d{2})(\d{2})/, '$1 $2 $3 $4').trim();
+          case 'es': // 972 00 00 00
+            return d.replace(/(\d{3})(\d{2})(\d{2})(\d{2})/, '$1 $2 $3 $4').trim();
+          case 'ch': // 079 123 45 67
+            return d.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '$1 $2 $3 $4').trim();
+          case 'lu': // 621 234 567
+            return d.replace(/(\d{3})(\d{3})(\d{3})/, '$1 $2 $3').trim();
+          default:
+            return d.replace(/(\d{2})(?=\d)/g, '$1 ').trim();
+        }
+      }
+
+      input.addEventListener('input', function() {
+        const country = itiInstance ? itiInstance.getSelectedCountryData().iso2 : 'fr';
+        const cursor = input.selectionStart;
+        const raw = input.value.replace(/\D/g, '');
+        const formatted = formatPhoneInput(raw, country);
+        if (formatted !== input.value) {
+          input.value = formatted;
+        }
+        validateContact();
+      });
+      const placeholders = {
+        fr: '06 00 00 00 00', be: '0471 00 00 00', es: '612 000 000',
+        ch: '079 000 00 00', lu: '621 000 000', de: '0151 00000000',
+        it: '312 000 0000', pt: '912 000 000', nl: '06 0000 0000',
+        gb: '07700 000000', us: '(201) 000-0000', ca: '(204) 000-0000',
+      };
+      function updatePlaceholder() {
+        const country = itiInstance ? itiInstance.getSelectedCountryData().iso2 : 'fr';
+        input.placeholder = placeholders[country] || '00 00 00 00 00';
+      }
+      input.addEventListener('countrychange', function() {
+        input.value = '';
+        updatePlaceholder();
+        validateContact();
+      });
+      updatePlaceholder();
+    }
+  });
+
+  function updateProgress() {
+    document.getElementById('progressFill').style.width = (currentStep / totalSteps * 100) + '%';
+  }
+
+  function nextStep(n) {
+    document.querySelector(`[data-step="${currentStep}"]`).classList.remove('active');
+    currentStep = n;
+    document.querySelector(`[data-step="${currentStep}"]`).classList.add('active');
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function prevStep(n) {
+    document.querySelector(`[data-step="${currentStep}"]`).classList.remove('active');
+    currentStep = n;
+    document.querySelector(`[data-step="${currentStep}"]`).classList.add('active');
+    updateProgress();
+  }
+
+  async function submitQuiz() {
+    document.querySelector('[data-step="7"]').style.display = 'none';
+    document.getElementById('quizLoading').style.display = 'block';
+
+    // Calcul gamme
+    const isSpa = quizData.ambiance === 'nage' || quizData.objectif === 'sport';
+    quizData.type_spa = isSpa ? 'nage' : 'classique';
+    if (['15k_25k','plus_25k'].includes(quizData.budget)) quizData.gamme_recommandee = 'luxury';
+    else if (quizData.budget === '8k_15k') quizData.gamme_recommandee = 'energy';
+    else quizData.gamme_recommandee = 'relax';
+    if (isSpa) quizData.gamme_recommandee = 'luxury';
+
+    const recs = getRecommendations();
+    quizData.modeles_suggeres = recs.map(r => r.name);
+    quizData.score_intention = getScore();
+
+    // Envoi Supabase
+    try {
+      const payload = Object.fromEntries(
+        Object.entries({
+          prenom: quizData.prenom, telephone: quizData.telephone, email: quizData.email,
+          code_postal: quizData.code_postal, ambiance: quizData.ambiance, objectif: quizData.objectif,
+          nb_personnes: quizData.nb_personnes, delai: quizData.delai, budget: quizData.budget,
+          type_spa: quizData.type_spa, gamme_recommandee: quizData.gamme_recommandee,
+          modeles_suggeres: quizData.modeles_suggeres, score_intention: quizData.score_intention,
+          utm_source: quizData.utm_source, utm_medium: quizData.utm_medium,
+          utm_campaign: quizData.utm_campaign, utm_content: quizData.utm_content,
+          gclid: quizData.gclid, fbclid: quizData.fbclid, source: quizData.source
+        }).filter(([,v]) => v !== null && v !== undefined)
+      );
+
+      // 1. Envoyer dans Supabase
+      const supaRes = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_ANON,
+          'Authorization': `Bearer ${SUPABASE_ANON}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=representation'
+        },
+        body: JSON.stringify(payload)
+      });
+      const supaData = await supaRes.json();
+      const leadId = Array.isArray(supaData) && supaData[0] ? supaData[0].id : null;
+
+      // 2. Déclencher le workflow n8n immédiatement
+      const n8nPayload = { ...payload, id: leadId };
+      fetch('https://n8n.gr-spa.com/webhook/nouveau-lead-gr-spa', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(n8nPayload)
+      }).catch(() => {});
+
+    } catch(e) { console.warn('Supabase error:', e); }
+
+    setTimeout(() => {
+      document.getElementById('quizLoading').style.display = 'none';
+      showResults();
+    }, 1200);
+  }
+
+  function showResults() {
+    const result = document.getElementById('quizResult');
+    result.classList.add('active');
+    document.getElementById('resultTitle').textContent = quizData.prenom
+      ? `${quizData.prenom}, voici votre sélection`
+      : 'Votre sélection personnalisée';
+
+    const delaiLabels = { urgent: 'projet urgent', '3-6mois': 'projet 3-6 mois', '6mois+': 'projet long terme', decouverte: 'exploration' };
+    document.getElementById('resultSubtitle').textContent = 'Basée sur vos réponses — ' + (delaiLabels[quizData.delai] || '');
+
+    const recs = getRecommendations();
+    document.getElementById('productCards').innerHTML = recs.map(r => `
+      <a href="${r.url}" class="product-card ${r.featured ? 'featured' : ''}">
+        <div style="flex:1">
+          ${r.featured ? '<span class="product-badge">Recommandé pour vous</span>' : ''}
+          <span class="product-gamme">${r.gamme}</span>
+          <span class="product-name">${r.name}</span>
+          <p class="product-desc">${r.desc}</p>
+        </div>
+        <span class="product-arrow">→</span>
+      </a>
+    `).join('');
+
+    const m = getMagasin(quizData.code_postal);
+    document.getElementById('resultShowroom').innerHTML = `
+      <div class="sh-label">Votre showroom le plus proche</div>
+      <div class="sh-name">${m.nom}</div>
+      <div class="sh-info">Un conseiller vous rappelle au ${document.getElementById('input-tel').value || quizData.telephone || 'votre numéro'} · <span class="sh-tel">${m.tel}</span></div>
+    `;
+
+    document.getElementById('progressFill').style.width = '100%';
+  }
+
+  function restart() {
+    Object.keys(quizData).forEach(k => {
+      if (!['utm_source','utm_medium','utm_campaign','utm_content','gclid','fbclid','source'].includes(k))
+        quizData[k] = null;
+    });
+    // Réinitialiser les sélections
+    document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+    document.querySelectorAll('.btn-continue').forEach(b => { b.style.opacity='0.3'; b.style.pointerEvents='none'; });
+    // Vider les champs contact
+    ['input-prenom','input-tel','input-email','input-cp'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    // Masquer les résultats
+    document.getElementById('quizResult').classList.remove('active');
+    document.getElementById('quizLoading').style.display = 'none';
+    // Remettre toutes les étapes visibles
+    document.querySelectorAll('.step').forEach(s => { s.style.display = ''; s.classList.remove('active'); });
+    // Retourner à l'étape 1
+    currentStep = 1;
+    document.querySelector('[data-step="1"]').classList.add('active');
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  updateProgress();
+  </script>
+</body>
+</html>

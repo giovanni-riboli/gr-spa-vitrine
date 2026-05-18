@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tableau de bord — Espace Pro Giovanni Riboli</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Inter',sans-serif;background:#f5f7fa;min-height:100vh;display:flex}
+    /* Sidebar */
+    .sidebar{width:250px;background:#1a2d3e;color:#fff;min-height:100vh;position:fixed;left:0;top:0;z-index:100;transition:transform .3s}
+    .sidebar .logo-area{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
+    .sidebar .logo-area img{height:32px}
+    .sidebar .logo-area .brand{font-size:14px;font-weight:600;color:#c7a260;margin-top:6px}
+    .sidebar nav{padding:16px 0}
+    .sidebar nav a{display:flex;align-items:center;gap:10px;padding:12px 24px;color:rgba(255,255,255,.7);text-decoration:none;font-size:14px;font-weight:500;transition:all .2s}
+    .sidebar nav a:hover,.sidebar nav a.active{color:#c7a260;background:rgba(199,162,96,.08)}
+    .sidebar nav a.active{border-right:3px solid #c7a260}
+    .sidebar nav a svg{width:18px;height:18px;flex-shrink:0}
+    /* Header */
+    .main{margin-left:250px;flex:1;min-height:100vh}
+    .header{background:#fff;border-bottom:1px solid #e5e7eb;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+    .header .title{font-size:16px;font-weight:600;color:#253a4c}
+    .header .user-area{display:flex;align-items:center;gap:16px;font-size:13px;color:#7a8a9a}
+    .header .user-area strong{color:#253a4c}
+    .btn-logout{padding:8px 16px;background:none;border:1px solid #dce1e8;border-radius:6px;font-size:12px;font-family:'Inter',sans-serif;cursor:pointer;color:#253a4c;transition:all .2s}
+    .btn-logout:hover{border-color:#c7a260;color:#c7a260}
+    /* Content */
+    .content{padding:32px}
+    .greeting{font-size:22px;font-weight:600;color:#253a4c;margin-bottom:24px}
+    /* Cards grid */
+    .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-bottom:36px}
+    .card{background:#fff;border-radius:10px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.05);border-top:3px solid #c7a260}
+    .card .card-label{font-size:12px;color:#7a8a9a;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+    .card .card-value{font-size:26px;font-weight:700;color:#253a4c}
+    .card .card-value.text{font-size:16px;font-weight:600}
+    /* Section */
+    .section-title{font-size:17px;font-weight:600;color:#253a4c;margin-bottom:16px}
+    .news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:36px}
+    .news-card{background:#fff;border-radius:10px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.05)}
+    .news-card h3{font-size:15px;font-weight:600;color:#253a4c;margin-bottom:6px}
+    .news-card p{font-size:13px;color:#7a8a9a;line-height:1.5}
+    .news-card .tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;margin-bottom:10px}
+    .tag-new{background:#ecfdf5;color:#059669}
+    .tag-promo{background:#fef3c7;color:#b45309}
+    /* Quick access */
+    .quick-access{display:flex;gap:12px;flex-wrap:wrap}
+    .btn-quick{padding:12px 24px;background:#253a4c;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;text-decoration:none;transition:background .2s}
+    .btn-quick:hover{background:#1a2d3e}
+    /* Hamburger */
+    .hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+    .hamburger svg{width:24px;height:24px;color:#253a4c}
+    .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:90}
+    @media(max-width:768px){
+      .sidebar{transform:translateX(-100%)}
+      .sidebar.open{transform:translateX(0)}
+      .overlay.open{display:block}
+      .main{margin-left:0}
+      .hamburger{display:block}
+      .content{padding:20px}
+      .cards{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:480px){.cards{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="logo-area">
+      <img src="../assets/logo-blanc.svg" alt="GR" onerror="this.style.display='none'">
+      <div class="brand">Espace Revendeur</div>
+    </div>
+    <nav>
+      <a class='active' href='/pro/dashboard'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Tableau de bord</a>
+      <a href='/pro/documents'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Documents</a>
+      <a href='/pro/stocks'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>Stocks</a>
+      <a href='/pro/profil'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Mon profil</a>
+    </nav>
+  </aside>
+
+  <div class="main">
+    <header class="header">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="hamburger" onclick="toggleSidebar()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+        <span class="title">Tableau de bord</span>
+      </div>
+      <div class="user-area">
+        <span>Connecté : <strong id="userName"></strong></span>
+        <button class="btn-logout" onclick="AUTH.logout()">Déconnexion</button>
+      </div>
+    </header>
+
+    <div class="content">
+      <h1 class="greeting" id="greeting"></h1>
+
+      <div class="cards">
+        <div class="card"><div class="card-label">Documents disponibles</div><div class="card-value">82</div></div>
+        <div class="card"><div class="card-label">Nouveautés</div><div class="card-value">2</div></div>
+        <div class="card"><div class="card-label">Votre région</div><div class="card-value text" id="userRegion"></div></div>
+        <div class="card"><div class="card-label">Contact gestionnaire</div><div class="card-value text">04 67 00 00 00</div></div>
+      </div>
+
+      <h2 class="section-title">Dernières nouveautés</h2>
+      <div class="news-grid">
+        <div class="news-card">
+          <span class="tag tag-promo">Promo</span>
+          <h3>Offre Électrisante</h3>
+          <p>Une borne de recharge offerte pour l'achat d'un spa. Visuels et argumentaire disponibles dans l'espace Documents.</p>
+        </div>
+        <div class="news-card">
+          <span class="tag tag-new">Nouveau</span>
+          <h3>Catalogue 2026</h3>
+          <p>Les catalogues Relax, Energy et Luxury 2026 sont disponibles au téléchargement.</p>
+        </div>
+        <div class="news-card">
+          <span class="tag tag-new">Nouveau</span>
+          <h3>Visuels réseaux sociaux</h3>
+          <p>Pack de visuels prêts à publier pour l'Offre Électrisante. Accédez-y depuis la section Visuels.</p>
+        </div>
+      </div>
+
+      <h2 class="section-title">Accès rapides</h2>
+      <div class="quick-access">
+        <a class='btn-quick' href='/pro/documents'>📄 Documents</a>
+        <a class='btn-quick' href='/pro/stocks'>📦 Stocks</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="api-mock.js"></script>
+  <script src="auth.js"></script>
+  <script>
+    const user = AUTH.requireAuth();
+    if (user) {
+      document.getElementById('userName').textContent = user.name;
+      document.getElementById('greeting').textContent = 'Bonjour, ' + user.name + ' 👋';
+      document.getElementById('userRegion').textContent = user.region;
+    }
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('overlay').classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

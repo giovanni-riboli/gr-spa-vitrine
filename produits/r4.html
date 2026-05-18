@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>R.4 — Relax | Giovanni Riboli</title>
+  <meta name="description" content="Spa R.4 Giovanni Riboli — 34 buses, 4 assises. Relax.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .product-hero { display:flex; gap:3rem; align-items:center; padding:8rem 5% 4rem; max-width:1280px; margin:0 auto; flex-wrap:wrap; }
+    .product-hero__info { flex:1; min-width:320px; }
+    .product-hero__visual { flex:1; min-width:320px; }
+    .breadcrumb { font-family:'Inter',sans-serif; font-size:.85rem; color:#888; margin-bottom:1.5rem; }
+    .breadcrumb a { color:#253a4c; text-decoration:none; }
+    .breadcrumb a:hover { color:#c7a260; }
+    .gamme-badge { display:inline-block; font-family:'Inter',sans-serif; font-size:.75rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:#c7a260; border:1px solid #c7a260; padding:.35rem .9rem; border-radius:2px; margin-bottom:1rem; }
+    .product-title { font-family:'Cormorant Garamond',serif; font-size:3.5rem; font-weight:500; color:#253a4c; line-height:1.1; margin:0 0 1rem; }
+    .product-tagline { font-family:'Inter',sans-serif; font-size:1.05rem; color:#666; line-height:1.6; }
+    .product-placeholder { width:100%; aspect-ratio:4/3; background:linear-gradient(135deg,#e8e4df 0%,#d4cfc8 100%); border-radius:8px; display:flex; align-items:center; justify-content:center; color:#999; font-family:'Inter',sans-serif; font-size:.9rem; }
+    .product-placeholder-sm { width:100%; aspect-ratio:4/3; background:linear-gradient(135deg,#e8e4df 0%,#d4cfc8 100%); border-radius:6px; display:flex; align-items:center; justify-content:center; color:#999; font-size:.8rem; min-height:140px; }
+    .quick-specs { display:flex; gap:1.5rem; flex-wrap:wrap; padding:2.5rem 5%; max-width:1280px; margin:0 auto; }
+    .quick-spec { flex:1; min-width:140px; text-align:center; padding:1.5rem 1rem; background:#f8f6f2; border-radius:6px; }
+    .quick-spec__value { font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:600; color:#253a4c; display:block; }
+    .quick-spec__label { font-family:'Inter',sans-serif; font-size:.8rem; color:#888; margin-top:.3rem; display:block; }
+    .product-section { max-width:1280px; margin:0 auto; padding:3rem 5%; }
+    .product-section h2 { font-family:'Cormorant Garamond',serif; font-size:2rem; color:#253a4c; margin-bottom:1.5rem; }
+    .product-section p { font-family:'Inter',sans-serif; font-size:1rem; color:#555; line-height:1.7; margin-bottom:1rem; }
+    .specs-table { width:100%; border-collapse:collapse; font-family:'Inter',sans-serif; }
+    .specs-table td { padding:.85rem 1rem; border-bottom:1px solid #eee; font-size:.95rem; }
+    .specs-table td:first-child { color:#888; width:40%; }
+    .specs-table td:last-child { color:#253a4c; font-weight:500; }
+    .equip-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:1rem; }
+    .equip-item { display:flex; align-items:center; gap:.75rem; padding:1rem; background:#f8f6f2; border-radius:6px; font-family:'Inter',sans-serif; font-size:.9rem; color:#253a4c; }
+    .equip-icon { font-size:1.4rem; }
+    .options-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1rem; }
+    .option-card { padding:1.2rem; background:#f8f6f2; border-radius:6px; text-align:center; font-family:'Inter',sans-serif; font-size:.9rem; color:#253a4c; }
+    .color-swatches { display:flex; gap:2rem; flex-wrap:wrap; }
+    .color-swatch { text-align:center; }
+    .swatch { display:block; width:60px; height:60px; border-radius:50%; margin:0 auto .5rem; }
+    .swatch-label { font-family:'Inter',sans-serif; font-size:.8rem; color:#666; }
+    .product-cta { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; padding:3rem 5%; max-width:800px; margin:0 auto; }
+    .crosssell { background:#f8f6f2; padding:4rem 5%; }
+    .crosssell__inner { max-width:1280px; margin:0 auto; }
+    .crosssell__inner h2 { font-family:'Cormorant Garamond',serif; font-size:2rem; color:#253a4c; margin-bottom:2rem; text-align:center; }
+    .crosssell-grid { display:flex; gap:2rem; justify-content:center; flex-wrap:wrap; }
+    .crosssell-card { flex:1; min-width:220px; max-width:320px; text-decoration:none; color:#253a4c; text-align:center; transition:transform .2s; }
+    .crosssell-card:hover { transform:translateY(-4px); }
+    .crosssell-card h4 { font-family:'Cormorant Garamond',serif; font-size:1.3rem; margin:.75rem 0 .25rem; }
+    .crosssell-card p { font-family:'Inter',sans-serif; font-size:.85rem; color:#888; }
+    @media(max-width:768px){
+      .product-hero { padding:6rem 5% 2rem; gap:2rem; }
+      .product-title { font-size:2.5rem; }
+      .quick-specs { gap:.75rem; }
+      .quick-spec { min-width:calc(50% - .75rem); }
+    }
+  </style>
+</head>
+<body>
+
+  
+
+  <header class="nav nav--solid" id="nav">
+    <div class="nav__inner">
+      <a class='nav__logo' href='/'>
+        <img src="../assets/logo-noir.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-dark">
+        <img src="../assets/logo-blanc.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-light">
+      </a>
+      <ul class="nav__menu">
+        <li>
+          <a href="#">Nos spas</a>
+          <div class="mega-menu">
+            <div class="mega-menu__inner">
+              <div class="mega-menu__col">
+                <div class="mega-menu__col-title">Nos gammes</div>
+                <ul>
+                  <li><a href='/gammes/relax'>Gamme Relax</a></li>
+                  <li><a href='/gammes/energy'>Gamme Energy</a></li>
+                  <li><a href='/gammes/luxury'>Gamme Luxury</a></li>
+                  <li><a href='/gammes/spa-de-nage'>Spa de nage</a></li>
+                </ul>
+              </div>
+              <div class="mega-menu__col">
+                <div class="mega-menu__col-title">Nos modèles</div>
+                <ul>
+                  <li><a href='/produits/amalfi'>Amalfi</a></li>
+                  <li><a href='/produits/bari'>Bari</a></li>
+                  <li><a href='/produits/capri'>Capri</a></li>
+                  <li><a href='/produits/roma'>Roma</a></li>
+                  <li><a href='/produits/napoli'>Napoli</a></li>
+                  <li><a href='/produits/torino'>Torino</a></li>
+                  <li><a href='/produits/napoli-luxe'>Napoli Luxe</a></li>
+                  <li><a href='/produits/roma-luxe'>Roma Luxe</a></li>
+                  <li><a href='/produits/torino-luxe'>Torino Luxe</a></li>
+                </ul>
+              </div>
+              <div class="mega-menu__visual">
+                <div class="mega-menu__visual-placeholder"></div>
+                <a href="#" class="mega-cta">Voir tous les modèles</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a href="#">La marque</a>
+          <div class="mega-menu mega-menu--brand">
+            <div class="mega-menu__inner">
+              <div class="mega-menu__col">
+                <ul>
+                  <li><a href='/a-propos'>Notre histoire</a></li>
+                  <li><a href='/a-propos#engagements'>Nos engagements</a></li>
+                  <li><a href='/a-propos#technologies'>Nos technologies</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href='/revendeurs'>Nos magasins</a></li>
+        <li><a href='/blog'>Blog</a></li>
+        <li><a href='/espace-pro'>Espace pro</a></li>
+      </ul>
+      <div class="nav__right">
+        <a class='nav__cta' href='/revendeurs'>Trouver un revendeur</a>
+        <button class="nav__search-btn" aria-label="Rechercher"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35" stroke-linecap="round"/></svg></button>
+      </div>
+      <button class="nav__burger" id="navBurger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <!-- Mobile overlay -->
+    <div class="nav__mobile-overlay" id="navMobile">
+      <ul>
+        <li>
+          <button class="mobile-accordion-toggle">Nos spas <span class="mobile-arrow">▾</span></button>
+          <div class="mobile-submenu">
+            <div class="mobile-sub-title">Nos gammes</div>
+            <ul>
+              <li><a href='/gammes/relax'>Gamme Relax</a></li>
+              <li><a href='/gammes/energy'>Gamme Energy</a></li>
+              <li><a href='/gammes/luxury'>Gamme Luxury</a></li>
+              <li><a href='/gammes/spa-de-nage'>Spa de nage</a></li>
+            </ul>
+            <div class="mobile-sub-title">Nos modèles</div>
+            <ul>
+              <li><a href='/produits/amalfi'>Amalfi</a></li>
+              <li><a href='/produits/bari'>Bari</a></li>
+              <li><a href='/produits/capri'>Capri</a></li>
+              <li><a href='/produits/roma'>Roma</a></li>
+              <li><a href='/produits/napoli'>Napoli</a></li>
+              <li><a href='/produits/torino'>Torino</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <button class="mobile-accordion-toggle">La marque <span class="mobile-arrow">▾</span></button>
+          <div class="mobile-submenu">
+            <ul>
+              <li><a href='/a-propos'>Notre histoire</a></li>
+              <li><a href='/a-propos#engagements'>Nos engagements</a></li>
+              <li><a href='/a-propos#technologies'>Nos technologies</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a href='/revendeurs'>Nos magasins</a></li>
+        <li><a href='/blog'>Blog</a></li>
+        <li><a href='/espace-pro'>Espace pro</a></li>
+      </ul>
+      <a class='nav__mobile-cta' href='/revendeurs'>Trouver un revendeur</a>
+    </div>
+  </header>
+
+  <section class="product-hero">
+    <div class="product-hero__info">
+      <div class="breadcrumb">
+        <a href="../index.html">Accueil</a> &rsaquo; <a href="../gammes/relax.html">Relax</a> &rsaquo; R.4
+      </div>
+      <span class="gamme-badge">Relax</span>
+      <h1 class="product-title">R.4</h1>
+      <p class="product-tagline">L'essentiel du bien-être, compact et performant.</p>
+    </div>
+    <div class="product-hero__visual">
+      <div class="product-placeholder">Photo R.4</div>
+    </div>
+  </section>
+
+  <section class="quick-specs">
+    <div class="quick-spec">
+      <span class="quick-spec__value">34</span>
+      <span class="quick-spec__label">Buses inox</span>
+    </div>
+    <div class="quick-spec">
+      <span class="quick-spec__value">200 × 155</span>
+      <span class="quick-spec__label">200 × 155 × 78 cm</span>
+    </div>
+    <div class="quick-spec">
+      <span class="quick-spec__value">4 places</span>
+      <span class="quick-spec__label">4 assises</span>
+    </div>
+    <div class="quick-spec">
+      <span class="quick-spec__value">490 L</span>
+      <span class="quick-spec__label">Volume</span>
+    </div>
+  </section>
+
+  <section class="product-section">
+    <h2>Fiche technique</h2>
+    <table class="specs-table">
+      <tbody>
+            <tr><td>Nombre de buses</td><td>34 buses inox</td></tr>
+            <tr><td>Dimensions</td><td>200 × 155 × 78 cm</td></tr>
+            <tr><td>Places</td><td>4 assises</td></tr>
+            <tr><td>Volume</td><td>490 L</td></tr>
+            <tr><td>Poids à vide</td><td>280 kg</td></tr>
+            <tr><td>Système de contrôle</td><td>Balboa VL401-GS</td></tr>
+            <tr><td>Chauffage</td><td>Titane 3 kW</td></tr>
+            <tr><td>Pompe</td><td>Bi-vitesse GR250-II 1.85 kW</td></tr>
+            <tr><td>Isolation</td><td>ISOPLUS®</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="product-section">
+    <h2>Équipements de série</h2>
+    <div class="equip-grid">
+            <div class="equip-item"><span class="equip-icon">💧</span><span class="equip-label">Jets inox</span></div>
+            <div class="equip-item"><span class="equip-icon">⚡</span><span class="equip-label">Pompe bi-vitesse GR250-II</span></div>
+            <div class="equip-item"><span class="equip-icon">🎛️</span><span class="equip-label">Système Balboa VL401-GS</span></div>
+            <div class="equip-item"><span class="equip-icon">🔬</span><span class="equip-label">Lampe UV PURE</span></div>
+            <div class="equip-item"><span class="equip-icon">🔒</span><span class="equip-label">Couverture isotherme</span></div>
+            <div class="equip-item"><span class="equip-icon">🌈</span><span class="equip-label">Chromothérapie</span></div>
+            <div class="equip-item"><span class="equip-icon">🧊</span><span class="equip-label">Isolation ISOPLUS®</span></div>
+    </div>
+  </section>
+
+  <section class="product-section">
+    <h2>Options disponibles</h2>
+    <div class="options-grid">
+      <div class="option-card">🪜 Escalier assorti</div>
+      <div class="option-card">🎵 Musicothérapie</div>
+      <div class="option-card">📶 WiFi</div>
+    </div>
+  </section>
+
+  <section class="product-section">
+    <h2>Coloris disponibles</h2>
+    <div class="color-swatches">
+            <div class="color-swatch"><span class="swatch" style="background:#ffffff; border:1px solid #ddd"></span><span class="swatch-label">Blanc</span></div>
+            <div class="color-swatch"><span class="swatch" style="background:#c8c8c0;"></span><span class="swatch-label">Gris perle</span></div>
+            <div class="color-swatch"><span class="swatch" style="background:#2a2a2a;"></span><span class="swatch-label">Noir composite</span></div>
+    </div>
+  </section>
+
+  <section class="product-cta">
+    <a href="../revendeurs.html" class="btn btn--primary">Trouver un revendeur proche</a>
+    <a href="#" class="btn btn--outline">Télécharger la fiche technique</a>
+  </section>
+
+  <section class="crosssell">
+    <div class="crosssell__inner">
+      <h2>Vous aimerez aussi</h2>
+      <div class="crosssell-grid">
+          <a href="r1.html" class="crosssell-card"><div class="crosssell-img"><div class="product-placeholder-sm">Photo R.1</div></div><h4>R.1</h4><p>26 buses · 2 places</p></a>
+          <a href="r2.html" class="crosssell-card"><div class="crosssell-img"><div class="product-placeholder-sm">Photo R.2</div></div><h4>R.2</h4><p>30 buses · 3 places</p></a>
+          <a href="amalfi.html" class="crosssell-card"><div class="crosssell-img"><div class="product-placeholder-sm">Photo Amalfi</div></div><h4>Amalfi</h4><p>62 buses · 5 places</p></a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" id="contact">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img src="../assets/logo-blanc.svg" alt="Giovanni Riboli" class="footer__logo">
+        <p class="footer__tagline">L'art du spa à domicile.</p>
+        <p class="footer__address">Giovanni Riboli SAS — France</p>
+      </div>
+      <div class="footer__nav">
+        <h4>Nos spas</h4>
+        <a href="../gammes/luxury.html">Gamme Luxury</a>
+        <a href="../gammes/energy.html">Gamme Energy</a>
+        <a href="../gammes/relax.html">Gamme Relax</a>
+        <a href="../gammes/spa-de-nage.html">Spa de nage</a>
+      </div>
+      <div class="footer__nav">
+        <h4>La marque</h4>
+        <a href="../a-propos.html">À propos</a>
+        <a href="../revendeurs.html">Nos magasins</a>
+        <a href="../quiz.html">Configurateur</a>
+        <a href="../espace-pro.html">Espace revendeur</a>
+      </div>
+      <div class="footer__nav">
+        <h4>Contact</h4>
+        <a href="mailto:contact@gr-spa.com">contact@gr-spa.com</a>
+        <a href="../blog.html">Blog &amp; Actualités</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container">
+        <p>© 2026 Giovanni Riboli SAS — Tous droits réservés</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+
+
+
+
+<script>
+(function() {
+  const SLUG = 'r4';
+  const URL  = 'https://ohjzggceozamhdesecxi.supabase.co';
+  const KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oanpnZ2Nlb3phbWhkZXNlY3hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Njc5MDYsImV4cCI6MjA5MjM0MzkwNn0.wW-tqXBDUtKURR31bh3CUWIcuYMUJTZLqq2LLT1kJnA';
+
+  function fmt(n, unit) { return n ? n + (unit || '') : null; }
+  function fmtBool(v, yes, no) { return v === true ? yes : v === false ? no : null; }
+
+  fetch(URL+'/rest/v1/produits?slug=eq.'+SLUG+'&select=*', {
+    headers: { 'apikey': KEY, 'Authorization': 'Bearer '+KEY }
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (!data || !data[0]) return;
+    const p = data[0];
+
+    // ============================================================
+    // 1. QUICK-SPECS (buses, dimensions, places, isolation)
+    // ============================================================
+    const qs = document.querySelector('.quick-specs');
+    if (qs) {
+      const dim = p.longueur_cm && p.largeur_cm && p.hauteur_cm
+        ? p.longueur_cm+'× '+p.largeur_cm+' × '+p.hauteur_cm+' cm' : null;
+      let places = '';
+      if (p.nb_places_assises > 0 && p.nb_places_allongees > 0)
+        places = p.nb_places_assises+' assise'+(p.nb_places_assises>1?'s':'')+' + '+p.nb_places_allongees+' allongée'+(p.nb_places_allongees>1?'s':'');
+      else if (p.nb_places_assises > 0)
+        places = p.nb_places_assises+' place'+(p.nb_places_assises>1?'s assises':' assise');
+      else if (p.nb_places_allongees > 0)
+        places = p.nb_places_allongees+' place'+(p.nb_places_allongees>1?'s allongées':' allongée');
+      else if (p.nb_places)
+        places = p.nb_places+' place'+(p.nb_places>1?'s':'');
+
+      const qsData = [
+        { value: p.nb_buses, label: 'Buses inox' },
+        { value: p.longueur_cm, label: dim },
+        { value: places || p.nb_places+' places', label: places ? null : 'Places' },
+        { value: p.isolation ? (p.isolation.includes('ISOPLUS') ? 'ISOPLUS®' : p.isolation.includes('polyur') ? 'Polyuréthane HD' : p.isolation.replace('Isolation Thermique ','').replace('Isolation ','')) : null, label: 'Isolation' }
+      ];
+
+      const cards = qs.querySelectorAll('.quick-spec');
+      qsData.forEach((item, i) => {
+        if (!cards[i] || !item.value) return;
+        const v = cards[i].querySelector('.quick-spec__value');
+        const l = cards[i].querySelector('.quick-spec__label');
+        if (v && item.value) v.textContent = item.value;
+        if (l && item.label) l.textContent = item.label;
+      });
+    }
+
+    // ============================================================
+    // 2. TABLEAU DE SPECS — remplacé entièrement
+    // ============================================================
+    const table = document.querySelector('.specs-table tbody');
+    if (!table) return;
+
+    const rows = [];
+    const add = (label, value) => { if (value) rows.push([label, value]); };
+
+    // 1. Buses
+    add('Nombre de buses', p.nb_buses ? p.nb_buses+' buses inox' : null);
+
+    // 2. Places
+    if (p.nb_places_assises > 0 || p.nb_places_allongees > 0) {
+      let pl = '';
+      if (p.nb_places_assises > 0) pl += p.nb_places_assises+' assise'+(p.nb_places_assises>1?'s':'');
+      if (p.nb_places_assises > 0 && p.nb_places_allongees > 0) pl += ' + ';
+      if (p.nb_places_allongees > 0) pl += p.nb_places_allongees+' allongee'+(p.nb_places_allongees>1?'s':'');
+      add('Places', pl);
+    } else if (p.nb_places) { add('Places', p.nb_places+' places'); }
+
+    // 3. Volume
+    add('Volume', p.volume_eau_l ? p.volume_eau_l.toLocaleString('fr-FR')+' L' : null);
+
+    // 4. Dimensions
+    if (p.longueur_cm && p.largeur_cm && p.hauteur_cm)
+      add('Dimensions', p.longueur_cm+' \u00d7 '+p.largeur_cm+' \u00d7 '+p.hauteur_cm+' cm');
+
+    // 5. Poids
+    if (p.poids_kg && p.poids_plein_kg)
+      add('Poids (vide / plein)', p.poids_kg+' kg / '+p.poids_plein_kg.toLocaleString('fr-FR')+' kg');
+    else if (p.poids_kg) add('Poids \u00e0 vide', p.poids_kg+' kg');
+
+    // 6. Chauffage
+    add('Chauffage', p.chauffage);
+
+    // 7. Pompe(s) — depuis les colonnes dédiées
+    {
+      let parts = [];
+      if (p.nb_pompes_massage > 0) parts.push(p.nb_pompes_massage+' pompe'+(p.nb_pompes_massage>1?'s':'')+' de massage');
+      if (p.nb_pompes_nage > 0) parts.push(p.nb_pompes_nage+' pompe'+(p.nb_pompes_nage>1?'s':'')+' de nage');
+      if (p.nb_pompes_filtration > 0) parts.push(p.nb_pompes_filtration+' pompe'+(p.nb_pompes_filtration>1?'s':'')+' de filtration');
+      if (parts.length > 0) add('Pompe(s)', parts.join(' + '));
+    }
+
+    // 8. Structure
+    add('Structure', p.structure_aluminium);
+
+    // 9. Traitement UV
+    if (p.traitement_uv && p.traitement_uv.toLowerCase() !== 'non')
+      add('Traitement UV', p.traitement_uv.includes('Pure') ? p.traitement_uv : 'S\u00e9rie');
+
+    // 10. Aromatherapie
+    if (p.aromatherapie === true) add('Aromath\u00e9rapie', 'S\u00e9rie');
+
+    // 11. Ecran de controle
+    if (p.systeme_controle) {
+      const ecran = p.systeme_controle.split('/')[0].trim().replace('Tactile ','').replace('tactile ','');
+      add('\u00c9cran de contr\u00f4le', ecran);
+    }
+
+    // 12. Eclairage
+    if (p.leds_rgb) {
+      let ecl = 'Leds RGB';
+      if (p.repose_verre_rgb > 0) ecl += ' + '+p.repose_verre_rgb+' repose-verres RGB';
+      if (p.spot_rgb && p.spot_rgb !== '0' && p.spot_rgb !== 'Non') ecl += ' + spots aquatiques RGB';
+      add('\u00c9clairage', ecl);
+    }
+
+    // 13. Cascade / Fontaine RGB
+    if (p.cascade_rgb > 0) add('Cascade / Fontaine RGB', p.cascade_rgb+(p.cascade_rgb>1?' unit\u00e9s':' unit\u00e9'));
+
+    // 14. Massage
+    if (p.massage_robotise) add('Massage', 'S\u00e9quentiel robotis\u00e9 brevet\u00e9');
+
+    // Remplacement du tableau
+    table.innerHTML = rows.map(([l, v]) =>
+      '<tr><td>'+l+'</td><td>'+v+'</td></tr>'
+    ).join('');
+  })
+  .catch(() => {});
+})();
+</script>
+</body>
+</html>

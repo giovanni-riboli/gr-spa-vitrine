@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no.0">
+  <title>Espace Revendeur — Giovanni Riboli</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #f5f7fa; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .login-wrapper { width: 100%; max-width: 420px; padding: 20px; }
+    .logo { text-align: center; margin-bottom: 40px; }
+    .logo img { height: 50px; }
+    .logo-text { font-size: 22px; font-weight: 700; color: #253a4c; letter-spacing: 1px; }
+    .login-card { background: #fff; border-radius: 12px; padding: 40px 36px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); border-top: 3px solid #c7a260; }
+    .login-card h1 { font-size: 22px; font-weight: 600; color: #253a4c; margin-bottom: 6px; }
+    .login-card .subtitle { font-size: 13px; color: #7a8a9a; margin-bottom: 28px; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 500; color: #253a4c; margin-bottom: 6px; }
+    .form-group input { width: 100%; padding: 12px 14px; border: 1px solid #dce1e8; border-radius: 8px; font-size: 14px; font-family: 'Inter', sans-serif; transition: border-color .2s; }
+    .form-group input:focus { outline: none; border-color: #c7a260; }
+    .error-msg { background: #fef2f2; color: #b91c1c; padding: 10px 14px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; display: none; }
+    .btn-login { width: 100%; padding: 13px; background: #253a4c; color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; font-family: 'Inter', sans-serif; cursor: pointer; transition: background .2s; }
+    .btn-login:hover { background: #1a2d3e; }
+    .forgot { text-align: right; margin-bottom: 20px; }
+    .forgot a { font-size: 12px; color: #c7a260; text-decoration: none; }
+    .footer-links { text-align: center; margin-top: 24px; font-size: 13px; color: #7a8a9a; }
+    .footer-links a { color: #253a4c; text-decoration: none; font-weight: 500; }
+    .footer-links p { margin-bottom: 8px; }
+  
+        input, select, textarea { font-size: 16px !important; }
+        </style>
+</head>
+<body>
+  <div class="login-wrapper">
+    <div class="logo">
+      <img src="assets/logo-noir.svg" alt="Giovanni Riboli" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <div class="logo-text" style="display:none">GIOVANNI RIBOLI</div>
+    </div>
+    <div class="login-card">
+      <h1>Espace Revendeur</h1>
+      <p class="subtitle">Réservé aux revendeurs agréés Giovanni Riboli</p>
+      <div class="error-msg" id="error">Identifiants incorrects. Veuillez réessayer.</div>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">Email professionnel</label>
+          <input type="email" id="email" placeholder="votre@email.com" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input type="password" id="password" placeholder="••••••••" required>
+        </div>
+        <div class="forgot"><a href="#">Mot de passe oublié ?</a></div>
+        <button type="submit" class="btn-login">Se connecter</button>
+      </form>
+    </div>
+    <div class="footer-links">
+      <p><a href='/'>← Retour au site</a></p>
+      <p>Vous n'avez pas encore accès ?<br>Contactez votre gestionnaire Giovanni Riboli.</p>
+    </div>
+  </div>
+
+  <script src="pro/api-mock.js"></script>
+  <script src="pro/auth.js"></script>
+  <script>
+    // If already logged in, redirect to dashboard
+    if (AUTH.checkAuth()) window.location.href = 'pro/dashboard.html';
+
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const result = AUTH.login(email, password);
+      if (result.success) {
+        window.location.href = 'pro/dashboard.html';
+      } else {
+        document.getElementById('error').style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>

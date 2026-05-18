@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Magasins — Giovanni Riboli</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .store-hero {
+            text-align: center;
+            padding: 120px 24px 60px;
+            background: #f8f6f2;
+        }
+        .store-hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.4rem, 5vw, 3.6rem);
+            font-weight: 400;
+            color: #253a4c;
+            margin: 0 0 16px;
+            letter-spacing: 0.04em;
+        }
+        .store-hero .counter {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: #c7a260;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .store-filters {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px 0;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .store-filters input,
+        .store-filters select {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            padding: 14px 20px;
+            border: 1px solid #ddd;
+            border-radius: 0;
+            background: #fff;
+            color: #253a4c;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .store-filters input { flex: 1; min-width: 240px; }
+        .store-filters select { min-width: 200px; cursor: pointer; }
+        .store-filters input:focus,
+        .store-filters select:focus { border-color: #c7a260; }
+
+        .store-layout {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 40px;
+            align-items: start;
+        }
+        .store-map-wrapper {
+            position: sticky;
+            top: 84px;
+            height: 560px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .store-map-real {
+            height: 100%;
+            width: 100%;
+        }
+        @media(max-width:900px) {
+            .store-layout { grid-template-columns: 1fr; }
+            .store-map-wrapper { position: static; height: 350px; order: -1; }
+        }
+
+        .store-list { display: flex; flex-direction: column; gap: 20px; }
+
+        .store-card {
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 28px 32px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .store-card:hover {
+            border-color: #c7a260;
+            box-shadow: 0 4px 24px rgba(37,58,76,0.06);
+        }
+        .store-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #253a4c;
+            margin: 0 0 4px;
+        }
+        .store-card .dpt {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            color: #c7a260;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        .store-card .info {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            color: #555;
+            line-height: 1.7;
+        }
+        .store-card .info a {
+            color: #253a4c;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .store-card .info a:hover { color: #c7a260; }
+        .store-card .btn-showroom {
+            display: inline-block;
+            margin-top: 16px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #253a4c;
+            border: 1px solid #253a4c;
+            padding: 10px 24px;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        .store-card .btn-showroom:hover {
+            background: #253a4c;
+            color: #fff;
+        }
+
+        .store-map-placeholder {
+            background: #e8e6e2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 500px;
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+        .store-map-placeholder .inner {
+            padding: 40px;
+        }
+        .store-map-placeholder .inner svg {
+            width: 48px; height: 48px; margin-bottom: 16px; opacity: 0.4;
+        }
+        .store-map-placeholder p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: #888;
+            margin: 0;
+        }
+
+        .no-results {
+            font-family: 'Inter', sans-serif;
+            color: #888;
+            text-align: center;
+            padding: 40px 0;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .store-layout { grid-template-columns: 1fr; }
+            .store-map-placeholder { position: static; min-height: 300px; order: -1; }
+        }
+    
+        
+        
+</style>
+</head>
+<body>
+
+    <!-- NAV -->
+  <!-- NAV — Mega Menu -->
+  <header class="nav nav--solid" id="nav">
+    <div class="nav__inner">
+      <a class='nav__logo' href='/'>
+        <img src="assets/logo-noir.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-dark">
+        <img src="assets/logo-blanc.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-light">
+      </a>
+      <ul class="nav__menu">
+        <li>
+          <a href="#">Nos spas</a>
+          <div class="mega-menu">
+            <div class="mega-menu__inner">
+              <div class="mega-menu__col">
+                <div class="mega-menu__col-title">Nos gammes</div>
+                <ul>
+                  <li><a href='/gammes/relax'>Gamme Relax</a></li>
+                  <li><a href='/gammes/energy'>Gamme Energy</a></li>
+                  <li><a href='/gammes/luxury'>Gamme Luxury</a></li>
+                  <li><a href='/gammes/spa-de-nage'>Spa de nage</a></li>
+                </ul>
+              </div>
+              <div class="mega-menu__col">
+                <div class="mega-menu__col-title">Nos modèles</div>
+                <ul>
+                  <li><a href='/produits/amalfi'>Amalfi</a></li>
+                  <li><a href='/produits/bari'>Bari</a></li>
+                  <li><a href='/produits/capri'>Capri</a></li>
+                  <li><a href='/produits/roma'>Roma</a></li>
+                  <li><a href='/produits/napoli'>Napoli</a></li>
+                  <li><a href='/produits/torino'>Torino</a></li>
+                  <li><a href='/produits/napoli-luxe'>Napoli Luxe</a></li>
+                  <li><a href='/produits/roma-luxe'>Roma Luxe</a></li>
+                  <li><a href='/produits/torino-luxe'>Torino Luxe</a></li>
+                </ul>
+              </div>
+              <div class="mega-menu__visual">
+                <div class="mega-menu__visual-placeholder"></div>
+                <a href="#" class="mega-cta">Voir tous les modèles</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a href="#">La marque</a>
+          <div class="mega-menu mega-menu--brand">
+            <div class="mega-menu__inner">
+              <div class="mega-menu__col">
+                <ul>
+                  <li><a href='/a-propos'>Notre histoire</a></li>
+                  <li><a href='/a-propos#engagements'>Nos engagements</a></li>
+                  <li><a href='/a-propos#technologies'>Nos technologies</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href='/revendeurs'>Nos magasins</a></li>
+        <li><a href='/blog'>Blog</a></li>
+        <li><a href='/espace-pro'>Espace pro</a></li>
+      </ul>
+      <div class="nav__right">
+        <a class='nav__cta' href='/revendeurs'>Trouver un revendeur</a>
+        <button class="nav__search-btn" aria-label="Rechercher"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35" stroke-linecap="round"/></svg></button>
+      </div>
+      <button class="nav__burger" id="navBurger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <!-- Mobile overlay -->
+    <div class="nav__mobile-overlay" id="navMobile">
+      <ul>
+        <li>
+          <button class="mobile-accordion-toggle">Nos spas <span class="mobile-arrow">▾</span></button>
+          <div class="mobile-submenu">
+            <div class="mobile-sub-title">Nos gammes</div>
+            <ul>
+              <li><a href='/gammes/relax'>Gamme Relax</a></li>
+              <li><a href='/gammes/energy'>Gamme Energy</a></li>
+              <li><a href='/gammes/luxury'>Gamme Luxury</a></li>
+              <li><a href='/gammes/spa-de-nage'>Spa de nage</a></li>
+            </ul>
+            <div class="mobile-sub-title">Nos modèles</div>
+            <ul>
+              <li><a href='/produits/amalfi'>Amalfi</a></li>
+              <li><a href='/produits/bari'>Bari</a></li>
+              <li><a href='/produits/capri'>Capri</a></li>
+              <li><a href='/produits/roma'>Roma</a></li>
+              <li><a href='/produits/napoli'>Napoli</a></li>
+              <li><a href='/produits/torino'>Torino</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <button class="mobile-accordion-toggle">La marque <span class="mobile-arrow">▾</span></button>
+          <div class="mobile-submenu">
+            <ul>
+              <li><a href='/a-propos'>Notre histoire</a></li>
+              <li><a href='/a-propos#engagements'>Nos engagements</a></li>
+              <li><a href='/a-propos#technologies'>Nos technologies</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a href='/revendeurs'>Nos magasins</a></li>
+        <li><a href='/blog'>Blog</a></li>
+        <li><a href='/espace-pro'>Espace pro</a></li>
+      </ul>
+      <a class='nav__mobile-cta' href='/revendeurs'>Trouver un revendeur</a>
+    </div>
+  </header>
+
+    <!-- HERO -->
+    <section class="store-hero">
+        <h1>Nos magasins</h1>
+        <p class="counter">+ 50 showrooms en France</p>
+    </section>
+
+    <!-- FILTERS -->
+    <div class="store-filters">
+        <input type="text" id="searchInput" placeholder="Rechercher par ville, nom ou code postal…">
+        <select id="dptFilter">
+            <option value="">Tous les départements</option>
+        </select>
+    </div>
+
+    <!-- LAYOUT -->
+    <div class="store-layout">
+        <div class="store-list" id="storeList"></div>
+        <div class="store-map-wrapper"><div class="store-map-real" id="storeMap"></div></div>
+    </div>
+    <p class="no-results" id="noResults">Aucun revendeur trouvé pour cette recherche.</p>
+
+    <!-- FOOTER -->
+    <footer class="footer" id="contact">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img src="./assets/logo-blanc.svg" alt="Giovanni Riboli" class="footer__logo">
+        <p class="footer__tagline">L'art du spa à domicile.</p>
+        <p class="footer__address">Giovanni Riboli SAS — France</p>
+      </div>
+      <div class="footer__nav">
+        <h4>Nos spas</h4>
+        <a href='/gammes/luxury'>Gamme Luxury</a>
+        <a href='/gammes/energy'>Gamme Energy</a>
+        <a href='/gammes/relax'>Gamme Relax</a>
+        <a href='/gammes/spa-de-nage'>Spa de nage</a>
+      </div>
+      <div class="footer__nav">
+        <h4>La marque</h4>
+        <a href='/a-propos'>À propos</a>
+        <a href='/revendeurs'>Nos magasins</a>
+        <a href='/quiz'>Configurateur</a>
+        <a href='/espace-pro'>Espace revendeur</a>
+      </div>
+      <div class="footer__nav">
+        <h4>Contact</h4>
+        <a href="mailto:contact@gr-spa.com">contact@gr-spa.com</a>
+        <a href='/blog'>Blog &amp; Actualités</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container">
+        <p>© 2026 Giovanni Riboli SAS — Tous droits réservés</p>
+      </div>
+    </div>
+  </footer>
+
+    <script>
+    const dealers = [
+        {
+                "DPT": "17",
+                "GESTIONNAIRE": "Thomas Riboli",
+                "REVENDEURS": "Giovanni Riboli Vaux-sur-Mer",
+                "NOMS": "Thomas Riboli",
+                "ADRESSES POSTALES": "2 Rue Paul Emile Victor 17640 Vaux-sur-Mer",
+                "TELEPHONES": "05 46 38 02 52",
+                "E-MAILS": "contact@gr-spa.com",
+                "SLUG": "giovanni-riboli-vaux-sur-mer",
+                "TYPE": "magasin-propre",
+                "NOTE": "Siège Social"
+        },
+        {
+                "DPT": "17",
+                "GESTIONNAIRE": "Florian Palatzoglou",
+                "REVENDEURS": "Giovanni Riboli La Rochelle",
+                "NOMS": "Florian Palatzoglou",
+                "ADRESSES POSTALES": "152 Rue Emile Normandin 17000 La Rochelle",
+                "TELEPHONES": "05 17 26 12 50",
+                "E-MAILS": "larochelle@gr-spa.com",
+                "SLUG": "giovanni-riboli-la-rochelle",
+                "TYPE": "magasin-propre"
+        },
+        {
+                "DPT": "79",
+                "GESTIONNAIRE": "Natacha Texier",
+                "REVENDEURS": "Giovanni Riboli Niort",
+                "NOMS": "Natacha Texier",
+                "ADRESSES POSTALES": "264 Avenue de Paris 79000 Niort",
+                "TELEPHONES": "05 49 16 61 41",
+                "E-MAILS": "niort@gr-spa.com",
+                "SLUG": "giovanni-riboli-niort",
+                "TYPE": "magasin-propre"
+        },
+        {
+                "DPT": "33",
+                "GESTIONNAIRE": "Romain Geneste",
+                "REVENDEURS": "Giovanni Riboli Bordeaux",
+                "NOMS": "Romain Geneste",
+                "ADRESSES POSTALES": "2816 Avenue de Bordeaux 33127 Saint-Jean-d'Illac",
+                "TELEPHONES": "05 57 95 46 30",
+                "E-MAILS": "bordeaux@gr-spa.com",
+                "SLUG": "giovanni-riboli-bordeaux",
+                "TYPE": "magasin-propre"
+        },
+        {
+                "DPT": "31",
+                "GESTIONNAIRE": "Sylvie Dumortier",
+                "REVENDEURS": "Giovanni Riboli Toulouse",
+                "NOMS": "Sylvie Dumortier",
+                "ADRESSES POSTALES": "72 Route de Paris 31790 Saint-Jory",
+                "TELEPHONES": "05 61 56 62 68",
+                "E-MAILS": "sdumortier@gr-spa.com",
+                "SLUG": "giovanni-riboli-toulouse",
+                "TYPE": "magasin-propre"
+        },
+        {
+                "DPT": "34",
+                "GESTIONNAIRE": "Clara Delmas",
+                "REVENDEURS": "Giovanni Riboli Montpellier",
+                "NOMS": "Clara Delmas",
+                "ADRESSES POSTALES": "57 Rue de la Jasse 34130 Mauguio",
+                "TELEPHONES": "04 99 58 85 99",
+                "E-MAILS": "montpellier@gr-spa.com",
+                "SLUG": "giovanni-riboli-montpellier",
+                "TYPE": "magasin-propre"
+        },
+        {
+                "DPT": "5",
+                "GESTIONNAIRE": "MELANIE",
+                "REVENDEURS": "PASSION BIEN ETRE",
+                "NOMS": "Pauline GROS",
+                "ADRESSES POSTALES": "18 AVENUE EMILE DIDIER 05000 GAP",
+                "TELEPHONES": "07-85-86-32-84 04-92-21-26-16",
+                "E-MAILS": "passion.bien.etre05@gmail.com",
+                "null": "",
+                "SLUG": "passion-bien-etre"
+        },
+        {
+                "DPT": "10",
+                "GESTIONNAIRE": "MELANIE",
+                "REVENDEURS": "EAU DIVINE",
+                "NOMS": "Angélique RIGOUREAU",
+                "ADRESSES POSTALES": "8 ROUTE DE VERRIERES 10450 BREVIANDES",
+                "TELEPHONES": "07-66-09-57-00",
+                "E-MAILS": "angelique@eaudivine-everblue.fr",
+                "null": "",
+                "SLUG": "eau-divine"
+        },
+        {
+                "DPT": "16",
+                "GESTIONNAIRE": "MYLENE",
+                "REVENDEURS": "PMV PISCINES",
+                "NOMS": "Viviane PELTIN Mickael PELTIN",
+                "ADRESSES POSTALES": "LE GIRATOIR DE LA COMBE 16710 SAINT YRIEX",
+                "TELEPHONES": "06-37-74-12-97",
+                "E-MAILS": "solidpoolangouleme@gmail.com",
+                "null": "",
+                "SLUG": "pmv-piscines"
+        },
+        {
+                "DPT": "17",
+                "GESTIONNAIRE": "MELANIE",
+                "REVENDEURS": "ILE DE RE PISCINE",
+                "NOMS": "Sandrine et Gaetan MORIN",
+                "ADRESSES POSTALES": "10 RUE DU COUTORD 17580 LE BOIS PLAGE EN RE",
+                "TELEPHONES": "06-71-91-32-43 05-46-09-90-90",
+                "E-MAILS": "direction@iledere-piscines.com accueil@iledere-piscines.com",
+                "null": "",
+                "SLUG": "ile-de-re-piscine"
+        },
+        {
+                "DPT": "17",
+                "GESTIONNAIRE": "MYLENE",
+                "REVENDEURS": "L'ILOT FLEURS",
+                "NOMS": "Camille et Anthony",
+                "ADRESSES POSTALES": "1 ROUTE DES MIROUELLES 17310 ST PIERRE D'OLERON",
+                "TELEPHONES": "06-88-34-68-31",
+                "E-MAILS": "camille.ilotfleurs@gmail.com",
+                "null": "",
+                "SLUG": "lilot-fleurs"
+        },
+        {
+                "DPT": "19",
+                "GESTIONNAIRE": "MELANIE",
+                "REVENDEURS": "LES SPAS GAILLARDS",
+                "NOMS": "Stéphane CHOUZENOUX Ludovic MAILLES",
+                "ADRESSES POSTALES": "60 AVENUE RIBOT 19100 BRIVE LA GAILLARDE",
+                "TELEPHONES": "06-98-85-56-90 06-45-79-78-72",
+                "E-MAILS": "chouzenouxsteph@live.fr",
+                "null": "A CONFIRME AVEC THOMAS",
+                "SLUG": "les-spas-gaillards"
+        },
+        {
+                "DPT": "20",
+                "GESTIONNAIRE": "MYLENE",
+                "REVENDEURS": "CORSE PISCINE",
+                "NOMS": "Sébastien ANDREANI",
+                "ADRESSES POSTALES": "ZONE INDUSTRIELLE DE MIGLIACCIARO 20243 PRUNELLI DI FIUMORBO",
+                "TELEPHONES": "06-43-73-07-40",
+                "E-MAILS": "compta.corsepiscine@gmail.com",
+                "null": "",
+                "SLUG": "corse-piscine"
+        },
+        {
+                "DPT": "21",
+                "GESTIONNAIRE": "MYLENE",
+                "REVENDEURS": "FEVRE VIELLARD PAYSAGE",
+                "NOMS": "Pierre VIELLARD",
+                "ADRESSES POSTALES": "50 ROUTE DE DIJON 21470 BRAZEY EN PLEINE",
+                "TELEPHONES": "06-99-18-99-47",
+                "E-MAILS": "fevre.viellard@orange.fr",
+                "null": "",
+                "SLUG": "fevre-viellard-paysage"
+        },
+        {
+                "DPT": "24",
+                "GESTIONNAIRE": "MYLENE",
+                "REVENDEURS": "PISCINE NOUVELLE VAGUE",
+                "NOMS": "Thierry VIGIER Antoine VIGIER",
+                "ADRESSES POSTALES": "122 ROUTE DE BORDEAUX 24430 MARSAC SUR LISLE",
+                "TELEPHONES": "05-53-54-03-63",
+                "E-MAILS": "secretariat@piscinenv.fr (envoi factures)",
+                "null": "",
+                "SLUG": "piscine-nouvelle-vague"
+        },
+        {
+                "DPT": "25",
+                "GESTIONNAIRE": "MELANIE",
+                "REVENDEURS": "CUINET Aménagement Extérieur C PISCINES",
+                "NOMS": "Francis CUINET Mélissa CUINET",
+                "ADRESSES POSTALES": "3 RUE DES GOUTTES 25260 TARCENAY FOUCHERANS",
+                "TELEPHONES": "03-39-64-22-39",
+                "E-MAILS": "bureau@cpiscines25.fr",
+                "null": "",
+                "SLUG": "cuinet-amenagement-exterieur-c-piscines"
+        },
+        {
+                "DPT": "28",
+                "GESTIONNAIRE": "MELANIE",
+                "REVENDEURS": "JL PISCINES",
+                "NOMS": "Jules LOWE",
+                "ADRESSES POSTALES": "ROUTE DU MANS, LIEU-DIT BEAUVAIS 28400 NOGENT LE ROTROU",
+                "TELEPHONES": "06-89-49-06-23",
+                "E-MAILS": "jl.piscine@daniel-moquet.com",
+                "null": "",
+                "SLUG": "jl-piscines"
+        },
+        {
+                "DPT": "29",
+                "GESTIONNAIRE": "MELANIE",
+                "REVENDEURS": "MAISON COULEUR (COULEUR PAYAGE)",
+                "NOMS": "Xavier PREVOT Pénélope GLOAQUIN (commerciale)",
+                "ADRESSES POSTALES": "40 ROUTE DE GUENGAT 29000 QUIMPER",
+                "TELEPHONES": "06-27-19-74-00 07-43-03-33-90",
+                "E-MAILS": "xavier.prevot@maison-couleur.com penelope.gloaquin@maison-couleur.com",
+                "null": "",
+                "SLUG": "maison-couleur-couleur-payage"
+        },
+        {
+                "DPT": "33",
+                "GESTIONNAIRE": "MELANIE",
+                "REVENDEURS": "SP(ha!)MMAM",
+                "NOMS": "Cathy ROUZIER Guillaume PIERRE",
+                "ADRESSES POSTALES": "41 ROUTE DES LACS 33380 BIGANOS",
+                "TELEPHONES": "07-69-35-12-09 06-61-13-99-66",
+                "E-MAILS": "sphammam@gmail.com",
+                "null": "",
+                "SLUG": "sphammam"
+        },
+        {
+                "DPT": "34",
+                "GESTIONNAIRE": "MYLENE",
+                "REVENDEURS": "INNOV'PISCINE",
+                "NOMS": "François CAJELOT",
+                "ADRESSES POSTALES": "8 RUE ALFRED MAUREL 34120 PEZENAS",
+                "TELEPHONES": "06-69-16-98-86",
+                "E-MAILS": "f.cajelot@innovpiscine.fr",
+                "null": "",
+                "SLUG": "innovpiscine"
+        },
+        {
+                "DPT": "38",
+                "GESTIONNAIRE": "MYLENE",
+                "REVENDEURS": "GE3M TOUT POUR L’EAU",
+                "NOMS": "Mickael LEVIEUX Emilie LEVIEUX",
+                "ADRESSES POSTALES": "7 ZA EMCOPARC 38550 SABLONS",
+                "TELEPHONES": "06-32-53-80-37",
+                "E-MAILS": "direction@solidpoolsablons.com",
+                "null": "",
+                "SLUG": "ge3m-tout-pour-leau"
+        },
+        {
+                "DPT": "42",
+                "GESTIONNAIRE": "MELANIE",
+                "REVENDEURS": "NATURE ET PAYSAGE",
+                "NOMS": "Olivier COUSSE",
+                "ADRESSES POSTALES": "219 RUE MICHEL RONDET 42153 RIORGES",
+                "TELEPHONES": "06-88-06-63-94",
+                "E-MAILS": "contactspa@nature-et-paysage.fr",
+                "null": "",
+                "SLUG": "nature-et-paysage"
+        },
+        {
+                "DPT": "42",
+                "GESTIONNAIRE": "MYLENE",
+                "REVENDEURS": "AQUATECH",
+                "NOMS": "Frédéric CONVERT",
+                "ADRESSES POSTALES": "17 RUE VICTOR GRIGNARD 42000 ST ETIENNE",
+                "TELEPHONES": "06-89-39-87-47",
+                "E-MAILS": "contact@aquatech-piscine.fr",
+                "null": "",
+                "SLUG": "aquatech"
+        },
+        {
+                "DPT": "43",
+                "GESTIONNAIRE": "MELANIE",
+                "REVENDEURS": "SARL AXELDISTRI ALTI PISCINES",
+                "NOMS": "Lucile BREYSSE",
+                "ADRESSES POSTALES": "355 AVENUE DU CHAMBON 43000 LE PUY EN VELAY",
+                "TELEPHONES": "04-71-09-62-12",
+                "E-MAILS": "altipiscines@gmail.com",
+                "null": "",
+                "SLUG": "sarl-axeldistri-alti-piscines"
+        },
+        {
+                "DPT": "44",
+                "GESTIONNAIRE": "MELANIE",
+                "REVENDEURS": "AM PISCINES",
+                "NOMS": "Antoine MORHAN",
+                "ADRESSES POSTALES": "2 ALLEE DU NOROIT 44380 PORNICHET",
+                "TELEPHONES": "02-52-41-08-28",
+                "E-MAILS": "contact@ampiscines.fr",
+                "null": "",
+                "SLUG": "am-piscines"
+        },
+        {
+                "DPT": "44",
+                "GESTIONNAIRE": "MELANIE",
+                "REVENDEURS": "ETS COUDRAY",
+                "NOMS": "Benjamin COUDRAY Maxime HUCHON (commercial)",
+                "ADRESSES POSTALES": "ROUTE DU JUIGNE DES MOUTIERS LES COHARDIERES 44110 CHATEAUBRIANT",
+                "TELEPHONES": "06-26-31-01-70",
+                "E-MAILS": "coudray@daniel-moquet.com",
+                "null": "",
+                "SLUG": "ets-coudray"
+        },
+        {
+                "DPT": "49",
+                "GESTIONNAIRE": "MELANIE",
+                "REVENDEURS": "OCEANO SPA",
+                "NOMS": "Etienne AUDUSSEAU",
+                "ADRESSES POSTALES": "ZI ECOPARC 49400 SAUMUR",
+                "TELEPHONES": "07-89-98-04-72",
+                "E-MAILS": "oceanospa49@gmail.com",
+                "null": "",
+                "SLUG": "oceano-spa"
+        },
+        {
+                "DPT": "50",
+                "GESTIONNAIRE": "MELANIE",
+                "REVENDEURS": "SARL STEPHANE ABRAHAM",
+                "NOMS": "Mathide ABRAHAM",
+                "ADRESSES POSTALES": "VILLENEUVE 50520 REFFUVEILLE",
+                "TELEPHONES": "06-02-07-74-69",
+                "E-MAILS": "reffuveille@abrahamsarl.fr",
+                "null": "",
+                "SLUG": "sarl-stephane-abraham"
+        },
+        {
+                "DPT": "54",
+                "GESTIONNAIRE": "MYLENE",
+                "REVENDEURS": "LA MAISON DU SPA",
+                "NOMS": "Quentin LEMAIRE Nabil BOULMSARAB",
+                "ADRESSES POSTALES": "2A RUE CATHERINE SAUVAGE 54270 ESSEY LES NANCY",
+                "TELEPHONES": "06-44-13-49-75",
+                "E-MAILS": "contact@maisonduspa.fr",
+                "null": "",
+                "SLUG": "la-maison-du-spa"
+        },
+        {
+                "DPT": "59",
+                "GESTIONNAIRE": "MELANIE",
+                "REVENDEURS": "JARDI’SPA",
+                "NOMS": "Nicolas BERNARD",
+                "ADRESSES POSTALES": "49 BIS RUE DE WACHEMY 59242 TEMPLEUVE EN PEVELE",
+                "TELEPHONES": "03-59-08-34-41",
+                "E-MAILS": "nb@jardibois-pevele.fr",
+                "null": "",
+                "SLUG": "jardispa"
+        },
+        {
+                "DPT": "59",
+                "GESTIONNAIRE": "MYLENE",
+                "REVENDEURS": "SABIAUX-DUBRECQ  MAISON BALI",
+                "NOMS": "Frédéric DUBRECQ Magalie DUBRECQ",
+                "ADRESSES POSTALES": "380 RUE SIMONE VEIL 59224 THIANT",
+                "TELEPHONES": "06-66-61-10-11",
+                "E-MAILS": "aprevost@maison-bali-France.com",
+                "null": "",
+                "SLUG": "sabiaux-dubrecq-maison-bali"
+        },
+        {
+                "DPT": "63",
+                "GESTIONNAIRE": "MYLENE",
+                "REVENDEURS": "CBP CONCEPT",
+                "NOMS": "Philippe LEDUC",
+                "ADRESSES POSTALES": "17 BIS BLD JEAN MOULIN 63000 CLERMONT FERRAND",
+                "TELEPHONES": "07-44-93-71-43",
+                "E-MAILS": "cbp.contact63@gmail.com",
+                "null": "",
+                "SLUG": "cbp-concept"
+        },
+        {
+                "DPT": "65",
+                "GESTIONNAIRE": "MYLENE",
+                "REVENDEURS": "LARCADE BOIS",
+                "NOMS": "Anthony LARCADE",
+                "ADRESSES POSTALES": "7 RUE DE LA BARONNERIE 65100 LES ANGLES",
+                "TELEPHONES": "06-18-18-52-71",
+                "E-MAILS": "larcade.bois@gmail.com",
+                "null": "",
+                "SLUG": "larcade-bois"
+        },
+        {
+                "DPT": "70",
+                "GESTIONNAIRE": "MELANIE",
+                "REVENDEURS": "MIDOT PISCINE",
+                "NOMS": "Sebastien MIDOT Déborah MIDOT",
+                "ADRESSES POSTALES": "9 RUE DERRIERE LES MURS 70230 MONTBOZON",
+                "TELEPHONES": "07-55-59-74-16",
+                "E-MAILS": "piscine@midot.fr",
+                "null": "A CONFIRME AVEC THOMAS",
+                "SLUG": "midot-piscine"
+        },
+        {
+                "DPT": "71",
+                "GESTIONNAIRE": "MYLENE",
+                "REVENDEURS": "MY ABRI",
+                "NOMS": "Gaetan GUICHARDON",
+                "ADRESSES POSTALES": "78 rue du Jura 71500 LOUHANS",
+                "TELEPHONES": "06-49-82-78-69",
+                "E-MAILS": "gaetan.guichardon@my-abri.fr",
+                "null": "",
+                "SLUG": "my-abri"
+        },
+        {
+                "DPT": "72",
+                "GESTIONNAIRE": "MELANIE",
+                "REVENDEURS": "AID'EAU PISCINE",
+                "NOMS": "Philippe NEUHAUS",
+                "ADRESSES POSTALES": "247 AVENUE NATIONALE 72230 ARNAGE",
+                "TELEPHONES": "02-43-27-27-00",
+                "E-MAILS": "contact@aideaupiscine.fr",
+                "null": "",
+                "SLUG": "aideau-piscine"
+        },
+        {
+                "DPT": "73",
+                "GESTIONNAIRE": "MYLENE",
+                "REVENDEURS": "EFFERVESCENCE",
+                "NOMS": "Céline GIROUX Franck GIROUX",
+                "ADRESSES POSTALES": "189 ALLEE DES ERABLES 73420 DRUMETTAZ CLARAFOND",
+                "TELEPHONES": "04-79-34-80-17",
+                "E-MAILS": "effervescence.cb@orange.fr",
+                "null": "",
+                "SLUG": "effervescence"
+        },
+        {
+                "DPT": "79",
+                "GESTIONNAIRE": "MYLENE",
+                "REVENDEURS": "ESPACES ET PISCINES",
+                "NOMS": "Grégory BESNIER",
+                "ADRESSES POSTALES": "22 ROUTE DE LA FRAGNAIE 79250 LES AUBIERS",
+                "TELEPHONES": "07-60-36-93-61",
+                "E-MAILS": "gregory@espacesetpiscines.fr",
+                "null": "",
+                "SLUG": "espaces-et-piscines"
+        },
+        {
+                "DPT": "83",
+                "GESTIONNAIRE": "MELANIE",
+                "REVENDEURS": "AZUR SPA DESIGN",
+                "NOMS": "Stéphane LAUNOIS",
+                "ADRESSES POSTALES": "36 ROUTE DE L'INTENDANCE 83600 FREJUS",
+                "TELEPHONES": "07-77-38-27-09",
+                "E-MAILS": "slaunois@gr-spa.com",
+                "null": "",
+                "SLUG": "azur-spa-design"
+        },
+        {
+                "DPT": "83",
+                "GESTIONNAIRE": "MELANIE",
+                "REVENDEURS": "NICOLAZI",
+                "NOMS": "Christophe JOURDAN",
+                "ADRESSES POSTALES": "683 AVENUE DES 5 PONTS 83470 ST MAXIMIN LA STE BAUME",
+                "TELEPHONES": "06-63-49-20-10",
+                "E-MAILS": "christophe.jourdan83@hotmail.fr",
+                "null": "",
+                "SLUG": "nicolazi"
+        },
+        {
+                "DPT": "85",
+                "GESTIONNAIRE": "MELANIE",
+                "REVENDEURS": "AK PISCINES ET JARDINS",
+                "NOMS": "Karim DJELLOULI Alice Ropers",
+                "ADRESSES POSTALES": "1 BIS RUE DE LA FASSONNIERE 85680 LA GUERINIERE",
+                "TELEPHONES": "07-89-30-23-28",
+                "E-MAILS": "ak.piscines.spas@gmail.com",
+                "null": "",
+                "SLUG": "ak-piscines-et-jardins"
+        },
+        {
+                "DPT": "85",
+                "GESTIONNAIRE": "MYLENE",
+                "REVENDEURS": "O'CONCEPT",
+                "NOMS": "M. Besler",
+                "ADRESSES POSTALES": "20 RUE KEBLER 85200 FONTENAY LE COMTE",
+                "TELEPHONES": "06-14-44-17-34",
+                "E-MAILS": "contact@o-concept.fr",
+                "null": "",
+                "SLUG": "oconcept"
+        },
+        {
+                "DPT": "91",
+                "GESTIONNAIRE": "MYLENE",
+                "REVENDEURS": "ACTUA PISCINE",
+                "NOMS": "Jean-Philippe ZUCCA",
+                "ADRESSES POSTALES": "4 ROUTE D'ORLEANS 91160 BALLAINVILLIERS",
+                "TELEPHONES": "06-32-22-97-31",
+                "E-MAILS": "actua.spas@gmail.com",
+                "null": "A CONFIRME AVEC THOMAS",
+                "SLUG": "actua-piscine"
+        },
+        {
+                "DPT": "95",
+                "GESTIONNAIRE": "MELANIE",
+                "REVENDEURS": "PISCINES DU VEXIN",
+                "NOMS": "Denis LUCHIER",
+                "ADRESSES POSTALES": "16 rue Paul Appel 95310 ST OUEN L'AUMONE",
+                "TELEPHONES": "07-86-12-87-71",
+                "E-MAILS": "piscineduvexin@orange.fr",
+                "null": "",
+                "SLUG": "piscines-du-vexin"
+        },
+        {
+                "DPT": "ESP 17600",
+                "GESTIONNAIRE": "MELANIE",
+                "REVENDEURS": "YEVROZOYUZ GESTORIA BATIMENTA",
+                "NOMS": "Christophe BEDOUET",
+                "ADRESSES POSTALES": "16 C / ALEMANYA 17600 FIGUERES",
+                "TELEPHONES": "07-88-78-23-68",
+                "E-MAILS": "lesmagasinecomateriauxespagne@gmail.com",
+                "null": "",
+                "SLUG": "yevrozoyuz-gestoria-batimenta"
+        },
+        {
+                "DPT": "ESP 3590",
+                "GESTIONNAIRE": "MYLENE",
+                "REVENDEURS": "GR ALTEA SPAS",
+                "NOMS": "Jean-Philippe RENARD",
+                "ADRESSES POSTALES": "PARTIDA CAP BLANCH 43 03590 ALTEA ALTEA CENTER LOCAL 4",
+                "TELEPHONES": "06-13-80-02-80",
+                "E-MAILS": "gr.altea.spa@gmail.com",
+                "null": "",
+                "SLUG": "gr-altea-spas"
+        }
+];
+
+    // Populate department filter
+    const DEPT_NAMES = {"1": "Ain", "2": "Aisne", "3": "Allier", "4": "Alpes-de-Haute-Provence", "5": "Hautes-Alpes", "6": "Alpes-Maritimes", "7": "Ardèche", "8": "Ardennes", "9": "Ariège", "10": "Aube", "11": "Aude", "12": "Aveyron", "13": "Bouches-du-Rhône", "14": "Calvados", "15": "Cantal", "16": "Charente", "17": "Charente-Maritime", "18": "Cher", "19": "Corrèze", "20": "Corse", "21": "Côte-d’Or", "22": "Côtes-d’Armor", "23": "Creuse", "24": "Dordogne", "25": "Doubs", "26": "Drôme", "27": "Eure", "28": "Eure-et-Loir", "29": "Finistère", "30": "Gard", "31": "Haute-Garonne", "32": "Gers", "33": "Gironde", "34": "Hérault", "35": "Ille-et-Vilaine", "36": "Indre", "37": "Indre-et-Loire", "38": "Isère", "39": "Jura", "40": "Landes", "41": "Loir-et-Cher", "42": "Loire", "43": "Haute-Loire", "44": "Loire-Atlantique", "45": "Loiret", "46": "Lot", "47": "Lot-et-Garonne", "48": "Lozère", "49": "Maine-et-Loire", "50": "Manche", "51": "Marne", "52": "Haute-Marne", "53": "Mayenne", "54": "Meurthe-et-Moselle", "55": "Meuse", "56": "Morbihan", "57": "Moselle", "58": "Nièvre", "59": "Nord", "60": "Oise", "61": "Orne", "62": "Pas-de-Calais", "63": "Puy-de-Dôme", "64": "Pyrénées-Atlantiques", "65": "Hautes-Pyrénées", "66": "Pyrénées-Orientales", "67": "Bas-Rhin", "68": "Haut-Rhin", "69": "Rhône", "70": "Haute-Saône", "71": "Saône-et-Loire", "72": "Sarthe", "73": "Savoie", "74": "Haute-Savoie", "75": "Paris", "76": "Seine-Maritime", "77": "Seine-et-Marne", "78": "Yvelines", "79": "Deux-Sèvres", "80": "Somme", "81": "Tarn", "82": "Tarn-et-Garonne", "83": "Var", "84": "Vaucluse", "85": "Vendée", "86": "Vienne", "87": "Haute-Vienne", "88": "Vosges", "89": "Yonne", "90": "Territoire de Belfort", "91": "Essonne", "92": "Hauts-de-Seine", "93": "Seine-Saint-Denis", "94": "Val-de-Marne", "95": "Val-d’Oise"};
+        const dpts = [...new Set(dealers.map(d => d.DPT))].sort((a,b) => a-b);
+    const dptSelect = document.getElementById('dptFilter');
+    dpts.forEach(d => {
+        const o = document.createElement('option');
+        o.value = d; o.textContent = (DEPT_NAMES[String(d)] ? DEPT_NAMES[String(d)] + ' (' + d + ')' : 'Département ' + d);
+        dptSelect.appendChild(o);
+    });
+
+    function renderCards(list) {
+        const container = document.getElementById('storeList');
+        const noRes = document.getElementById('noResults');
+        if (!list.length) {
+            container.innerHTML = '';
+            noRes.style.display = 'block';
+            return;
+        }
+        noRes.style.display = 'none';
+        container.innerHTML = list.map(d => {
+            const addr = d['ADRESSES POSTALES'].replace(/\n/g, '<br>');
+            let info = `<div class="info"><p>${addr}</p>`;
+            if (d.TELEPHONES) info += `<p>📞 <a href="tel:${d.TELEPHONES.replace(/[- ]/g,'')}">${d.TELEPHONES}</a></p>`;
+            if (d['E-MAILS']) info += `<p>✉️ <a href="mailto:${d['E-MAILS']}">${d['E-MAILS']}</a></p>`;
+            info += '</div>';
+            return `<div class="store-card">
+                <div class="dpt">${DEPT_NAMES[String(d.DPT)] || ("Dép. " + d.DPT)}</div>
+                <h3>${d.REVENDEURS}</h3>
+                ${d.NOMS ? `<p style="font-family:'Inter',sans-serif;font-size:0.85rem;color:#888;margin:0 0 8px;">Contact : ${d.NOMS}</p>` : ''}
+                ${info}
+                <a href="magasins/${d.SLUG}.html" class="btn-showroom">Voir le showroom</a>
+            </div>`;
+        }).join('');
+    }
+
+    // --- Haversine distance ---
+    function haversineDistance(lat1, lng1, lat2, lng2) {
+        const R = 6371;
+        const dLat = (lat2 - lat1) * Math.PI / 180;
+        const dLng = (lng2 - lng1) * Math.PI / 180;
+        const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLng/2)**2;
+        return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    }
+
+    // --- Pre-geocoded coords storage ---
+    window.dealerCoords = {};
+    window.geoReady = false;
+
+    function preGeocodeAll() {
+        if (typeof google === 'undefined' || !google.maps) return;
+        const geocoder = new google.maps.Geocoder();
+        dealers.forEach((dealer, i) => {
+            if (!dealer['ADRESSES POSTALES']) return;
+            setTimeout(() => {
+                geocoder.geocode({address: dealer['ADRESSES POSTALES'] + ', France'}, (results, status) => {
+                    if (status === 'OK') {
+                        window.dealerCoords[dealer.SLUG] = {
+                            lat: results[0].geometry.location.lat(),
+                            lng: results[0].geometry.location.lng()
+                        };
+                    }
+                    // Mark ready after last one
+                    if (i === dealers.length - 1) window.geoReady = true;
+                });
+            }, i * 100);
+        });
+    }
+
+    // --- Render cards with optional distance ---
+    function renderCardsWithDistance(list) {
+        const container = document.getElementById('storeList');
+        const noRes = document.getElementById('noResults');
+        if (!list.length) {
+            container.innerHTML = '';
+            noRes.style.display = 'block';
+            return;
+        }
+        noRes.style.display = 'none';
+        container.innerHTML = list.map(d => {
+            const addr = d['ADRESSES POSTALES'].replace(/\n/g, '<br>');
+            let info = `<div class="info"><p>${addr}</p>`;
+            if (d.TELEPHONES) info += `<p>📞 <a href="tel:${d.TELEPHONES.replace(/[- ]/g,'')}">${d.TELEPHONES}</a></p>`;
+            if (d['E-MAILS']) info += `<p>✉️ <a href="mailto:${d['E-MAILS']}">${d['E-MAILS']}</a></p>`;
+            info += '</div>';
+            const distLabel = (typeof d._distance === 'number') ? `<p style="font-size:0.85rem;color:#c7a260;font-weight:600;margin:4px 0 8px;">À ${Math.round(d._distance)} km de votre recherche</p>` : '';
+            return `<div class="store-card">
+                <div class="dpt">${DEPT_NAMES[String(d.DPT)] || ("Dép. " + d.DPT)}</div>
+                <h3>${d.REVENDEURS}</h3>
+                ${d.NOMS ? `<p style="font-family:'Inter',sans-serif;font-size:0.85rem;color:#888;margin:0 0 8px;">Contact : ${d.NOMS}</p>` : ''}
+                ${distLabel}
+                ${info}
+                <a href="magasins/${d.SLUG}.html" class="btn-showroom">Voir le showroom</a>
+            </div>`;
+        }).join('');
+    }
+
+    // --- Geo search by postal code ---
+    function geoSearchByCP(cp) {
+        if (typeof google === 'undefined' || !google.maps) {
+            // Fallback: text search
+            filterDealersText();
+            return;
+        }
+        const geocoder = new google.maps.Geocoder();
+        geocoder.geocode({address: cp + ', France'}, (results, status) => {
+            if (status !== 'OK') {
+                // Fallback text search
+                filterDealersText();
+                return;
+            }
+            const cpLat = results[0].geometry.location.lat();
+            const cpLng = results[0].geometry.location.lng();
+
+            // Calculate distances for all dealers that have coords
+            const withDist = dealers.map(d => {
+                const coords = window.dealerCoords[d.SLUG];
+                if (!coords) return {...d, _distance: Infinity};
+                return {...d, _distance: haversineDistance(cpLat, cpLng, coords.lat, coords.lng)};
+            }).sort((a, b) => a._distance - b._distance);
+
+            const within100 = withDist.filter(d => d._distance <= 100);
+
+            if (within100.length > 0) {
+                renderCardsWithDistance(within100);
+            } else {
+                // Show message + 5 closest
+                const top5 = withDist.slice(0, 5);
+                const container = document.getElementById('storeList');
+                const noRes = document.getElementById('noResults');
+                noRes.style.display = 'none';
+                const msgHtml = `<div style="text-align:center;padding:24px 0;font-family:'Inter',sans-serif;">
+                    <p style="font-size:1.1rem;color:#253a4c;margin-bottom:8px;"><strong>Aucun magasin dans un rayon de 100 km.</strong></p>
+                    <p style="color:#888;">Voici les magasins les plus proches :</p>
+                </div>`;
+                container.innerHTML = msgHtml;
+                const tempDiv = document.createElement('div');
+                // Re-render top5 cards with distance
+                tempDiv.innerHTML = top5.map(d => {
+                    const addr = d['ADRESSES POSTALES'].replace(/\n/g, '<br>');
+                    let info = `<div class="info"><p>${addr}</p>`;
+                    if (d.TELEPHONES) info += `<p>📞 <a href="tel:${d.TELEPHONES.replace(/[- ]/g,'')}">${d.TELEPHONES}</a></p>`;
+                    if (d['E-MAILS']) info += `<p>✉️ <a href="mailto:${d['E-MAILS']}">${d['E-MAILS']}</a></p>`;
+                    info += '</div>';
+                    return `<div class="store-card">
+                        <div class="dpt">${DEPT_NAMES[String(d.DPT)] || ("Dép. " + d.DPT)}</div>
+                        <h3>${d.REVENDEURS}</h3>
+                        <p style="font-size:0.85rem;color:#c7a260;font-weight:600;margin:4px 0 8px;">À ${Math.round(d._distance)} km de votre recherche</p>
+                        ${info}
+                        <a href="magasins/${d.SLUG}.html" class="btn-showroom">Voir le showroom</a>
+                    </div>`;
+                }).join('');
+                container.innerHTML += tempDiv.innerHTML;
+            }
+        });
+    }
+
+    // --- Text-based filter (original) ---
+    function filterDealersText() {
+        const q = document.getElementById('searchInput').value.toLowerCase().trim();
+        const dpt = dptSelect.value;
+        const filtered = dealers.filter(d => {
+            const matchDpt = !dpt || d.DPT === dpt;
+            const text = (d.REVENDEURS + ' ' + d['ADRESSES POSTALES'] + ' ' + d.DPT).toLowerCase();
+            const matchQ = !q || text.includes(q);
+            return matchDpt && matchQ;
+        });
+        renderCards(filtered);
+    }
+
+    // --- Main filter dispatcher ---
+    function filterDealers() {
+        const q = document.getElementById('searchInput').value.trim();
+        // Check if it looks like a postal code (5 digits)
+        if (/^\d{5}$/.test(q) && window.geoReady) {
+            dptSelect.value = '';
+            geoSearchByCP(q);
+        } else {
+            filterDealersText();
+        }
+    }
+
+    document.getElementById('searchInput').addEventListener('input', function() {
+        const q = this.value.trim();
+        // For postal codes, don't search on every keystroke — wait for Enter
+        if (/^\d{5}$/.test(q)) return;
+        filterDealersText();
+    });
+    document.getElementById('searchInput').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            filterDealers();
+        }
+    });
+    dptSelect.addEventListener('change', filterDealersText);
+    renderCards(dealers);
+
+    // --- Handle ?cp= URL parameter ---
+    (function() {
+        const params = new URLSearchParams(window.location.search);
+        const cp = params.get('cp');
+        if (cp) {
+            document.getElementById('searchInput').value = cp;
+            // Wait for geocoding to be ready, then search
+            function tryGeoSearch() {
+                if (window.geoReady) {
+                    filterDealers();
+                } else {
+                    setTimeout(tryGeoSearch, 500);
+                }
+            }
+            // Give Maps time to load and pre-geocode
+            setTimeout(tryGeoSearch, 2000);
+        }
+    })();
+    </script>
+
+    <!-- CARTE GOOGLE MAPS -->
+    <div class="store-map-wrapper"><div class="store-map-real" id="storeMap"></div></div>
+
+    <!-- Google Maps JS -->
+    <script>
+    let map;
+    let markers = [];
+    let infoWindow;
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('storeMap'), {
+            center: { lat: 46.5, lng: 2.5 },
+            zoom: 5,
+            styles: [
+                { featureType: 'all', elementType: 'labels.text.fill', stylers: [{ color: '#253a4c' }] },
+                { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#e8f0f4' }] },
+                { featureType: 'landscape', elementType: 'geometry', stylers: [{ color: '#f8f6f2' }] },
+                { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#ffffff' }] },
+                { featureType: 'poi', elementType: 'all', stylers: [{ visibility: 'off' }] }
+            ]
+        });
+        infoWindow = new google.maps.InfoWindow();
+
+        const geocoder = new google.maps.Geocoder();
+        const dealersToGeocode = dealers.filter(d => d['ADRESSES POSTALES']);
+
+        dealersToGeocode.forEach((dealer, i) => {
+            setTimeout(() => {
+                geocoder.geocode({ address: dealer['ADRESSES POSTALES'] + ', France' }, (results, status) => {
+                    if (status === 'OK') {
+                        const pos = results[0].geometry.location;
+                        const isOwn = dealer.TYPE === 'magasin-propre';
+                        
+                        const marker = new google.maps.Marker({
+                            position: pos,
+                            map: map,
+                            title: dealer.REVENDEURS,
+                            icon: {
+                                path: google.maps.SymbolPath.CIRCLE,
+                                scale: isOwn ? 10 : 7,
+                                fillColor: isOwn ? '#c7a260' : '#253a4c',
+                                fillOpacity: 1,
+                                strokeColor: '#ffffff',
+                                strokeWeight: 2
+                            }
+                        });
+
+                        const slug = dealer.SLUG || dealer.REVENDEURS.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                        const tel = dealer.TELEPHONES ? `<a href="tel:${dealer.TELEPHONES.replace(/[\s-]/g,'')}">${dealer.TELEPHONES}</a>` : '';
+                        const content = `
+                            <div style="font-family:Inter,sans-serif;min-width:200px;padding:4px">
+                                ${isOwn ? '<span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#c7a260;font-weight:600">Magasin officiel</span><br>' : ''}
+                                <strong style="color:#253a4c;font-size:14px">${dealer.REVENDEURS}</strong><br>
+                                <span style="font-size:12px;color:#666">${dealer['ADRESSES POSTALES']}</span><br>
+                                ${tel ? `<span style="font-size:12px">${tel}</span><br>` : ''}
+                                <a href="magasins/${slug}.html" style="font-size:11px;color:#c7a260;font-weight:600;letter-spacing:1px;text-transform:uppercase">Voir le showroom →</a>
+                            </div>`;
+
+                        marker.addListener('click', () => {
+                            infoWindow.setContent(content);
+                            infoWindow.open(map, marker);
+                        });
+                        markers.push(marker);
+
+                        // Store coords for geo search
+                        window.dealerCoords[dealer.SLUG] = {
+                            lat: pos.lat(),
+                            lng: pos.lng()
+                        };
+                        // Mark ready after last dealer
+                        if (i === dealersToGeocode.length - 1) {
+                            window.geoReady = true;
+                        }
+                    }
+                });
+            }, i * 100);
+        });
+    }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIhhwEmidNOgH7GGmUSOXJlqq8aJ2cKeE&callback=initMap"></script>
+
+</body>
+</html>
