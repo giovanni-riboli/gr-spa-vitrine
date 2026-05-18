@@ -3,66 +3,127 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tableau de bord — Espace Pro Giovanni Riboli</title>
+  <title>Dashboard — Espace Pro Giovanni Riboli</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:'Inter',sans-serif;background:#f5f7fa;min-height:100vh;display:flex}
-    /* Sidebar */
-    .sidebar{width:250px;background:#1a2d3e;color:#fff;min-height:100vh;position:fixed;left:0;top:0;z-index:100;transition:transform .3s}
-    .sidebar .logo-area{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
-    .sidebar .logo-area img{height:32px}
-    .sidebar .logo-area .brand{font-size:14px;font-weight:600;color:#c7a260;margin-top:6px}
-    .sidebar nav{padding:16px 0}
-    .sidebar nav a{display:flex;align-items:center;gap:10px;padding:12px 24px;color:rgba(255,255,255,.7);text-decoration:none;font-size:14px;font-weight:500;transition:all .2s}
-    .sidebar nav a:hover,.sidebar nav a.active{color:#c7a260;background:rgba(199,162,96,.08)}
-    .sidebar nav a.active{border-right:3px solid #c7a260}
-    .sidebar nav a svg{width:18px;height:18px;flex-shrink:0}
-    /* Header */
-    .main{margin-left:250px;flex:1;min-height:100vh}
-    .header{background:#fff;border-bottom:1px solid #e5e7eb;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
-    .header .title{font-size:16px;font-weight:600;color:#253a4c}
-    .header .user-area{display:flex;align-items:center;gap:16px;font-size:13px;color:#7a8a9a}
-    .header .user-area strong{color:#253a4c}
-    .btn-logout{padding:8px 16px;background:none;border:1px solid #dce1e8;border-radius:6px;font-size:12px;font-family:'Inter',sans-serif;cursor:pointer;color:#253a4c;transition:all .2s}
-    .btn-logout:hover{border-color:#c7a260;color:#c7a260}
-    /* Content */
-    .content{padding:32px}
-    .greeting{font-size:22px;font-weight:600;color:#253a4c;margin-bottom:24px}
-    /* Cards grid */
-    .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-bottom:36px}
-    .card{background:#fff;border-radius:10px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.05);border-top:3px solid #c7a260}
-    .card .card-label{font-size:12px;color:#7a8a9a;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
-    .card .card-value{font-size:26px;font-weight:700;color:#253a4c}
-    .card .card-value.text{font-size:16px;font-weight:600}
-    /* Section */
-    .section-title{font-size:17px;font-weight:600;color:#253a4c;margin-bottom:16px}
-    .news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:36px}
-    .news-card{background:#fff;border-radius:10px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.05)}
-    .news-card h3{font-size:15px;font-weight:600;color:#253a4c;margin-bottom:6px}
-    .news-card p{font-size:13px;color:#7a8a9a;line-height:1.5}
-    .news-card .tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;margin-bottom:10px}
-    .tag-new{background:#ecfdf5;color:#059669}
-    .tag-promo{background:#fef3c7;color:#b45309}
-    /* Quick access */
-    .quick-access{display:flex;gap:12px;flex-wrap:wrap}
-    .btn-quick{padding:12px 24px;background:#253a4c;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;text-decoration:none;transition:background .2s}
-    .btn-quick:hover{background:#1a2d3e}
-    /* Hamburger */
-    .hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px}
-    .hamburger svg{width:24px;height:24px;color:#253a4c}
-    .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:90}
-    @media(max-width:768px){
-      .sidebar{transform:translateX(-100%)}
-      .sidebar.open{transform:translateX(0)}
-      .overlay.open{display:block}
-      .main{margin-left:0}
-      .hamburger{display:block}
-      .content{padding:20px}
-      .cards{grid-template-columns:1fr 1fr}
+    :root {
+      --bg-dark: #1a2d3e; --bg-card: #253a4c; --accent: #c7a260;
+      --text-light: #ccd8e0; --text-muted: #7a8a9a;
+      --stat-nouveau: #3b82f6; --stat-contacte: #10b981; --stat-rdv: #f59e0b;
+      --stat-devis: #8b5cf6; --stat-gagne: #059669; --stat-perdu: #ef4444;
     }
-    @media(max-width:480px){.cards{grid-template-columns:1fr}}
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:#0f1e2c; color:var(--text-light); min-height:100vh; display:flex; }
+
+    /* Sidebar */
+    .sidebar { width:250px; background:var(--bg-dark); min-height:100vh; position:fixed; left:0; top:0; z-index:100; transition:transform .3s; border-right:1px solid rgba(255,255,255,.06); }
+    .sidebar .logo-area { padding:24px 20px; border-bottom:1px solid rgba(255,255,255,.06); }
+    .sidebar .logo-area img { height:32px; filter:brightness(0) invert(1); }
+    .sidebar .logo-area .brand { font-size:13px; font-weight:600; color:var(--accent); margin-top:6px; letter-spacing:.5px; }
+    .sidebar nav { padding:16px 0; }
+    .sidebar nav a { display:flex; align-items:center; gap:10px; padding:12px 24px; color:rgba(255,255,255,.5); text-decoration:none; font-size:13px; font-weight:500; transition:all .2s; border-left:3px solid transparent; }
+    .sidebar nav a:hover, .sidebar nav a.active { color:var(--accent); background:rgba(199,162,96,.06); border-left-color:var(--accent); }
+    .sidebar nav a svg { width:18px; height:18px; flex-shrink:0; }
+
+    /* Main */
+    .main { margin-left:250px; flex:1; min-height:100vh; }
+    .header { background:var(--bg-dark); border-bottom:1px solid rgba(255,255,255,.06); padding:16px 32px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:50; }
+    .header .title { font-size:15px; font-weight:600; color:#fff; }
+    .header .user-area { display:flex; align-items:center; gap:16px; font-size:13px; color:var(--text-muted); }
+    .header .user-area strong { color:#fff; }
+    .role-badge { display:inline-block; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.3px; }
+    .role-badge.admin { background:rgba(199,162,96,.15); color:var(--accent); }
+    .role-badge.responsable { background:rgba(59,130,246,.15); color:#60a5fa; }
+    .role-badge.revendeur { background:rgba(16,185,129,.15); color:#34d399; }
+    .btn-logout { padding:8px 16px; background:none; border:1px solid rgba(255,255,255,.12); border-radius:6px; font-size:12px; font-family:'Inter',sans-serif; cursor:pointer; color:var(--text-muted); transition:all .2s; }
+    .btn-logout:hover { border-color:var(--accent); color:var(--accent); }
+
+    .content { padding:32px; }
+    .greeting { font-size:22px; font-weight:600; color:#fff; margin-bottom:6px; }
+    .greeting-sub { font-size:13px; color:var(--text-muted); margin-bottom:28px; }
+
+    /* Tabs */
+    .tabs { display:flex; gap:4px; margin-bottom:28px; background:var(--bg-dark); border-radius:8px; padding:4px; width:fit-content; }
+    .tab { padding:8px 20px; border-radius:6px; font-size:13px; font-weight:500; cursor:pointer; border:none; background:none; color:var(--text-muted); font-family:'Inter',sans-serif; transition:all .2s; }
+    .tab.active { background:var(--accent); color:var(--bg-dark); font-weight:600; }
+    .tab:hover:not(.active) { color:#fff; }
+
+    /* KPI cards */
+    .kpis { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px; margin-bottom:28px; }
+    .kpi { background:var(--bg-card); border-radius:10px; padding:20px; border:1px solid rgba(255,255,255,.04); }
+    .kpi .kpi-label { font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px; }
+    .kpi .kpi-value { font-size:28px; font-weight:700; color:#fff; }
+    .kpi .kpi-sub { font-size:11px; color:var(--text-muted); margin-top:4px; }
+
+    /* Status filter */
+    .filters { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
+    .filter-btn { padding:6px 14px; border-radius:20px; font-size:12px; font-weight:500; cursor:pointer; border:1px solid rgba(255,255,255,.1); background:none; color:var(--text-muted); font-family:'Inter',sans-serif; transition:all .2s; }
+    .filter-btn.active, .filter-btn:hover { border-color:var(--accent); color:var(--accent); background:rgba(199,162,96,.08); }
+
+    /* Table */
+    .table-wrap { background:var(--bg-card); border-radius:10px; overflow:hidden; border:1px solid rgba(255,255,255,.04); }
+    table { width:100%; border-collapse:collapse; }
+    th { padding:12px 16px; text-align:left; font-size:11px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; background:rgba(0,0,0,.15); border-bottom:1px solid rgba(255,255,255,.04); }
+    td { padding:12px 16px; font-size:13px; border-bottom:1px solid rgba(255,255,255,.03); }
+    tr:hover { background:rgba(199,162,96,.03); }
+    .badge { display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; }
+    .badge-non_contacte, .badge-nouveau { background:rgba(59,130,246,.15); color:#60a5fa; }
+    .badge-contacte { background:rgba(16,185,129,.15); color:#34d399; }
+    .badge-rdv_planifie { background:rgba(245,158,11,.15); color:#fbbf24; }
+    .badge-devis_envoye { background:rgba(139,92,246,.15); color:#a78bfa; }
+    .badge-gagne { background:rgba(5,150,105,.15); color:#34d399; }
+    .badge-perdu { background:rgba(239,68,68,.15); color:#f87171; }
+    .btn-action { padding:5px 12px; border-radius:6px; font-size:11px; font-weight:600; cursor:pointer; border:1px solid rgba(16,185,129,.3); background:rgba(16,185,129,.1); color:#34d399; font-family:'Inter',sans-serif; transition:all .2s; }
+    .btn-action:hover { background:rgba(16,185,129,.2); }
+    .btn-action:disabled { opacity:.4; cursor:default; }
+
+    /* Kanban */
+    .kanban { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; min-height:400px; }
+    .kanban-col { background:var(--bg-card); border-radius:10px; padding:12px; border:1px solid rgba(255,255,255,.04); min-height:300px; }
+    .kanban-col-title { font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.5px; margin-bottom:12px; padding-bottom:8px; border-bottom:2px solid var(--accent); display:flex; justify-content:space-between; align-items:center; }
+    .kanban-col-title .count { background:rgba(255,255,255,.1); padding:2px 8px; border-radius:10px; font-size:10px; }
+    .kanban-card { background:var(--bg-dark); border-radius:8px; padding:12px; margin-bottom:8px; cursor:grab; border:1px solid rgba(255,255,255,.04); transition:all .2s; }
+    .kanban-card:hover { border-color:var(--accent); }
+    .kanban-card.dragging { opacity:.5; }
+    .kanban-card .card-name { font-size:13px; font-weight:600; color:#fff; margin-bottom:4px; }
+    .kanban-card .card-info { font-size:11px; color:var(--text-muted); }
+    .kanban-card .card-budget { font-size:12px; color:var(--accent); font-weight:600; margin-top:6px; }
+    .kanban-col.drag-over { background:rgba(199,162,96,.05); border:1px dashed var(--accent); }
+
+    /* Section toggle */
+    .section { display:none; }
+    .section.active { display:block; }
+
+    /* Loading */
+    .loading { text-align:center; padding:60px; color:var(--text-muted); }
+    .loading .spinner { width:32px; height:32px; border:3px solid rgba(199,162,96,.2); border-top-color:var(--accent); border-radius:50%; animation:spin .7s linear infinite; margin:0 auto 12px; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    /* Empty state */
+    .empty { text-align:center; padding:40px; color:var(--text-muted); font-size:14px; }
+
+    /* Hamburger */
+    .hamburger { display:none; background:none; border:none; cursor:pointer; padding:8px; }
+    .hamburger svg { width:24px; height:24px; color:#fff; }
+    .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:90; }
+
+    @media(max-width:1024px) {
+      .kanban { grid-template-columns:repeat(3,1fr); }
+    }
+    @media(max-width:768px) {
+      .sidebar { transform:translateX(-100%); }
+      .sidebar.open { transform:translateX(0); }
+      .overlay.open { display:block; }
+      .main { margin-left:0; }
+      .hamburger { display:block; }
+      .content { padding:20px; }
+      .kpis { grid-template-columns:1fr 1fr; }
+      .kanban { grid-template-columns:1fr; }
+      table { font-size:12px; }
+      th, td { padding:8px 10px; }
+    }
+    @media(max-width:480px) { .kpis { grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
@@ -73,10 +134,26 @@
       <div class="brand">Espace Revendeur</div>
     </div>
     <nav>
-      <a class='active' href='/pro/dashboard'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Tableau de bord</a>
-      <a href='/pro/documents'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Documents</a>
-      <a href='/pro/stocks'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>Stocks</a>
-      <a href='/pro/profil'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Mon profil</a>
+      <a class="active" href="dashboard.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Dashboard
+      </a>
+      <a href="offres.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        Offres en cours
+      </a>
+      <a href="documents.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Documents
+      </a>
+      <a href="stocks.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        Stocks
+      </a>
+      <a href="profil.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Mon profil
+      </a>
     </nav>
   </aside>
 
@@ -84,64 +161,267 @@
     <header class="header">
       <div style="display:flex;align-items:center;gap:12px">
         <button class="hamburger" onclick="toggleSidebar()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
-        <span class="title">Tableau de bord</span>
+        <span class="title">Dashboard</span>
       </div>
       <div class="user-area">
-        <span>Connecté : <strong id="userName"></strong></span>
-        <button class="btn-logout" onclick="AUTH.logout()">Déconnexion</button>
+        <span id="userName"></span>
+        <span class="role-badge" id="userRole"></span>
+        <button class="btn-logout" onclick="logout()">Déconnexion</button>
       </div>
     </header>
 
     <div class="content">
-      <h1 class="greeting" id="greeting"></h1>
-
-      <div class="cards">
-        <div class="card"><div class="card-label">Documents disponibles</div><div class="card-value">82</div></div>
-        <div class="card"><div class="card-label">Nouveautés</div><div class="card-value">2</div></div>
-        <div class="card"><div class="card-label">Votre région</div><div class="card-value text" id="userRegion"></div></div>
-        <div class="card"><div class="card-label">Contact gestionnaire</div><div class="card-value text">04 67 00 00 00</div></div>
+      <div class="loading" id="loadingState">
+        <div class="spinner"></div>
+        <div>Chargement...</div>
       </div>
 
-      <h2 class="section-title">Dernières nouveautés</h2>
-      <div class="news-grid">
-        <div class="news-card">
-          <span class="tag tag-promo">Promo</span>
-          <h3>Offre Électrisante</h3>
-          <p>Une borne de recharge offerte pour l'achat d'un spa. Visuels et argumentaire disponibles dans l'espace Documents.</p>
-        </div>
-        <div class="news-card">
-          <span class="tag tag-new">Nouveau</span>
-          <h3>Catalogue 2026</h3>
-          <p>Les catalogues Relax, Energy et Luxury 2026 sont disponibles au téléchargement.</p>
-        </div>
-        <div class="news-card">
-          <span class="tag tag-new">Nouveau</span>
-          <h3>Visuels réseaux sociaux</h3>
-          <p>Pack de visuels prêts à publier pour l'Offre Électrisante. Accédez-y depuis la section Visuels.</p>
-        </div>
-      </div>
+      <div id="mainContent" style="display:none">
+        <h1 class="greeting" id="greeting"></h1>
+        <p class="greeting-sub" id="greetingSub"></p>
 
-      <h2 class="section-title">Accès rapides</h2>
-      <div class="quick-access">
-        <a class='btn-quick' href='/pro/documents'>📄 Documents</a>
-        <a class='btn-quick' href='/pro/stocks'>📦 Stocks</a>
+        <!-- Tabs -->
+        <div class="tabs">
+          <button class="tab active" data-tab="dashboard" onclick="switchTab('dashboard')">Dashboard</button>
+          <button class="tab" data-tab="leads" onclick="switchTab('leads')">Leads</button>
+          <button class="tab" data-tab="kanban" onclick="switchTab('kanban')">Kanban</button>
+        </div>
+
+        <!-- Dashboard Tab -->
+        <div class="section active" id="tab-dashboard">
+          <div class="kpis">
+            <div class="kpi"><div class="kpi-label">Leads aujourd'hui</div><div class="kpi-value" id="kpiToday">-</div></div>
+            <div class="kpi"><div class="kpi-label">Cette semaine</div><div class="kpi-value" id="kpiWeek">-</div></div>
+            <div class="kpi"><div class="kpi-label">Ce mois</div><div class="kpi-value" id="kpiMonth">-</div></div>
+            <div class="kpi"><div class="kpi-label">Taux de contact</div><div class="kpi-value" id="kpiConversion">-</div><div class="kpi-sub">contactés / total</div></div>
+          </div>
+
+          <h2 style="font-size:15px;font-weight:600;margin-bottom:16px;color:#fff">20 derniers leads</h2>
+          <div class="filters" id="dashFilters"></div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Prénom</th><th>CP</th><th>Budget</th><th>Délai</th><th>Statut</th><th>Date</th><th>Action</th></tr>
+              </thead>
+              <tbody id="dashTable"></tbody>
+            </table>
+          </div>
+          <div class="empty" id="dashEmpty" style="display:none">Aucun lead pour le moment.</div>
+        </div>
+
+        <!-- Leads Tab (same as dashboard table but full) -->
+        <div class="section" id="tab-leads">
+          <div class="filters" id="leadsFilters"></div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Prénom</th><th>Téléphone</th><th>Email</th><th>CP</th><th>Budget</th><th>Délai</th><th>Statut</th><th>Date</th><th>Action</th></tr>
+              </thead>
+              <tbody id="leadsTable"></tbody>
+            </table>
+          </div>
+          <div class="empty" id="leadsEmpty" style="display:none">Aucun lead pour le moment.</div>
+        </div>
+
+        <!-- Kanban Tab -->
+        <div class="section" id="tab-kanban">
+          <div class="kanban" id="kanbanBoard">
+            <div class="kanban-col" data-statut="non_contacte" ondragover="onDragOver(event)" ondrop="onDrop(event)">
+              <div class="kanban-col-title">Nouveau <span class="count" id="count-non_contacte">0</span></div>
+              <div class="kanban-cards" id="col-non_contacte"></div>
+            </div>
+            <div class="kanban-col" data-statut="contacte" ondragover="onDragOver(event)" ondrop="onDrop(event)">
+              <div class="kanban-col-title">Contacté <span class="count" id="count-contacte">0</span></div>
+              <div class="kanban-cards" id="col-contacte"></div>
+            </div>
+            <div class="kanban-col" data-statut="rdv_planifie" ondragover="onDragOver(event)" ondrop="onDrop(event)">
+              <div class="kanban-col-title">RDV Planifié <span class="count" id="count-rdv_planifie">0</span></div>
+              <div class="kanban-cards" id="col-rdv_planifie"></div>
+            </div>
+            <div class="kanban-col" data-statut="devis_envoye" ondragover="onDragOver(event)" ondrop="onDrop(event)">
+              <div class="kanban-col-title">Devis Envoyé <span class="count" id="count-devis_envoye">0</span></div>
+              <div class="kanban-cards" id="col-devis_envoye"></div>
+            </div>
+            <div class="kanban-col" data-statut="gagne" ondragover="onDragOver(event)" ondrop="onDrop(event)">
+              <div class="kanban-col-title">Gagné <span class="count" id="count-gagne">0</span></div>
+              <div class="kanban-cards" id="col-gagne"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <script src="api-mock.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="auth.js"></script>
   <script>
-    const user = AUTH.requireAuth();
-    if (user) {
-      document.getElementById('userName').textContent = user.name;
-      document.getElementById('greeting').textContent = 'Bonjour, ' + user.name + ' 👋';
-      document.getElementById('userRegion').textContent = user.region;
-    }
+    let currentUser = null;
+    let allLeads = [];
+    let currentFilter = 'all';
+
+    const STATUTS = ['non_contacte','contacte','rdv_planifie','devis_envoye','gagne','perdu'];
+    const STATUT_LABELS = { non_contacte:'Nouveau', contacte:'Contacté', rdv_planifie:'RDV Planifié', devis_envoye:'Devis Envoyé', gagne:'Gagné', perdu:'Perdu' };
+    const BUDGET_LABELS = { 'moins_5k':'< 5 000€', '5k_8k':'5-8 000€', '8k_15k':'8-15 000€', '15k_plus':'> 15 000€' };
+    const DELAI_LABELS = { urgent:'Urgent', '1_3_mois':'1-3 mois', '3_6_mois':'3-6 mois', 'juste_regarder':'Pas pressé' };
+
     function toggleSidebar() {
       document.getElementById('sidebar').classList.toggle('open');
       document.getElementById('overlay').classList.toggle('open');
     }
+
+    function switchTab(tab) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById('tab-' + tab).classList.add('active');
+    }
+
+    function formatDate(d) {
+      if (!d) return '-';
+      const dt = new Date(d);
+      return dt.toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit', year:'2-digit', hour:'2-digit', minute:'2-digit' });
+    }
+
+    function renderFilters(containerId) {
+      const el = document.getElementById(containerId);
+      el.innerHTML = '<button class="filter-btn active" data-filter="all" onclick="setFilter(\'all\',this)">Tous</button>' +
+        STATUTS.map(s => `<button class="filter-btn" data-filter="${s}" onclick="setFilter('${s}',this)">${STATUT_LABELS[s]}</button>`).join('');
+    }
+
+    function setFilter(filter, btn) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      // Also activate same filter in other containers
+      document.querySelectorAll(`.filter-btn[data-filter="${filter}"]`).forEach(b => b.classList.add('active'));
+      renderTable('dashTable', 20);
+      renderTable('leadsTable', 999);
+    }
+
+    function renderTable(tbodyId, limit) {
+      const tbody = document.getElementById(tbodyId);
+      let filtered = currentFilter === 'all' ? allLeads : allLeads.filter(l => l.statut === currentFilter);
+      const shown = filtered.slice(0, limit);
+      const isFull = tbodyId === 'leadsTable';
+      
+      const emptyId = tbodyId === 'dashTable' ? 'dashEmpty' : 'leadsEmpty';
+      document.getElementById(emptyId).style.display = shown.length ? 'none' : 'block';
+
+      tbody.innerHTML = shown.map(l => {
+        const isNew = l.statut === 'non_contacte';
+        return `<tr>
+          <td style="font-weight:600;color:#fff">${l.prenom || '-'}</td>
+          ${isFull ? `<td>${l.telephone || '-'}</td><td>${l.email || '-'}</td>` : ''}
+          <td>${l.code_postal || '-'}</td>
+          <td>${BUDGET_LABELS[l.budget] || l.budget || '-'}</td>
+          <td>${DELAI_LABELS[l.delai] || l.delai || '-'}</td>
+          <td><span class="badge badge-${l.statut}">${STATUT_LABELS[l.statut] || l.statut}</span></td>
+          <td style="white-space:nowrap">${formatDate(l.created_at)}</td>
+          <td>${isNew ? `<button class="btn-action" onclick="markContacte('${l.id}',this)">✓ Rappelé</button>` : '-'}</td>
+        </tr>`;
+      }).join('');
+    }
+
+    async function markContacte(id, btn) {
+      btn.disabled = true;
+      btn.textContent = '...';
+      await updateLeadStatut(id, 'contacte');
+      const lead = allLeads.find(l => l.id === id);
+      if (lead) lead.statut = 'contacte';
+      renderTable('dashTable', 20);
+      renderTable('leadsTable', 999);
+      renderKanban();
+      computeKPIs();
+    }
+
+    function renderKanban() {
+      STATUTS.filter(s => s !== 'perdu').forEach(statut => {
+        const col = document.getElementById('col-' + statut);
+        const cards = allLeads.filter(l => l.statut === statut);
+        document.getElementById('count-' + statut).textContent = cards.length;
+        col.innerHTML = cards.map(l => `
+          <div class="kanban-card" draggable="true" data-id="${l.id}" ondragstart="onDragStart(event)">
+            <div class="card-name">${l.prenom || 'Inconnu'}</div>
+            <div class="card-info">${l.code_postal || '-'} · ${formatDate(l.created_at).split(' ')[0]}</div>
+            <div class="card-budget">${BUDGET_LABELS[l.budget] || l.budget || '-'}</div>
+          </div>
+        `).join('');
+      });
+    }
+
+    // Drag & Drop
+    let draggedId = null;
+    function onDragStart(e) {
+      draggedId = e.target.dataset.id;
+      e.target.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    }
+    function onDragOver(e) {
+      e.preventDefault();
+      e.currentTarget.classList.add('drag-over');
+    }
+    function onDrop(e) {
+      e.preventDefault();
+      e.currentTarget.classList.remove('drag-over');
+      const newStatut = e.currentTarget.dataset.statut;
+      if (draggedId && newStatut) {
+        updateLeadStatut(draggedId, newStatut);
+        const lead = allLeads.find(l => l.id === draggedId);
+        if (lead) lead.statut = newStatut;
+        renderKanban();
+        renderTable('dashTable', 20);
+        renderTable('leadsTable', 999);
+        computeKPIs();
+      }
+      draggedId = null;
+    }
+    document.addEventListener('dragend', () => {
+      document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
+      document.querySelectorAll('.dragging').forEach(el => el.classList.remove('dragging'));
+    });
+
+    function computeKPIs() {
+      const now = new Date();
+      const todayStr = now.toISOString().slice(0, 10);
+      const weekAgo = new Date(now - 7 * 86400000);
+      const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+
+      const today = allLeads.filter(l => l.created_at && l.created_at.slice(0, 10) === todayStr).length;
+      const week = allLeads.filter(l => l.created_at && new Date(l.created_at) >= weekAgo).length;
+      const month = allLeads.filter(l => l.created_at && new Date(l.created_at) >= monthStart).length;
+      const contacted = allLeads.filter(l => l.statut !== 'non_contacte').length;
+      const total = allLeads.length;
+      const rate = total > 0 ? Math.round(contacted / total * 100) : 0;
+
+      document.getElementById('kpiToday').textContent = today;
+      document.getElementById('kpiWeek').textContent = week;
+      document.getElementById('kpiMonth').textContent = month;
+      document.getElementById('kpiConversion').textContent = rate + '%';
+    }
+
+    // Init
+    (async () => {
+      currentUser = await requireAuth();
+      if (!currentUser) return;
+
+      document.getElementById('userName').innerHTML = `<strong>${currentUser.nom}</strong>`;
+      document.getElementById('userRole').textContent = currentUser.role;
+      document.getElementById('userRole').classList.add(currentUser.role);
+      document.getElementById('greeting').textContent = `Bonjour, ${currentUser.nom.split(' ')[0]} 👋`;
+      document.getElementById('greetingSub').textContent = currentUser.magasin_nom ? `${currentUser.magasin_nom} — ${currentUser.magasin_ville}` : 'Administration générale';
+
+      // Fetch leads
+      allLeads = await fetchLeads(currentUser);
+
+      renderFilters('dashFilters');
+      renderFilters('leadsFilters');
+      computeKPIs();
+      renderTable('dashTable', 20);
+      renderTable('leadsTable', 999);
+      renderKanban();
+
+      document.getElementById('loadingState').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+    })();
   </script>
 </body>
 </html>

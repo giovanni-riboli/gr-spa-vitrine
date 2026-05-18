@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:'Inter',sans-serif;background:#f5f7fa;min-height:100vh;display:flex}
+    body{font-family:'Inter',sans-serif;background:#0f1e2c;min-height:100vh;display:flex}
     .sidebar{width:250px;background:#1a2d3e;color:#fff;min-height:100vh;position:fixed;left:0;top:0;z-index:100;transition:transform .3s}
     .sidebar .logo-area{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
     .sidebar .logo-area img{height:32px}
@@ -70,10 +70,10 @@
       <div class="brand">Espace Revendeur</div>
     </div>
     <nav>
-      <a href='/pro/dashboard'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Tableau de bord</a>
-      <a href='/pro/documents'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Documents</a>
-      <a href='/pro/stocks'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>Stocks</a>
-      <a class='active' href='/pro/profil'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Mon profil</a>
+      <a href='dashboard.html'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Tableau de bord</a>
+      <a href='documents.html'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Documents</a>
+      <a href='stocks.html'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>Stocks</a>
+      <a class='active' href='profil.html'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Mon profil</a>
     </nav>
   </aside>
 
@@ -85,7 +85,7 @@
       </div>
       <div class="user-area">
         <span>Connecté : <strong id="userName"></strong></span>
-        <button class="btn-logout" onclick="AUTH.logout()">Déconnexion</button>
+        <button class="btn-logout" onclick="logout()">Déconnexion</button>
       </div>
     </header>
 
@@ -127,34 +127,35 @@
       <div class="profile-card">
         <h2>Accès rapides</h2>
         <div class="quick-access">
-          <a class='btn-quick' href='/pro/dashboard'>📊 Tableau de bord</a>
-          <a class='btn-quick' href='/pro/documents'>📄 Documents</a>
-          <a class='btn-quick' href='/pro/stocks'>📦 Stocks</a>
+          <a class='btn-quick' href='dashboard.html'>📊 Tableau de bord</a>
+          <a class='btn-quick' href='documents.html'>📄 Documents</a>
+          <a class='btn-quick' href='stocks.html'>📦 Stocks</a>
         </div>
       </div>
     </div>
   </div>
 
-  <script src="api-mock.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="auth.js"></script>
   <script>
-    const user = AUTH.requireAuth();
-    if (user) {
-      document.getElementById('userName').textContent = user.name;
-      document.getElementById('infoName').textContent = user.name;
-      document.getElementById('infoRegion').textContent = user.region;
-      document.getElementById('infoEmail').textContent = user.email;
-      document.getElementById('infoId').textContent = user.id;
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('overlay').classList.toggle('open');
     }
     function handlePassword(e) {
       e.preventDefault();
       alert('Fonctionnalité disponible prochainement');
       return false;
     }
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('open');
-      document.getElementById('overlay').classList.toggle('open');
-    }
+    (async () => {
+      const user = await requireAuth();
+      if (!user) return;
+      document.getElementById('userName').textContent = user.nom;
+      document.getElementById('infoName').textContent = user.nom;
+      document.getElementById('infoRegion').textContent = user.magasin_nom ? `${user.magasin_nom} — ${user.magasin_ville}` : 'Administration';
+      document.getElementById('infoEmail').textContent = user.email;
+      document.getElementById('infoId').textContent = user.id.slice(0, 8);
+    })();
   </script>
 </body>
 </html>

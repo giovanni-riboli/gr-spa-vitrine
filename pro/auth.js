@@ -1,79 +1,119 @@
-// auth.js — JWT mock authentication for Giovanni Riboli Espace Pro
+// auth.js — Supabase Auth for Giovanni Riboli Espace Pro
+const SUPABASE_URL = 'https://ohjzggceozamhdesecxi.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oanpnZ2Nlb3phbWhkZXNlY3hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Njc5MDYsImV4cCI6MjA5MjM0MzkwNn0.wW-tqXBDUtKURR31bh3CUWIcuYMUJTZLqq2LLT1kJnA';
 
-const AUTH = {
-  TOKEN_KEY: 'gr_pro_token',
-  LOGIN_URL: '../espace-pro.html',
-  EXPIRY_HOURS: 24,
+let _supabase = null;
 
-  // Base64URL encode
-  _b64url(str) {
-    return btoa(str).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-  },
+function initSupabase() {
+  if (_supabase) return _supabase;
+  _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  return _supabase;
+}
 
-  // Create mock JWT
-  _createToken(payload) {
-    const header = this._b64url(JSON.stringify({ alg: "HS256", typ: "JWT" }));
-    const body = this._b64url(JSON.stringify(payload));
-    const sig = this._b64url("demo-secret-signature");
-    return `${header}.${body}.${sig}`;
-  },
+async function login(email, password) {
+  const sb = initSupabase();
+  const { data, error } = await sb.auth.signInWithPassword({ email, password });
+  if (error) return { success: false, error: error.message };
+  return { success: true, user: data.user };
+}
 
-  // Decode JWT payload
-  _decodeToken(token) {
-    try {
-      const parts = token.split('.');
-      if (parts.length !== 3) return null;
-      const payload = JSON.parse(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')));
-      return payload;
-    } catch { return null; }
-  },
+async function logout() {
+  const sb = initSupabase();
+  await sb.auth.signOut();
+  window.location.href = '../espace-pro.html';
+}
 
-  // Login
-  login(email, password) {
-    const result = mockLogin(email, password);
-    if (!result.success) return result;
-    const payload = {
-      ...result.user,
-      iat: Math.floor(Date.now() / 1000),
-      exp: Math.floor(Date.now() / 1000) + (this.EXPIRY_HOURS * 3600)
-    };
-    const token = this._createToken(payload);
-    sessionStorage.setItem(this.TOKEN_KEY, token);
-    return { success: true };
-  },
+async function getUser() {
+  const sb = initSupabase();
+  const { data: { user } } = await sb.auth.getUser();
+  return user;
+}
 
-  // Logout
-  logout() {
-    sessionStorage.removeItem(this.TOKEN_KEY);
-    window.location.href = this.LOGIN_URL;
-  },
+async function getProUser() {
+  const user = await getUser();
+  if (!user) return null;
+  const meta = user.user_metadata || {};
+  return {
+    id: user.id,
+    email: user.email,
+    nom: meta.nom || user.email,
+    role: meta.role || 'revendeur',
+    magasin_nom: meta.magasin_nom || null,
+    magasin_ville: meta.magasin_ville || null,
+    departements: meta.departements || null,
+    actif: meta.actif !== false
+  };
+}
 
-  // Check if token expired
-  isTokenExpired(token) {
-    const payload = this._decodeToken(token);
-    if (!payload || !payload.exp) return true;
-    return Date.now() / 1000 > payload.exp;
-  },
+async function isLoggedIn() {
+  const sb = initSupabase();
+  const { data: { session } } = await sb.auth.getSession();
+  return !!session;
+}
 
-  // Check auth — returns payload or null
-  checkAuth() {
-    const token = sessionStorage.getItem(this.TOKEN_KEY);
-    if (!token || this.isTokenExpired(token)) return null;
-    return this._decodeToken(token);
-  },
-
-  // Get current user info
-  getUser() {
-    return this.checkAuth();
-  },
-
-  // Protect page — call on every pro page load
-  requireAuth() {
-    const user = this.checkAuth();
-    if (!user) {
-      window.location.href = this.LOGIN_URL;
-      return null;
-    }
-    return user;
+async function requireAuth() {
+  const sb = initSupabase();
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) {
+    window.location.href = '../espace-pro.html';
+    return null;
   }
-};
+  const proUser = await getProUser();
+  if (!proUser || !proUser.actif) {
+    await sb.auth.signOut();
+    window.location.href = '../espace-pro.html';
+    return null;
+  }
+  return proUser;
+}
+
+// Helper: fetch leads filtered by user role/departments
+async function fetchLeads(proUser, opts = {}) {
+  const sb = initSupabase();
+  let query = sb.from('leads').select('*');
+  
+  // Role-based filtering
+  if (proUser.role !== 'admin' && proUser.departements && proUser.departements.length > 0) {
+    // Filter by department prefix of code_postal
+    const orFilters = proUser.departements.map(d => `code_postal.like.${d}%`).join(',');
+    query = query.or(orFilters);
+  }
+  
+  if (opts.statut) {
+    query = query.eq('statut', opts.statut);
+  }
+  
+  query = query.order('created_at', { ascending: false });
+  
+  if (opts.limit) {
+    query = query.limit(opts.limit);
+  }
+  
+  const { data, error } = await query;
+  if (error) { console.error('fetchLeads error:', error); return []; }
+  return data || [];
+}
+
+// Helper: update lead status
+async function updateLeadStatut(leadId, newStatut) {
+  const sb = initSupabase();
+  const { data, error } = await sb.from('leads').update({ statut: newStatut, updated_at: new Date().toISOString() }).eq('id', leadId).select();
+  if (error) { console.error('updateLead error:', error); return null; }
+  return data;
+}
+
+// Helper: fetch offres
+async function fetchOffres() {
+  const sb = initSupabase();
+  const { data, error } = await sb.from('offres').select('*').eq('actif', true).order('date_debut', { ascending: false });
+  if (error) { console.error('fetchOffres error:', error); return []; }
+  return data || [];
+}
+
+// Helper: create offre (admin only)
+async function createOffre(offre) {
+  const sb = initSupabase();
+  const { data, error } = await sb.from('offres').insert(offre).select();
+  if (error) { console.error('createOffre error:', error); return null; }
+  return data;
+}

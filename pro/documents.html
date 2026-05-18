@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:'Inter',sans-serif;background:#f5f7fa;min-height:100vh;display:flex}
+    body{font-family:'Inter',sans-serif;background:#0f1e2c;min-height:100vh;display:flex}
     .sidebar{width:250px;background:#1a2d3e;color:#fff;min-height:100vh;position:fixed;left:0;top:0;z-index:100;transition:transform .3s}
     .sidebar .logo-area{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
     .sidebar .logo-area img{height:32px}
@@ -73,10 +73,10 @@
       <div class="brand">Espace Revendeur</div>
     </div>
     <nav>
-      <a href='/pro/dashboard'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Tableau de bord</a>
-      <a class='active' href='/pro/documents'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Documents</a>
-      <a href='/pro/stocks'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>Stocks</a>
-      <a href='/pro/profil'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Mon profil</a>
+      <a href='dashboard.html'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Tableau de bord</a>
+      <a class='active' href='documents.html'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Documents</a>
+      <a href='stocks.html'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>Stocks</a>
+      <a href='profil.html'><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Mon profil</a>
     </nav>
   </aside>
 
@@ -88,7 +88,7 @@
       </div>
       <div class="user-area">
         <span>Connecté : <strong id="userName"></strong></span>
-        <button class="btn-logout" onclick="AUTH.logout()">Déconnexion</button>
+        <button class="btn-logout" onclick="logout()">Déconnexion</button>
       </div>
     </header>
 
@@ -316,15 +316,22 @@
 </div>
   </div>
 
-  <script src="api-mock.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="auth.js"></script>
   <script>
-    const user = AUTH.requireAuth();
-    if (user) document.getElementById('userName').textContent = user.name;
-
     function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('open')}
 
-    const docs = mockGetDocuments();
+    // Mock documents (no documents table in Supabase yet)
+    const docs = [
+      {name:'Catalogue Relax 2026',category:'catalogues',type:'pdf',date:'Mars 2026',size:'12 MB',url:'#'},
+      {name:'Catalogue Energy 2026',category:'catalogues',type:'pdf',date:'Mars 2026',size:'14 MB',url:'#'},
+      {name:'Catalogue Luxury 2026',category:'catalogues',type:'pdf',date:'Mars 2026',size:'18 MB',url:'#'},
+      {name:'Fiche technique Relax 4',category:'fiches',type:'pdf',date:'Fév 2026',size:'2 MB',url:'#'},
+      {name:'Fiche technique Energy 7',category:'fiches',type:'pdf',date:'Fév 2026',size:'2 MB',url:'#'},
+      {name:'Argumentaire Offre Électrisante',category:'argumentaires',type:'pdf',date:'Mai 2026',size:'4 MB',url:'#'},
+      {name:'Visuels Offre Électrisante',category:'visuels',type:'drive',date:'Mai 2026',size:'Drive',url:'https://drive.google.com'},
+      {name:'Pack réseaux sociaux Mai',category:'visuels',type:'drive',date:'Mai 2026',size:'Drive',url:'https://drive.google.com'},
+    ];
     const grid = document.getElementById('docsGrid');
     const catNames = {catalogues:'Catalogue',fiches:'Fiche technique',argumentaires:'Argumentaire',visuels:'Visuel'};
 
@@ -336,12 +343,18 @@
           <div class="doc-info">
             <h3>${d.name}</h3>
             <div class="meta">${catNames[d.category]} · ${d.date} · ${d.size}</div>
-            <a href="#" class="btn-dl">${d.type === 'drive' ? 'Ouvrir le Drive' : 'Télécharger'}</a>
+            <a href="${d.url}" class="btn-dl" target="_blank">${d.type === 'drive' ? 'Ouvrir le Drive' : 'Télécharger'}</a>
           </div>
         </div>
       `).join('');
     }
-    renderDocs('all');
+
+    (async () => {
+      const user = await requireAuth();
+      if (!user) return;
+      document.getElementById('userName').textContent = user.nom;
+      renderDocs('all');
+    })();
 
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', () => {

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offres — Espace Pro Giovanni Riboli</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg-dark:#1a2d3e; --bg-card:#253a4c; --accent:#c7a260; --text-light:#ccd8e0; --text-muted:#7a8a9a; }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Inter',sans-serif;background:#0f1e2c;color:var(--text-light);min-height:100vh;display:flex}
+    .sidebar{width:250px;background:var(--bg-dark);min-height:100vh;position:fixed;left:0;top:0;z-index:100;transition:transform .3s;border-right:1px solid rgba(255,255,255,.06)}
+    .sidebar .logo-area{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,.06)}
+    .sidebar .logo-area img{height:32px;filter:brightness(0) invert(1)}
+    .sidebar .logo-area .brand{font-size:13px;font-weight:600;color:var(--accent);margin-top:6px;letter-spacing:.5px}
+    .sidebar nav{padding:16px 0}
+    .sidebar nav a{display:flex;align-items:center;gap:10px;padding:12px 24px;color:rgba(255,255,255,.5);text-decoration:none;font-size:13px;font-weight:500;transition:all .2s;border-left:3px solid transparent}
+    .sidebar nav a:hover,.sidebar nav a.active{color:var(--accent);background:rgba(199,162,96,.06);border-left-color:var(--accent)}
+    .sidebar nav a svg{width:18px;height:18px;flex-shrink:0}
+    .main{margin-left:250px;flex:1;min-height:100vh}
+    .header{background:var(--bg-dark);border-bottom:1px solid rgba(255,255,255,.06);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+    .header .title{font-size:15px;font-weight:600;color:#fff}
+    .header .user-area{display:flex;align-items:center;gap:16px;font-size:13px;color:var(--text-muted)}
+    .btn-logout{padding:8px 16px;background:none;border:1px solid rgba(255,255,255,.12);border-radius:6px;font-size:12px;font-family:'Inter',sans-serif;cursor:pointer;color:var(--text-muted);transition:all .2s}
+    .btn-logout:hover{border-color:var(--accent);color:var(--accent)}
+    .content{padding:32px}
+    .page-title{font-size:22px;font-weight:600;color:#fff;margin-bottom:6px}
+    .page-sub{font-size:13px;color:var(--text-muted);margin-bottom:28px}
+    .offres-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+    .offre-card{background:var(--bg-card);border-radius:10px;padding:24px;border:1px solid rgba(255,255,255,.04);transition:all .2s}
+    .offre-card:hover{border-color:rgba(199,162,96,.2)}
+    .offre-card h3{font-size:17px;font-weight:600;color:#fff;margin-bottom:4px}
+    .offre-card .subtitle{font-size:13px;color:var(--accent);margin-bottom:12px}
+    .offre-card .dates{font-size:12px;color:var(--text-muted);margin-bottom:16px}
+    .btn-download{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(199,162,96,.1);border:1px solid rgba(199,162,96,.3);border-radius:6px;color:var(--accent);font-size:12px;font-weight:600;text-decoration:none;transition:all .2s;font-family:'Inter',sans-serif;cursor:pointer}
+    .btn-download:hover{background:rgba(199,162,96,.2)}
+    .btn-new{padding:10px 20px;background:var(--accent);color:var(--bg-dark);border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:background .2s}
+    .btn-new:hover{background:#d4b06e}
+    .empty{text-align:center;padding:60px;color:var(--text-muted);font-size:14px}
+
+    /* Modal */
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;align-items:center;justify-content:center}
+    .modal-overlay.open{display:flex}
+    .modal{background:var(--bg-card);border-radius:12px;padding:32px;width:100%;max-width:480px;border:1px solid rgba(255,255,255,.06)}
+    .modal h2{font-size:18px;font-weight:600;color:#fff;margin-bottom:20px}
+    .modal .form-group{margin-bottom:16px}
+    .modal label{display:block;font-size:12px;font-weight:500;color:var(--text-muted);margin-bottom:6px}
+    .modal input,.modal textarea{width:100%;padding:10px 12px;background:var(--bg-dark);border:1px solid rgba(255,255,255,.1);border-radius:6px;color:#fff;font-family:'Inter',sans-serif;font-size:14px}
+    .modal input:focus,.modal textarea:focus{outline:none;border-color:var(--accent)}
+    .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
+    .btn-cancel{padding:8px 16px;background:none;border:1px solid rgba(255,255,255,.12);border-radius:6px;color:var(--text-muted);font-size:13px;cursor:pointer;font-family:'Inter',sans-serif}
+
+    .hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px}
+    .hamburger svg{width:24px;height:24px;color:#fff}
+    .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:90}
+    @media(max-width:768px){
+      .sidebar{transform:translateX(-100%)}
+      .sidebar.open{transform:translateX(0)}
+      .overlay.open{display:block}
+      .main{margin-left:0}
+      .hamburger{display:block}
+      .content{padding:20px}
+      .offres-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="logo-area">
+      <img src="../assets/logo-blanc.svg" alt="GR" onerror="this.style.display='none'">
+      <div class="brand">Espace Revendeur</div>
+    </div>
+    <nav>
+      <a href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard</a>
+      <a class="active" href="offres.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>Offres en cours</a>
+      <a href="documents.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Documents</a>
+      <a href="stocks.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>Stocks</a>
+      <a href="profil.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Mon profil</a>
+    </nav>
+  </aside>
+
+  <div class="main">
+    <header class="header">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="hamburger" onclick="toggleSidebar()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+        <span class="title">Offres en cours</span>
+      </div>
+      <div class="user-area">
+        <span id="userName"></span>
+        <button class="btn-logout" onclick="logout()">Déconnexion</button>
+      </div>
+    </header>
+
+    <div class="content">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:28px">
+        <div>
+          <h1 class="page-title">Offres en cours</h1>
+          <p class="page-sub">Retrouvez les offres commerciales et visuels associés</p>
+        </div>
+        <button class="btn-new" id="btnNewOffre" style="display:none" onclick="openModal()">+ Nouvelle offre</button>
+      </div>
+
+      <div class="offres-grid" id="offresGrid"></div>
+      <div class="empty" id="emptyOffres" style="display:none">Aucune offre en cours pour le moment.</div>
+    </div>
+  </div>
+
+  <!-- Modal nouvelle offre -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <h2>Nouvelle offre</h2>
+      <form id="offreForm">
+        <div class="form-group"><label>Titre</label><input type="text" id="offreTitre" required></div>
+        <div class="form-group"><label>Sous-titre</label><input type="text" id="offreSousTitre"></div>
+        <div class="form-group"><label>Date début</label><input type="date" id="offreDateDebut" required></div>
+        <div class="form-group"><label>Date fin</label><input type="date" id="offreDateFin" required></div>
+        <div class="form-group"><label>Lien Google Drive (visuels)</label><input type="url" id="offreDriveUrl" placeholder="https://drive.google.com/..."></div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" onclick="closeModal()">Annuler</button>
+          <button type="submit" class="btn-new">Créer l'offre</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="auth.js"></script>
+  <script>
+    let currentUser = null;
+
+    // Hardcoded offres (since offres table may not exist yet)
+    const FALLBACK_OFFRES = [
+      { id:'1', titre:'Offre Électrisante', sous_titre:'Une borne de recharge offerte pour l\'achat d\'un spa', date_debut:'2026-05-01', date_fin:'2026-06-30', drive_url:'https://drive.google.com', actif:true },
+      { id:'2', titre:'Opération Printemps 2026', sous_titre:'Remise exceptionnelle sur la gamme Energy', date_debut:'2026-04-01', date_fin:'2026-05-31', drive_url:'https://drive.google.com', actif:true },
+    ];
+
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('overlay').classList.toggle('open');
+    }
+
+    function openModal() { document.getElementById('modal').classList.add('open'); }
+    function closeModal() { document.getElementById('modal').classList.remove('open'); }
+
+    function formatDateFr(d) {
+      if (!d) return '-';
+      return new Date(d).toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' });
+    }
+
+    function renderOffres(offres) {
+      const grid = document.getElementById('offresGrid');
+      const empty = document.getElementById('emptyOffres');
+      if (!offres.length) { empty.style.display = 'block'; grid.innerHTML = ''; return; }
+      empty.style.display = 'none';
+      grid.innerHTML = offres.map(o => `
+        <div class="offre-card">
+          <h3>${o.titre}</h3>
+          ${o.sous_titre ? `<div class="subtitle">${o.sous_titre}</div>` : ''}
+          <div class="dates">Du ${formatDateFr(o.date_debut)} au ${formatDateFr(o.date_fin)}</div>
+          ${o.drive_url ? `<a class="btn-download" href="${o.drive_url}" target="_blank">📥 Télécharger les visuels</a>` : ''}
+        </div>
+      `).join('');
+    }
+
+    (async () => {
+      currentUser = await requireAuth();
+      if (!currentUser) return;
+      document.getElementById('userName').innerHTML = `<strong>${currentUser.nom}</strong>`;
+      if (currentUser.role === 'admin') document.getElementById('btnNewOffre').style.display = 'block';
+
+      // Try to fetch from Supabase, fallback to hardcoded
+      let offres = await fetchOffres();
+      if (!offres.length) offres = FALLBACK_OFFRES;
+      renderOffres(offres);
+    })();
+
+    document.getElementById('offreForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const offre = {
+        titre: document.getElementById('offreTitre').value,
+        sous_titre: document.getElementById('offreSousTitre').value,
+        date_debut: document.getElementById('offreDateDebut').value,
+        date_fin: document.getElementById('offreDateFin').value,
+        drive_url: document.getElementById('offreDriveUrl').value,
+        actif: true
+      };
+      await createOffre(offre);
+      closeModal();
+      let offres = await fetchOffres();
+      if (!offres.length) offres = FALLBACK_OFFRES;
+      renderOffres(offres);
+    });
+  </script>
+</body>
+</html>
