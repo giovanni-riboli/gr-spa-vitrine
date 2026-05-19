@@ -207,7 +207,7 @@ function showSelection() {
 }
 
 function buildTable() {
-  const models = produits.filter(p => selected.has(p.id));
+  const models = produits.filter(p => selected.has(p.slug));
   const t = document.getElementById('compTable');
   let h = '';
 
