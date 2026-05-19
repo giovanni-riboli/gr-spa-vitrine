@@ -1086,17 +1086,43 @@
     document.getElementById('resultSubtitle').textContent = 'Basée sur vos réponses — ' + (delaiLabels[quizData.delai] || '');
 
     const recs = getRecommendations();
-    document.getElementById('productCards').innerHTML = recs.map(r => `
-      <a href="${r.url}" class="product-card ${r.featured ? 'featured' : ''}">
+    // Charger les données Supabase pour enrichir les cards
+    const slugs = recs.map(r => r.url.split('/').pop());
+    const ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oanpnZ2Nlb3phbWhkZXNlY3hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Njc5MDYsImV4cCI6MjA5MjM0MzkwNn0.wW-tqXBDUtKURR31bh3CUWIcuYMUJTZLqq2LLT1kJnA';
+    let prodData = {};
+    try {
+      const res = await fetch(
+        `https://ohjzggceozamhdesecxi.supabase.co/rest/v1/produits?slug=in.(${slugs.join(',')})&select=slug,nb_places,nb_buses,longueur_cm,largeur_cm,hauteur_cm,massage_robotise,chauffage,traitement_uv,aromatherapie,leds_rgb`,
+        { headers: { 'apikey': ANON, 'Authorization': `Bearer ${ANON}` } }
+      );
+      const list = await res.json();
+      list.forEach(p => prodData[p.slug] = p);
+    } catch(e) {}
+
+    document.getElementById('productCards').innerHTML = recs.map(r => {
+      const slug = r.url.split('/').pop();
+      const p = prodData[slug] || {};
+      const specs = [];
+      if (p.nb_places) specs.push(`👥 ${p.nb_places} places`);
+      if (p.nb_buses) specs.push(`💨 ${p.nb_buses} buses`);
+      if (p.longueur_cm) specs.push(`📐 ${p.longueur_cm}×${p.largeur_cm} cm`);
+      const equip = [];
+      if (p.massage_robotise) equip.push('Massage robotisé');
+      if (p.traitement_uv) equip.push('UV série');
+      if (p.aromatherapie) equip.push('Aromathérapie');
+      if (p.leds_rgb) equip.push('LEDs RGB');
+      return `<a href="${r.url}" class="product-card ${r.featured ? 'featured' : ''}">
         <div style="flex:1">
-          ${r.featured ? '<span class="product-badge">Recommandé pour vous</span>' : ''}
+          ${r.featured ? '<span class="product-badge">✨ Recommandé pour vous</span>' : ''}
           <span class="product-gamme">${r.gamme}</span>
           <span class="product-name">${r.name}</span>
           <p class="product-desc">${r.desc}</p>
+          ${specs.length ? `<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:10px">${specs.map(s=>`<span style="font-size:12px;color:#8aafc8;background:rgba(255,255,255,.08);padding:3px 10px;border-radius:10px">${s}</span>`).join('')}</div>` : ''}
+          ${equip.length ? `<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">${equip.map(e=>`<span style="font-size:11px;color:#c7a260;background:rgba(199,162,96,.1);padding:2px 8px;border-radius:10px">✓ ${e}</span>`).join('')}</div>` : ''}
         </div>
         <span class="product-arrow">→</span>
-      </a>
-    `).join('');
+      </a>`;
+    }).join('');
 
     const m = getMagasin(quizData.code_postal);
     document.getElementById('resultShowroom').innerHTML = `
