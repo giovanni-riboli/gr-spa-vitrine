@@ -650,7 +650,6 @@
 
       const SUPABASE_URL = 'https://ohjzggceozamhdesecxi.supabase.co';
       const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oanpnZ2Nlb3phbWhkZXNlY3hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Njc5MDYsImV4cCI6MjA5MjM0MzkwNn0.wW-tqXBDUtKURR31bh3CUWIcuYMUJTZLqq2LLT1kJnA';
-      const RESEND_KEY = 're_KSZpFHbJ_NSd4e5HPR7oJGuew87b5uGcx';
 
       const tranche = getTranche(montantFinance, dureeActuelle);
       const mensualite = Math.round(calcMensualite(montantFinance, dureeActuelle, tranche.tn));
@@ -678,9 +677,9 @@
         });
 
         // 2. Envoyer l'email récapitulatif via Resend
-        await fetch('https://api.resend.com/emails', {
+        await fetch('/.netlify/functions/send-email', {
           method: 'POST',
-          headers: { 'Authorization': `Bearer ${RESEND_KEY}`, 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             from: 'Giovanni Riboli <contact@mail.gr-spa.com>',
             to: [email],
