@@ -1462,6 +1462,29 @@ input { font-family: inherit; font-size: 16px !important; }
 }
 .nav--transparent:not(.nav--scrolled) .nav__pro-btn { color: rgba(255,255,255,.8); }
 .nav--transparent:not(.nav--scrolled) .nav__pro-btn:hover { color: #c7a260; background: rgba(199,162,96,.15); }
+/* Icône Ma Sélection — même comportement que Espace Pro */
+.nav__sel-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: inherit;
+  transition: background .2s, color .2s;
+  text-decoration: none;
+}
+.nav__sel-btn:hover {
+  background: rgba(199,162,96,.15);
+  color: #c7a260;
+}
+/* Nav transparente (hero sombre) → icône blanche */
+.nav--transparent:not(.nav--scrolled) .nav__sel-btn { color: rgba(255,255,255,.8); }
+.nav--transparent:not(.nav--scrolled) .nav__sel-btn:hover { color: #c7a260; background: rgba(199,162,96,.15); }
+/* Nav solid ou scrolled → icône sombre */
+.nav--solid .nav__sel-btn,
+.nav--transparent.nav--scrolled .nav__sel-btn { color: #1a2d3e; }
+
 
 /* Mega menu 3 colonnes */
 .mega-menu__col--tools ul li a {
