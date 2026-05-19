@@ -354,7 +354,7 @@ input { font-family: inherit; font-size: 16px !important; }
 /* ============================================
    BRAND INTRO
    ============================================ */
-.brand-intro { padding: 120px 0; background: var(--white); }
+.brand-intro { padding: var(--space-lg) 0; background: var(--white); }
 .brand-intro__inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -376,13 +376,13 @@ input { font-family: inherit; font-size: 16px !important; }
 
 @media (max-width: 900px) {
   .brand-intro__inner { grid-template-columns: 1fr; gap: 48px; }
-  .brand-intro { padding: 80px 0; }
+  .brand-intro { padding: var(--space-md) 0; }
 }
 
 /* ============================================
    GAMMES
    ============================================ */
-.gammes { padding: 120px 0; background: var(--off-white); }
+.gammes { padding: var(--space-lg) 0; background: var(--off-white); }
 .gammes__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -424,7 +424,7 @@ input { font-family: inherit; font-size: 16px !important; }
 @media (max-width: 900px) {
   .gammes__grid { grid-template-columns: 1fr; }
   .gamme-card--large, .gamme-card--wide { grid-column: span 1; }
-  .gammes { padding: 80px 0; }
+  .gammes { padding: var(--space-md) 0; }
 }
 
 /* ============================================
@@ -482,12 +482,12 @@ input { font-family: inherit; font-size: 16px !important; }
 }
 .pourquoi__item p { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.7; }
 
-@media (max-width: 768px) { .pourquoi { padding: 80px 0; } }
+@media (max-width: 768px) { .pourquoi { padding: var(--space-md) 0; } }
 
 /* ============================================
    QUIZ
    ============================================ */
-.quiz { padding: 120px 0; background: var(--white); }
+.quiz { padding: var(--space-lg) 0; background: var(--white); }
 .quiz__inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -508,13 +508,13 @@ input { font-family: inherit; font-size: 16px !important; }
 @media (max-width: 900px) {
   .quiz__inner { grid-template-columns: 1fr; gap: 48px; }
   .quiz__visual { order: -1; }
-  .quiz { padding: 80px 0; }
+  .quiz { padding: var(--space-md) 0; }
 }
 
 /* ============================================
    TÉMOIGNAGES
    ============================================ */
-.testimonials { padding: 120px 0; background: var(--light-gray); }
+.testimonials { padding: var(--space-lg) 0; background: var(--light-gray); }
 .testimonials__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -534,7 +534,7 @@ input { font-family: inherit; font-size: 16px !important; }
 .testimonial__author { font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--mid-gray); }
 
 @media (max-width: 1100px) { .testimonials__grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 600px) { .testimonials__grid { grid-template-columns: 1fr; } .testimonials { padding: 80px 0; } }
+@media (max-width: 600px) { .testimonials__grid { grid-template-columns: 1fr; } .testimonials { padding: var(--space-md) 0; } }
 
 /* ============================================
    STORE LOCATOR
@@ -1757,4 +1757,19 @@ input { font-family: inherit; font-size: 16px !important; }
 .fin-hero p, .comp-hero p { color: #ccd8e0; font-size: 1.1rem; line-height: 1.7; }
 @media (max-width: 768px) {
   .fin-hero, .comp-hero, .lp-hero, .magasin-hero { padding: 7rem 20px 3rem; }
+}
+
+/* ─── HARMONISATION ESPACEMENT ─── */
+.product-section { padding: var(--space-md) 5%; }
+.product-compare-section { padding: var(--space-sm) 5%; text-align: center; }
+.sel-content { padding: var(--space-md) 40px; }
+#similar-products { padding: var(--space-md) 5%; }
+
+/* Respiration fiches produits sous nav--solid */
+.product-hero { padding-top: calc(var(--nav-h) + var(--space-sm)); }
+
+@media (max-width: 768px) {
+  .product-section { padding: var(--space-sm) 20px; }
+  .sel-content { padding: var(--space-sm) 20px; }
+  .product-hero { padding-top: calc(var(--nav-h) + 24px); }
 }
