@@ -381,23 +381,23 @@
     /* Sauvegarde abandon quiz */
     .quiz-save-progress {
       margin-top: 20px;
-      padding: 14px 18px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 10px;
+      padding: 24px 28px;
+      background: #253a4c;
+      border-radius: 12px;
+      border-top: 3px solid #c7a260;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       flex-wrap: wrap;
     }
     .quiz-save-progress label {
-      font-size: 12px;
-      color: rgba(255,255,255,.6);
-      font-weight: 500;
+      font-size: 13px;
+      color: #fff;
+      font-weight: 600;
       white-space: nowrap;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       flex-shrink: 0;
     }
     .quiz-save-progress input {
@@ -405,18 +405,18 @@
       min-width: 200px;
       background: rgba(255,255,255,.08);
       border: 1px solid rgba(255,255,255,.15);
-      border-radius: 6px;
-      padding: 9px 14px;
+      border-radius: 8px;
+      padding: 11px 14px;
       color: #fff;
-      font-size: 13px;
+      font-size: 14px;
       font-family: 'Inter', sans-serif;
       outline: none;
-      min-height: 40px;
+      min-height: 44px;
     }
-    .quiz-save-progress input::placeholder { color: rgba(255,255,255,.3); }
-    .quiz-save-progress input:focus { border-color: rgba(199,162,96,.6); background: rgba(255,255,255,.12); }
-    .quiz-save-note { font-size: 11px; color: rgba(255,255,255,.25); width: 100%; margin-top: 2px; }
-    .quiz-save-ok { font-size: 12px; color: #10b981; display: none; }
+    .quiz-save-progress input::placeholder { color: rgba(255,255,255,.35); }
+    .quiz-save-progress input:focus { border-color: #c7a260; }
+    .quiz-save-note { font-size: 11px; color: #8aafc8; width: 100%; margin-top: 4px; }
+    .quiz-save-ok { font-size: 13px; color: #10b981; display: none; font-weight: 600; }
 
     </style>
 </head>
@@ -714,7 +714,7 @@
         <!-- Sauvegarde abandon quiz -->
         <div class="quiz-save-progress" id="quizSaveProgress">
           <label>
-            <svg viewBox="0 0 24 24" fill="none" stroke="#c7a260" stroke-width="1.8" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#c7a260" stroke-width="1.8" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
             Sauvegarder ma progression
           </label>
           <input type="email" id="saveEmail" placeholder="votre@email.fr" oninput="saveProgress()" autocomplete="email">
