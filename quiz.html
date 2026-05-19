@@ -417,6 +417,21 @@
     .quiz-save-progress input:focus { border-color: #c7a260; }
     .quiz-save-note { font-size: 11px; color: #8aafc8; width: 100%; margin-top: 4px; }
     .quiz-save-ok { font-size: 13px; color: #10b981; display: none; font-weight: 600; }
+    .btn-save-quiz {
+      background: #c7a260;
+      color: #1a2d3e;
+      border: none;
+      padding: 11px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      min-height: 44px;
+      white-space: nowrap;
+      transition: opacity .2s;
+    }
+    .btn-save-quiz:hover { opacity: .9; }
 
     </style>
 </head>
@@ -717,9 +732,10 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="#c7a260" stroke-width="1.8" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
             Sauvegarder ma progression
           </label>
-          <input type="email" id="saveEmail" placeholder="votre@email.fr" oninput="saveProgress()" autocomplete="email">
-          <span class="quiz-save-ok" id="saveOk">✓ Sauvegardé</span>
-          <p class="quiz-save-note">Optionnel — pour recevoir vos résultats si vous quittez le quiz</p>
+          <input type="email" id="saveEmail" placeholder="votre@email.fr" autocomplete="email">
+          <button class="btn-save-quiz" onclick="saveProgress()">Sauvegarder</button>
+          <span class="quiz-save-ok" id="saveOk">✓ Sauvegardé !</span>
+
         </div>
 
     </div>
@@ -1102,6 +1118,7 @@
     
     function saveProgress() {
       var email = document.getElementById('saveEmail').value.trim();
+      if (!email || !email.includes('@')) { document.getElementById('saveEmail').focus(); return; }
       if (!email || !email.includes('@')) return;
       if (email === _savedEmail) return;
       _savedEmail = email;
