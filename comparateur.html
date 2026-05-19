@@ -280,6 +280,22 @@
     <div class="table-wrap">
       <table class="comp-table" id="compTable"></table>
     </div>
+  <div class="table-wrap" style="padding-top:0;background:#f9fafb">
+      <div class="comp-capture" id="compCapture">
+        <div class="cap-text">
+          <h3>Recevoir cette comparaison par email</h3>
+          <p>Nous vous envoyons le tableau complet + les fiches des modèles sélectionnés.</p>
+        </div>
+        <div class="cap-inputs">
+          <input type="text" id="capPrenom" placeholder="Prénom" autocomplete="given-name">
+          <input type="email" id="capEmail" placeholder="Email" autocomplete="email">
+          <button class="btn-cap-comp" onclick="envoyerComparaison()">Envoyer →</button>
+        </div>
+        <div class="comp-capture-success" id="capSuccess" style="display:none">
+          ✅ Comparaison envoyée ! Vérifiez votre email.
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- BARRE STICKY -->
