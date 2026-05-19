@@ -1175,6 +1175,8 @@ input { font-family: inherit; font-size: 16px !important; }
 .nav__burger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
 .nav__burger.active span:nth-child(2) { opacity: 0; }
 .nav__burger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+/* Croix toujours sombre quand menu ouvert (fond blanc) */
+.nav__burger.active span { background: #1a2d3e !important; }
 
 /* ---- MEGA MENU DROPDOWN ---- */
 .mega-menu {
@@ -1487,3 +1489,7 @@ input { font-family: inherit; font-size: 16px !important; }
   transition: opacity .2s;
 }
 .nav__mobile-cta:hover { opacity: .9; }
+
+@media (max-width: 768px) {
+  .nav__pro-btn--desktop { display: none !important; }
+}
