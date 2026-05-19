@@ -2610,3 +2610,6 @@ input { font-family: inherit; font-size: 16px !important; }
       .form-group input { min-height: 48px; }
       .btn-login { min-height: 48px; }
     }
+
+/* ─── FINANCEMENT CALCULATEUR ─── */
+body{margin:0;padding:20px;background:#1a2d3e;font-family:Arial,sans-serif}.c{max-width:580px;margin:0 auto;background:#253a4c;border-radius:12px;border-top:4px solid #c7a260;padding:32px}h1{color:#fff;font-size:22px;margin:0 0 20px}p{color:#ccd8e0;font-size:14px;line-height:1.7;margin:0 0 12px}.card{background:#1e3044;border-radius:8px;padding:20px;margin:20px 0;border-left:3px solid #c7a260}.big{font-size:36px;font-weight:700;color:#c7a260}.label{font-size:12px;color:#8aafc8;margin-top:4px}.row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px}.row:last-child{border:none}.lbl{color:#8aafc8}.val{color:#fff;font-weight:600}.btn{display:inline-block;background:#c7a260;color:#1a2d3e;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:700;font-size:14px}.footer{text-align:center;margin-top:24px;font-size:11px;color:#4a6a82}
