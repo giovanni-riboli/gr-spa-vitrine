@@ -193,6 +193,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
         Dashboard
       </a>
+      <a href="leads.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Leads
+      </a>
       <a href="offres.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
         Offres en cours
@@ -242,6 +246,28 @@
           <div class="kpi"><div class="kpi-icon">📊</div><div class="kpi-label">Cette semaine</div><div class="kpi-value" id="kpiWeek">-</div></div>
           <div class="kpi"><div class="kpi-icon">📈</div><div class="kpi-label">Ce mois</div><div class="kpi-value" id="kpiMonth">-</div></div>
           <div class="kpi"><div class="kpi-icon">📞</div><div class="kpi-label">Taux de contact</div><div class="kpi-value" id="kpiConversion">-</div><div class="kpi-sub" id="kpiConvSub">contactés / total</div></div>
+        </div>
+
+        <!-- Admin: Vue globale par magasin -->
+        <div id="adminStoreView" style="display:none;margin-bottom:28px">
+          <h2 style="font-size:16px;font-weight:600;color:#fff;margin-bottom:16px">🏪 Vue globale par magasin</h2>
+          <div class="table-wrap">
+            <table>
+              <thead><tr style="background:#253a4c"><th>Magasin</th><th>Leads total</th><th>Nouveaux</th><th>Contactés</th><th>Taux contact</th><th>Dernière activité</th></tr></thead>
+              <tbody id="storeTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Admin: Leads récents tous magasins -->
+        <div id="adminRecentLeads" style="display:none;margin-bottom:28px">
+          <h2 style="font-size:16px;font-weight:600;color:#fff;margin-bottom:16px">🕐 Leads récents — Tous magasins</h2>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Prénom</th><th>Magasin</th><th>Statut</th><th>Budget</th><th>Date</th></tr></thead>
+              <tbody id="recentAllTable"></tbody>
+            </table>
+          </div>
         </div>
 
         <!-- Tabs -->
@@ -548,11 +574,53 @@
       document.getElementById('kpiConvSub').textContent = `${contacted} contactés / ${total} total`;
     }
 
+    function renderAdminSections() {
+      if (!currentUser || currentUser.role !== 'admin') return;
+      document.getElementById('adminStoreView').style.display = 'block';
+      document.getElementById('adminRecentLeads').style.display = 'block';
+
+      // Group by magasin
+      const stores = {};
+      allLeads.forEach(l => {
+        const name = l.magasin_nom || 'Non assigné';
+        if (!stores[name]) stores[name] = { total:0, nouveau:0, contacte:0, lastDate:null };
+        stores[name].total++;
+        if (l.statut === 'nouveau') stores[name].nouveau++;
+        if (['contacte','rdv','gagne'].includes(l.statut)) stores[name].contacte++;
+        if (!stores[name].lastDate || (l.created_at && l.created_at > stores[name].lastDate)) stores[name].lastDate = l.created_at;
+      });
+
+      document.getElementById('storeTableBody').innerHTML = Object.entries(stores).map(([name, s], i) => {
+        const rate = s.total > 0 ? Math.round(s.contacte / s.total * 100) : 0;
+        const rateColor = rate >= 70 ? '#34d399' : rate >= 40 ? '#fbbf24' : '#f87171';
+        const rowBg = i % 2 === 0 ? 'transparent' : 'rgba(0,0,0,.1)';
+        return `<tr style="background:${rowBg}">
+          <td style="font-weight:600;color:#fff">${esc(name)}</td>
+          <td>${s.total}</td><td>${s.nouveau}</td><td>${s.contacte}</td>
+          <td><span style="background:${rateColor}22;color:${rateColor};padding:2px 10px;border-radius:20px;font-size:12px;font-weight:600">${rate}%</span></td>
+          <td style="font-size:12px;color:var(--text-muted)">${timeAgo(s.lastDate)}</td>
+        </tr>`;
+      }).join('') || '<tr><td colspan="6" style="text-align:center;color:var(--text-muted)">Aucun lead</td></tr>';
+
+      // Recent 5 all stores
+      const recent5 = allLeads.slice(0, 5);
+      document.getElementById('recentAllTable').innerHTML = recent5.map(l =>
+        `<tr>
+          <td style="font-weight:600;color:#fff">${esc(l.prenom || '-')}</td>
+          <td>${esc(l.magasin_nom || 'Non assigné')}</td>
+          <td><span class="badge badge-${l.statut}">${STATUT_LABELS[l.statut] || l.statut}</span></td>
+          <td>${BUDGET_LABELS[l.budget] || esc(l.budget || '-')}</td>
+          <td style="font-size:12px">${timeAgo(l.created_at)}</td>
+        </tr>`
+      ).join('') || '<tr><td colspan="5" style="text-align:center;color:var(--text-muted)">Aucun lead</td></tr>';
+    }
+
     function renderAll() {
       computeKPIs();
       renderFilters();
       renderTable();
       renderKanban();
+      renderAdminSections();
     }
 
     // Supabase Realtime
