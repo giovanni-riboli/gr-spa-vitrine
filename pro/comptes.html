@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestion des comptes — Espace Pro Giovanni Riboli</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #1a2d3e; --bg-card: #253a4c; --accent: #c7a260;
+      --text-light: #ccd8e0; --text-muted: #7a8a9a;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html, body { overflow-x: hidden; max-width: 100%; }
+    body { font-family:'Inter',sans-serif; background:#0f1e2c; color:var(--text-light); min-height:100vh; display:flex; }
+
+    .sidebar { width:250px; background:var(--bg-dark); min-height:100vh; position:fixed; left:0; top:0; z-index:100; transition:transform .3s; border-right:1px solid rgba(255,255,255,.06); }
+    .sidebar .logo-area { padding:24px 20px; border-bottom:1px solid rgba(255,255,255,.06); }
+    .sidebar .logo-area img { height:32px; filter:brightness(0) invert(1); }
+    .sidebar .logo-area .brand { font-size:13px; font-weight:600; color:var(--accent); margin-top:6px; letter-spacing:.5px; }
+    .sidebar nav { padding:16px 0; }
+    .sidebar nav a { display:flex; align-items:center; gap:10px; padding:12px 24px; color:rgba(255,255,255,.5); text-decoration:none; font-size:13px; font-weight:500; transition:all .2s; border-left:3px solid transparent; }
+    .sidebar nav a:hover, .sidebar nav a.active { color:var(--accent); background:rgba(199,162,96,.06); border-left-color:var(--accent); }
+    .sidebar nav a svg { width:18px; height:18px; flex-shrink:0; }
+
+    .main { margin-left:250px; flex:1; min-height:100vh; width:calc(100% - 250px); overflow-x:hidden; }
+    .header { background:var(--bg-dark); border-bottom:1px solid rgba(255,255,255,.06); padding:16px 32px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:50; }
+    .header .title { font-size:15px; font-weight:600; color:#fff; }
+    .header .user-area { display:flex; align-items:center; gap:16px; font-size:13px; color:var(--text-muted); }
+    .header .user-area strong { color:#fff; }
+    .role-badge { display:inline-block; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.3px; }
+    .role-badge.admin { background:rgba(199,162,96,.15); color:var(--accent); }
+    .role-badge.responsable { background:rgba(59,130,246,.15); color:#60a5fa; }
+    .role-badge.revendeur { background:rgba(16,185,129,.15); color:#34d399; }
+    .btn-logout { padding:8px 16px; background:none; border:1px solid rgba(255,255,255,.12); border-radius:6px; font-size:12px; font-family:'Inter',sans-serif; cursor:pointer; color:var(--text-muted); transition:all .2s; }
+    .btn-logout:hover { border-color:var(--accent); color:var(--accent); }
+
+    .content { padding:32px; max-width:100%; overflow-x:hidden; }
+
+    .page-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px; }
+    .page-title { font-size:22px; font-weight:600; color:#fff; }
+    .page-sub { font-size:13px; color:var(--text-muted); margin-top:4px; }
+
+    .btn-primary { padding:10px 20px; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; border:none; background:var(--accent); color:#1a2d3e; font-family:'Inter',sans-serif; transition:all .2s; }
+    .btn-primary:hover { background:#d4b06e; }
+
+    /* Table */
+    .table-wrap { background:var(--bg-card); border-radius:10px; overflow:hidden; border:1px solid rgba(255,255,255,.04); overflow-x:auto; }
+    table { width:100%; border-collapse:collapse; min-width:800px; }
+    th { padding:12px 16px; text-align:left; font-size:11px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; background:rgba(0,0,0,.15); border-bottom:1px solid rgba(255,255,255,.04); }
+    td { padding:12px 16px; font-size:13px; border-bottom:1px solid rgba(255,255,255,.03); vertical-align:middle; }
+    tr:hover { background:rgba(199,162,96,.03); }
+
+    .avatar { width:36px; height:36px; border-radius:50%; background:var(--accent); color:#1a2d3e; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0; }
+
+    .badge { display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; }
+    .badge-admin { background:rgba(199,162,96,.15); color:var(--accent); }
+    .badge-responsable { background:rgba(59,130,246,.15); color:#60a5fa; }
+    .badge-revendeur { background:rgba(16,185,129,.15); color:#34d399; }
+    .badge-actif { background:rgba(16,185,129,.15); color:#34d399; }
+    .badge-inactif { background:rgba(239,68,68,.15); color:#f87171; }
+
+    .btn-sm { padding:5px 12px; border-radius:6px; font-size:11px; font-weight:600; cursor:pointer; border:1px solid rgba(255,255,255,.1); background:none; color:var(--text-muted); font-family:'Inter',sans-serif; transition:all .2s; }
+    .btn-sm:hover { border-color:var(--accent); color:var(--accent); }
+    .btn-danger { border-color:rgba(239,68,68,.3); color:#f87171; }
+    .btn-danger:hover { border-color:#ef4444; color:#ef4444; background:rgba(239,68,68,.08); }
+    .btn-success { border-color:rgba(16,185,129,.3); color:#34d399; }
+    .btn-success:hover { border-color:#10b981; color:#10b981; background:rgba(16,185,129,.08); }
+    .actions-cell { display:flex; gap:6px; align-items:center; }
+
+    /* Modal */
+    .modal-overlay { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,.6); z-index:200; align-items:center; justify-content:center; }
+    .modal-overlay.active { display:flex; }
+    .modal { background:var(--bg-dark); border-radius:12px; padding:28px; width:90%; max-width:520px; max-height:90vh; overflow-y:auto; border:1px solid rgba(255,255,255,.08); }
+    .modal h2 { font-size:18px; font-weight:600; color:#fff; margin-bottom:20px; }
+    .form-group { margin-bottom:16px; }
+    .form-group label { display:block; font-size:12px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px; }
+    .form-group input, .form-group select { width:100%; padding:10px 14px; border-radius:8px; border:1px solid rgba(255,255,255,.1); background:var(--bg-card); color:#fff; font-size:13px; font-family:'Inter',sans-serif; outline:none; transition:border-color .2s; }
+    .form-group input:focus, .form-group select:focus { border-color:var(--accent); }
+    .form-group select option { background:var(--bg-card); color:#fff; }
+    .modal-actions { display:flex; gap:12px; justify-content:flex-end; margin-top:24px; }
+    .btn-cancel { padding:10px 20px; border-radius:8px; font-size:13px; font-weight:500; cursor:pointer; border:1px solid rgba(255,255,255,.1); background:none; color:var(--text-muted); font-family:'Inter',sans-serif; }
+    .btn-cancel:hover { border-color:var(--accent); color:var(--accent); }
+
+    /* Toast */
+    .toast { position:fixed; bottom:24px; right:24px; padding:14px 24px; border-radius:10px; font-size:13px; font-weight:500; z-index:300; transform:translateY(100px); opacity:0; transition:all .3s; }
+    .toast.show { transform:translateY(0); opacity:1; }
+    .toast.success { background:#059669; color:#fff; }
+    .toast.error { background:#dc2626; color:#fff; }
+
+    /* Loading */
+    .loading { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:300px; gap:12px; color:var(--text-muted); font-size:13px; }
+    .spinner { width:32px; height:32px; border:3px solid rgba(199,162,96,.2); border-top-color:var(--accent); border-radius:50%; animation:spin .8s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    /* Hamburger */
+    .hamburger { display:none; background:none; border:none; color:var(--text-light); cursor:pointer; padding:4px; }
+    .hamburger svg { width:24px; height:24px; }
+
+    @media (max-width:768px) {
+      .sidebar { transform:translateX(-100%); }
+      .sidebar.open { transform:translateX(0); }
+      .main { margin-left:0; width:100%; }
+      .hamburger { display:block; }
+      .header { padding:12px 16px; }
+      .content { padding:16px; }
+      .header .user-area span:not(.role-badge) { display:none; }
+      .page-header { flex-direction:column; align-items:flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <div class="logo-area">
+      <img src="../assets/logo-blanc.svg" alt="GR" onerror="this.style.display='none'">
+      <div class="brand">Espace Revendeur</div>
+    </div>
+    <nav>
+      <a href="dashboard.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Dashboard
+      </a>
+      <a href="leads.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Leads
+      </a>
+      <a href="offres.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        Offres en cours
+      </a>
+      <a href="documents.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Documents
+      </a>
+      <a href="stocks.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        Stocks
+      </a>
+      <a class="admin-only" href="comptes.html" class="active" style="display:none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6"/><path d="M23 11h-6"/></svg>
+        Comptes
+      </a>
+      <a href="profil.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Mon profil
+      </a>
+    </nav>
+  </aside>
+
+  <div class="main">
+    <header class="header">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+        <span class="title">Gestion des comptes</span>
+      </div>
+      <div class="user-area">
+        <span id="userName"></span>
+        <span class="role-badge" id="userRole"></span>
+        <button class="btn-logout" onclick="logout()">Déconnexion</button>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="loading" id="loadingState">
+        <div class="spinner"></div>
+        <div>Chargement...</div>
+      </div>
+
+      <div id="mainContent" style="display:none">
+        <div class="page-header">
+          <div>
+            <div class="page-title">👥 Gestion des comptes</div>
+            <div class="page-sub" id="compteSub">Gérez les accès à l'espace revendeur</div>
+          </div>
+          <button class="btn-primary" onclick="openCreateModal()">➕ Nouveau compte</button>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Avatar</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Rôle</th>
+                <th>Magasin</th>
+                <th>Départements</th>
+                <th>Statut</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="usersTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Créer -->
+  <div class="modal-overlay" id="createModal">
+    <div class="modal">
+      <h2>➕ Nouveau compte</h2>
+      <div class="form-group">
+        <label>Nom complet *</label>
+        <input type="text" id="createNom" required>
+      </div>
+      <div class="form-group">
+        <label>Email *</label>
+        <input type="email" id="createEmail" required>
+      </div>
+      <div class="form-group">
+        <label>Mot de passe temporaire * (min 8 caractères)</label>
+        <input type="text" id="createPassword" minlength="8" required>
+      </div>
+      <div class="form-group">
+        <label>Rôle</label>
+        <select id="createRole">
+          <option value="responsable">Responsable</option>
+          <option value="revendeur">Revendeur</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Magasin / Entreprise</label>
+        <input type="text" id="createMagasin">
+      </div>
+      <div class="form-group">
+        <label>Ville</label>
+        <input type="text" id="createVille">
+      </div>
+      <div class="form-group">
+        <label>Départements couverts (ex: 34, 30, 11)</label>
+        <input type="text" id="createDepts" placeholder="34, 30, 11">
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeModal('createModal')">Annuler</button>
+        <button class="btn-primary" onclick="createAccount()">Créer le compte</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Modifier -->
+  <div class="modal-overlay" id="editModal">
+    <div class="modal">
+      <h2>✏️ Modifier le compte</h2>
+      <input type="hidden" id="editUserId">
+      <div class="form-group">
+        <label>Nom complet</label>
+        <input type="text" id="editNom">
+      </div>
+      <div class="form-group">
+        <label>Rôle</label>
+        <select id="editRole">
+          <option value="admin">Admin</option>
+          <option value="responsable">Responsable</option>
+          <option value="revendeur">Revendeur</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Magasin / Entreprise</label>
+        <input type="text" id="editMagasin">
+      </div>
+      <div class="form-group">
+        <label>Ville</label>
+        <input type="text" id="editVille">
+      </div>
+      <div class="form-group">
+        <label>Départements couverts (ex: 34, 30, 11)</label>
+        <input type="text" id="editDepts">
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeModal('editModal')">Annuler</button>
+        <button class="btn-primary" onclick="updateAccount()">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="auth.js"></script>
+  <script>
+    const SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oanpnZ2Nlb3phbWhkZXNlY3hpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3Njc2NzkwNiwiZXhwIjoyMDkyMzQzOTA2fQ.89JGBxboodYhj7ZtJPKHdsU_B3nCvyRaxxZsJ5cgpqc';
+    const API_BASE = 'https://ohjzggceozamhdesecxi.supabase.co/auth/v1/admin/users';
+
+    let allUsers = [];
+
+    function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+    function showToast(msg, type = 'success') {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.className = `toast ${type} show`;
+      setTimeout(() => t.classList.remove('show'), 3500);
+    }
+
+    function openCreateModal() {
+      ['createNom','createEmail','createPassword','createMagasin','createVille','createDepts'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('createRole').value = 'revendeur';
+      document.getElementById('createModal').classList.add('active');
+    }
+
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+    function getInitials(name) {
+      if (!name) return '?';
+      return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+    }
+
+    function isUserActive(user) {
+      if (user.banned_until) {
+        const banned = new Date(user.banned_until);
+        if (banned > new Date()) return false;
+      }
+      const meta = user.user_metadata || {};
+      return meta.actif !== false;
+    }
+
+    async function fetchUsers() {
+      const res = await fetch(API_BASE, {
+        headers: { 'apikey': SERVICE_KEY, 'Authorization': `Bearer ${SERVICE_KEY}` }
+      });
+      const data = await res.json();
+      return data.users || [];
+    }
+
+    function renderUsers() {
+      const tbody = document.getElementById('usersTable');
+      tbody.innerHTML = '';
+      allUsers.forEach(u => {
+        const meta = u.user_metadata || {};
+        const name = meta.full_name || meta.nom || u.email;
+        const role = meta.role || 'revendeur';
+        const magasin = meta.magasin_nom || '—';
+        const depts = (meta.departements || []).join(', ') || '—';
+        const active = isUserActive(u);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><div class="avatar">${esc(getInitials(name))}</div></td>
+          <td><strong>${esc(name)}</strong></td>
+          <td>${esc(u.email)}</td>
+          <td><span class="badge badge-${role}">${esc(role)}</span></td>
+          <td>${esc(magasin)}</td>
+          <td>${esc(depts)}</td>
+          <td><span class="badge ${active ? 'badge-actif' : 'badge-inactif'}">${active ? 'Actif' : 'Inactif'}</span></td>
+          <td>
+            <div class="actions-cell">
+              <button class="btn-sm" onclick="openEditModal('${u.id}')">✏️</button>
+              ${active
+                ? `<button class="btn-sm btn-danger" onclick="toggleUser('${u.id}', false)">🔒</button>`
+                : `<button class="btn-sm btn-success" onclick="toggleUser('${u.id}', true)">🔓</button>`
+              }
+            </div>
+          </td>`;
+        tbody.appendChild(tr);
+      });
+      document.getElementById('compteSub').textContent = `${allUsers.length} compte(s) au total`;
+    }
+
+    function openEditModal(userId) {
+      const u = allUsers.find(x => x.id === userId);
+      if (!u) return;
+      const meta = u.user_metadata || {};
+      document.getElementById('editUserId').value = userId;
+      document.getElementById('editNom').value = meta.full_name || meta.nom || '';
+      document.getElementById('editRole').value = meta.role || 'revendeur';
+      document.getElementById('editMagasin').value = meta.magasin_nom || '';
+      document.getElementById('editVille').value = meta.magasin_ville || '';
+      document.getElementById('editDepts').value = (meta.departements || []).join(', ');
+      document.getElementById('editModal').classList.add('active');
+    }
+
+    async function createAccount() {
+      const nom = document.getElementById('createNom').value.trim();
+      const email = document.getElementById('createEmail').value.trim();
+      const password = document.getElementById('createPassword').value;
+      const role = document.getElementById('createRole').value;
+      const magasin = document.getElementById('createMagasin').value.trim();
+      const ville = document.getElementById('createVille').value.trim();
+      const depts = document.getElementById('createDepts').value;
+
+      if (!nom || !email || password.length < 8) {
+        showToast('Veuillez remplir tous les champs obligatoires (mot de passe min 8 car.)', 'error');
+        return;
+      }
+
+      try {
+        const res = await fetch(API_BASE, {
+          method: 'POST',
+          headers: { 'apikey': SERVICE_KEY, 'Authorization': `Bearer ${SERVICE_KEY}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email, password, email_confirm: true,
+            user_metadata: {
+              full_name: nom, role, magasin_nom: magasin || null, magasin_ville: ville || null,
+              departements: depts ? depts.split(',').map(d => d.trim()).filter(Boolean) : []
+            }
+          })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.msg || data.message || 'Erreur création');
+        showToast(`Compte créé pour ${email}`);
+        closeModal('createModal');
+        allUsers = await fetchUsers();
+        renderUsers();
+      } catch (e) {
+        showToast(e.message, 'error');
+      }
+    }
+
+    async function updateAccount() {
+      const userId = document.getElementById('editUserId').value;
+      const nom = document.getElementById('editNom').value.trim();
+      const role = document.getElementById('editRole').value;
+      const magasin = document.getElementById('editMagasin').value.trim();
+      const ville = document.getElementById('editVille').value.trim();
+      const depts = document.getElementById('editDepts').value;
+
+      try {
+        const res = await fetch(`${API_BASE}/${userId}`, {
+          method: 'PUT',
+          headers: { 'apikey': SERVICE_KEY, 'Authorization': `Bearer ${SERVICE_KEY}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            user_metadata: {
+              full_name: nom, role, magasin_nom: magasin || null, magasin_ville: ville || null,
+              departements: depts ? depts.split(',').map(d => d.trim()).filter(Boolean) : []
+            }
+          })
+        });
+        if (!res.ok) { const d = await res.json(); throw new Error(d.msg || d.message || 'Erreur'); }
+        showToast('Compte mis à jour');
+        closeModal('editModal');
+        allUsers = await fetchUsers();
+        renderUsers();
+      } catch (e) {
+        showToast(e.message, 'error');
+      }
+    }
+
+    async function toggleUser(userId, activate) {
+      const action = activate ? 'activer' : 'désactiver';
+      if (!confirm(`Voulez-vous ${action} ce compte ?`)) return;
+      try {
+        const body = activate ? { banned_until: null } : { banned_until: '2099-12-31T00:00:00Z' };
+        const res = await fetch(`${API_BASE}/${userId}`, {
+          method: 'PUT',
+          headers: { 'apikey': SERVICE_KEY, 'Authorization': `Bearer ${SERVICE_KEY}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+        if (!res.ok) { const d = await res.json(); throw new Error(d.msg || d.message || 'Erreur'); }
+        showToast(activate ? 'Compte activé' : 'Compte désactivé');
+        allUsers = await fetchUsers();
+        renderUsers();
+      } catch (e) {
+        showToast(e.message, 'error');
+      }
+    }
+
+    // Close modals on overlay click
+    document.querySelectorAll('.modal-overlay').forEach(o => {
+      o.addEventListener('click', e => { if (e.target === o) o.classList.remove('active'); });
+    });
+
+    // Init
+    (async () => {
+      const currentUser = await requireAuth();
+      if (!currentUser) return;
+
+      if (currentUser.role !== 'admin') {
+        window.location.href = '/pro/dashboard.html';
+        return;
+      }
+
+      document.getElementById('userName').innerHTML = `<strong>${esc(currentUser.nom)}</strong>`;
+      document.getElementById('userRole').textContent = currentUser.role;
+      document.getElementById('userRole').classList.add(currentUser.role);
+
+      // Show admin sidebar links
+      document.querySelectorAll('.admin-only').forEach(el => el.style.display = '');
+      // Mark active
+      document.querySelector('a[href="comptes.html"]').classList.add('active');
+
+      allUsers = await fetchUsers();
+      renderUsers();
+
+      document.getElementById('loadingState').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+    })();
+  </script>
+</body>
+</html>
