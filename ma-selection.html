@@ -8,7 +8,56 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  
+  <style>
+    .sel-hero { background: #1a2d3e; padding: 10rem 0 5rem; text-align: center; }
+    .sel-hero .eyebrow { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: #c7a260; font-weight: 600; margin-bottom: 12px; }
+    .sel-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 42px; color: #fff; margin: 0 0 12px; }
+    .sel-hero p { color: #ccd8e0; font-size: 16px; }
+    
+    .sel-content { background: #f9fafb; padding: 60px 40px; min-height: 300px; }
+    .sel-container { max-width: 960px; margin: 0 auto; }
+    
+    .sel-empty { text-align: center; padding: 80px 20px; }
+    .sel-empty svg { color: #c7a260; margin-bottom: 20px; }
+    .sel-empty h2 { font-family: 'Cormorant Garamond', serif; font-size: 28px; color: #1a2d3e; margin: 0 0 12px; }
+    .sel-empty p { color: #6b7280; font-size: 15px; margin: 0 0 28px; }
+    .btn-discover { display: inline-block; background: #c7a260; color: #1a2d3e; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 15px; }
+    
+    .sel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 40px; }
+    .sel-card { background: #fff; border-radius: 12px; padding: 24px; border: 1px solid #e5e7eb; position: relative; }
+    .sel-card .badge-gamme { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; margin-bottom: 12px; display: inline-block; }
+    .badge-relax { background: #f3f4f6; color: #6b7280; }
+    .badge-energy { background: #dbeafe; color: #1d4ed8; }
+    .badge-luxury { background: #fef3c7; color: #92400e; }
+    .badge-nage { background: #d1fae5; color: #065f46; }
+    .sel-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #1a2d3e; margin: 0 0 8px; }
+    .sel-card .specs { font-size: 13px; color: #6b7280; margin-bottom: 16px; }
+    .sel-card-actions { display: flex; gap: 8px; }
+    .btn-voir { flex: 1; display: block; text-align: center; background: #1a2d3e; color: #fff; padding: 10px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600; }
+    .btn-retirer { background: none; border: 1px solid #e5e7eb; color: #9ca3af; padding: 10px 14px; border-radius: 6px; cursor: pointer; font-size: 12px; font-family: 'Inter', sans-serif; transition: all .2s; }
+    .btn-retirer:hover { border-color: #ef4444; color: #ef4444; }
+    
+    .sel-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; justify-content: space-between; padding-top: 24px; border-top: 1px solid #e5e7eb; }
+    .btn-comparer-sel { background: #c7a260; color: #1a2d3e; padding: 13px 28px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 15px; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-vider { background: none; border: 1px solid #e5e7eb; color: #6b7280; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; font-family: 'Inter', sans-serif; transition: all .2s; }
+    .btn-vider:hover { border-color: #ef4444; color: #ef4444; }
+    
+    /* CTA conseiller */
+    .sel-conseiller { background: #1a2d3e; border-radius: 12px; padding: 32px 36px; margin-top: 32px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .sel-conseiller h3 { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: #fff; margin: 0 0 6px; }
+    .sel-conseiller p { font-size: 14px; color: #8aafc8; margin: 0; }
+    .btn-envoyer-sel { background: #c7a260; color: #1a2d3e; padding: 13px 24px; border-radius: 8px; font-weight: 700; font-size: 14px; border: none; cursor: pointer; font-family: 'Inter', sans-serif; white-space: nowrap; }
+    
+    @media (max-width: 768px) {
+      .sel-hero { padding: 7rem 20px 3rem; }
+      .sel-content { padding: 40px 20px; }
+      .sel-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .sel-conseiller { padding: 24px; }
+    }
+    @media (max-width: 480px) {
+      .sel-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 

@@ -8,7 +8,124 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  
+  <style>/* Comparateur spécifique */
+    .comp-hero .eyebrow { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: #c7a260; font-weight: 600; margin-bottom: 12px; }
+    .comp-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 42px; color: #fff; margin: 0 0 12px; }
+    .comp-hero p { color: #ccd8e0; font-size: 16px; margin: 0 auto; }
+
+    /* Filtres */
+    .comp-filters { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 20px 40px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .comp-filters span { font-size: 13px; color: #6b7280; margin-right: 8px; font-weight: 500; }
+    .filter-pill { padding: 6px 16px; border-radius: 20px; border: 1px solid #e5e7eb; background: #fff; font-size: 13px; cursor: pointer; font-family: 'Inter', sans-serif; transition: all .2s; }
+    .filter-pill.active, .filter-pill:hover { background: #1a2d3e; color: #fff; border-color: #1a2d3e; }
+
+    /* Grille de sélection */
+    .comp-grid-wrap { background: #f9fafb; padding: 32px 40px 120px; }
+    .comp-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: 1200px; margin: 0 auto; }
+    .prod-card { background: #fff; border: 2px solid #e5e7eb; border-radius: 10px; padding: 20px; cursor: pointer; transition: all .2s; position: relative; }
+    .prod-card:hover { border-color: #c7a260; box-shadow: 0 4px 12px rgba(199,162,96,.15); }
+    .prod-card.selected { border-color: #c7a260; background: #fffbf0; }
+    .prod-card .check { position: absolute; top: 12px; right: 12px; width: 24px; height: 24px; border-radius: 50%; border: 2px solid #e5e7eb; display: flex; align-items: center; justify-content: center; font-size: 13px; transition: all .2s; }
+    .prod-card.selected .check { background: #c7a260; border-color: #c7a260; color: #fff; }
+    .prod-card .badge { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 2px 8px; border-radius: 10px; margin-bottom: 8px; }
+    .badge-relax { background: #f3f4f6; color: #6b7280; }
+    .badge-energy { background: #dbeafe; color: #1d4ed8; }
+    .badge-luxury { background: #fef3c7; color: #92400e; }
+    .badge-nage { background: #d1fae5; color: #065f46; }
+    .prod-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: #1a2d3e; margin: 0 0 10px; }
+    .prod-specs { display: flex; flex-direction: column; gap: 4px; }
+    .prod-specs span { font-size: 12px; color: #6b7280; }
+    .prod-specs strong { color: #1a2d3e; }
+
+    /* Barre sticky */
+    .sticky-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #1a2d3e; padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; z-index: 100; transform: translateY(100%); transition: transform .3s; border-top: 3px solid #c7a260; }
+    .sticky-bar.show { transform: translateY(0); }
+    .sticky-bar .info { color: #fff; font-size: 14px; }
+    .sticky-bar .info strong { color: #c7a260; }
+    .sticky-bar .selected-names { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+    .sticky-bar .selected-names span { background: rgba(199,162,96,.2); color: #c7a260; padding: 2px 10px; border-radius: 10px; font-size: 12px; }
+    .btn-comparer { background: #c7a260; color: #1a2d3e; border: none; padding: 12px 28px; border-radius: 6px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; transition: opacity .2s; }
+    .btn-comparer:hover { opacity: .9; }
+    .btn-comparer:disabled { opacity: .4; cursor: not-allowed; }
+
+    /* Vue comparaison */
+    .comp-view { display: none; }
+    .comp-view.active { display: block; }
+    .comp-back { background: #f9fafb; padding: 20px 40px; border-bottom: 1px solid #e5e7eb; }
+    .btn-back { background: none; border: 1px solid #e5e7eb; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 14px; color: #374151; transition: all .2s; }
+    .btn-back:hover { border-color: #1a2d3e; color: #1a2d3e; }
+
+    /* Tableau */
+    .table-wrap { overflow-x: auto; padding: 32px 40px; background: #f9fafb; -webkit-overflow-scrolling: touch; }
+    .comp-table { border-collapse: collapse; width: 100%; min-width: 600px; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+    .comp-table th { background: #1a2d3e; color: #fff; padding: 20px 24px; text-align: center; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; min-width: 180px; }
+    .comp-table th.label-col { text-align: left; background: #253a4c; min-width: 200px; }
+    .comp-table th .prod-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 500; display: block; margin-bottom: 4px; }
+    .comp-table .section-header td { background: #1a2d3e; color: #c7a260; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 12px 24px; }
+    .comp-table td { padding: 14px 24px; border-bottom: 1px solid #f3f4f6; font-size: 14px; text-align: center; color: #374151; }
+    .comp-table td.label { text-align: left; font-weight: 500; color: #1a2d3e; background: #f9fafb; }
+    .comp-table tr:last-child td { border-bottom: none; }
+    .comp-table tr:hover td { background: #fafafa; }
+    .comp-table tr:hover td.label { background: #f3f4f6; }
+    .check-yes { color: #10b981; font-size: 18px; }
+    .check-no { color: #ef4444; font-size: 16px; }
+    .cta-row td { padding: 20px 24px; background: #fff; }
+    .btn-fiche { display: inline-block; background: #1a2d3e; color: #fff; padding: 10px 18px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+    .btn-devis { display: inline-block; background: #c7a260; color: #1a2d3e; padding: 10px 18px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 700; }
+
+    @media (max-width: 768px) {
+      .comp-hero h1 { font-size: 30px; }
+      .comp-filters { padding: 16px 20px; }
+      .comp-grid-wrap { padding: 20px 20px 100px; }
+      .comp-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .table-wrap { padding: 16px 16px; }
+      .sticky-bar { padding: 12px 20px; }
+      .comp-back { padding: 16px 20px; }
+    }
+    @media (max-width: 480px) {
+      .comp-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* Capture email comparateur */
+    .comp-capture {
+      max-width: 900px; margin: 0 auto;
+      background: #1a2d3e; border-radius: 16px;
+      padding: 32px 36px; margin-top: 24px;
+      display: flex; align-items: center; gap: 24px;
+      flex-wrap: wrap;
+    }
+    .comp-capture .cap-text { flex: 1; min-width: 200px; }
+    .comp-capture .cap-text h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; color: #fff; margin: 0 0 6px;
+    }
+    .comp-capture .cap-text p { font-size: 13px; color: #8aafc8; margin: 0; }
+    .comp-capture .cap-inputs { display: flex; gap: 8px; flex-wrap: wrap; }
+    .comp-capture input {
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+      border-radius: 8px; padding: 11px 14px; color: #fff;
+      font-size: 13px; font-family: 'Inter', sans-serif;
+      outline: none; width: 160px; min-height: 44px;
+    }
+    .comp-capture input::placeholder { color: rgba(255,255,255,.3); }
+    .comp-capture input:focus { border-color: #c7a260; }
+    .btn-cap-comp {
+      background: #c7a260; color: #1a2d3e; border: none;
+      padding: 11px 22px; border-radius: 8px; font-size: 14px;
+      font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif;
+      min-height: 44px; transition: opacity .2s; white-space: nowrap;
+    }
+    .btn-cap-comp:hover { opacity: .9; }
+    .comp-capture-success {
+      background: rgba(16,185,129,.15); border: 1px solid rgba(16,185,129,.3);
+      border-radius: 8px; padding: 14px 20px; text-align: center;
+      color: #10b981; font-size: 14px; width: 100%;
+    }
+    @media (max-width: 768px) {
+      .comp-capture { padding: 20px; gap: 16px; }
+      .comp-capture input { width: 100%; }
+      .btn-cap-comp { width: 100%; }
+    }</style>
 </head>
 <body>
 
@@ -393,7 +510,7 @@
             from: 'Giovanni Riboli <contact@mail.gr-spa.com>',
             to: [email],
             subject: `${prenom ? prenom + ', votre' : 'Votre'} comparaison de spas Giovanni Riboli`,
-            html: `<!DOCTYPE html><html><head></head><body><div class="c"><img src="https://gr-spa-vitrine.netlify.app/assets/logo-blanc.svg" width="120" style="margin-bottom:20px"><h1>Votre comparaison${prenom ? ' ' + prenom : ''}</h1><p>Vous avez comparé ${prods.length} modèles Giovanni Riboli. Voici un récapitulatif.</p>${lignesModeles}<p style="margin-top:20px">Des questions sur ces modèles ? Nos conseillers sont là pour vous aider.</p><a href="https://go.gr-spa.com/" class="btn">Parler à un conseiller →</a><div class="footer">Giovanni Riboli SAS — 17640 Vaux-sur-Mer</div></div></body></html>`
+            html: `<!DOCTYPE html><html><head><style>body{margin:0;padding:20px;background:#1a2d3e;font-family:Arial,sans-serif}.c{max-width:580px;margin:0 auto;background:#253a4c;border-radius:12px;border-top:4px solid #c7a260;padding:32px}h1{color:#fff;font-size:22px;margin:0 0 8px}p{color:#ccd8e0;font-size:14px;line-height:1.7;margin:0 0 12px}.btn{display:inline-block;background:#c7a260;color:#1a2d3e;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:700;font-size:14px;margin-top:16px}.footer{text-align:center;margin-top:24px;font-size:11px;color:#4a6a82}</style></head><body><div class="c"><img src="https://gr-spa-vitrine.netlify.app/assets/logo-blanc.svg" width="120" style="margin-bottom:20px"><h1>Votre comparaison${prenom ? ' ' + prenom : ''}</h1><p>Vous avez comparé ${prods.length} modèles Giovanni Riboli. Voici un récapitulatif.</p>${lignesModeles}<p style="margin-top:20px">Des questions sur ces modèles ? Nos conseillers sont là pour vous aider.</p><a href="https://go.gr-spa.com/" class="btn">Parler à un conseiller →</a><div class="footer">Giovanni Riboli SAS — 17640 Vaux-sur-Mer</div></div></body></html>`
           })
         });
 
