@@ -902,7 +902,7 @@
                 <h3>${d.REVENDEURS}</h3>
                 ${d.NOMS ? `<p style="font-family:'Inter',sans-serif;font-size:0.85rem;color:#888;margin:0 0 8px;">Contact : ${d.NOMS}</p>` : ''}
                 ${info}
-                <a href="magasins/${d.SLUG}.html" class="btn-showroom">Voir le showroom</a>
+                <a href="magasin.html?slug=${d.SLUG}" class="btn-showroom">Voir le showroom</a>
             </div>`;
         }).join('');
     }
@@ -963,7 +963,7 @@
                 ${d.NOMS ? `<p style="font-family:'Inter',sans-serif;font-size:0.85rem;color:#888;margin:0 0 8px;">Contact : ${d.NOMS}</p>` : ''}
                 ${distLabel}
                 ${info}
-                <a href="magasins/${d.SLUG}.html" class="btn-showroom">Voir le showroom</a>
+                <a href="magasin.html?slug=${d.SLUG}" class="btn-showroom">Voir le showroom</a>
             </div>`;
         }).join('');
     }
@@ -1020,7 +1020,7 @@
                         <h3>${d.REVENDEURS}</h3>
                         <p style="font-size:0.85rem;color:#c7a260;font-weight:600;margin:4px 0 8px;">À ${Math.round(d._distance)} km de votre recherche</p>
                         ${info}
-                        <a href="magasins/${d.SLUG}.html" class="btn-showroom">Voir le showroom</a>
+                        <a href="magasin.html?slug=${d.SLUG}" class="btn-showroom">Voir le showroom</a>
                     </div>`;
                 }).join('');
                 container.innerHTML += tempDiv.innerHTML;
@@ -1183,7 +1183,7 @@
                                 <strong style="color:#253a4c;font-size:14px">${dealer.REVENDEURS}</strong><br>
                                 <span style="font-size:12px;color:#666">${dealer['ADRESSES POSTALES']}</span><br>
                                 ${tel ? `<span style="font-size:12px">${tel}</span><br>` : ''}
-                                <a href="magasins/${slug}.html" style="font-size:11px;color:#c7a260;font-weight:600;letter-spacing:1px;text-transform:uppercase">Voir le showroom →</a>
+                                <a href="magasin.html?slug=${slug}" style="font-size:11px;color:#c7a260;font-weight:600;letter-spacing:1px;text-transform:uppercase">Voir le showroom →</a>
                             </div>`;
 
                         marker.addListener('click', () => {
