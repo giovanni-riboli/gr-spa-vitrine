@@ -14,6 +14,7 @@
       --stat-rdv: #f59e0b; --stat-gagne: #059669; --stat-archive: #6b7280;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
+    html, body { overflow-x: hidden; max-width: 100%; }
     body { font-family:'Inter',sans-serif; background:#0f1e2c; color:var(--text-light); min-height:100vh; display:flex; }
 
     /* Sidebar */
@@ -27,7 +28,7 @@
     .sidebar nav a svg { width:18px; height:18px; flex-shrink:0; }
 
     /* Main */
-    .main { margin-left:250px; flex:1; min-height:100vh; }
+    .main { margin-left:250px; flex:1; min-height:100vh; width:calc(100% - 250px); overflow-x:hidden; }
     .header { background:var(--bg-dark); border-bottom:1px solid rgba(255,255,255,.06); padding:16px 32px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:50; }
     .header .title { font-size:15px; font-weight:600; color:#fff; }
     .header .user-area { display:flex; align-items:center; gap:16px; font-size:13px; color:var(--text-muted); }
@@ -177,7 +178,10 @@
       .sidebar { transform:translateX(-100%); }
       .sidebar.open { transform:translateX(0); }
       .overlay.open { display:block; }
-      .main { margin-left:0; }
+      .main { margin-left:0; width:100%; max-width:100vw; }
+      .content { padding:16px; width:100%; box-sizing:border-box; overflow-x:hidden; }
+      .kpis { width:100%; }
+      .admin-section { width:100%; overflow-x:auto; }
       .hamburger { display:block; }
       .content { padding:20px; }
       .kpis { grid-template-columns:1fr 1fr; }
@@ -257,7 +261,7 @@
         </div>
 
         <!-- Admin: Vue globale par magasin -->
-        <div id="adminStoreView" style="display:none;margin-bottom:28px">
+        <div id="adminStoreView" style="overflow-x:auto; max-width:100%;" style="display:none;margin-bottom:28px">
           <h2 style="font-size:16px;font-weight:600;color:#fff;margin-bottom:16px">🏪 Vue globale par magasin</h2>
           <div class="table-wrap">
             <table>
@@ -268,7 +272,7 @@
         </div>
 
         <!-- Admin: Leads récents tous magasins -->
-        <div id="adminRecentLeads" style="display:none;margin-bottom:28px">
+        <div id="adminRecentLeads" style="overflow-x:auto; max-width:100%;" style="display:none;margin-bottom:28px">
           <h2 style="font-size:16px;font-weight:600;color:#fff;margin-bottom:16px">🕐 Leads récents — Tous magasins</h2>
           <div class="table-wrap">
             <table>
