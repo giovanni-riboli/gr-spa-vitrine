@@ -1676,7 +1676,7 @@ input { font-family: inherit; font-size: 16px !important; }
   display: flex;
   gap: 3rem;
   align-items: center;
-  padding: 8rem 5% 4rem;
+  padding: 10rem 5% 4rem;
   max-width: 1280px;
   margin: 0 auto;
   flex-wrap: wrap;
@@ -1702,7 +1702,7 @@ input { font-family: inherit; font-size: 16px !important; }
 }
 
 /* ─── FICHES PRODUITS (centralisé depuis inline) ─── */
-.product-hero { display:flex; gap:3rem; align-items:center; padding:8rem 5% 4rem; max-width:1280px; margin:0 auto; flex-wrap:wrap; }
+.product-hero { display:flex; gap:3rem; align-items:center; padding:10rem 5% 4rem; max-width:1280px; margin:0 auto; flex-wrap:wrap; }
 .product-hero__info { flex:1; min-width:320px; }
 .product-hero__visual { flex:1; min-width:320px; }
 .breadcrumb { font-family:'Inter',sans-serif; font-size:.85rem; color:#888; margin-bottom:1.5rem; }
@@ -1765,8 +1765,7 @@ input { font-family: inherit; font-size: 16px !important; }
 .sel-content { padding: var(--space-md) 40px; }
 #similar-products { padding: var(--space-md) 5%; }
 
-/* Respiration fiches produits sous nav--solid */
-.product-hero { padding-top: calc(var(--nav-h) + var(--space-sm)); }
+/* Respiration fiches produits sous nav--solid — voir padding direct dans .product-hero */
 
 @media (max-width: 768px) {
   .product-section { padding: var(--space-sm) 20px; }
