@@ -158,8 +158,8 @@ function renderGrid() {
   const filtered = currentFilter === 'tous' ? produits : produits.filter(p => p.gamme === currentFilter);
   const grid = document.getElementById('grid');
   grid.innerHTML = filtered.map(p => `
-    <div class="card ${selected.has(p.id) ? 'selected' : ''}" data-id="${p.id}" onclick="toggle(${p.id})">
-      <div class="card-check">${selected.has(p.id) ? '✓' : ''}</div>
+    <div class="card ${selected.has(p.slug) ? 'selected' : ''}" data-slug="${p.slug}" onclick="toggle('${p.slug}')">
+      <div class="card-check">${selected.has(p.slug) ? '✓' : ''}</div>
       <div class="card-name">${p.nom}</div>
       <span class="badge ${badgeClass(p.gamme)}">${p.gamme || 'Spa'}</span>
       <div class="card-specs">
@@ -172,8 +172,8 @@ function renderGrid() {
   updateSticky();
 }
 
-function toggle(id) {
-  if (selected.has(id)) { selected.delete(id); }
+function toggle(slug) {
+  if (selected.has(slug)) { selected.delete(slug); }
   else {
     if (selected.size >= 3) {
       const t = document.getElementById('toast');
@@ -181,7 +181,7 @@ function toggle(id) {
       setTimeout(() => t.classList.remove('show'), 2000);
       return;
     }
-    selected.add(id);
+    selected.add(slug);
   }
   renderGrid();
 }
