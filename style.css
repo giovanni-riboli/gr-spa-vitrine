@@ -1387,8 +1387,10 @@ input { font-family: inherit; font-size: 16px !important; }
 }
 
 .page-hero {
-  padding-top: 120px;
-  padding-bottom: 60px;
+  padding: 10rem 0 5rem;
+  background: #1a2d3e;
+  color: #fff;
+  text-align: center;
 }
 
 /* ============================================
@@ -1428,4 +1430,12 @@ input { font-family: inherit; font-size: 16px !important; }
 }
 .hero__content {
   padding: 0 5%;
+}
+
+/* Store hero — même style que page-hero */
+.store-hero {
+  padding: 10rem 0 5rem;
+  background: #1a2d3e;
+  color: #fff;
+  text-align: center;
 }
