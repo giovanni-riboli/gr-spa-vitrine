@@ -127,17 +127,17 @@
         var equips = [];
         function addEquip(icon, label) { equips.push({ icon: icon, label: label }); }
 
-        if (p.nb_buses) addEquip('💧', p.nb_buses + ' jets inox');
-        if (p.nb_pompes_massage) addEquip('⚡', p.nb_pompes_massage + ' pompe' + (p.nb_pompes_massage > 1 ? 's' : '') + ' massage');
-        if (p.chauffage) addEquip('🔥', 'Chauffage ' + p.chauffage);
-        if (p.traitement_uv && p.traitement_uv !== 'Non') addEquip('🔬', 'Traitement UV');
-        if (p.aromatherapie) addEquip('🌿', 'Aromathérapie');
-        if (p.leds_rgb) addEquip('🌈', 'Chromothérapie LED RGB');
-        if (p.cascade_rgb > 0) addEquip('🌊', 'Cascade RGB');
-        if (p.pompe_air) addEquip('💨', 'Pompe à air');
-        if (p.isolation) addEquip('🧊', 'Isolation ' + p.isolation);
-        if (p.structure_aluminium) addEquip('🛡️', 'Structure ' + p.structure_aluminium);
-        if (p.revetement_interieur) addEquip('✨', p.revetement_interieur);
+        if (p.nb_buses) addEquip('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg>', p.nb_buses + ' jets inox');
+        if (p.nb_pompes_massage) addEquip('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>', p.nb_pompes_massage + ' pompe' + (p.nb_pompes_massage > 1 ? 's' : '') + ' massage');
+        if (p.chauffage) addEquip('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/></svg>', 'Chauffage ' + p.chauffage);
+        if (p.traitement_uv && p.traitement_uv !== 'Non') addEquip('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4m0 0h18"/></svg>', 'Traitement UV');
+        if (p.aromatherapie) addEquip('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>', 'Aromathérapie');
+        if (p.leds_rgb) addEquip('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M22 17a10 10 0 00-20 0M6 17a6 6 0 0112 0M10 17a2 2 0 014 0"/></svg>', 'Chromothérapie LED RGB');
+        if (p.cascade_rgb > 0) addEquip('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12c1.5 0 3-1 4.5-1s3 1 4.5 1 3-1 4.5-1 3 1 4.5 1M3 17c1.5 0 3-1 4.5-1s3 1 4.5 1 3-1 4.5-1 3 1 4.5 1"/></svg>', 'Cascade RGB');
+        if (p.pompe_air) addEquip('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M9.59 4.59A2 2 0 1111 8H2m10.59 11.41A2 2 0 1014 16H2m15.73-8.27A2.5 2.5 0 1119.5 12H2"/></svg>', 'Pompe à air');
+        if (p.isolation) addEquip('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07"/></svg>', 'Isolation ' + p.isolation);
+        if (p.structure_aluminium) addEquip('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>', 'Structure ' + p.structure_aluminium);
+        if (p.revetement_interieur) addEquip('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>', p.revetement_interieur);
 
         if (equips.length) {
           equipGrid.innerHTML = equips.map(function (e) {
