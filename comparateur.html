@@ -1,291 +1,339 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Comparateur de Spas | Giovanni Riboli</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',sans-serif;background:#fff;color:#1a2d3e;min-height:100vh}
-.container{max-width:1200px;margin:0 auto;padding:0 20px}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comparer les modèles — Giovanni Riboli</title>
+  <meta name="description" content="Comparez les spas Giovanni Riboli côte à côte pour trouver le modèle idéal.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Comparateur spécifique */
+    .comp-hero { background: #1a2d3e; padding: 60px 40px 40px; text-align: center; }
+    .comp-hero .eyebrow { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: #c7a260; font-weight: 600; margin-bottom: 12px; }
+    .comp-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 42px; color: #fff; margin: 0 0 12px; }
+    .comp-hero p { color: #ccd8e0; font-size: 16px; max-width: 500px; margin: 0 auto; }
 
-/* Header */
-.page-header{text-align:center;padding:50px 20px 30px}
-.page-header h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:600;color:#1a2d3e;margin-bottom:8px}
-.page-header p{color:#6b7280;font-size:1rem}
+    /* Filtres */
+    .comp-filters { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 20px 40px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .comp-filters span { font-size: 13px; color: #6b7280; margin-right: 8px; font-weight: 500; }
+    .filter-pill { padding: 6px 16px; border-radius: 20px; border: 1px solid #e5e7eb; background: #fff; font-size: 13px; cursor: pointer; font-family: 'Inter', sans-serif; transition: all .2s; }
+    .filter-pill.active, .filter-pill:hover { background: #1a2d3e; color: #fff; border-color: #1a2d3e; }
 
-/* Filters */
-.filters{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:30px;padding:0 20px}
-.filter-btn{padding:8px 20px;border-radius:50px;border:1.5px solid #d1d5db;background:#fff;color:#4b5563;font-size:.875rem;font-weight:500;cursor:pointer;transition:all .2s}
-.filter-btn:hover{border-color:#c7a260;color:#c7a260}
-.filter-btn.active{background:#1a2d3e;color:#fff;border-color:#1a2d3e}
+    /* Grille de sélection */
+    .comp-grid-wrap { background: #f9fafb; padding: 32px 40px 120px; }
+    .comp-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: 1200px; margin: 0 auto; }
+    .prod-card { background: #fff; border: 2px solid #e5e7eb; border-radius: 10px; padding: 20px; cursor: pointer; transition: all .2s; position: relative; }
+    .prod-card:hover { border-color: #c7a260; box-shadow: 0 4px 12px rgba(199,162,96,.15); }
+    .prod-card.selected { border-color: #c7a260; background: #fffbf0; }
+    .prod-card .check { position: absolute; top: 12px; right: 12px; width: 24px; height: 24px; border-radius: 50%; border: 2px solid #e5e7eb; display: flex; align-items: center; justify-content: center; font-size: 13px; transition: all .2s; }
+    .prod-card.selected .check { background: #c7a260; border-color: #c7a260; color: #fff; }
+    .prod-card .badge { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 2px 8px; border-radius: 10px; margin-bottom: 8px; }
+    .badge-relax { background: #f3f4f6; color: #6b7280; }
+    .badge-energy { background: #dbeafe; color: #1d4ed8; }
+    .badge-luxury { background: #fef3c7; color: #92400e; }
+    .badge-nage { background: #d1fae5; color: #065f46; }
+    .prod-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: #1a2d3e; margin: 0 0 10px; }
+    .prod-specs { display: flex; flex-direction: column; gap: 4px; }
+    .prod-specs span { font-size: 12px; color: #6b7280; }
+    .prod-specs strong { color: #1a2d3e; }
 
-/* Cards grid */
-.cards-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:0 20px 120px}
-@media(max-width:900px){.cards-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:500px){.cards-grid{grid-template-columns:1fr}}
+    /* Barre sticky */
+    .sticky-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #1a2d3e; padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; z-index: 100; transform: translateY(100%); transition: transform .3s; border-top: 3px solid #c7a260; }
+    .sticky-bar.show { transform: translateY(0); }
+    .sticky-bar .info { color: #fff; font-size: 14px; }
+    .sticky-bar .info strong { color: #c7a260; }
+    .sticky-bar .selected-names { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+    .sticky-bar .selected-names span { background: rgba(199,162,96,.2); color: #c7a260; padding: 2px 10px; border-radius: 10px; font-size: 12px; }
+    .btn-comparer { background: #c7a260; color: #1a2d3e; border: none; padding: 12px 28px; border-radius: 6px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; transition: opacity .2s; }
+    .btn-comparer:hover { opacity: .9; }
+    .btn-comparer:disabled { opacity: .4; cursor: not-allowed; }
 
-.card{border:2px solid #e5e7eb;border-radius:12px;padding:20px;cursor:pointer;transition:all .2s;position:relative;background:#fff}
-.card:hover{border-color:#c7a260;box-shadow:0 2px 12px rgba(199,162,96,.15)}
-.card.selected{border-color:#c7a260;background:#fffbf0;box-shadow:0 0 0 3px rgba(199,162,96,.2)}
-.card-check{position:absolute;top:12px;right:12px;width:24px;height:24px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .2s}
-.card.selected .card-check{background:#c7a260;border-color:#c7a260;color:#fff}
-.card-name{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;margin-bottom:8px;padding-right:30px}
-.badge{display:inline-block;padding:2px 10px;border-radius:50px;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
-.badge-relax{background:#f3f4f6;color:#6b7280}
-.badge-energy{background:#dbeafe;color:#3b82f6}
-.badge-luxury{background:#fef3c7;color:#92750c}
-.badge-nage{background:#d1fae5;color:#059669}
-.card-specs{display:flex;flex-direction:column;gap:4px;font-size:.82rem;color:#6b7280}
-.card-specs span{display:flex;align-items:center;gap:5px}
+    /* Vue comparaison */
+    .comp-view { display: none; }
+    .comp-view.active { display: block; }
+    .comp-back { background: #f9fafb; padding: 20px 40px; border-bottom: 1px solid #e5e7eb; }
+    .btn-back { background: none; border: 1px solid #e5e7eb; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 14px; color: #374151; transition: all .2s; }
+    .btn-back:hover { border-color: #1a2d3e; color: #1a2d3e; }
 
-/* Sticky bar */
-.sticky-bar{position:fixed;bottom:0;left:0;right:0;background:#1a2d3e;color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:center;gap:16px;transform:translateY(100%);transition:transform .3s;z-index:100}
-.sticky-bar.visible{transform:translateY(0)}
-.sticky-bar span{font-size:.95rem}
-.btn-compare{background:#c7a260;color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:.95rem;font-weight:600;cursor:pointer;transition:background .2s}
-.btn-compare:hover{background:#b08c4a}
+    /* Tableau */
+    .table-wrap { overflow-x: auto; padding: 32px 40px; background: #f9fafb; -webkit-overflow-scrolling: touch; }
+    .comp-table { border-collapse: collapse; width: 100%; min-width: 600px; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+    .comp-table th { background: #1a2d3e; color: #fff; padding: 20px 24px; text-align: center; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; min-width: 180px; }
+    .comp-table th.label-col { text-align: left; background: #253a4c; min-width: 200px; }
+    .comp-table th .prod-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 500; display: block; margin-bottom: 4px; }
+    .comp-table .section-header td { background: #1a2d3e; color: #c7a260; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 12px 24px; }
+    .comp-table td { padding: 14px 24px; border-bottom: 1px solid #f3f4f6; font-size: 14px; text-align: center; color: #374151; }
+    .comp-table td.label { text-align: left; font-weight: 500; color: #1a2d3e; background: #f9fafb; }
+    .comp-table tr:last-child td { border-bottom: none; }
+    .comp-table tr:hover td { background: #fafafa; }
+    .comp-table tr:hover td.label { background: #f3f4f6; }
+    .check-yes { color: #10b981; font-size: 18px; }
+    .check-no { color: #ef4444; font-size: 16px; }
+    .cta-row td { padding: 20px 24px; background: #fff; }
+    .btn-fiche { display: inline-block; background: #1a2d3e; color: #fff; padding: 10px 18px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+    .btn-devis { display: inline-block; background: #c7a260; color: #1a2d3e; padding: 10px 18px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 700; }
 
-/* Max toast */
-.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-100px);background:#ef4444;color:#fff;padding:10px 24px;border-radius:8px;font-size:.9rem;font-weight:500;transition:transform .3s;z-index:200}
-.toast.show{transform:translateX(-50%) translateY(0)}
-
-/* Comparison view */
-.comparison{display:none;padding:0 20px 60px}
-.comparison.active{display:block}
-.selection-view.hidden{display:none}
-.back-btn{display:inline-flex;align-items:center;gap:6px;background:none;border:1.5px solid #d1d5db;padding:8px 18px;border-radius:8px;font-size:.9rem;color:#4b5563;cursor:pointer;margin-bottom:24px;transition:all .2s}
-.back-btn:hover{border-color:#1a2d3e;color:#1a2d3e}
-
-/* Table */
-.table-wrap{overflow-x:auto;border-radius:12px;border:1px solid #e5e7eb}
-table{width:100%;border-collapse:collapse;min-width:500px}
-.section-header td{background:#1a2d3e;color:#fff;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;padding:12px 16px}
-.model-header{background:#1a2d3e;color:#fff}
-.model-header th{padding:14px 16px;font-size:.95rem;font-weight:600;text-align:center}
-.model-header th:first-child{text-align:left}
-tr.data-row td{padding:10px 16px;font-size:.88rem;border-bottom:1px solid #f0f0f0}
-tr.data-row:nth-child(even) td{background:#f8f9fa}
-tr.data-row td:first-child{font-weight:500;color:#374151;background:#f5f7fa;white-space:nowrap;position:sticky;left:0;z-index:1}
-tr.data-row td:not(:first-child){text-align:center}
-
-/* CTA row */
-.cta-row td{padding:16px;text-align:center;border-top:2px solid #e5e7eb}
-.cta-row a{display:inline-block;padding:8px 18px;border-radius:8px;font-size:.85rem;font-weight:600;text-decoration:none;margin:4px;transition:all .2s}
-.btn-fiche{background:#1a2d3e;color:#fff}
-.btn-fiche:hover{background:#2a4050}
-.btn-devis{background:#c7a260;color:#fff}
-.btn-devis:hover{background:#b08c4a}
-</style>
+    @media (max-width: 768px) {
+      .comp-hero { padding: 40px 20px 28px; }
+      .comp-hero h1 { font-size: 30px; }
+      .comp-filters { padding: 16px 20px; }
+      .comp-grid-wrap { padding: 20px 20px 100px; }
+      .comp-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .table-wrap { padding: 16px 16px; }
+      .sticky-bar { padding: 12px 20px; }
+      .comp-back { padding: 16px 20px; }
+    }
+    @media (max-width: 480px) {
+      .comp-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-<div class="toast" id="toast">Maximum 3 modèles</div>
+  <!-- NAV -->
+  <header class="nav nav--transparent" id="nav">
+    <div class="nav__inner">
+      <a class="nav__logo" href="/">
+        <img src="assets/logo-noir.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-dark">
+        <img src="assets/logo-blanc.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-light">
+      </a>
+      <ul class="nav__menu">
+        <li><a href="/#gammes">Nos spas</a></li>
+        <li><a href="/a-propos">La marque</a></li>
+        <li><a href="/revendeurs">Nos magasins</a></li>
+        <li><a href="/comparateur.html" style="color:#c7a260">Comparer</a></li>
+      </ul>
+      <div class="nav__right">
+        <a class="nav__cta" href="/revendeurs">Trouver un revendeur</a>
+      </div>
+      <button class="nav__burger" id="navBurger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
 
-<div class="selection-view" id="selectionView">
-  <div class="page-header">
-    <h1>Comparez nos spas</h1>
-    <p>Choisissez 2 ou 3 modèles à comparer</p>
+  <!-- HERO -->
+  <div class="comp-hero">
+    <p class="eyebrow">Outil de comparaison</p>
+    <h1>Comparez nos modèles</h1>
+    <p>Sélectionnez 2 ou 3 modèles pour les comparer côte à côte</p>
   </div>
-  <div class="container">
-    <div class="filters" id="filters"></div>
-    <div class="cards-grid" id="grid"></div>
-  </div>
-  <div class="sticky-bar" id="stickyBar">
-    <span id="stickyText">2 modèles sélectionnés</span>
-    <button class="btn-compare" onclick="showComparison()">Comparer →</button>
-  </div>
-</div>
 
-<div class="comparison container" id="comparisonView">
-  <button class="back-btn" onclick="showSelection()">← Modifier la sélection</button>
-  <div class="table-wrap">
-    <table id="compTable"></table>
-  </div>
-</div>
-
-<script>
-const SUPABASE_URL = 'https://ohjzggceozamhdesecxi.supabase.co';
-const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oanpnZ2Nlb3phbWhkZXNlY3hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Njc5MDYsImV4cCI6MjA5MjM0MzkwNn0.wW-tqXBDUtKURR31bh3CUWIcuYMUJTZLqq2LLT1kJnA';
-
-let produits = [];
-let selected = new Set();
-let currentFilter = 'tous';
-
-function val(v, unit='', fallback='—') {
-  if (v === null || v === undefined || v === '') return fallback;
-  if (typeof v === 'boolean') return v ? '✅' : '❌';
-  return v + (unit ? ' ' + unit : '');
-}
-function cascade(v) {
-  if (!v || v === 0) return '❌';
-  return `✅ ${v} cascade${v > 1 ? 's' : ''}`;
-}
-function badgeClass(gamme) {
-  if (!gamme) return 'badge-relax';
-  const g = gamme.toLowerCase();
-  if (g.includes('energy')) return 'badge-energy';
-  if (g.includes('luxury') || g.includes('luxe')) return 'badge-luxury';
-  if (g.includes('nage')) return 'badge-nage';
-  return 'badge-relax';
-}
-
-async function init() {
-  const res = await fetch(
-    `${SUPABASE_URL}/rest/v1/produits?actif=eq.true&select=*&order=gamme,nom`,
-    { headers: { 'apikey': ANON_KEY, 'Authorization': `Bearer ${ANON_KEY}` } }
-  );
-  produits = await res.json();
-  if (!Array.isArray(produits)) { console.error('Fetch error', produits); return; }
-
-  // Build filters
-  const gammes = [...new Set(produits.map(p => p.gamme).filter(Boolean))];
-  const fDiv = document.getElementById('filters');
-  fDiv.innerHTML = `<button class="filter-btn active" data-f="tous">Tous</button>` +
-    gammes.map(g => `<button class="filter-btn" data-f="${g}">${g}</button>`).join('');
-  fDiv.querySelectorAll('.filter-btn').forEach(b => b.onclick = () => {
-    fDiv.querySelectorAll('.filter-btn').forEach(x => x.classList.remove('active'));
-    b.classList.add('active');
-    currentFilter = b.dataset.f;
-    renderGrid();
-  });
-
-  renderGrid();
-}
-
-function renderGrid() {
-  const filtered = currentFilter === 'tous' ? produits : produits.filter(p => p.gamme === currentFilter);
-  const grid = document.getElementById('grid');
-  grid.innerHTML = filtered.map(p => `
-    <div class="card ${selected.has(p.slug) ? 'selected' : ''}" data-slug="${p.slug}" onclick="toggle('${p.slug}')">
-      <div class="card-check">${selected.has(p.slug) ? '✓' : ''}</div>
-      <div class="card-name">${p.nom}</div>
-      <span class="badge ${badgeClass(p.gamme)}">${p.gamme || 'Spa'}</span>
-      <div class="card-specs">
-        <span>👥 ${val(p.nb_places)} places</span>
-        <span>💨 ${val(p.nb_buses)} buses</span>
-        <span>📐 ${val(p.longueur_cm)}×${val(p.largeur_cm)}×${val(p.hauteur_cm)} cm</span>
+  <!-- VUE SÉLECTION -->
+  <div id="selectionView">
+    <div class="comp-filters">
+      <span>Filtrer :</span>
+      <button class="filter-pill active" data-gamme="tous">Tous</button>
+      <button class="filter-pill" data-gamme="relax">Relax</button>
+      <button class="filter-pill" data-gamme="energy">Energy</button>
+      <button class="filter-pill" data-gamme="luxury">Luxury</button>
+      <button class="filter-pill" data-gamme="nage">Spa de Nage</button>
+    </div>
+    <div class="comp-grid-wrap">
+      <div class="comp-grid" id="prodGrid">
+        <div style="grid-column:1/-1;text-align:center;padding:40px;color:#6b7280">Chargement des modèles...</div>
       </div>
     </div>
-  `).join('');
-  updateSticky();
-}
+  </div>
 
-function toggle(slug) {
-  if (selected.has(slug)) { selected.delete(slug); }
-  else {
-    if (selected.size >= 3) {
-      const t = document.getElementById('toast');
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2000);
-      return;
+  <!-- VUE COMPARAISON -->
+  <div id="compView" class="comp-view">
+    <div class="comp-back">
+      <button class="btn-back" onclick="retourSelection()">← Modifier la sélection</button>
+    </div>
+    <div class="table-wrap">
+      <table class="comp-table" id="compTable"></table>
+    </div>
+  </div>
+
+  <!-- BARRE STICKY -->
+  <div class="sticky-bar" id="stickyBar">
+    <div class="info">
+      <div><strong id="stickyCount">0</strong> modèle(s) sélectionné(s)</div>
+      <div class="selected-names" id="stickyNames"></div>
+    </div>
+    <button class="btn-comparer" id="btnComparer" onclick="afficherComparaison()" disabled>Comparer →</button>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    const SUPABASE_URL = 'https://ohjzggceozamhdesecxi.supabase.co';
+    const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oanpnZ2Nlb3phbWhkZXNlY3hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Njc5MDYsImV4cCI6MjA5MjM0MzkwNn0.wW-tqXBDUtKURR31bh3CUWIcuYMUJTZLqq2LLT1kJnA';
+
+    let allProduits = [];
+    let selected = []; // tableau de slugs
+    let filtreActif = 'tous';
+
+    // Charger depuis Supabase
+    async function charger() {
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/produits?actif=eq.true&select=slug,nom,gamme,nb_places,nb_buses,longueur_cm,largeur_cm,hauteur_cm,poids_kg,poids_plein_kg,volume_eau_l,puissance_kw,nb_places_assises,nb_places_allongees,nb_pompes_massage,nb_pompes_filtration,massage_robotise,chauffage,traitement_uv,aromatherapie,cascade_rgb,leds_rgb,structure_aluminium,isolation,revetement_interieur,habillage,couleur_coque,couverture,pompe_filtration_massage,pompe_air,systeme_controle,voltage,amperage&order=gamme,nom`,
+        { headers: { 'apikey': ANON_KEY, 'Authorization': `Bearer ${ANON_KEY}` } }
+      );
+      allProduits = await res.json();
+      afficherGrille();
     }
-    selected.add(slug);
-  }
-  renderGrid();
-}
 
-function updateSticky() {
-  const bar = document.getElementById('stickyBar');
-  const n = selected.size;
-  bar.classList.toggle('visible', n >= 2);
-  document.getElementById('stickyText').textContent = `${n} modèle${n > 1 ? 's' : ''} sélectionné${n > 1 ? 's' : ''}`;
-}
+    function badgeClass(gamme) {
+      return { relax: 'badge-relax', energy: 'badge-energy', luxury: 'badge-luxury', nage: 'badge-nage' }[gamme] || 'badge-relax';
+    }
 
-function showComparison() {
-  document.getElementById('selectionView').classList.add('hidden');
-  const cv = document.getElementById('comparisonView');
-  cv.classList.add('active');
-  buildTable();
-  window.scrollTo(0, 0);
-}
+    function afficherGrille() {
+      const produits = filtreActif === 'tous' ? allProduits : allProduits.filter(p => p.gamme === filtreActif);
+      const grid = document.getElementById('prodGrid');
+      grid.innerHTML = produits.map(p => {
+        const sel = selected.includes(p.slug);
+        return `<div class="prod-card ${sel ? 'selected' : ''}" onclick="toggleSelect('${p.slug}')">
+          <div class="check">${sel ? '✓' : ''}</div>
+          <span class="badge ${badgeClass(p.gamme)}">${p.gamme === 'nage' ? 'Spa de Nage' : p.gamme.charAt(0).toUpperCase() + p.gamme.slice(1)}</span>
+          <h3>${p.nom}</h3>
+          <div class="prod-specs">
+            <span><strong>${p.nb_places || '—'}</strong> places</span>
+            <span><strong>${p.nb_buses || '—'}</strong> buses</span>
+            <span>${p.longueur_cm || '—'} × ${p.largeur_cm || '—'} cm</span>
+          </div>
+        </div>`;
+      }).join('');
+      majSticky();
+    }
 
-function showSelection() {
-  document.getElementById('selectionView').classList.remove('hidden');
-  document.getElementById('comparisonView').classList.remove('active');
-}
+    function toggleSelect(slug) {
+      const idx = selected.indexOf(slug);
+      if (idx > -1) {
+        selected.splice(idx, 1);
+      } else {
+        if (selected.length >= 3) {
+          alert('Maximum 3 modèles à comparer');
+          return;
+        }
+        selected.push(slug);
+      }
+      afficherGrille();
+    }
 
-function buildTable() {
-  const models = produits.filter(p => selected.has(p.slug));
-  const t = document.getElementById('compTable');
-  let h = '';
+    function majSticky() {
+      const bar = document.getElementById('stickyBar');
+      const count = selected.length;
+      document.getElementById('stickyCount').textContent = count;
+      document.getElementById('btnComparer').disabled = count < 2;
+      if (count >= 1) {
+        bar.classList.add('show');
+        const noms = selected.map(s => {
+          const p = allProduits.find(x => x.slug === s);
+          return p ? `<span>${p.nom}</span>` : '';
+        }).join('');
+        document.getElementById('stickyNames').innerHTML = noms;
+      } else {
+        bar.classList.remove('show');
+      }
+    }
 
-  // Header
-  h += `<tr class="model-header"><th>Critère</th>${models.map(m => `<th>${m.nom}</th>`).join('')}</tr>`;
+    function val(v, unite) {
+      if (v === null || v === undefined || v === '') return '—';
+      if (typeof v === 'boolean') return v ? '<span class="check-yes">✅</span>' : '<span class="check-no">❌</span>';
+      return v + (unite ? ' ' + unite : '');
+    }
 
-  function section(icon, title) {
-    h += `<tr class="section-header"><td colspan="${models.length + 1}">${icon} ${title}</td></tr>`;
-  }
-  function row(label, fn) {
-    h += `<tr class="data-row"><td>${label}</td>${models.map(m => `<td>${fn(m)}</td>`).join('')}</tr>`;
-  }
+    function bool(v) {
+      return v ? '<span class="check-yes">✅</span>' : '<span class="check-no">❌</span>';
+    }
 
-  section('🏊', 'Caractéristiques générales');
-  row('Gamme', m => `<span class="badge ${badgeClass(m.gamme)}">${m.gamme || '—'}</span>`);
-  row('Places totales', m => val(m.nb_places));
-  row('Places assises', m => val(m.nb_places_assises));
-  row('Places allongées', m => val(m.nb_places_allongees));
-  row('Dimensions', m => `${val(m.longueur_cm)} × ${val(m.largeur_cm)} × ${val(m.hauteur_cm)} cm`);
-  row('Poids à vide', m => val(m.poids_kg, 'kg'));
-  row('Poids plein', m => val(m.poids_plein_kg, 'kg'));
-  row("Volume d'eau", m => val(m.volume_eau_l, 'L'));
-  row('Puissance', m => val(m.puissance_kw, 'kW'));
-  row('Alimentation', m => `${val(m.voltage)}V / ${val(m.amperage)}A`);
+    function afficherComparaison() {
+      if (selected.length < 2) return;
+      const prods = selected.map(s => allProduits.find(p => p.slug === s)).filter(Boolean);
+      const N = prods.length;
 
-  section('💪', 'Massage & Hydromassage');
-  row('Nombre de buses', m => val(m.nb_buses));
-  row('Pompes massage', m => val(m.nb_pompes_massage));
-  row('Pompe filtration', m => val(m.pompe_filtration_massage));
-  row('Pompe air', m => val(m.pompe_air));
-  row('Massage robotisé', m => val(m.massage_robotise));
+      let html = '<thead><tr><th class="label-col">Modèle</th>';
+      prods.forEach(p => {
+        html += `<th><span class="prod-name">${p.nom}</span><span class="badge ${badgeClass(p.gamme)}" style="display:inline-block;margin-top:4px">${p.gamme === 'nage' ? 'Spa de Nage' : p.gamme.charAt(0).toUpperCase() + p.gamme.slice(1)}</span></th>`;
+      });
+      html += '</tr></thead><tbody>';
 
-  section('🌡️', 'Confort & Technologie');
-  row('Chauffage', m => val(m.chauffage));
-  row('Traitement UV', m => val(m.traitement_uv));
-  row('Aromathérapie', m => val(m.aromatherapie));
-  row('Système de contrôle', m => val(m.systeme_controle));
-  row('Couverture', m => val(m.couverture));
+      function section(titre) {
+        html += `<tr class="section-header"><td colspan="${N + 1}">— ${titre} —</td></tr>`;
+      }
 
-  section('✨', 'Design & Finitions');
-  row('Habillage', m => val(m.habillage));
-  row('Couleur coque', m => val(m.couleur_coque));
-  row('Revêtement intérieur', m => val(m.revetement_interieur));
-  row('Structure', m => val(m.structure_aluminium));
-  row('Isolation', m => val(m.isolation));
-  row('Cascade RGB', m => cascade(m.cascade_rgb));
-  row('LEDs RGB', m => val(m.leds_rgb));
+      function ligne(label, fn) {
+        html += `<tr><td class="label">${label}</td>`;
+        prods.forEach(p => { html += `<td>${fn(p)}</td>`; });
+        html += '</tr>';
+      }
 
-  // Points forts
-  section('🎯', 'Points forts');
-  const hasPointsForts = models.some(m => m.points_forts);
-  if (hasPointsForts) {
-    row('Points forts', m => val(m.points_forts));
-  } else {
-    // Auto-calculated
-    const maxBuses = Math.max(...models.map(m => m.nb_buses || 0));
-    const maxPlaces = Math.max(...models.map(m => m.nb_places || 0));
-    row('Points forts', m => {
-      const pts = [];
-      if ((m.nb_buses || 0) === maxBuses && maxBuses > 0) pts.push('Plus de buses');
-      if ((m.nb_places || 0) === maxPlaces && maxPlaces > 0) pts.push('Plus de places');
-      if (m.massage_robotise) pts.push('Massage robotisé');
-      if (m.aromatherapie) pts.push('Aromathérapie');
-      if (m.cascade_rgb > 0) pts.push('Cascade RGB');
-      return pts.length ? pts.join(', ') : '—';
+      section('🏊 Caractéristiques principales');
+      ligne('Places totales', p => val(p.nb_places));
+      ligne('Places assises', p => val(p.nb_places_assises));
+      ligne('Places allongées', p => val(p.nb_places_allongees));
+      ligne('Dimensions (L × l × H)', p => `${p.longueur_cm || '—'} × ${p.largeur_cm || '—'} × ${p.hauteur_cm || '—'} cm`);
+      ligne('Poids à vide', p => val(p.poids_kg, 'kg'));
+      ligne('Poids plein', p => val(p.poids_plein_kg, 'kg'));
+      ligne('Volume d\'eau', p => val(p.volume_eau_l, 'L'));
+      ligne('Puissance', p => val(p.puissance_kw, 'kW'));
+      ligne('Alimentation', p => p.voltage ? `${p.voltage} / ${p.amperage || '—'}` : '—');
+
+      section('💪 Massage & Hydromassage');
+      ligne('Nombre de buses', p => `<strong>${val(p.nb_buses)}</strong>`);
+      ligne('Pompes massage', p => val(p.nb_pompes_massage));
+      ligne('Pompes filtration', p => val(p.nb_pompes_filtration));
+      ligne('Pompe filtration/massage', p => val(p.pompe_filtration_massage));
+      ligne('Pompe à air', p => val(p.pompe_air));
+      ligne('Massage robotisé', p => bool(p.massage_robotise));
+
+      section('🌡️ Confort & Technologies');
+      ligne('Chauffage', p => val(p.chauffage));
+      ligne('Traitement UV', p => val(p.traitement_uv));
+      ligne('Aromathérapie', p => bool(p.aromatherapie));
+      ligne('Système de contrôle', p => val(p.systeme_controle));
+      ligne('Couverture', p => val(p.couverture));
+
+      section('✨ Design & Finitions');
+      ligne('Habillage extérieur', p => val(p.habillage));
+      ligne('Couleur coque', p => val(p.couleur_coque));
+      ligne('Revêtement intérieur', p => val(p.revetement_interieur));
+      ligne('Structure', p => val(p.structure_aluminium));
+      ligne('Isolation', p => val(p.isolation));
+      ligne('Cascade RGB', p => p.cascade_rgb ? `<span class="check-yes">✅</span> ${p.cascade_rgb}` : '<span class="check-no">❌</span>');
+      ligne('LEDs RGB', p => bool(p.leds_rgb));
+
+      // CTA
+      html += '<tr class="cta-row"><td class="label"></td>';
+      prods.forEach(p => {
+        html += `<td>
+          <a href="/produits/${p.slug}.html" class="btn-fiche">Voir la fiche</a><br>
+          <a href="https://go.gr-spa.com/" class="btn-devis" target="_blank">Demander un devis</a>
+        </td>`;
+      });
+      html += '</tr>';
+
+      html += '</tbody>';
+      document.getElementById('compTable').innerHTML = html;
+      document.getElementById('selectionView').style.display = 'none';
+      document.getElementById('stickyBar').classList.remove('show');
+      const cv = document.getElementById('compView');
+      cv.classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    function retourSelection() {
+      document.getElementById('compView').classList.remove('active');
+      document.getElementById('selectionView').style.display = '';
+      majSticky();
+      window.scrollTo(0, 0);
+    }
+
+    // Filtres
+    document.querySelectorAll('.filter-pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filtreActif = btn.dataset.gamme;
+        afficherGrille();
+      });
     });
-  }
 
-  // CTA
-  h += `<tr class="cta-row"><td></td>${models.map(m => `<td>
-    <a href="/produits/${m.slug}.html" class="btn-fiche">Voir la fiche</a>
-    <a href="https://go.gr-spa.com/" class="btn-devis">Demander un devis</a>
-  </td>`).join('')}</tr>`;
-
-  t.innerHTML = h;
-}
-
-init();
-</script>
+    // Init
+    charger();
+  </script>
 </body>
 </html>
