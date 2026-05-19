@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculateur de financement — Giovanni Riboli Spa</title>
+  <meta name="description" content="Estimez vos mensualités pour l'achat de votre spa Giovanni Riboli grâce à notre simulateur de financement FranFinance.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .fin-hero {
+      background: linear-gradient(135deg, #1a2d3e 0%, #253a4c 100%);
+      padding: 80px 40px 60px;
+      text-align: center;
+    }
+    .fin-hero .eyebrow {
+      font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+      color: #c7a260; font-weight: 600; margin-bottom: 16px;
+    }
+    .fin-hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 46px; color: #fff; margin: 0 0 16px; line-height: 1.2;
+    }
+    .fin-hero p {
+      color: #ccd8e0; font-size: 17px; max-width: 560px; margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .fin-section {
+      background: #f9fafb;
+      padding: 60px 40px;
+    }
+    .fin-container {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* Formulaire */
+    .fin-form-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 36px;
+      box-shadow: 0 4px 24px rgba(0,0,0,.07);
+      border-top: 4px solid #c7a260;
+    }
+    .fin-form-card h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px; color: #1a2d3e; margin: 0 0 28px;
+    }
+    .form-group { margin-bottom: 24px; }
+    .form-group label {
+      display: block; font-size: 13px; font-weight: 600;
+      color: #374151; margin-bottom: 8px; letter-spacing: .3px;
+    }
+    .form-group .hint {
+      font-size: 12px; color: #9ca3af; font-weight: 400; margin-left: 4px;
+    }
+    .input-wrap {
+      position: relative;
+    }
+    .input-wrap input[type="range"] {
+      width: 100%;
+      -webkit-appearance: none;
+      height: 6px;
+      border-radius: 3px;
+      background: linear-gradient(to right, #c7a260 var(--pct, 0%), #e5e7eb var(--pct, 0%));
+      outline: none;
+      cursor: pointer;
+    }
+    .input-wrap input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: #c7a260;
+      border: 3px solid #fff;
+      box-shadow: 0 2px 8px rgba(199,162,96,.4);
+      cursor: pointer;
+    }
+    .range-labels {
+      display: flex; justify-content: space-between;
+      font-size: 12px; color: #9ca3af; margin-top: 6px;
+    }
+    .range-value {
+      text-align: center;
+      font-size: 28px; font-weight: 700; color: #1a2d3e;
+      font-family: 'Cormorant Garamond', serif;
+      margin-bottom: 8px;
+    }
+    .range-value span { font-size: 16px; font-weight: 400; color: #6b7280; }
+
+    .duree-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .duree-btn {
+      padding: 10px 4px; border: 2px solid #e5e7eb;
+      border-radius: 8px; background: #fff;
+      font-size: 13px; font-weight: 600; color: #374151;
+      cursor: pointer; text-align: center;
+      font-family: 'Inter', sans-serif;
+      transition: all .2s;
+    }
+    .duree-btn:hover { border-color: #c7a260; color: #c7a260; }
+    .duree-btn.active { background: #c7a260; border-color: #c7a260; color: #1a2d3e; }
+    .duree-btn small { display: block; font-size: 10px; font-weight: 400; color: inherit; opacity: .8; }
+
+    /* Résultat */
+    .fin-result-card {
+      background: #1a2d3e;
+      border-radius: 16px;
+      padding: 36px;
+      color: #fff;
+      position: sticky;
+      top: 100px;
+    }
+    .fin-result-card h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; color: #c7a260; margin: 0 0 28px;
+    }
+    .result-main {
+      text-align: center;
+      background: rgba(199,162,96,.1);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(199,162,96,.2);
+    }
+    .result-mensualite {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 52px; font-weight: 600; color: #c7a260; line-height: 1;
+    }
+    .result-mensualite small {
+      font-size: 18px; font-weight: 400; color: #8aafc8;
+    }
+    .result-label {
+      font-size: 13px; color: #8aafc8; margin-top: 6px;
+    }
+    .result-details {
+      display: flex; flex-direction: column; gap: 12px;
+      margin-bottom: 28px;
+    }
+    .result-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      font-size: 14px;
+    }
+    .result-row:last-child { border-bottom: none; }
+    .result-row .label { color: #8aafc8; }
+    .result-row .value { font-weight: 600; color: #fff; }
+    .result-row .value.accent { color: #c7a260; }
+    .taeg-badge {
+      background: rgba(199,162,96,.15);
+      border: 1px solid rgba(199,162,96,.3);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 12px;
+      color: #c7a260;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .btn-devis-fin {
+      display: block; width: 100%;
+      background: #c7a260; color: #1a2d3e;
+      padding: 15px; border-radius: 8px;
+      text-align: center; text-decoration: none;
+      font-weight: 700; font-size: 16px;
+      font-family: 'Inter', sans-serif;
+      transition: opacity .2s;
+    }
+    .btn-devis-fin:hover { opacity: .9; }
+
+    /* Mentions légales */
+    .fin-legal {
+      background: #fff;
+      padding: 40px;
+      border-top: 1px solid #e5e7eb;
+    }
+    .fin-legal-inner {
+      max-width: 900px; margin: 0 auto;
+    }
+    .fin-legal h3 {
+      font-size: 14px; font-weight: 600; color: #374151; margin: 0 0 12px;
+    }
+    .fin-legal p {
+      font-size: 12px; color: #9ca3af; line-height: 1.7; margin: 0 0 8px;
+    }
+
+    /* Section avantages */
+    .fin-avantages {
+      background: #253a4c;
+      padding: 60px 40px;
+    }
+    .fin-avantages-inner {
+      max-width: 900px; margin: 0 auto; text-align: center;
+    }
+    .fin-avantages h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 34px; color: #fff; margin: 0 0 8px;
+    }
+    .fin-avantages .sub {
+      color: #8aafc8; font-size: 15px; margin-bottom: 40px;
+    }
+    .avantages-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+    .avantage-card {
+      background: rgba(255,255,255,.05);
+      border-radius: 12px; padding: 24px;
+      border: 1px solid rgba(199,162,96,.15);
+    }
+    .avantage-card .icon { font-size: 32px; margin-bottom: 12px; }
+    .avantage-card h3 {
+      font-size: 15px; font-weight: 600; color: #fff; margin: 0 0 8px;
+    }
+    .avantage-card p { font-size: 13px; color: #8aafc8; margin: 0; line-height: 1.6; }
+
+    @media (max-width: 768px) {
+      .fin-hero { padding: 50px 20px 40px; }
+      .fin-hero h1 { font-size: 32px; }
+      .fin-section { padding: 40px 20px; }
+      .fin-container { grid-template-columns: 1fr; }
+      .fin-result-card { position: static; }
+      .fin-form-card, .fin-result-card { padding: 24px; }
+      .duree-grid { grid-template-columns: repeat(4, 1fr); }
+      .avantages-grid { grid-template-columns: 1fr; }
+      .fin-avantages { padding: 40px 20px; }
+      .fin-legal { padding: 30px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav nav--transparent" id="nav">
+    <div class="nav__inner">
+      <a class="nav__logo" href="/">
+        <img src="assets/logo-noir.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-dark">
+        <img src="assets/logo-blanc.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-light">
+      </a>
+      <ul class="nav__menu">
+        <li><a href="/#gammes">Nos spas</a></li>
+        <li><a href="/comparateur.html">Comparer</a></li>
+        <li><a href="/revendeurs">Nos magasins</a></li>
+        <li><a href="/financement.html" style="color:#c7a260">Financement</a></li>
+      </ul>
+      <div class="nav__right">
+        <a class="nav__cta" href="https://go.gr-spa.com/">Demander un devis</a>
+      </div>
+      <button class="nav__burger" id="navBurger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="fin-hero">
+    <p class="eyebrow">Financement FranFinance</p>
+    <h1>Financez votre spa<br><em>en toute sérénité</em></h1>
+    <p>Simulez vos mensualités en quelques secondes et trouvez la formule de financement adaptée à votre projet.</p>
+  </div>
+
+  <!-- CALCULATEUR -->
+  <section class="fin-section">
+    <div class="fin-container">
+
+      <!-- Formulaire -->
+      <div class="fin-form-card">
+        <h2>Votre simulation</h2>
+
+        <div class="form-group">
+          <label>Montant du spa <span class="hint">(1 000€ → 75 000€)</span></label>
+          <div class="range-value" id="montantDisplay">12 000 <span>€</span></div>
+          <div class="input-wrap">
+            <input type="range" id="montant" min="1000" max="75000" step="500" value="12000" oninput="calculate()">
+          </div>
+          <div class="range-labels">
+            <span>1 000€</span>
+            <span>75 000€</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Durée de remboursement</label>
+          <div class="duree-grid" id="dureeGrid">
+            <button class="duree-btn" data-mois="12" onclick="setDuree(12)">12<small>mois</small></button>
+            <button class="duree-btn" data-mois="24" onclick="setDuree(24)">24<small>mois</small></button>
+            <button class="duree-btn active" data-mois="36" onclick="setDuree(36)">36<small>mois</small></button>
+            <button class="duree-btn" data-mois="48" onclick="setDuree(48)">48<small>mois</small></button>
+            <button class="duree-btn" data-mois="60" onclick="setDuree(60)">60<small>mois</small></button>
+            <button class="duree-btn" data-mois="84" onclick="setDuree(84)">84<small>mois</small></button>
+            <button class="duree-btn" data-mois="120" onclick="setDuree(120)">120<small>mois</small></button>
+            <button class="duree-btn" data-mois="180" onclick="setDuree(180)">180<small>mois</small></button>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom:0">
+          <label>Apport personnel <span class="hint">(optionnel)</span></label>
+          <div class="range-value" id="apportDisplay">0 <span>€</span></div>
+          <div class="input-wrap">
+            <input type="range" id="apport" min="0" max="30000" step="500" value="0" oninput="calculate()">
+          </div>
+          <div class="range-labels">
+            <span>0€</span>
+            <span>30 000€</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Résultat -->
+      <div class="fin-result-card">
+        <h2>Votre estimation</h2>
+
+        <div class="result-main">
+          <div class="result-mensualite" id="mensualite">342 <small>€/mois</small></div>
+          <div class="result-label">Mensualité estimée</div>
+        </div>
+
+        <div class="result-details">
+          <div class="result-row">
+            <span class="label">Montant financé</span>
+            <span class="value" id="montantFinance">12 000 €</span>
+          </div>
+          <div class="result-row">
+            <span class="label">Durée</span>
+            <span class="value" id="dureeDisplay">36 mois</span>
+          </div>
+          <div class="result-row">
+            <span class="label">Taux d'intérêt (TN)</span>
+            <span class="value" id="tauxDisplay">6,31 %</span>
+          </div>
+          <div class="result-row">
+            <span class="label">TAEG</span>
+            <span class="value accent" id="taegDisplay">6,50 %</span>
+          </div>
+          <div class="result-row">
+            <span class="label">Coût total du crédit</span>
+            <span class="value" id="coutCredit">1 312 €</span>
+          </div>
+          <div class="result-row">
+            <span class="label">Total à rembourser</span>
+            <span class="value" id="totalRembourser">13 312 €</span>
+          </div>
+        </div>
+
+        <div class="taeg-badge" id="taegBadge">
+          <strong>Exemple représentatif :</strong> Pour un crédit de 12 000€ sur 36 mois au TAEG de 6,50%, mensualité de 342€. Montant total dû : 13 312€.
+        </div>
+
+        <a href="https://go.gr-spa.com/" class="btn-devis-fin" target="_blank">
+          Obtenir un devis personnalisé →
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- AVANTAGES -->
+  <section class="fin-avantages">
+    <div class="fin-avantages-inner">
+      <h2>Pourquoi financer avec FranFinance ?</h2>
+      <p class="sub">Notre partenaire financier de confiance pour votre projet spa</p>
+      <div class="avantages-grid">
+        <div class="avantage-card">
+          <div class="icon">⚡</div>
+          <h3>Réponse rapide</h3>
+          <p>Décision de financement en 24h. Votre spa livré sans attendre.</p>
+        </div>
+        <div class="avantage-card">
+          <div class="icon">📋</div>
+          <h3>Dossier simplifié</h3>
+          <p>Constitution du dossier directement en showroom avec votre conseiller Giovanni Riboli.</p>
+        </div>
+        <div class="avantage-card">
+          <div class="icon">💳</div>
+          <h3>Jusqu'à 180 mois</h3>
+          <p>Des mensualités adaptées à votre budget, de 12 à 180 mois selon le montant financé.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENTIONS LÉGALES -->
+  <section class="fin-legal">
+    <div class="fin-legal-inner">
+      <h3>Mentions légales — Crédit à la consommation</h3>
+      <p>Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement avant de vous engager. Les simulations présentées sont fournies à titre indicatif et ne constituent pas une offre de crédit.</p>
+      <p>Financement proposé par FranFinance — Code partenaire HABDER0426. Sous réserve d'acceptation du dossier de financement par FranFinance. FranFinance — SA au capital de 1 068 533 € — RCS Nanterre B 379 502 644 — 14 avenue de la Grande Arche, 92419 Courbevoie Cedex — N° ORIAS 07 028 160.</p>
+      <p><strong>Tranches de financement :</strong> De 1 000€ à 5 999€ : TAEG 6,90% (TN 6,69%), durée 3 à 120 mois. De 6 000€ à 75 000€ sur 3 à 59 mois : TAEG 6,50% (TN 6,31%). De 6 000€ à 75 000€ sur 60 à 180 mois : TAEG 5,90% (TN 5,75%).</p>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+  <script>
+    // Taux FranFinance — Code HABDER0426
+    const TRANCHES = [
+      // { minMontant, maxMontant, minDuree, maxDuree, tn, taeg }
+      { min: 1000,  max: 5999,  minD: 3,  maxD: 120, tn: 6.69, taeg: 6.90 },
+      { min: 6000,  max: 75000, minD: 3,  maxD: 59,  tn: 6.31, taeg: 6.50 },
+      { min: 6000,  max: 75000, minD: 60, maxD: 180, tn: 5.75, taeg: 5.90 },
+    ];
+
+    let dureeActuelle = 36;
+
+    function getTranche(montant, duree) {
+      return TRANCHES.find(t =>
+        montant >= t.min && montant <= t.max &&
+        duree >= t.minD && duree <= t.maxD
+      ) || TRANCHES[1]; // fallback
+    }
+
+    function calcMensualite(montant, duree, tn) {
+      if (duree === 0 || montant === 0) return 0;
+      const taux = tn / 100 / 12;
+      if (taux === 0) return montant / duree;
+      return montant * taux * Math.pow(1 + taux, duree) / (Math.pow(1 + taux, duree) - 1);
+    }
+
+    function fmt(n) {
+      return Math.round(n).toLocaleString('fr-FR') + ' €';
+    }
+
+    function fmtPct(n) {
+      return n.toFixed(2).replace('.', ',') + ' %';
+    }
+
+    function updateSlider(slider) {
+      const min = parseFloat(slider.min);
+      const max = parseFloat(slider.max);
+      const val = parseFloat(slider.value);
+      const pct = ((val - min) / (max - min)) * 100;
+      slider.style.setProperty('--pct', pct + '%');
+    }
+
+    function calculate() {
+      const montantBrut = parseInt(document.getElementById('montant').value);
+      const apport = parseInt(document.getElementById('apport').value);
+      const montant = Math.max(1000, montantBrut - apport);
+      const duree = dureeActuelle;
+
+      // Mettre à jour l'affichage des sliders
+      updateSlider(document.getElementById('montant'));
+      updateSlider(document.getElementById('apport'));
+
+      document.getElementById('montantDisplay').innerHTML = parseInt(document.getElementById('montant').value).toLocaleString('fr-FR') + ' <span>€</span>';
+      document.getElementById('apportDisplay').innerHTML = apport.toLocaleString('fr-FR') + ' <span>€</span>';
+
+      const tranche = getTranche(montant, duree);
+      const mensualite = calcMensualite(montant, duree, tranche.tn);
+      const total = mensualite * duree;
+      const coutCredit = total - montant;
+
+      document.getElementById('mensualite').innerHTML = Math.round(mensualite).toLocaleString('fr-FR') + ' <small>€/mois</small>';
+      document.getElementById('montantFinance').textContent = fmt(montant);
+      document.getElementById('dureeDisplay').textContent = duree + ' mois';
+      document.getElementById('tauxDisplay').textContent = fmtPct(tranche.tn);
+      document.getElementById('taegDisplay').textContent = fmtPct(tranche.taeg);
+      document.getElementById('coutCredit').textContent = fmt(coutCredit);
+      document.getElementById('totalRembourser').textContent = fmt(total);
+
+      document.getElementById('taegBadge').innerHTML = `<strong>Exemple représentatif :</strong> Pour un crédit de ${fmt(montant)} sur ${duree} mois au TAEG de ${fmtPct(tranche.taeg)}, mensualité de ${Math.round(mensualite).toLocaleString('fr-FR')}€. Montant total dû : ${fmt(total)}.`;
+
+      // Vérifier la disponibilité de la tranche
+      const available = TRANCHES.some(t => montant >= t.min && montant <= t.max && duree >= t.minD && duree <= t.maxD);
+      if (!available) {
+        document.getElementById('mensualite').innerHTML = '—';
+        document.getElementById('taegBadge').innerHTML = '⚠️ Cette combinaison montant/durée n\'est pas disponible. Veuillez ajuster les paramètres.';
+      }
+
+      // Mettre en surbrillance les durées disponibles
+      document.querySelectorAll('.duree-btn').forEach(btn => {
+        const m = parseInt(btn.dataset.mois);
+        const ok = TRANCHES.some(t => montant >= t.min && montant <= t.max && m >= t.minD && m <= t.maxD);
+        btn.style.opacity = ok ? '1' : '0.35';
+      });
+    }
+
+    function setDuree(mois) {
+      dureeActuelle = mois;
+      document.querySelectorAll('.duree-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector(`.duree-btn[data-mois="${mois}"]`).classList.add('active');
+      calculate();
+    }
+
+    // Init
+    updateSlider(document.getElementById('montant'));
+    updateSlider(document.getElementById('apport'));
+    calculate();
+  </script>
+</body>
+</html>
