@@ -29,6 +29,46 @@
       .iti--separate-dial-code .iti__selected-flag { height: 100%; padding: 0 8px 0 10px; background: transparent; }
       .iti--separate-dial-code .iti__selected-dial-code { font-size: 13px; color: #253a4c; margin-left: 4px; }
       .iti__dropdown-content { z-index: 9999; }
+
+    /* Sauvegarde abandon quiz */
+    .quiz-save-progress {
+      margin-top: 20px;
+      padding: 16px 20px;
+      background: rgba(199,162,96,.08);
+      border: 1px solid rgba(199,162,96,.2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .quiz-save-progress label {
+      font-size: 12px;
+      color: #c7a260;
+      font-weight: 600;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .quiz-save-progress input {
+      flex: 1;
+      min-width: 180px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 6px;
+      padding: 9px 12px;
+      color: #fff;
+      font-size: 13px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      min-height: 38px;
+    }
+    .quiz-save-progress input::placeholder { color: rgba(255,255,255,.3); }
+    .quiz-save-progress input:focus { border-color: #c7a260; }
+    .quiz-save-note { font-size: 11px; color: rgba(255,255,255,.3); width: 100%; margin-top: 4px; }
+    .quiz-save-ok { font-size: 12px; color: #10b981; display: none; }
+
     </style>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -375,6 +415,46 @@
             .options.cols-2, .options.cols-3 { grid-template-columns: 1fr; }
             .quiz-container { padding: 140px 16px 80px; }
         }
+
+    /* Sauvegarde abandon quiz */
+    .quiz-save-progress {
+      margin-top: 20px;
+      padding: 16px 20px;
+      background: rgba(199,162,96,.08);
+      border: 1px solid rgba(199,162,96,.2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .quiz-save-progress label {
+      font-size: 12px;
+      color: #c7a260;
+      font-weight: 600;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .quiz-save-progress input {
+      flex: 1;
+      min-width: 180px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 6px;
+      padding: 9px 12px;
+      color: #fff;
+      font-size: 13px;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      min-height: 38px;
+    }
+    .quiz-save-progress input::placeholder { color: rgba(255,255,255,.3); }
+    .quiz-save-progress input:focus { border-color: #c7a260; }
+    .quiz-save-note { font-size: 11px; color: rgba(255,255,255,.3); width: 100%; margin-top: 4px; }
+    .quiz-save-ok { font-size: 12px; color: #10b981; display: none; }
+
     </style>
 </head>
 <body>
@@ -667,6 +747,18 @@
         <button class="btn-back" onclick="prevStep(4)">← Retour</button>
         <button class="btn-continue" id="btn5" onclick="nextStep(6)">Continuer</button>
       </div>
+
+        <!-- Sauvegarde abandon quiz -->
+        <div class="quiz-save-progress" id="quizSaveProgress">
+          <label>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#c7a260" stroke-width="1.8" width="14" height="14"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            Sauvegarder ma progression
+          </label>
+          <input type="email" id="saveEmail" placeholder="votre@email.fr" oninput="saveProgress()" autocomplete="email">
+          <span class="quiz-save-ok" id="saveOk">✓ Sauvegardé</span>
+          <p class="quiz-save-note">Optionnel — pour recevoir vos résultats si vous quittez le quiz</p>
+        </div>
+
     </div>
 
     <!-- ÉTAPE 6 — Code postal -->
@@ -1039,6 +1131,55 @@
     document.querySelector(`[data-step="${currentStep}"]`).classList.add('active');
     updateProgress();
   }
+
+
+    // Sauvegarde progression quiz (abandon)
+    var _saveTimeout = null;
+    var _savedEmail = null;
+    
+    function saveProgress() {
+      var email = document.getElementById('saveEmail').value.trim();
+      if (!email || !email.includes('@')) return;
+      if (email === _savedEmail) return;
+      _savedEmail = email;
+      
+      clearTimeout(_saveTimeout);
+      _saveTimeout = setTimeout(async function() {
+        try {
+          var SUPABASE_URL = 'https://ohjzggceozamhdesecxi.supabase.co';
+          var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oanpnZ2Nlb3phbWhkZXNlY3hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Njc5MDYsImV4cCI6MjA5MjM0MzkwNn0.wW-tqXBDUtKURR31bh3CUWIcuYMUJTZLqq2LLT1kJnA';
+          
+          // Sauvegarder dans Supabase avec statut "abandon_quiz"
+          await fetch(SUPABASE_URL + '/rest/v1/leads', {
+            method: 'POST',
+            headers: { 'apikey': ANON, 'Authorization': 'Bearer ' + ANON, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+            body: JSON.stringify({
+              email: email,
+              prenom: quizData.prenom || null,
+              budget: quizData.budget || null,
+              delai: quizData.delai || null,
+              ambiance: quizData.ambiance || null,
+              objectif: quizData.objectif || null,
+              source: quizData.source || 'quiz',
+              statut: 'abandon_quiz',
+              email_j1_envoye: false, email_j3_envoye: false, email_j7_envoye: false,
+              whatsapp_relance_envoye: false, alerte_jc_envoyee: false,
+              utm_source: quizData.utm_source || null,
+              gclid: quizData.gclid || null
+            })
+          });
+          
+          document.getElementById('saveOk').style.display = 'inline';
+          
+          // Programmer un email de récupération dans 30 min via n8n
+          // (W3 détectera ce lead avec statut=abandon_quiz et email_j1_envoye=false)
+          
+        } catch(e) { /* silencieux */ }
+      }, 1500); // attendre 1.5s après la dernière frappe
+    }
+    
+    // Si le quiz est soumis, ne pas envoyer l'email de récupération
+    // (W1 gère la soumission complète)
 
   async function submitQuiz() {
     document.querySelector('[data-step="7"]').style.display = 'none';
