@@ -240,22 +240,114 @@
   <!-- NAV -->
   <header class="nav nav--transparent" id="nav">
     <div class="nav__inner">
-      <a class="nav__logo" href="/">
+      <a class='nav__logo' href='/'>
         <img src="assets/logo-noir.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-dark">
         <img src="assets/logo-blanc.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-light">
       </a>
       <ul class="nav__menu">
-        <li><a href="/#gammes">Nos spas</a></li>
-        <li><a href="/comparateur.html">Comparer</a></li>
-        <li><a href="/revendeurs">Nos magasins</a></li>
-        <li><a href="/financement.html" style="color:#c7a260">Financement</a></li>
+        <li>
+          <a href="#">Nos spas</a>
+          <div class="mega-menu">
+            <div class="mega-menu__inner">
+              <div class="mega-menu__col">
+                <div class="mega-menu__col-title">Nos gammes</div>
+                <ul>
+                  <li><a href='/gammes/relax'>Gamme Relax</a></li>
+                  <li><a href='/gammes/energy'>Gamme Energy</a></li>
+                  <li><a href='/gammes/luxury'>Gamme Luxury</a></li>
+                  <li><a href='/gammes/spa-de-nage'>Spa de nage</a></li>
+                </ul>
+              </div>
+              <div class="mega-menu__col">
+                <div class="mega-menu__col-title">Nos modèles</div>
+                <ul>
+                  <li><a href='/produits/amalfi'>Amalfi</a></li>
+                  <li><a href='/produits/bari'>Bari</a></li>
+                  <li><a href='/produits/capri'>Capri</a></li>
+                  <li><a href='/produits/roma'>Roma</a></li>
+                  <li><a href='/produits/napoli'>Napoli</a></li>
+                  <li><a href='/produits/torino'>Torino</a></li>
+                  <li><a href='/produits/napoli-luxe'>Napoli Luxe</a></li>
+                  <li><a href='/produits/roma-luxe'>Roma Luxe</a></li>
+                  <li><a href='/produits/torino-luxe'>Torino Luxe</a></li>
+                </ul>
+              </div>
+              <div class="mega-menu__visual">
+                <div class="mega-menu__visual-placeholder"></div>
+                <a href="#" class="mega-cta">Voir tous les modèles</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a href="#">La marque</a>
+          <div class="mega-menu mega-menu--brand">
+            <div class="mega-menu__inner">
+              <div class="mega-menu__col">
+                <ul>
+                  <li><a href='/a-propos'>Notre histoire</a></li>
+                  <li><a href='/a-propos#engagements'>Nos engagements</a></li>
+                  <li><a href='/a-propos#technologies'>Nos technologies</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href='/revendeurs'>Nos magasins</a></li>
+        <li><a href="/comparateur">Comparer</a></li>
+        <li><a href='/financement'>Financement</a></li>
+        <li><a href='/blog'>Blog</a></li>
+        <li><a href='/espace-pro'>Espace pro</a></li>
       </ul>
       <div class="nav__right">
-        <a class="nav__cta" href="https://go.gr-spa.com/">Demander un devis</a>
+        <a class='nav__cta' href='https://go.gr-spa.com/'>Demander un devis</a>
+        <button class="nav__search-btn" aria-label="Rechercher"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35" stroke-linecap="round"/></svg></button>
       </div>
       <button class="nav__burger" id="navBurger" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
+    </div>
+    <!-- Mobile overlay -->
+    <div class="nav__mobile-overlay" id="navMobile">
+      <ul>
+        <li>
+          <button class="mobile-accordion-toggle">Nos spas <span class="mobile-arrow">▾</span></button>
+          <div class="mobile-submenu">
+            <div class="mobile-sub-title">Nos gammes</div>
+            <ul>
+              <li><a href='/gammes/relax'>Gamme Relax</a></li>
+              <li><a href='/gammes/energy'>Gamme Energy</a></li>
+              <li><a href='/gammes/luxury'>Gamme Luxury</a></li>
+              <li><a href='/gammes/spa-de-nage'>Spa de nage</a></li>
+            </ul>
+            <div class="mobile-sub-title">Nos modèles</div>
+            <ul>
+              <li><a href='/produits/amalfi'>Amalfi</a></li>
+              <li><a href='/produits/bari'>Bari</a></li>
+              <li><a href='/produits/capri'>Capri</a></li>
+              <li><a href='/produits/roma'>Roma</a></li>
+              <li><a href='/produits/napoli'>Napoli</a></li>
+              <li><a href='/produits/torino'>Torino</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <button class="mobile-accordion-toggle">La marque <span class="mobile-arrow">▾</span></button>
+          <div class="mobile-submenu">
+            <ul>
+              <li><a href='/a-propos'>Notre histoire</a></li>
+              <li><a href='/a-propos#engagements'>Nos engagements</a></li>
+              <li><a href='/a-propos#technologies'>Nos technologies</a></li>
+            </ul>
+          </div>
+        </li>
+        <li><a href='/revendeurs'>Nos magasins</a></li>
+        <li><a href='/comparateur'>Comparer</a></li>
+        <li><a href='/financement'>Financement</a></li>
+        <li><a href='/blog'>Blog</a></li>
+        <li><a href='/espace-pro'>Espace pro</a></li>
+      </ul>
+      <a class='nav__mobile-cta' href='https://go.gr-spa.com/'>Demander un devis</a>
     </div>
   </header>
 
@@ -493,5 +585,46 @@
     updateSlider(document.getElementById('apport'));
     calculate();
   </script>
+  <footer class="footer" id="contact">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img src="./assets/logo-blanc.svg" alt="Giovanni Riboli" class="footer__logo">
+        <p class="footer__tagline">L'art du spa à domicile.</p>
+        <p class="footer__address">Giovanni Riboli SAS — France</p>
+      </div>
+      <div class="footer__nav">
+        <h4>Produits</h4>
+        <a href='/gammes/relax'>Gamme Relax</a>
+        <a href='/gammes/energy'>Gamme Energy</a>
+        <a href='/gammes/luxury'>Gamme Luxury</a>
+        <a href='/gammes/spa-de-nage'>Spa de Nage</a>
+        <a href='/comparateur'>Comparer les modèles</a>
+      </div>
+      <div class="footer__nav">
+        <h4>Découvrir</h4>
+        <a href='/a-propos'>Notre histoire</a>
+        <a href='/revendeurs'>Nos magasins</a>
+        <a href='/espace-pro'>Espace Pro</a>
+        <a href='/blog'>Blog</a>
+      </div>
+      <div class="footer__nav">
+        <h4>Outils</h4>
+        <a href='/financement'>Simulateur de financement</a>
+        <a href='/quiz'>Configurateur</a>
+        <a href='/quiz'>Quiz</a>
+      </div>
+      <div class="footer__nav">
+        <h4>Contact</h4>
+        <a href='https://go.gr-spa.com/' target='_blank'>go.gr-spa.com</a>
+        <p class="footer__address-detail">2 Rue Paul Emile-Victor<br>17640 Vaux-sur-Mer</p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container">
+        <p>&copy; 2026 Giovanni Riboli SAS — Tous droits réservés</p>
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>
