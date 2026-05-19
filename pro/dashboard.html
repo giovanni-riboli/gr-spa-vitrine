@@ -208,7 +208,7 @@
       </a>
       <a href="leads.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        Leads
+        Leads <span class="notif-badge" id="leadsCount" style="display:none;background:#ef4444;color:#fff;border-radius:10px;padding:1px 7px;font-size:11px;font-weight:700;margin-left:auto;">0</span>
       </a>
       <a href="offres.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
@@ -233,6 +233,7 @@
     <header class="header">
       <div style="display:flex;align-items:center;gap:12px">
         <button class="hamburger" onclick="toggleSidebar()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+        <span id="realtimeStatus" title="Temps réel" style="width:8px;height:8px;border-radius:50%;background:#6b7280;display:inline-block;margin-right:4px;"></span>
         <span class="title">Dashboard</span>
         <span id="realtimeIndicator" style="display:none;font-size:11px;color:var(--text-muted)"><span class="realtime-dot"></span>Temps réel</span>
       </div>
@@ -686,5 +687,7 @@
       document.getElementById('mainContent').style.display = 'block';
     })();
   </script>
+  <script>window._enableNotifToast = true;</script>
+  <script src="notifications.js"></script>
 </body>
 </html>
