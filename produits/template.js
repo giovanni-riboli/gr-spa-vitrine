@@ -146,6 +146,26 @@
         }
       }
 
+
+      // === BOUTON MA SÉLECTION ===
+      var heartBtn = document.getElementById('heartBtn');
+      if (heartBtn && p.slug && window.GRSelection) {
+        var isInSel = GRSelection.has(p.slug);
+        heartBtn.setAttribute('aria-label', isInSel ? 'Retirer de ma sélection' : 'Ajouter à ma sélection');
+        heartBtn.classList.toggle('heart-active', isInSel);
+        heartBtn.onclick = function() {
+          var added = GRSelection.toggle(p.slug, p.nom, p.gamme, p.nb_places, p.nb_buses);
+          heartBtn.classList.toggle('heart-active');
+          heartBtn.setAttribute('aria-label', heartBtn.classList.contains('heart-active') ? 'Retirer de ma sélection' : 'Ajouter à ma sélection');
+          // Toast
+          var toast = document.createElement('div');
+          toast.style.cssText = 'position:fixed;bottom:80px;right:20px;background:#1a2d3e;color:#fff;padding:12px 20px;border-radius:8px;font-size:13px;font-family:Inter,sans-serif;z-index:999;border-left:3px solid #c7a260;box-shadow:0 4px 12px rgba(0,0,0,.2)';
+          toast.textContent = heartBtn.classList.contains('heart-active') ? '♥ Ajouté à votre sélection' : 'Retiré de votre sélection';
+          document.body.appendChild(toast);
+          setTimeout(function(){ toast.remove(); }, 2500);
+        };
+      }
+
       // === COMPARER CE MODELE ===
       var compareBtn = document.getElementById('product-compare-btn');
       if (compareBtn && p.slug) {

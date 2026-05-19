@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ma sélection — Giovanni Riboli Spa</title>
+  <meta name="description" content="Retrouvez les modèles de spas Giovanni Riboli que vous avez sauvegardés.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .sel-hero { background: #1a2d3e; padding: 10rem 0 5rem; text-align: center; }
+    .sel-hero .eyebrow { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: #c7a260; font-weight: 600; margin-bottom: 12px; }
+    .sel-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 42px; color: #fff; margin: 0 0 12px; }
+    .sel-hero p { color: #ccd8e0; font-size: 16px; }
+    
+    .sel-content { background: #f9fafb; padding: 60px 40px; min-height: 300px; }
+    .sel-container { max-width: 960px; margin: 0 auto; }
+    
+    .sel-empty { text-align: center; padding: 80px 20px; }
+    .sel-empty svg { color: #c7a260; margin-bottom: 20px; }
+    .sel-empty h2 { font-family: 'Cormorant Garamond', serif; font-size: 28px; color: #1a2d3e; margin: 0 0 12px; }
+    .sel-empty p { color: #6b7280; font-size: 15px; margin: 0 0 28px; }
+    .btn-discover { display: inline-block; background: #c7a260; color: #1a2d3e; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 15px; }
+    
+    .sel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 40px; }
+    .sel-card { background: #fff; border-radius: 12px; padding: 24px; border: 1px solid #e5e7eb; position: relative; }
+    .sel-card .badge-gamme { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; margin-bottom: 12px; display: inline-block; }
+    .badge-relax { background: #f3f4f6; color: #6b7280; }
+    .badge-energy { background: #dbeafe; color: #1d4ed8; }
+    .badge-luxury { background: #fef3c7; color: #92400e; }
+    .badge-nage { background: #d1fae5; color: #065f46; }
+    .sel-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #1a2d3e; margin: 0 0 8px; }
+    .sel-card .specs { font-size: 13px; color: #6b7280; margin-bottom: 16px; }
+    .sel-card-actions { display: flex; gap: 8px; }
+    .btn-voir { flex: 1; display: block; text-align: center; background: #1a2d3e; color: #fff; padding: 10px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600; }
+    .btn-retirer { background: none; border: 1px solid #e5e7eb; color: #9ca3af; padding: 10px 14px; border-radius: 6px; cursor: pointer; font-size: 12px; font-family: 'Inter', sans-serif; transition: all .2s; }
+    .btn-retirer:hover { border-color: #ef4444; color: #ef4444; }
+    
+    .sel-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; justify-content: space-between; padding-top: 24px; border-top: 1px solid #e5e7eb; }
+    .btn-comparer-sel { background: #c7a260; color: #1a2d3e; padding: 13px 28px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 15px; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-vider { background: none; border: 1px solid #e5e7eb; color: #6b7280; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; font-family: 'Inter', sans-serif; transition: all .2s; }
+    .btn-vider:hover { border-color: #ef4444; color: #ef4444; }
+    
+    /* CTA conseiller */
+    .sel-conseiller { background: #1a2d3e; border-radius: 12px; padding: 32px 36px; margin-top: 32px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .sel-conseiller h3 { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: #fff; margin: 0 0 6px; }
+    .sel-conseiller p { font-size: 14px; color: #8aafc8; margin: 0; }
+    .btn-envoyer-sel { background: #c7a260; color: #1a2d3e; padding: 13px 24px; border-radius: 8px; font-weight: 700; font-size: 14px; border: none; cursor: pointer; font-family: 'Inter', sans-serif; white-space: nowrap; }
+    
+    @media (max-width: 768px) {
+      .sel-hero { padding: 7rem 20px 3rem; }
+      .sel-content { padding: 40px 20px; }
+      .sel-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .sel-conseiller { padding: 24px; }
+    }
+    @media (max-width: 480px) {
+      .sel-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav nav--solid" id="nav">
+    <div class="nav__inner">
+      <a class='nav__logo' href='/'>
+        <img src="assets/logo-noir.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-dark">
+        <img src="assets/logo-blanc.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-light">
+      </a>
+      <ul class="nav__menu">
+        <li>
+          <a href="#">Nos spas</a>
+          <div class="mega-menu">
+            <div class="mega-menu__inner">
+              <div class="mega-menu__col">
+                <div class="mega-menu__col-title">Nos gammes</div>
+                <ul>
+                  <li><a href='gammes/relax'>Gamme Relax</a></li>
+                  <li><a href='gammes/energy'>Gamme Energy</a></li>
+                  <li><a href='gammes/luxury'>Gamme Luxury</a></li>
+                  <li><a href='gammes/spa-de-nage'>Spa de nage</a></li>
+                </ul>
+              </div>
+              <div class="mega-menu__col">
+                <div class="mega-menu__col-title">Nos modèles</div>
+                <ul>
+                  <li><a href='produits/amalfi'>Amalfi</a></li>
+                  <li><a href='produits/bari'>Bari</a></li>
+                  <li><a href='produits/capri'>Capri</a></li>
+                  <li><a href='produits/roma'>Roma</a></li>
+                  <li><a href='produits/napoli'>Napoli</a></li>
+                  <li><a href='produits/torino'>Torino</a></li>
+                  <li><a href='produits/napoli-luxe'>Napoli Luxe</a></li>
+                  <li><a href='produits/roma-luxe'>Roma Luxe</a></li>
+                  <li><a href='produits/torino-luxe'>Torino Luxe</a></li>
+                </ul>
+              </div>
+              <div class="mega-menu__col mega-menu__col--tools">
+                <div class="mega-menu__col-title">Découvrir</div>
+                <ul>
+                  <li><a href='a-propos'>Notre histoire</a></li>
+                  <li><a href='a-propos#engagements'>Nos engagements</a></li>
+                  <li><a href='quiz.html'>Trouver mon spa</a></li>
+                  <li><a href='comparateur.html'>Comparer les modèles</a></li>
+                  <li><a href='financement.html'>Simuler le financement</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href='comparateur.html'>Comparer</a></li>
+        <li><a href='financement.html'>Financement</a></li>
+        <li><a href='revendeurs'>Nos magasins</a></li>
+        <li><a href='blog'>Blog</a></li>
+      </ul>
+      <div class="nav__right">
+        <a class='nav__cta' href='quiz.html'>Trouver mon spa →</a>
+        <a class="nav__sel-btn" href="ma-selection.html" aria-label="Ma sélection" title="Ma sélection" style="position:relative;display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;color:#1a2d3e;text-decoration:none;transition:background .2s">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+          <span id="selectionBadge" style="display:none;position:absolute;top:-4px;right:-4px;background:#c7a260;color:#1a2d3e;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;align-items:center;justify-content:center;font-family:'Inter',sans-serif;">0</span>
+        </a>
+        <a class="nav__pro-btn nav__pro-btn--desktop" href='espace-pro.html' aria-label="Espace pro" title="Espace pro">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </a>
+        <button class="nav__search-btn" aria-label="Rechercher"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35" stroke-linecap="round"/></svg></button>
+      </div>
+      <button class="nav__burger" id="navBurger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+    <div class="nav__mobile-overlay" id="navMobile">
+      <ul>
+        <li><button class="mobile-accordion-toggle">Nos spas <span class="mobile-arrow">▾</span></button>
+          <div class="mobile-submenu">
+            <div class="mobile-sub-title">Nos gammes</div>
+            <ul><li><a href='gammes/relax'>Gamme Relax</a></li><li><a href='gammes/energy'>Gamme Energy</a></li><li><a href='gammes/luxury'>Gamme Luxury</a></li><li><a href='gammes/spa-de-nage'>Spa de nage</a></li></ul>
+          </div>
+        </li>
+        <li><a href='comparateur.html'>Comparer</a></li>
+        <li><a href='financement.html'>Financement</a></li>
+        <li><a href='revendeurs'>Nos magasins</a></li>
+        <li><a href='blog'>Blog</a></li>
+      </ul>
+      <a class='nav__mobile-cta' href='quiz.html'>Trouver mon spa →</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="sel-hero">
+    <p class="eyebrow">Mes favoris</p>
+    <h1>Ma sélection</h1>
+    <p>Les modèles que vous avez sauvegardés</p>
+  </div>
+
+  <!-- CONTENU -->
+  <div class="sel-content">
+    <div class="sel-container">
+
+      <!-- État vide -->
+      <div class="sel-empty" id="selEmpty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#c7a260" stroke-width="1.5" width="48" height="48"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+        <h2>Votre sélection est vide</h2>
+        <p>Ajoutez des modèles depuis les fiches produits en cliquant sur le cœur.</p>
+        <a href="gammes/luxury.html" class="btn-discover">Découvrir nos modèles →</a>
+      </div>
+
+      <!-- Liste des modèles -->
+      <div id="selList" style="display:none">
+        <div class="sel-grid" id="selGrid"></div>
+
+        <div class="sel-actions">
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <a href="#" class="btn-comparer-sel" id="btnComparerSel">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7"/></svg>
+              Comparer ma sélection
+            </a>
+            <button class="btn-vider" onclick="viderSelection()">Vider la sélection</button>
+          </div>
+          <p style="font-size:13px;color:#9ca3af;margin:0"><span id="selCount">0</span> modèle(s) sélectionné(s)</p>
+        </div>
+
+        <!-- CTA envoyer à un conseiller -->
+        <div class="sel-conseiller">
+          <div>
+            <h3>Envoyer ma sélection à un conseiller</h3>
+            <p>Un expert Giovanni Riboli vous rappelle pour vous guider dans votre choix.</p>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <input type="email" id="selConseillerEmail" placeholder="votre@email.fr" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:11px 14px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;outline:none;min-height:44px;min-width:220px">
+            <input type="text" id="selConseillerCP" placeholder="Code postal" maxlength="5" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:11px 14px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;outline:none;min-height:44px;width:120px;min-width:120px">
+            <button class="btn-envoyer-sel" onclick="envoyerSelection()">Envoyer →</button>
+          </div>
+          <p id="selEnvoyeOk" style="color:#10b981;font-size:13px;display:none;width:100%">✓ Sélection envoyée ! Un conseiller vous contacte très prochainement.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="selection.js"></script>
+  <script src="offre-bar.js"></script>
+  <script>
+    function badgeClass(gamme) {
+      return { relax: 'badge-relax', energy: 'badge-energy', luxury: 'badge-luxury', nage: 'badge-nage' }[gamme] || 'badge-relax';
+    }
+
+    function render() {
+      const list = GRSelection.get();
+      const empty = document.getElementById('selEmpty');
+      const selList = document.getElementById('selList');
+      const grid = document.getElementById('selGrid');
+      const count = document.getElementById('selCount');
+      
+      if (list.length === 0) {
+        empty.style.display = 'block';
+        selList.style.display = 'none';
+        return;
+      }
+      
+      empty.style.display = 'none';
+      selList.style.display = 'block';
+      count.textContent = list.length;
+      
+      grid.innerHTML = list.map(p => `
+        <div class="sel-card">
+          <span class="badge-gamme ${badgeClass(p.gamme)}">${p.gamme === 'nage' ? 'Spa de Nage' : (p.gamme.charAt(0).toUpperCase() + p.gamme.slice(1))}</span>
+          <h3>${p.nom}</h3>
+          <p class="specs">${p.nb_places || '—'} places · ${p.nb_buses || '—'} buses</p>
+          <div class="sel-card-actions">
+            <a href="produits/${p.slug}.html" class="btn-voir">Voir la fiche</a>
+            <button class="btn-retirer" onclick="retirerModele('${p.slug}')">Retirer</button>
+          </div>
+        </div>
+      `).join('');
+      
+      // Mettre à jour le lien comparateur
+      const slugs = list.map(p => p.slug);
+      document.getElementById('btnComparerSel').href = `comparateur.html?pre=${slugs[0]}`;
+    }
+
+    function retirerModele(slug) {
+      GRSelection.remove(slug);
+      render();
+    }
+
+    function viderSelection() {
+      localStorage.removeItem('gr_selection');
+      render();
+    }
+
+    async function envoyerSelection() {
+      const email = document.getElementById('selConseillerEmail').value.trim();
+      const cp = document.getElementById('selConseillerCP').value.trim();
+      if (!email || !email.includes('@')) { document.getElementById('selConseillerEmail').focus(); return; }
+
+      const list = GRSelection.get();
+      const modeles = list.map(p => p.nom).join(', ');
+      const slugs = list.map(p => p.slug);
+
+      try {
+        const ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oanpnZ2Nlb3phbWhkZXNlY3hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Njc5MDYsImV4cCI6MjA5MjM0MzkwNn0.wW-tqXBDUtKURR31bh3CUWIcuYMUJTZLqq2LLT1kJnA';
+        await fetch('https://ohjzggceozamhdesecxi.supabase.co/rest/v1/leads', {
+          method: 'POST',
+          headers: { 'apikey': ANON, 'Authorization': `Bearer ${ANON}`, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+          body: JSON.stringify({
+            email, code_postal: cp || null, source: 'ma_selection',
+            modeles_suggeres: slugs,
+            description_courte: `Sélection : ${modeles}`,
+            statut: 'nouveau', email_j1_envoye: false, email_j3_envoye: false,
+            email_j7_envoye: false, whatsapp_relance_envoye: false, alerte_jc_envoyee: false
+          })
+        });
+        await fetch('/.netlify/functions/send-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            to: email,
+            subject: 'Votre sélection Giovanni Riboli',
+            html: `<div style="background:#1a2d3e;padding:20px;font-family:Arial"><div style="max-width:560px;margin:0 auto;background:#253a4c;border-radius:12px;padding:32px;border-top:4px solid #c7a260"><img src="https://gr-spa-vitrine.netlify.app/assets/logo-blanc.svg" width="120" style="margin-bottom:20px"><h2 style="color:#fff">Votre sélection</h2><p style="color:#ccd8e0">Vous avez sélectionné : <strong style="color:#c7a260">${modeles}</strong></p><p style="color:#ccd8e0">Un conseiller Giovanni Riboli va vous contacter très prochainement.</p><a href="https://go.gr-spa.com/" style="display:inline-block;margin-top:16px;background:#c7a260;color:#1a2d3e;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:700">Voir nos showrooms →</a></div></div>`
+          })
+        });
+      } catch(e) {}
+
+      document.getElementById('selEnvoyeOk').style.display = 'block';
+    }
+
+    render();
+  </script>
+</body>
+</html>
