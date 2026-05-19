@@ -88,6 +88,48 @@
     @media (max-width: 480px) {
       .comp-grid { grid-template-columns: 1fr 1fr; }
     }
+
+    /* Capture email comparateur */
+    .comp-capture {
+      max-width: 900px; margin: 0 auto;
+      background: #1a2d3e; border-radius: 16px;
+      padding: 32px 36px; margin-top: 24px;
+      display: flex; align-items: center; gap: 24px;
+      flex-wrap: wrap;
+    }
+    .comp-capture .cap-text { flex: 1; min-width: 200px; }
+    .comp-capture .cap-text h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; color: #fff; margin: 0 0 6px;
+    }
+    .comp-capture .cap-text p { font-size: 13px; color: #8aafc8; margin: 0; }
+    .comp-capture .cap-inputs { display: flex; gap: 8px; flex-wrap: wrap; }
+    .comp-capture input {
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+      border-radius: 8px; padding: 11px 14px; color: #fff;
+      font-size: 13px; font-family: 'Inter', sans-serif;
+      outline: none; width: 160px; min-height: 44px;
+    }
+    .comp-capture input::placeholder { color: rgba(255,255,255,.3); }
+    .comp-capture input:focus { border-color: #c7a260; }
+    .btn-cap-comp {
+      background: #c7a260; color: #1a2d3e; border: none;
+      padding: 11px 22px; border-radius: 8px; font-size: 14px;
+      font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif;
+      min-height: 44px; transition: opacity .2s; white-space: nowrap;
+    }
+    .btn-cap-comp:hover { opacity: .9; }
+    .comp-capture-success {
+      background: rgba(16,185,129,.15); border: 1px solid rgba(16,185,129,.3);
+      border-radius: 8px; padding: 14px 20px; text-align: center;
+      color: #10b981; font-size: 14px; width: 100%;
+    }
+    @media (max-width: 768px) {
+      .comp-capture { padding: 20px; gap: 16px; }
+      .comp-capture input { width: 100%; }
+      .btn-cap-comp { width: 100%; }
+    }
+
   </style>
 </head>
 <body>
@@ -423,6 +465,66 @@
         afficherGrille();
       });
     });
+
+
+    async function envoyerComparaison() {
+      const prenom = document.getElementById('capPrenom').value.trim();
+      const email = document.getElementById('capEmail').value.trim();
+      if (!email || !email.includes('@')) {
+        document.getElementById('capEmail').focus();
+        return;
+      }
+
+      const prods = selected.map(s => allProduits.find(p => p.slug === s)).filter(Boolean);
+      const nomsModeles = prods.map(p => p.nom).join(', ');
+
+      const SUPABASE_URL = 'https://ohjzggceozamhdesecxi.supabase.co';
+      const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oanpnZ2Nlb3phbWhkZXNlY3hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Njc5MDYsImV4cCI6MjA5MjM0MzkwNn0.wW-tqXBDUtKURR31bh3CUWIcuYMUJTZLqq2LLT1kJnA';
+      const RESEND_KEY = 're_KSZpFHbJ_NSd4e5HPR7oJGuew87b5uGcx';
+
+      try {
+        // Supabase
+        await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
+          method: 'POST',
+          headers: { 'apikey': ANON_KEY, 'Authorization': `Bearer ${ANON_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+          body: JSON.stringify({
+            prenom: prenom || 'Non renseigné', email,
+            source: 'comparateur',
+            statut: 'nouveau',
+            modeles_suggeres: selected,
+            description_courte: `Comparaison: ${nomsModeles}`,
+            email_j1_envoye: false, email_j3_envoye: false, email_j7_envoye: false,
+            whatsapp_relance_envoye: false, alerte_jc_envoyee: false
+          })
+        });
+
+        // Email
+        const lignesModeles = prods.map(p => `
+          <div style="background:#1e3044;border-radius:8px;padding:16px;margin:8px 0;border-left:3px solid #c7a260">
+            <strong style="color:#fff">${p.nom}</strong>
+            <span style="background:#253a4c;color:#c7a260;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:8px">${p.gamme}</span>
+            <div style="color:#8aafc8;font-size:12px;margin-top:6px">${p.nb_places || '—'} places · ${p.nb_buses || '—'} buses · ${p.longueur_cm || '—'}×${p.largeur_cm || '—'} cm</div>
+            <a href="https://gr-spa-vitrine.netlify.app/produits/${p.slug}.html" style="display:inline-block;margin-top:8px;color:#c7a260;font-size:12px;text-decoration:none">Voir la fiche complète →</a>
+          </div>`).join('');
+
+        await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${RESEND_KEY}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            from: 'Giovanni Riboli <contact@mail.gr-spa.com>',
+            to: [email],
+            subject: `${prenom ? prenom + ', votre' : 'Votre'} comparaison de spas Giovanni Riboli`,
+            html: `<!DOCTYPE html><html><head><style>body{margin:0;padding:20px;background:#1a2d3e;font-family:Arial,sans-serif}.c{max-width:580px;margin:0 auto;background:#253a4c;border-radius:12px;border-top:4px solid #c7a260;padding:32px}h1{color:#fff;font-size:22px;margin:0 0 8px}p{color:#ccd8e0;font-size:14px;line-height:1.7;margin:0 0 12px}.btn{display:inline-block;background:#c7a260;color:#1a2d3e;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:700;font-size:14px;margin-top:16px}.footer{text-align:center;margin-top:24px;font-size:11px;color:#4a6a82}</style></head><body><div class="c"><img src="https://gr-spa-vitrine.netlify.app/assets/logo-blanc.svg" width="120" style="margin-bottom:20px"><h1>Votre comparaison${prenom ? ' ' + prenom : ''}</h1><p>Vous avez comparé ${prods.length} modèles Giovanni Riboli. Voici un récapitulatif.</p>${lignesModeles}<p style="margin-top:20px">Des questions sur ces modèles ? Nos conseillers sont là pour vous aider.</p><a href="https://go.gr-spa.com/" class="btn">Parler à un conseiller →</a><div class="footer">Giovanni Riboli SAS — 17640 Vaux-sur-Mer</div></div></body></html>`
+          })
+        });
+
+        document.getElementById('compCapture').querySelector('.cap-text').style.display = 'none';
+        document.getElementById('compCapture').querySelector('.cap-inputs').style.display = 'none';
+        document.getElementById('capSuccess').style.display = 'block';
+      } catch(e) {
+        document.getElementById('capSuccess').style.display = 'block';
+      }
+    }
 
     // Init
     charger();
