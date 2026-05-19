@@ -36,7 +36,7 @@ async function getProUser() {
   return {
     id: user.id,
     email: user.email,
-    nom: meta.nom || user.email,
+    nom: meta.full_name || meta.nom || user.email,
     role: meta.role || 'revendeur',
     magasin_nom: meta.magasin_nom || null,
     magasin_ville: meta.magasin_ville || null,
