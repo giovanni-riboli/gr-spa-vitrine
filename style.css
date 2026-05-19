@@ -1025,7 +1025,7 @@ input { font-family: inherit; font-size: 16px !important; }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .gamme-hero { padding: 8rem 0 3.5rem; }
+  .gamme-hero { padding: 7rem 20px 3rem; }
   .gamme-models__grid { grid-template-columns: 1fr; }
   .gamme-equipment__grid { grid-template-columns: repeat(2, 1fr); }
 }
@@ -1692,7 +1692,7 @@ input { font-family: inherit; font-size: 16px !important; }
 }
 
 @media (max-width: 768px) {
-  .shop-hero { padding: 7rem 20px 3rem; }
+  .shop-hero, .page-hero, .store-hero { padding: 7rem 20px 3rem; }
   .product-hero { padding: 6rem 20px 3rem; flex-direction: column; }
   :root {
     --space-sm: 32px;
@@ -1770,5 +1770,5 @@ input { font-family: inherit; font-size: 16px !important; }
 @media (max-width: 768px) {
   .product-section { padding: var(--space-sm) 20px; }
   .sel-content { padding: var(--space-sm) 20px; }
-  .product-hero { padding-top: calc(var(--nav-h) + 24px); }
+  /* product-hero mobile géré par bloc shop-hero/product-hero */
 }
