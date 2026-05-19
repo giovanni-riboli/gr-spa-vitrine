@@ -368,7 +368,7 @@
         <li><a href='revendeurs'>Nos magasins</a></li>
         <li><a href='blog'>Blog</a></li>
       </ul>
-      <a class='nav__mobile-cta' href='quiz.html'>🎯 Trouver mon spa →</a>
+      <a class='nav__mobile-cta' href='quiz.html'>Trouver mon spa →</a>
     </div>
   </header>
 
@@ -469,14 +469,14 @@
 
         <!-- Capture email -->
         <div class="capture-form" id="captureForm">
-          <h3>💾 Sauvegardez votre simulation</h3>
+          <h3>Sauvegardez votre simulation</h3>
           <div class="capture-row">
             <input type="text" id="capturePrenom" placeholder="Prénom" autocomplete="given-name">
             <input type="email" id="captureEmail" placeholder="Email" autocomplete="email">
             <button class="btn-capture" onclick="saveSimulation()">Envoyer</button>
           </div>
           <div class="capture-success" id="captureSuccess">
-            ✅ Simulation envoyée ! Vérifiez votre email.
+            ✓ Simulation envoyée ! Vérifiez votre email.
           </div>
           <p class="capture-note">Nous vous envoyons le récapitulatif + nos conseils financement.</p>
         </div>
@@ -496,17 +496,17 @@
       <p class="sub">Notre partenaire financier de confiance pour votre projet spa</p>
       <div class="avantages-grid">
         <div class="avantage-card">
-          <div class="icon">⚡</div>
+          <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="#c7a260" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
           <h3>Réponse rapide</h3>
           <p>Décision de financement en 24h. Votre spa livré sans attendre.</p>
         </div>
         <div class="avantage-card">
-          <div class="icon">📋</div>
+          <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="#c7a260" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div>
           <h3>Dossier simplifié</h3>
           <p>Constitution du dossier directement en showroom avec votre conseiller Giovanni Riboli.</p>
         </div>
         <div class="avantage-card">
-          <div class="icon">💳</div>
+          <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="#c7a260" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg></div>
           <h3>Jusqu'à 180 mois</h3>
           <p>Des mensualités adaptées à votre budget, de 12 à 180 mois selon le montant financé.</p>
         </div>
@@ -598,7 +598,7 @@
       const available = TRANCHES.some(t => montant >= t.min && montant <= t.max && duree >= t.minD && duree <= t.maxD);
       if (!available) {
         document.getElementById('mensualite').innerHTML = '—';
-        document.getElementById('taegBadge').innerHTML = '⚠️ Cette combinaison montant/durée n\'est pas disponible. Veuillez ajuster les paramètres.';
+        document.getElementById('taegBadge').innerHTML = 'Cette combinaison montant/durée n\'est pas disponible. Veuillez ajuster les paramètres.';
       }
 
       // Mettre en surbrillance les durées disponibles

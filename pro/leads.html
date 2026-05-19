@@ -386,7 +386,7 @@
         col.innerHTML = cards.map(l => `
           <div class="kanban-card" draggable="true" data-id="${l.id}" data-statut="${l.statut}" ondragstart="onDragStart(event)">
             <div class="card-name">${esc(l.prenom || 'Inconnu')} · ${esc(l.code_postal || '-')}</div>
-            ${currentUser && currentUser.role === 'admin' ? `<div class="card-info">📍 ${esc(l.magasin_nom || '-')}</div>` : ''}
+            ${currentUser && currentUser.role === 'admin' ? `<div class="card-info">${esc(l.magasin_nom || '-')}</div>` : ''}
             <div class="card-budget">${BUDGET_LABELS[l.budget] || esc(l.budget || '-')}</div>
             <div class="card-gamme">${esc(l.gamme_recommandee || '-')}</div>
             <div class="card-actions">

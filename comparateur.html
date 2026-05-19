@@ -226,7 +226,7 @@
         <li><a href='revendeurs'>Nos magasins</a></li>
         <li><a href='blog'>Blog</a></li>
       </ul>
-      <a class='nav__mobile-cta' href='quiz.html'>🎯 Trouver mon spa →</a>
+      <a class='nav__mobile-cta' href='quiz.html'>Trouver mon spa →</a>
     </div>
   </header>
 
@@ -274,7 +274,7 @@
           <button class="btn-cap-comp" onclick="envoyerComparaison()">Envoyer →</button>
         </div>
         <div class="comp-capture-success" id="capSuccess" style="display:none">
-          ✅ Comparaison envoyée ! Vérifiez votre email.
+          ✓ Comparaison envoyée ! Vérifiez votre email.
         </div>
       </div>
     </div>
@@ -364,12 +364,12 @@
 
     function val(v, unite) {
       if (v === null || v === undefined || v === '') return '—';
-      if (typeof v === 'boolean') return v ? '<span class="check-yes">✅</span>' : '<span class="check-no">❌</span>';
+      if (typeof v === 'boolean') return v ? '<span class="check-yes">✓</span>' : '<span class="check-no">—</span>';
       return v + (unite ? ' ' + unite : '');
     }
 
     function bool(v) {
-      return v ? '<span class="check-yes">✅</span>' : '<span class="check-no">❌</span>';
+      return v ? '<span class="check-yes">✓</span>' : '<span class="check-no">—</span>';
     }
 
     function afficherComparaison() {
@@ -393,7 +393,7 @@
         html += '</tr>';
       }
 
-      section('🏊 Caractéristiques principales');
+      section('Caractéristiques principales');
       ligne('Places totales', p => val(p.nb_places));
       ligne('Places assises', p => val(p.nb_places_assises));
       ligne('Places allongées', p => val(p.nb_places_allongees));
@@ -404,7 +404,7 @@
       ligne('Puissance', p => val(p.puissance_kw, 'kW'));
       ligne('Alimentation', p => p.voltage ? `${p.voltage} / ${p.amperage || '—'}` : '—');
 
-      section('💪 Massage & Hydromassage');
+      section('Massage & Hydromassage');
       ligne('Nombre de buses', p => `<strong>${val(p.nb_buses)}</strong>`);
       ligne('Pompes massage', p => val(p.nb_pompes_massage));
       ligne('Pompes filtration', p => val(p.nb_pompes_filtration));
@@ -412,20 +412,20 @@
       ligne('Pompe à air', p => val(p.pompe_air));
       ligne('Massage robotisé', p => bool(p.massage_robotise));
 
-      section('🌡️ Confort & Technologies');
+      section('Confort & Technologies');
       ligne('Chauffage', p => val(p.chauffage));
       ligne('Traitement UV', p => val(p.traitement_uv));
       ligne('Aromathérapie', p => bool(p.aromatherapie));
       ligne('Système de contrôle', p => val(p.systeme_controle));
       ligne('Couverture', p => val(p.couverture));
 
-      section('✨ Design & Finitions');
+      section('Design & Finitions');
       ligne('Habillage extérieur', p => val(p.habillage));
       ligne('Couleur coque', p => val(p.couleur_coque));
       ligne('Revêtement intérieur', p => val(p.revetement_interieur));
       ligne('Structure', p => val(p.structure_aluminium));
       ligne('Isolation', p => val(p.isolation));
-      ligne('Cascade RGB', p => p.cascade_rgb ? `<span class="check-yes">✅</span> ${p.cascade_rgb}` : '<span class="check-no">❌</span>');
+      ligne('Cascade RGB', p => p.cascade_rgb ? `<span class="check-yes">✓</span> ${p.cascade_rgb}` : '<span class="check-no">—</span>');
       ligne('LEDs RGB', p => bool(p.leds_rgb));
 
       // CTA
