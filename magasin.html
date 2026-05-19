@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magasin Giovanni Riboli</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --gold: #c7a260;
+            --dark: #1a2d3e;
+            --dark2: #253a4c;
+            --light: #f8f6f2;
+            --accent: var(--gold);
+        }
+        .revendeur-mode { --accent: #4a90b8; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        .lp-hero {
+            background: var(--dark);
+            padding: 120px 24px 60px;
+            text-align: center;
+            color: #fff;
+        }
+        .lp-hero .badge {
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 8px 20px;
+            margin-bottom: 24px;
+            font-weight: 600;
+        }
+        .lp-hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.2rem, 5vw, 3.6rem);
+            font-weight: 400;
+            margin-bottom: 12px;
+            letter-spacing: 0.02em;
+        }
+        .lp-hero .subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 32px;
+        }
+        .lp-hero .cta-row {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn-gold {
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 16px 32px;
+            min-height: 44px;
+            min-width: 44px;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-gold.primary {
+            background: var(--accent);
+            color: #fff;
+        }
+        .btn-gold.primary:hover { opacity: 0.9; }
+        .btn-gold.outline {
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .btn-gold.outline:hover { border-color: var(--accent); color: var(--accent); }
+
+        .info-section {
+            max-width: 900px;
+            margin: -40px auto 0;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
+        }
+        .info-card {
+            background: #fff;
+            padding: 40px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+        }
+        .info-item label {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+        .info-item a, .info-item span {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: var(--dark2);
+            text-decoration: none;
+        }
+        .info-item a:hover { color: var(--accent); }
+
+        .section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 3vw, 2.4rem);
+            font-weight: 400;
+            color: var(--dark2);
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .section-sub {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: #888;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .gammes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+        .gamme-card {
+            background: var(--light);
+            padding: 40px 24px;
+            text-align: center;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .gamme-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+        }
+        .gamme-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            color: var(--dark2);
+            margin-bottom: 8px;
+        }
+        .gamme-card p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .rdv-section {
+            background: var(--light);
+        }
+        .rdv-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .rdv-form input, .rdv-form textarea {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            padding: 14px 20px;
+            border: 1px solid #ddd;
+            background: #fff;
+            color: var(--dark2);
+            outline: none;
+            min-height: 44px;
+        }
+        .rdv-form textarea { resize: vertical; min-height: 80px; }
+        .rdv-form input:focus, .rdv-form textarea:focus { border-color: var(--accent); }
+        .rdv-form .btn-gold { text-align: center; }
+        .form-success {
+            display: none;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            color: #2a7d5f;
+            font-size: 1rem;
+            padding: 20px;
+        }
+
+        .lp-footer {
+            background: var(--dark);
+            color: rgba(255,255,255,0.5);
+            text-align: center;
+            padding: 40px 24px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+        }
+        .lp-footer a { color: var(--gold); text-decoration: none; }
+
+        #loading {
+            text-align: center;
+            padding: 200px 24px;
+            font-family: 'Inter', sans-serif;
+            color: #999;
+        }
+        #error-msg {
+            display: none;
+            text-align: center;
+            padding: 200px 24px;
+            font-family: 'Inter', sans-serif;
+            color: #c0392b;
+        }
+        #page-content { display: none; }
+    </style>
+</head>
+<body>
+    <div id="loading">Chargement...</div>
+    <div id="error-msg">
+        <h2 style="font-family:'Cormorant Garamond',serif;color:#253a4c;margin-bottom:16px;">Magasin introuvable</h2>
+        <p>Ce magasin n'existe pas ou n'est plus disponible.</p>
+        <a href="/revendeurs.html" style="color:#c7a260;margin-top:24px;display:inline-block;">← Voir tous nos magasins</a>
+    </div>
+
+    <div id="page-content">
+        <section class="lp-hero">
+            <div class="badge" id="hero-badge"></div>
+            <h1 id="hero-nom"></h1>
+            <p class="subtitle" id="hero-lieu"></p>
+            <div class="cta-row">
+                <a class="btn-gold primary" id="btn-appeler" href="#">📞 Appeler</a>
+                <a class="btn-gold outline" id="btn-devis" href="#">Demander un devis</a>
+            </div>
+        </section>
+
+        <div class="info-section">
+            <div class="info-card">
+                <div class="info-item">
+                    <label>Adresse</label>
+                    <span id="info-adresse"></span>
+                </div>
+                <div class="info-item">
+                    <label>Téléphone</label>
+                    <a id="info-tel" href="#"></a>
+                </div>
+                <div class="info-item">
+                    <label>Email</label>
+                    <a id="info-email" href="#"></a>
+                </div>
+                <div class="info-item">
+                    <label>Votre conseiller</label>
+                    <span id="info-responsable"></span>
+                </div>
+            </div>
+        </div>
+
+        <section class="section">
+            <h2 class="section-title">Nos spas en showroom</h2>
+            <p class="section-sub">Venez découvrir et tester nos spas Giovanni Riboli dans notre showroom</p>
+            <div class="gammes-grid">
+                <a class="gamme-card" href="/gammes/relax.html">
+                    <h3>Relax</h3>
+                    <p>Détente & bien-être au quotidien</p>
+                </a>
+                <a class="gamme-card" href="/gammes/energy.html">
+                    <h3>Energy</h3>
+                    <p>Performance & hydrothérapie</p>
+                </a>
+                <a class="gamme-card" href="/gammes/luxury.html">
+                    <h3>Luxury</h3>
+                    <p>L'excellence du spa haut de gamme</p>
+                </a>
+            </div>
+        </section>
+
+        <section class="section rdv-section">
+            <h2 class="section-title">Planifiez votre visite</h2>
+            <p class="section-sub">Notre équipe vous accueille du lundi au samedi</p>
+            <form class="rdv-form" id="rdv-form">
+                <input type="text" name="prenom" placeholder="Votre prénom" required>
+                <input type="tel" name="telephone" placeholder="Votre téléphone" required>
+                <textarea name="message" placeholder="Message (optionnel)"></textarea>
+                <button type="submit" class="btn-gold primary">Envoyer</button>
+            </form>
+            <div class="form-success" id="form-success">✓ Merci ! Nous vous recontactons rapidement.</div>
+        </section>
+
+        <footer class="lp-footer">
+            <p>© 2025 Giovanni Riboli — <a href="/">Accueil</a> · <a href="/revendeurs.html">Nos magasins</a></p>
+        </footer>
+    </div>
+
+    <script>
+    (async () => {
+        const SUPABASE_URL = 'https://ohjzggceozamhdesecxi.supabase.co';
+        const ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oanpnZ2Nlb3phbWhkZXNlY3hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Njc5MDYsImV4cCI6MjA5MjM0MzkwNn0.wW-tqXBDUtKURR31bh3CUWIcuYMUJTZLqq2LLT1kJnA';
+
+        const slug = new URLSearchParams(window.location.search).get('slug')
+            || window.location.pathname.split('/').pop().replace('.html', '');
+
+        if (!slug || slug === 'magasin') {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error-msg').style.display = 'block';
+            return;
+        }
+
+        try {
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/magasins?slug=eq.${slug}&actif=eq.true&select=*`, {
+                headers: { 'apikey': ANON, 'Authorization': `Bearer ${ANON}` }
+            });
+            const data = await res.json();
+            const m = data[0];
+
+            if (!m) {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error-msg').style.display = 'block';
+                return;
+            }
+
+            const isPropre = m.type === 'propre';
+            document.title = `${m.nom} — Giovanni Riboli`;
+
+            if (!isPropre) document.getElementById('page-content').classList.add('revendeur-mode');
+
+            document.getElementById('hero-badge').textContent = isPropre ? 'Showroom officiel Giovanni Riboli' : 'Revendeur Agréé Giovanni Riboli';
+            document.getElementById('hero-nom').textContent = m.nom;
+            document.getElementById('hero-lieu').textContent = `${m.ville} — Département ${m.departement}`;
+
+            document.getElementById('btn-appeler').href = `tel:${m.telephone}`;
+            document.getElementById('btn-devis').href = `https://go.gr-spa.com/?utm_source=magasin&utm_campaign=${slug}`;
+
+            document.getElementById('info-adresse').textContent = `${m.adresse}, ${m.cp} ${m.ville}`;
+            document.getElementById('info-tel').textContent = m.telephone;
+            document.getElementById('info-tel').href = `tel:${m.telephone}`;
+            document.getElementById('info-email').textContent = m.email;
+            document.getElementById('info-email').href = `mailto:${m.email}`;
+            document.getElementById('info-responsable').textContent = m.responsable || '—';
+
+            // Show
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('page-content').style.display = 'block';
+
+            // Form
+            document.getElementById('rdv-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const fd = new FormData(e.target);
+                const payload = {
+                    prenom: fd.get('prenom'),
+                    telephone: fd.get('telephone'),
+                    message: fd.get('message'),
+                    magasin_slug: slug,
+                    magasin_nom: m.nom,
+                    source: 'landing-magasin'
+                };
+                try {
+                    await fetch('https://n8n.gr-spa.com/webhook/nouveau-lead-gr-spa', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                } catch(err) {}
+                e.target.style.display = 'none';
+                document.getElementById('form-success').style.display = 'block';
+            });
+
+        } catch(err) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error-msg').style.display = 'block';
+        }
+    })();
+    </script>
+</body>
+</html>

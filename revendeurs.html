@@ -305,6 +305,11 @@
         <select id="dptFilter">
             <option value="">Tous les départements</option>
         </select>
+        <select id="typeFilter" style="min-width:180px;">
+            <option value="">Tous</option>
+            <option value="magasin-propre">Magasins propres</option>
+            <option value="revendeur">Revendeurs</option>
+        </select>
     </div>
 
     <!-- LAYOUT -->
@@ -1020,11 +1025,13 @@
     function filterDealersText() {
         const q = document.getElementById('searchInput').value.toLowerCase().trim();
         const dpt = dptSelect.value;
+        const typeVal = document.getElementById('typeFilter').value;
         const filtered = dealers.filter(d => {
             const matchDpt = !dpt || d.DPT === dpt;
             const text = (d.REVENDEURS + ' ' + d['ADRESSES POSTALES'] + ' ' + d.DPT).toLowerCase();
             const matchQ = !q || text.includes(q);
-            return matchDpt && matchQ;
+            const matchType = !typeVal || (d.TYPE || '') === typeVal;
+            return matchDpt && matchQ && matchType;
         });
         renderCards(filtered);
     }
@@ -1054,7 +1061,45 @@
         }
     });
     dptSelect.addEventListener('change', filterDealersText);
+    document.getElementById('typeFilter').addEventListener('change', filterDealersText);
     renderCards(dealers);
+
+    // --- Supabase sync: load fresh data and merge ---
+    (async function loadFromSupabase() {
+        const ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oanpnZ2Nlb3phbWhkZXNlY3hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Njc5MDYsImV4cCI6MjA5MjM0MzkwNn0.wW-tqXBDUtKURR31bh3CUWIcuYMUJTZLqq2LLT1kJnA';
+        try {
+            const res = await fetch('https://ohjzggceozamhdesecxi.supabase.co/rest/v1/magasins?actif=eq.true&select=*', {
+                headers: { 'apikey': ANON, 'Authorization': 'Bearer ' + ANON }
+            });
+            const rows = await res.json();
+            if (!Array.isArray(rows) || !rows.length) return;
+            // Map Supabase rows to existing dealer format
+            const mapped = rows.map(r => ({
+                DPT: r.departement || '',
+                GESTIONNAIRE: r.responsable || '',
+                REVENDEURS: r.nom,
+                NOMS: r.responsable || '',
+                'ADRESSES POSTALES': `${r.adresse} ${r.cp} ${r.ville}`,
+                TELEPHONES: r.telephone || '',
+                'E-MAILS': r.email || '',
+                SLUG: r.slug,
+                TYPE: r.type === 'propre' ? 'magasin-propre' : 'revendeur',
+                _lat: r.lat, _lng: r.lng
+            }));
+            // Replace hardcoded dealers with Supabase data
+            dealers.length = 0;
+            mapped.forEach(d => dealers.push(d));
+            // Re-populate dept filter
+            const newDpts = [...new Set(dealers.map(d => d.DPT))].sort((a,b) => a-b);
+            dptSelect.innerHTML = '<option value="">Tous les départements</option>';
+            newDpts.forEach(d => {
+                const o = document.createElement('option');
+                o.value = d; o.textContent = (DEPT_NAMES[String(d)] ? DEPT_NAMES[String(d)] + ' (' + d + ')' : 'Département ' + d);
+                dptSelect.appendChild(o);
+            });
+            renderCards(dealers);
+        } catch(e) { console.warn('Supabase sync failed, using hardcoded data', e); }
+    })();
 
     // --- Handle ?cp= URL parameter ---
     (function() {
