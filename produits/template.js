@@ -145,6 +145,37 @@
           }).join('');
         }
       }
+
+      // === COMPARER CE MODELE ===
+      var compareBtn = document.getElementById('product-compare-btn');
+      if (compareBtn && p.slug) {
+        compareBtn.href = '../comparateur.html?pre=' + p.slug;
+        compareBtn.style.display = 'inline-flex';
+      }
+
+      // === MODELES SIMILAIRES ===
+      var similarSection = document.getElementById('similar-products');
+      if (similarSection && p.gamme) {
+        fetch(
+          'https://ohjzggceozamhdesecxi.supabase.co/rest/v1/produits?gamme=eq.' + p.gamme + '&slug=neq.' + p.slug + '&actif=eq.true&select=slug,nom,gamme,nb_places,nb_buses&limit=3',
+          { headers: { 'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oanpnZ2Nlb3phbWhkZXNlY3hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Njc5MDYsImV4cCI6MjA5MjM0MzkwNn0.wW-tqXBDUtKURR31bh3CUWIcuYMUJTZLqq2LLT1kJnA', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oanpnZ2Nlb3phbWhkZXNlY3hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Njc5MDYsImV4cCI6MjA5MjM0MzkwNn0.wW-tqXBDUtKURR31bh3CUWIcuYMUJTZLqq2LLT1kJnA' } }
+        ).then(function(r) { return r.json(); }).then(function(similar) {
+          if (!similar || !similar.length) return;
+          similarSection.style.display = 'block';
+          var grid = document.getElementById('similar-grid');
+          if (grid) {
+            grid.innerHTML = similar.map(function(s) {
+              return '<a href="../produits/' + s.slug + '.html" class="similar-card">' +
+                '<div class="similar-gamme">' + (s.gamme.charAt(0).toUpperCase() + s.gamme.slice(1)) + '</div>' +
+                '<div class="similar-nom">' + s.nom + '</div>' +
+                '<div class="similar-specs">' + (s.nb_places || '—') + ' places · ' + (s.nb_buses || '—') + ' buses</div>' +
+                '<span class="similar-cta">Voir le modèle →</span>' +
+              '</a>';
+            }).join('');
+          }
+        }).catch(function(){});
+      }
+
     })
     .catch(function () { /* silently fail, static content remains */ });
 })();
