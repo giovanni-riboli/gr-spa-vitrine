@@ -74,13 +74,36 @@
         return;
       }
 
-      // Multiple sections: try to match by ligne grouping
+      // Multiple sections: distribuer les produits par lignes
+      // Si plus de lignes que de grids, regrouper les lignes en surplus dans le dernier grid
       var ligneKeys = Object.keys(groups);
-      grids.forEach(function (grid, i) {
-        if (i < ligneKeys.length) {
-          grid.innerHTML = groups[ligneKeys[i]].map(buildCard).join('');
-        }
-      });
+      var numGrids = grids.length;
+      
+      if (ligneKeys.length <= numGrids) {
+        // Cas simple : 1 ligne par grid
+        grids.forEach(function (grid, i) {
+          if (i < ligneKeys.length) {
+            grid.innerHTML = groups[ligneKeys[i]].map(buildCard).join('');
+          }
+        });
+      } else {
+        // Plus de lignes que de grids : distribuer équitablement
+        // Premier grid : première ligne
+        // Derniers grids : toutes les lignes restantes regroupées
+        grids.forEach(function (grid, i) {
+          if (i < numGrids - 1) {
+            // Grids du milieu : une ligne chacun
+            grid.innerHTML = (groups[ligneKeys[i]] || []).map(buildCard).join('');
+          } else {
+            // Dernier grid : toutes les lignes restantes
+            var remaining = [];
+            for (var j = i; j < ligneKeys.length; j++) {
+              remaining = remaining.concat(groups[ligneKeys[j]] || []);
+            }
+            grid.innerHTML = remaining.map(buildCard).join('');
+          }
+        });
+      }
     })
     .catch(function (e) { console.error('Erreur chargement produits:', e); });
 })();
