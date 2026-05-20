@@ -1313,6 +1313,7 @@
       if (p.aromatherapie) equip.push('Aromathérapie');
       if (p.leds_rgb) equip.push('LEDs RGB');
       return `<a href="${r.url}" class="product-card ${r.featured ? 'featured' : ''}">
+        <img src="assets/produits/${slug}.jpg" alt="${r.name}" style="width:100%;height:140px;object-fit:contain;border-radius:8px;background:#f8f6f2;margin-bottom:12px" onerror="this.style.display='none'">
         <div style="flex:1">
           ${r.featured ? '<span class="product-badge">Recommandé pour vous</span>' : ''}
           <span class="product-gamme">${r.gamme}</span>
