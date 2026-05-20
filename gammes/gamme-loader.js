@@ -47,10 +47,11 @@
         }
 
         return '<article class="model-card">' +
-          '<div class="model-card__image"><div class="model-card__placeholder">' +
-          '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c7a260" stroke-width="1">' +
-          '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>' +
-          '</svg><span>Photo ' + p.nom + '</span></div></div>' +
+          '<div class="model-card__image">' +
+          '<img src="/assets/produits/' + p.slug + '.jpg" alt="' + p.nom + '" ' +
+          'style="width:100%;height:100%;object-fit:contain;background:#f8f6f2;" ' +
+          'onerror="this.parentNode.innerHTML=\'<div class=model-card__placeholder><span>' + p.nom + '</span></div>\'">' +
+          '</div>' +
           '<div class="model-card__content">' +
           '<h3 class="model-card__name"><a href="/produits/' + p.slug + '.html">' + p.nom + '</a></h3>' +
           (p.description_courte ? '<p class="model-card__subtitle">' + p.description_courte + '</p>' : '') +
