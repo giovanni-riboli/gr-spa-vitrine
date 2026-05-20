@@ -1116,53 +1116,103 @@
   }
 
 
-    // Sauvegarde progression quiz (abandon)
-    var _saveTimeout = null;
+    // Sauvegarde progression quiz
     var _savedEmail = null;
+    var QUIZ_SAVE_KEY = 'gr_quiz_progress';
     
     function saveProgress() {
       var email = document.getElementById('saveEmail').value.trim();
       if (!email || !email.includes('@')) { document.getElementById('saveEmail').focus(); return; }
-      if (!email || !email.includes('@')) return;
       if (email === _savedEmail) return;
       _savedEmail = email;
       
-      clearTimeout(_saveTimeout);
-      _saveTimeout = setTimeout(async function() {
+      // 1. Sauvegarder localement
+      try {
+        localStorage.setItem(QUIZ_SAVE_KEY, JSON.stringify({
+          email: email,
+          data: {
+            ambiance: quizData.ambiance, objectif: quizData.objectif,
+            nb_personnes: quizData.nb_personnes, delai: quizData.delai,
+            budget: quizData.budget, type_spa: quizData.type_spa
+          },
+          savedAt: Date.now()
+        }));
+      } catch(e) {}
+      
+      // 2. Supabase + email confirmation
+      (async function() {
         try {
           var SUPABASE_URL = 'https://ohjzggceozamhdesecxi.supabase.co';
           var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oanpnZ2Nlb3phbWhkZXNlY3hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Njc5MDYsImV4cCI6MjA5MjM0MzkwNn0.wW-tqXBDUtKURR31bh3CUWIcuYMUJTZLqq2LLT1kJnA';
           
-          // Sauvegarder dans Supabase avec statut "abandon_quiz"
           await fetch(SUPABASE_URL + '/rest/v1/leads', {
             method: 'POST',
             headers: { 'apikey': ANON, 'Authorization': 'Bearer ' + ANON, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
             body: JSON.stringify({
-              email: email,
-              prenom: quizData.prenom || null,
-              budget: quizData.budget || null,
-              delai: quizData.delai || null,
-              ambiance: quizData.ambiance || null,
-              objectif: quizData.objectif || null,
-              source: quizData.source || 'quiz',
-              statut: 'abandon_quiz',
-              email_j1_envoye: false, email_j3_envoye: false, email_j7_envoye: false,
-              whatsapp_relance_envoye: false, alerte_jc_envoyee: false,
-              utm_source: quizData.utm_source || null,
-              gclid: quizData.gclid || null
+              email: email, prenom: quizData.prenom || null, budget: quizData.budget || null,
+              delai: quizData.delai || null, ambiance: quizData.ambiance || null,
+              objectif: quizData.objectif || null, source: quizData.source || 'quiz',
+              statut: 'abandon_quiz', email_j1_envoye: false, email_j3_envoye: false,
+              email_j7_envoye: false, whatsapp_relance_envoye: false, alerte_jc_envoyee: false,
+              utm_source: quizData.utm_source || null, gclid: quizData.gclid || null
             })
           });
           
-          document.getElementById('saveOk').style.display = 'inline';
+          // Email de confirmation
+          await fetch('/.netlify/functions/send-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              to: email,
+              subject: 'Votre configurateur de spa Giovanni Riboli',
+              html: '<div style="background:#1a2d3e;padding:20px;font-family:Arial"><div style="max-width:560px;margin:0 auto;background:#253a4c;border-radius:12px;padding:32px;border-top:4px solid #c7a260"><img src="https://gr-spa-vitrine.netlify.app/assets/logo-blanc.svg" width="120" style="margin-bottom:20px"><h2 style="color:#fff;font-size:22px">Votre progression est sauvegardée</h2><p style="color:#ccd8e0">Vos réponses sont conservées pendant 7 jours. Reprenez votre configurateur quand vous voulez.</p><a href="https://gr-spa-vitrine.netlify.app/quiz.html" style="display:inline-block;margin-top:16px;background:#c7a260;color:#1a2d3e;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:700">Reprendre mon configurateur →</a></div></div>'
+            })
+          });
           
-          // Programmer un email de récupération dans 30 min via n8n
-          // (W3 détectera ce lead avec statut=abandon_quiz et email_j1_envoye=false)
-          
-        } catch(e) { /* silencieux */ }
-      }, 1500); // attendre 1.5s après la dernière frappe
+          var ok = document.getElementById('saveOk');
+          ok.style.display = 'inline';
+          ok.textContent = '✓ Sauvegardé ! Email envoyé.';
+        } catch(e) {
+          var ok = document.getElementById('saveOk');
+          ok.style.display = 'inline';
+          ok.textContent = '✓ Sauvegardé !';
+        }
+      })();
     }
     
-    // Si le quiz est soumis, ne pas envoyer l'email de récupération
+    // Restaurer la progression au chargement
+    (function() {
+      try {
+        var saved = JSON.parse(localStorage.getItem(QUIZ_SAVE_KEY));
+        if (!saved || !saved.data) return;
+        if (Date.now() - saved.savedAt > 7 * 24 * 3600 * 1000) { localStorage.removeItem(QUIZ_SAVE_KEY); return; }
+        var d = saved.data;
+        if (d.ambiance) quizData.ambiance = d.ambiance;
+        if (d.objectif) quizData.objectif = d.objectif;
+        if (d.nb_personnes) quizData.nb_personnes = d.nb_personnes;
+        if (d.delai) quizData.delai = d.delai;
+        if (d.budget) quizData.budget = d.budget;
+        if (d.type_spa) quizData.type_spa = d.type_spa;
+        if (saved.email) { var el = document.getElementById('saveEmail'); if(el) el.value = saved.email; }
+        
+        // Pré-sélectionner les options
+        document.querySelectorAll('.option-card').forEach(function(card) {
+          if (card.dataset.field && quizData[card.dataset.field] === card.dataset.value) {
+            card.classList.add('selected');
+            var btn = document.getElementById('btn' + card.closest('.step').dataset.step);
+            if (btn) { btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; }
+          }
+        });
+        
+        // Bannière discrète
+        var b = document.createElement('div');
+        b.style.cssText = 'position:fixed;top:90px;left:50%;transform:translateX(-50%);background:#253a4c;color:#c7a260;padding:10px 20px;border-radius:20px;font-size:13px;font-family:Inter,sans-serif;z-index:999;border:1px solid rgba(199,162,96,.3);white-space:nowrap';
+        b.textContent = '↩ Progression restaurée';
+        document.body.appendChild(b);
+        setTimeout(function(){ b.style.transition='opacity .5s'; b.style.opacity='0'; setTimeout(function(){ b.remove(); }, 500); }, 4000);
+      } catch(e) {}
+    })();
+    
     // (W1 gère la soumission complète)
 
   async function submitQuiz() {
