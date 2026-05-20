@@ -186,6 +186,7 @@
           if (grid) {
             grid.innerHTML = similar.map(function(s) {
               return '<a href="../produits/' + s.slug + '.html" class="similar-card">' +
+                '<img src="../assets/produits/' + s.slug + '.jpg" alt="' + s.nom + '" style="width:100%;height:120px;object-fit:contain;border-radius:6px;background:#f8f6f2;margin-bottom:12px" onerror="this.style.display='none'">' +
                 '<div class="similar-gamme">' + (s.gamme.charAt(0).toUpperCase() + s.gamme.slice(1)) + '</div>' +
                 '<div class="similar-nom">' + s.nom + '</div>' +
                 '<div class="similar-specs">' + (s.nb_places || '—') + ' places · ' + (s.nb_buses || '—') + ' buses</div>' +
