@@ -96,35 +96,11 @@
     .kanban-card[data-statut="gagne"]{border-left-color:var(--stat-gagne)}
     .kanban-card:hover{border-color:var(--accent)}
     .kanban-card.dragging{opacity:.5}
-
-    /* ─── VUE LISTE MOBILE ─── */
     @media(max-width:768px){
-      .table-wrap table, .table-wrap thead, .table-wrap tbody, .table-wrap tr, .table-wrap th { display:none; }
-      #mobileCards { display:block; }
+      .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .table-wrap table { min-width: 600px; }
     }
-    @media(min-width:769px){
-      #mobileCards { display:none; }
-    }
-    #mobileCards { display:none; }
-    .lead-mobile-card {
-      background:var(--bg-card);border-radius:10px;padding:16px;margin-bottom:10px;
-      border:1px solid rgba(255,255,255,.06);border-left:3px solid var(--stat-nouveau);
-      cursor:pointer;
-    }
-    .lead-mobile-card[data-statut="contacte"]{border-left-color:var(--stat-contacte)}
-    .lead-mobile-card[data-statut="rdv"]{border-left-color:var(--stat-rdv)}
-    .lead-mobile-card[data-statut="gagne"]{border-left-color:var(--stat-gagne)}
-    .lead-mobile-card:hover{border-color:var(--accent)}
-    .lmc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
-    .lmc-name{font-size:15px;font-weight:600;color:#fff}
-    .lmc-date{font-size:11px;color:var(--text-muted)}
-    .lmc-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
-    .lmc-tag{font-size:11px;color:var(--text-muted);background:rgba(255,255,255,.06);padding:2px 8px;border-radius:4px}
-    .lmc-source{font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px}
-    .lmc-actions{display:flex;gap:8px;margin-top:10px}
-    .lmc-btn{flex:1;padding:8px;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
-    .lmc-btn-view{background:rgba(255,255,255,.08);color:#fff}
-    .lmc-btn-contact{background:var(--accent);color:var(--bg-dark)}
+
     .card-source{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;margin-bottom:6px;letter-spacing:.3px}
     .card-info-row{font-size:11px;color:var(--text-muted);margin-top:3px;line-height:1.4}
     .kanban-card .card-name{font-size:13px;font-weight:600;color:#fff;margin-bottom:4px}
@@ -360,34 +336,6 @@
       const shown = filteredLeads.slice(start, start + PAGE_SIZE);
       const isAdmin = currentUser && currentUser.role === 'admin';
       document.getElementById('leadsEmpty').style.display = shown.length ? 'none' : 'block';
-      // Vue mobile cartes
-      document.getElementById('mobileCards').innerHTML = shown.map(l => {
-        const sc = SOURCE_CONFIG[l.source] || {icon:'📋',label:l.source||'',color:'#9ca3af'};
-        const isNew = l.statut === 'nouveau';
-        return `<div class="lead-mobile-card" data-statut="${l.statut}" onclick="openModal('${l.id}')">
-          <div class="lmc-top">
-            <div>
-              <div class="lmc-name">${esc(l.prenom||'Inconnu')}</div>
-              <div class="lmc-date">${formatDate(l.created_at)}</div>
-            </div>
-            <span class="badge badge-${l.statut}">${STATUT_LABELS[l.statut]||l.statut}</span>
-          </div>
-          <div class="lmc-row">
-            <span class="lmc-source" style="background:${sc.color}22;color:${sc.color}">${sc.icon} ${sc.label}</span>
-            <span class="lmc-tag">📍 ${esc(l.code_postal||'-')}</span>
-            ${l.budget ? `<span class="lmc-tag">💶 ${BUDGET_LABELS[l.budget]||l.budget}</span>` : ''}
-            ${l.delai ? `<span class="lmc-tag">⏱ ${DELAI_LABELS[l.delai]||l.delai}</span>` : ''}
-          </div>
-          <div class="lmc-row">
-            <span class="lmc-tag">📞 ${esc(l.telephone||'-')}</span>
-            ${l.magasin_nom ? `<span class="lmc-tag">🏪 ${esc(l.magasin_nom)}</span>` : ''}
-          </div>
-          <div class="lmc-actions" onclick="event.stopPropagation()">
-            <button class="lmc-btn lmc-btn-view" onclick="openModal('${l.id}')">👁 Détails</button>
-            ${isNew ? `<button class="lmc-btn lmc-btn-contact" onclick="markContacte('${l.id}',this)">✓ Rappelé</button>` : ''}
-          </div>
-        </div>`;
-      }).join('');
       document.getElementById('leadsTable').innerHTML = shown.map(l => {
         const isNew = l.statut === 'nouveau';
         return `<tr>
