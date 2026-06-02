@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Roma — Gamme Luxury — Ligne Massage | Giovanni Riboli</title>
-  <meta name="description" content="Spa Roma Giovanni Riboli — 54 buses, 5 assises + 1 allongée. Gamme Luxury — Ligne Massage.">
+  <title>Roma — Gamme Luxury | Giovanni Riboli</title>
+  <meta name="description" content="Spa Roma Giovanni Riboli — Gamme Luxury.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -110,6 +110,17 @@
         <li><a href='../revendeurs'>Nos magasins</a></li>
         <li><a href='../blog'>Blog</a></li>
       </ul>
+      <div class="nav__mobile-sep"></div>
+      <div class="nav__mobile-icons">
+        <a class="nav__mobile-icon-btn" href='../ma-selection.html' aria-label="Ma sélection" title="Ma sélection">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+          <span>Ma sélection</span>
+        </a>
+        <a class="nav__mobile-icon-btn" href='../espace-pro.html' aria-label="Espace pro" title="Espace pro">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          <span>Espace pro</span>
+        </a>
+      </div>
       <a class='nav__mobile-cta' href='../quiz.html'>Trouver mon spa →</a>
     </div>
   </header>
@@ -117,11 +128,19 @@
   <section class="product-hero">
     <div class="product-hero__info">
       <div class="breadcrumb">
-        <a href="../index.html">Accueil</a> &rsaquo; <a href="../index.html#gammes">Gamme Luxury — Ligne Massage</a> &rsaquo; Roma
+        <a href="../index.html">Accueil</a> &rsaquo; <a href="../index.html#gammes">Gamme Energy</a> &rsaquo; Amalfi
       </div>
-      <span class="gamme-badge">Luxury — Ligne Massage</span>
+      <div class="product-hero__top">
+        <span class="gamme-badge gamme-badge--label">Luxury</span>
+        <button id="heartBtn" class="gamme-badge heart-btn-hero" aria-label="Ajouter à ma sélection" title="Ajouter à ma sélection">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+        </button>
+        <a href="../comparateur.html?pre=roma" class="gamme-badge compare-btn-hero" title="Comparer ce modèle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/></svg>
+        </a>
+      </div>
       <h1 class="product-title">Roma</h1>
-      <p class="product-tagline">La puissance d'un massage séquentiel breveté, pour 6 personnes.</p>
+      <p class="product-tagline">L'expérience Luxury, signature Giovanni Riboli.</p>
     </div>
     <div class="product-hero__visual">
       <img src="../assets/produits/roma.jpg" alt="roma — Vue de dessus" style="width:100%;border-radius:8px;background:#f8f6f2;" loading="lazy">
@@ -130,7 +149,7 @@
 
   <section class="quick-specs">
     <div class="quick-spec">
-      <span class="quick-spec__value">54</span>
+      <span class="quick-spec__value">57</span>
       <span class="quick-spec__label">Buses inox</span>
     </div>
     <div class="quick-spec">
@@ -138,8 +157,8 @@
       <span class="quick-spec__label">210× 210 × 88 cm</span>
     </div>
     <div class="quick-spec">
-      <span class="quick-spec__value">6 places</span>
-      <span class="quick-spec__label">5 assises + 1 allongée</span>
+      <span class="quick-spec__value">5 places</span>
+      <span class="quick-spec__label">3 assises + 2 allongées</span>
     </div>
     <div class="quick-spec">
       <span class="quick-spec__value">ISOPLUS®</span>
@@ -147,27 +166,65 @@
     </div>
   </section>
 
+  <!-- STORE FINDER + CONTACT -->
+  <section class="store-finder" id="storeFinder">
+    <div class="store-finder__inner">
+      <div class="store-finder__header">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+        <span>Voir ce modèle en showroom près de chez vous</span>
+      </div>
+      <div class="store-finder__actions">
+        <button class="store-finder__geo-btn" onclick="storeFinderGeo()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+          Me localiser
+        </button>
+        <span class="store-finder__or">ou</span>
+        <div class="store-finder__cp-wrap">
+          <input type="text" id="storeFinderCP" placeholder="Votre code postal" maxlength="5" inputmode="numeric" class="store-finder__cp-input">
+          <button class="store-finder__cp-btn" onclick="storeFinderByCP()">Rechercher</button>
+        </div>
+      </div>
+      <div class="store-finder__result" id="storeFinderResult" style="display:none"></div>
+
+      <!-- Formulaire rappel — apparaît après résultat magasin -->
+      <div class="store-finder__recall" id="storeRecall" style="display:none">
+        <div class="store-finder__recall-divider">
+          <span>Vous préférez être rappelé ?</span>
+        </div>
+        <div class="store-finder__recall-form" id="recallForm">
+          <input type="text" id="rcPrenom" placeholder="Prénom *" autocomplete="given-name" required>
+          <input type="tel" id="rcTel" placeholder="Téléphone *" autocomplete="tel" inputmode="tel" required>
+          <input type="text" id="rcCP" placeholder="Code postal *" maxlength="5" inputmode="numeric" required>
+          <button class="store-finder__recall-btn" onclick="submitRecall()">Être rappelé →</button>
+        </div>
+        <div class="store-finder__recall-success" id="recallSuccess" style="display:none">
+          ✓ Demande envoyée ! Un conseiller vous contacte très prochainement.
+        </div>
+        <p class="store-finder__recall-note">Aucun démarchage — juste un expert spa à votre écoute.</p>
+      </div>
+    </div>
+  </section>
+
   <section class="product-section">
     <h2>Un spa d'exception</h2>
-          <p>Le Roma conjugue puissance et polyvalence. Ses 58 buses en inox délivrent un massage précis, pensé pour répondre aux besoins de chaque zone musculaire.</p>
-          <p>La technologie de massage séquentiel brevetée active les buses par groupes successifs, reproduisant les gestes d'un kinésithérapeute. Une approche unique, développée par Giovanni Riboli.</p>
-          <p>Avec 5 assises et 1 place allongée, le Roma accueille famille et invités dans un confort Luxury. La commande tactile Balboa permet de personnaliser chaque session.</p>
+          <p>L'Amalfi conjugue générosité et sophistication. Avec 62 buses réparties sur 5 places — dont 2 allongées — il offre une expérience de massage complète pour toute la famille.</p>
+          <p>La cascade intégrée détend les cervicales tandis que le dôme de réflexologie plantaire stimule les points d'acupression sous la voûte plantaire. Chaque place a été pensée pour cibler des zones musculaires spécifiques.</p>
+          <p>L'isolation ISOPLUS® et la pompe EcoEnergie® réduisent significativement la consommation électrique, sans compromis sur la puissance de massage. Un investissement durable.</p>
   </section>
 
   <section class="product-section">
     <h2>Fiche technique</h2>
     <table class="specs-table">
       <tbody>
-            <tr><td>Nombre de buses</td><td>54 buses inox</td></tr>
+            <tr><td>Nombre de buses</td><td>57 buses inox</td></tr>
             <tr><td>Dimensions</td><td>210 × 210 × 88 cm</td></tr>
-            <tr><td>Places</td><td>5 assises + 1 allongée</td></tr>
+            <tr><td>Places</td><td>3 assises + 2 allongées</td></tr>
             <tr><td>Volume</td><td>1 500 L</td></tr>
-            <tr><td>Système de contrôle</td><td>Balboa BP-TP500s tactile</td></tr>
+            <tr><td>Système de contrôle</td><td>Balboa BP-TP500s</td></tr>
             <tr><td>Chauffage</td><td>Titane 3 kW</td></tr>
             <tr><td>Pompe</td><td>3 CV</td></tr>
             <tr><td>Filtration</td><td>EcoEnergie® 10 m³/h</td></tr>
             <tr><td>Isolation</td><td>ISOPLUS®</td></tr>
-            <tr><td>Massage</td><td>Séquentiel breveté</td></tr>
       </tbody>
     </table>
   </section>
@@ -177,7 +234,7 @@
     <div class="equip-grid">
             <div class="equip-item"><span class="equip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg></span><span class="equip-label">Jets inox</span></div>
             <div class="equip-item"><span class="equip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></span><span class="equip-label">Pompe EcoEnergie®</span></div>
-            <div class="equip-item"><span class="equip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><circle cx="8" cy="8" r="2"/><circle cx="16" cy="16" r="2"/><path stroke-linecap="round" d="M2 8h4M12 8h10M2 16h12M20 16h2"/></svg></span><span class="equip-label">Commande tactile Balboa</span></div>
+            <div class="equip-item"><span class="equip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><circle cx="8" cy="8" r="2"/><circle cx="16" cy="16" r="2"/><path stroke-linecap="round" d="M2 8h4M12 8h10M2 16h12M20 16h2"/></svg></span><span class="equip-label">Système Balboa</span></div>
             <div class="equip-item"><span class="equip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4m0 0h18"/></svg></span><span class="equip-label">Lampe UV PURE</span></div>
             <div class="equip-item"><span class="equip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 11V7a5 5 0 0110 0v4"/></svg></span><span class="equip-label">Couverture isotherme + fermeture à clé</span></div>
             <div class="equip-item"><span class="equip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M22 17a10 10 0 00-20 0M6 17a6 6 0 0112 0M10 17a2 2 0 014 0"/></svg></span><span class="equip-label">Chromothérapie</span></div>
@@ -186,8 +243,6 @@
             <div class="equip-item"><span class="equip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12c1.5 0 3-1 4.5-1s3 1 4.5 1 3-1 4.5-1 3 1 4.5 1M3 17c1.5 0 3-1 4.5-1s3 1 4.5 1 3-1 4.5-1 3 1 4.5 1"/></svg></span><span class="equip-label">Cascade</span></div>
             <div class="equip-item"><span class="equip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h8M12 8v8"/></svg></span><span class="equip-label">Dôme réflexologie plantaire</span></div>
             <div class="equip-item"><span class="equip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07"/></svg></span><span class="equip-label">Isolation ISOPLUS®</span></div>
-            <div class="equip-item"><span class="equip-icon">✋</span><span class="equip-label">Massage séquentiel breveté</span></div>
-            <div class="equip-item"><span class="equip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span class="equip-label">Garantie 10 ans structure</span></div>
 
     </div>
   </section>
@@ -212,40 +267,9 @@
     </div>
   </section>
 
-  <section class="product-cta">
-    <a href="../revendeurs.html" class="btn btn--primary">Trouver un revendeur proche</a>
-    <a href="#" class="btn btn--outline">Télécharger la fiche technique</a>
-  </section>
 
-  <!-- Comparer ce modèle -->
-  <section class="product-section product-compare-section">
-    <a href="../comparateur.html?pre=roma" id="product-compare-btn" style="display:inline-flex">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="18" height="18"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/></svg>
-      Comparer ce modèle avec d'autres
-    </a>
-    <button id="heartBtn" aria-label="Ajouter à ma sélection">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
-      Ajouter à ma sélection
-    </button>
-  </section>
 
-  <!-- Capture lead -->
-  <div class="container">
-    <div class="product-capture" id="productCapture">
-      <h3>Intéressé par ce modèle ?</h3>
-      <p>Recevez la fiche technique complète et soyez rappelé par un conseiller.</p>
-      <div class="product-capture-form">
-        <input type="text" id="pcPrenom" placeholder="Prénom" autocomplete="given-name">
-        <input type="email" id="pcEmail" placeholder="Email" autocomplete="email">
-        <input type="text" id="pcCP" placeholder="Code postal" maxlength="5" inputmode="numeric">
-        <button class="btn-capture-prod" onclick="submitProductCapture()">Être rappelé →</button>
-      </div>
-      <div class="product-capture-success" id="pcSuccess">
-        ✓ Demande envoyée ! Un conseiller vous contacte très prochainement.
-      </div>
-      <p class="product-capture-note">Aucun démarchage — juste un expert spa à votre écoute.</p>
-    </div>
-  </div>
+
 
   <!-- Modèles similaires -->
   <section class="product-section" id="similar-products">
@@ -298,6 +322,163 @@
   }
   </script>
 
+  <script>
+  // ── STORE FINDER ──────────────────────────────────────────────
+  var SF_SUPABASE = 'https://ohjzggceozamhdesecxi.supabase.co';
+  var SF_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oanpnZ2Nlb3phbWhkZXNlY3hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Njc5MDYsImV4cCI6MjA5MjM0MzkwNn0.wW-tqXBDUtKURR31bh3CUWIcuYMUJTZLqq2LLT1kJnA';
+
+  var _currentMagasin = null;
+
+  function storeFinderShowResult(magasin) {
+    var el = document.getElementById('storeFinderResult');
+    var recall = document.getElementById('storeRecall');
+    if (!magasin) {
+      el.innerHTML = '<p class="store-finder__notfound">Aucun magasin trouvé dans votre secteur. <a href="../revendeurs">Voir tous nos magasins →</a></p>';
+      el.style.display = 'block';
+      recall.style.display = 'none';
+      return;
+    }
+    _currentMagasin = magasin;
+    // Pré-remplir le CP dans le formulaire rappel
+    if (document.getElementById('storeFinderCP').value) {
+      document.getElementById('rcCP').value = document.getElementById('storeFinderCP').value;
+    }
+    el.innerHTML = '<div class="store-finder__card">'
+      + '<div class="store-finder__card-info">'
+      + '<p class="store-finder__card-name">' + magasin.nom + '</p>'
+      + '<p class="store-finder__card-addr">' + magasin.adresse + ', ' + magasin.cp + ' ' + magasin.ville + '</p>'
+      + '</div>'
+      + '<a class="store-finder__call-btn" href="tel:' + magasin.telephone.replace(/\s/g,'') + '">'
+      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.338c0-.38.264-.712.64-.786l3.41-.682a.75.75 0 01.822.424l1.5 3a.75.75 0 01-.166.832l-1.42 1.42a11.265 11.265 0 005.638 5.638l1.42-1.42a.75.75 0 01.832-.166l3 1.5a.75.75 0 01.424.822l-.682 3.41a.75.75 0 01-.786.64A17.25 17.25 0 012.25 6.338z"/></svg>'
+      + magasin.telephone
+      + '</a>'
+      + '</div>';
+    el.style.display = 'block';
+    // Afficher le formulaire rappel avec animation
+    recall.style.display = 'block';
+  }
+
+  async function submitRecall() {
+    var prenom = document.getElementById('rcPrenom').value.trim();
+    var tel = document.getElementById('rcTel').value.trim();
+    var cp = document.getElementById('rcCP').value.trim();
+    if (!prenom) { document.getElementById('rcPrenom').focus(); return; }
+    if (!tel) { document.getElementById('rcTel').focus(); return; }
+    if (!cp || cp.length < 5) { document.getElementById('rcCP').focus(); return; }
+
+    var SUPABASE_URL = 'https://ohjzggceozamhdesecxi.supabase.co';
+    var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oanpnZ2Nlb3phbWhkZXNlY3hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Njc5MDYsImV4cCI6MjA5MjM0MzkwNn0.wW-tqXBDUtKURR31bh3CUWIcuYMUJTZLqq2LLT1kJnA';
+
+    // Formater le téléphone en E.164
+    var telClean = tel.replace(/\s/g,'').replace(/^0/,'33');
+    if (!telClean.startsWith('+')) telClean = '+' + telClean;
+
+    try {
+      await fetch(SUPABASE_URL + '/rest/v1/leads', {
+        method: 'POST',
+        headers: { 'apikey': ANON, 'Authorization': 'Bearer ' + ANON, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+        body: JSON.stringify({
+          prenom: prenom || 'Non renseigné',
+          telephone: telClean,
+          code_postal: cp || null,
+          source: 'fiche_produit',
+          modeles_suggeres: ['roma'],
+          magasin_nom: _currentMagasin ? _currentMagasin.nom : null,
+          magasin_ville: _currentMagasin ? _currentMagasin.ville : null,
+          magasin_tel: _currentMagasin ? _currentMagasin.telephone : null,
+          responsable: _currentMagasin ? _currentMagasin.responsable : null,
+          statut: 'nouveau',
+          email_j1_envoye: false, email_j3_envoye: false, email_j7_envoye: false,
+          whatsapp_relance_envoye: false, alerte_jc_envoyee: false
+        })
+      });
+    } catch(e) {}
+
+    // Déclencher W7 : WhatsApp + Email spécifiques store finder
+    try {
+      var slugProd = typeof PRODUCT_SLUG !== 'undefined' ? PRODUCT_SLUG : 'roma';
+      var nomModele = document.querySelector('.product-title') ? document.querySelector('.product-title').textContent.trim() : slugProd;
+      await fetch('https://n8n.gr-spa.com/webhook/store-finder-rappel', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          prenom: prenom || 'Non renseigné',
+          telephone: telClean,
+          code_postal: cp || null,
+          modele: nomModele,
+          modeles_suggeres: [slugProd],
+          magasin_nom: _currentMagasin ? _currentMagasin.nom : null,
+          magasin_ville: _currentMagasin ? _currentMagasin.ville : null,
+          magasin_tel: _currentMagasin ? _currentMagasin.telephone : null,
+          responsable: _currentMagasin ? _currentMagasin.responsable : null,
+        })
+      });
+    } catch(e) {}
+
+    document.getElementById('recallForm').style.display = 'none';
+    document.getElementById('recallSuccess').style.display = 'block';
+  }
+
+  async function storeFinderQuery(dept) {
+    var url = SF_SUPABASE + '/rest/v1/magasins?actif=eq.true&departement=eq.' + dept + '&limit=1';
+    var r = await fetch(url, { headers: { 'apikey': SF_ANON, 'Authorization': 'Bearer ' + SF_ANON } });
+    var data = await r.json();
+    // Si rien dans le dept exact, chercher dept voisin (même région ~)
+    if (!data.length) {
+      var url2 = SF_SUPABASE + '/rest/v1/magasins?actif=eq.true&limit=1';
+      var r2 = await fetch(url2, { headers: { 'apikey': SF_ANON, 'Authorization': 'Bearer ' + SF_ANON } });
+      data = await r2.json();
+    }
+    storeFinderShowResult(data[0] || null);
+  }
+
+  function storeFinderByCP() {
+    var cp = document.getElementById('storeFinderCP').value.trim();
+    if (cp.length < 2) return;
+    var dept = cp.substring(0, 2);
+    storeFinderQuery(dept);
+  }
+
+  function storeFinderGeo() {
+    var btn = document.querySelector('.store-finder__geo-btn');
+    btn.textContent = 'Localisation…';
+    btn.disabled = true;
+    if (!navigator.geolocation) { btn.textContent = 'Non disponible'; return; }
+    navigator.geolocation.getCurrentPosition(async function(pos) {
+      // Reverse geocode via Google Maps API pour obtenir le CP
+      var lat = pos.coords.latitude, lng = pos.coords.longitude;
+      try {
+        var r = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng + '&key=AIzaSyBIhhwEmidNOgH7GGmUSOXJlqq8aJ2cKeE&language=fr');
+        var data = await r.json();
+        var cp = null;
+        for (var result of data.results) {
+          for (var comp of result.address_components) {
+            if (comp.types.includes('postal_code')) { cp = comp.long_name; break; }
+          }
+          if (cp) break;
+        }
+        if (cp) {
+          document.getElementById('storeFinderCP').value = cp;
+          storeFinderQuery(cp.substring(0, 2));
+        } else {
+          storeFinderShowResult(null);
+        }
+      } catch(e) { storeFinderShowResult(null); }
+      btn.textContent = '📍 Localisé';
+      btn.disabled = false;
+    }, function() {
+      btn.textContent = 'Me localiser';
+      btn.disabled = false;
+      storeFinderShowResult(null);
+    });
+  }
+
+  // Entrée clavier sur le champ CP
+  document.getElementById('storeFinderCP').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') storeFinderByCP();
+  });
+  </script>
+
     <footer class="footer" id="contact">
     <div class="container footer__inner">
       <div class="footer__brand">
@@ -327,6 +508,12 @@
         <a href='/quiz'>Quiz</a>
       </div>
       <div class="footer__nav">
+        <h4>Légal</h4>
+        <a href='/cgv'>Conditions de vente</a>
+        <a href='/mentions-legales'>Mentions légales</a>
+        <a href='/politique-confidentialite'>Vie privée</a>
+      </div>
+      <div class="footer__nav">
         <h4>Contact</h4>
         <a href='https://go.gr-spa.com/' target='_blank'>go.gr-spa.com</a>
         <p class="footer__address-detail">2 Rue Paul Emile-Victor<br>17640 Vaux-sur-Mer</p>
@@ -341,69 +528,7 @@
 
   <script src="../script.js"></script>
 
-<script>
-(function() {
-  const SLUG = 'roma';
-  const SUPABASE_URL = 'https://ohjzggceozamhdesecxi.supabase.co';
-  const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oanpnZ2Nlb3phbWhkZXNlY3hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Njc5MDYsImV4cCI6MjA5MjM0MzkwNn0.wW-tqXBDUtKURR31bh3CUWIcuYMUJTZLqq2LLT1kJnA';
 
-  fetch(`${SUPABASE_URL}/rest/v1/produits?slug=eq.${SLUG}&select=nb_buses,nb_places,longueur_cm,largeur_cm,hauteur_cm,poids_kg,volume_eau_l,puissance_kw,massage_robotise`, {
-    headers: {
-      'apikey': SUPABASE_ANON,
-      'Authorization': `Bearer ${SUPABASE_ANON}`
-    }
-  })
-  .then(r => r.json())
-  .then(data => {
-    if (!data || !data[0]) return;
-    const p = data[0];
-
-    // Mettre à jour le tableau de specs détaillées
-    document.querySelectorAll('table tr').forEach(row => {
-      const cells = row.querySelectorAll('td');
-      if (cells.length < 2) return;
-      const label = cells[0].textContent.toLowerCase();
-
-      if (label.includes('buses') || label.includes('jets')) {
-        if (p.nb_buses) cells[1].textContent = p.nb_buses + ' buses inox';
-      }
-      if (label.includes('dimensions')) {
-        if (p.longueur_cm && p.largeur_cm && p.hauteur_cm)
-          cells[1].textContent = p.longueur_cm + ' × ' + p.largeur_cm + ' × ' + p.hauteur_cm + ' cm';
-      }
-      if (label.includes('volume')) {
-        if (p.volume_eau_l) cells[1].textContent = p.volume_eau_l.toLocaleString('fr-FR') + ' L';
-      }
-      if (label.includes('poids')) {
-        if (p.poids_kg) cells[1].textContent = p.poids_kg + ' kg';
-      }
-    });
-
-    // Mettre à jour les quick-specs (buses)
-    document.querySelectorAll('.quick-spec').forEach(spec => {
-      const label = spec.querySelector('.quick-spec__label');
-      const value = spec.querySelector('.quick-spec__value');
-      if (!label || !value) return;
-      const labelText = label.textContent.toLowerCase();
-      if (labelText.includes('buses') || labelText.includes('jets')) {
-        if (p.nb_buses) value.textContent = p.nb_buses;
-      }
-    });
-
-    // Badge massage robotisé si applicable
-    if (p.massage_robotise) {
-      const badge = document.querySelector('.gamme-badge');
-      if (badge && !badge.textContent.includes('Robotisé')) {
-        const robotBadge = document.createElement('span');
-        robotBadge.style.cssText = 'display:inline-block;font-family:Inter,sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:#253a4c;color:#c7a260;border:1px solid #c7a260;padding:.25rem .8rem;border-radius:2px;margin-left:.75rem;';
-        robotBadge.textContent = 'Massage Robotisé';
-        badge.parentNode.insertBefore(robotBadge, badge.nextSibling);
-      }
-    }
-  })
-  .catch(() => {});
-})();
-</script>
 
 
 <script>
@@ -422,6 +547,15 @@
   .then(data => {
     if (!data || !data[0]) return;
     const p = data[0];
+    window._grProduct = p; // expose pour le heartBtn
+
+    // === BREADCRUMB dynamique ===
+    var _gammeLabel = { relax: 'Relax', energy: 'Energy', luxury: 'Luxury', nage: 'Spa de Nage' };
+    var _gammeHref  = { relax: '../gammes/relax', energy: '../gammes/energy', luxury: '../gammes/luxury', nage: '../gammes/spa-de-nage' };
+    var _bc = document.querySelector('.breadcrumb');
+    if (_bc && p.gamme && p.nom) {
+      _bc.innerHTML = '<a href="../index.html">Accueil</a> &rsaquo; <a href="' + (_gammeHref[p.gamme] || '#') + '">Gamme ' + (_gammeLabel[p.gamme] || p.gamme) + '</a> &rsaquo; ' + p.nom;
+    }
 
     // ============================================================
     // 1. QUICK-SPECS (buses, dimensions, places, isolation)
@@ -543,10 +677,36 @@
 
 
 
-
   <script>var PRODUCT_SLUG='roma';</script>
-<script src="template.js"></script>
   <script src="../selection.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var btn = document.getElementById('heartBtn');
+    if (!btn) return;
+    var slug = 'roma';
+    // État initial
+    if (window.GRSelection && GRSelection.has(slug)) btn.classList.add('heart-active');
+    btn.addEventListener('click', function() {
+      if (!window.GRSelection) return;
+      var nom = document.querySelector('.product-title') ? document.querySelector('.product-title').textContent.trim() : slug;
+      var gamme = document.querySelector('.gamme-badge--label') ? document.querySelector('.gamme-badge--label').textContent.trim().toLowerCase().split(' ')[0] : '';
+      var nb_places = null, nb_buses = null;
+      if (window._grProduct) {
+        nb_buses = window._grProduct.nb_buses || null;
+        nb_places = window._grProduct.nb_places || (window._grProduct.nb_places_assises ? (window._grProduct.nb_places_assises + (window._grProduct.nb_places_allongees || 0)) : null);
+      }
+      var added = GRSelection.toggle(slug, nom, gamme, nb_places, nb_buses);
+      btn.classList.toggle('heart-active');
+      btn.setAttribute('aria-label', btn.classList.contains('heart-active') ? 'Retirer de ma sélection' : 'Ajouter à ma sélection');
+      var toast = document.createElement('div');
+      toast.style.cssText = 'position:fixed;bottom:80px;right:20px;background:#1a2d3e;color:#fff;padding:12px 20px;border-radius:8px;font-size:13px;font-family:Inter,sans-serif;z-index:9999;border-left:3px solid #c7a260;box-shadow:0 4px 12px rgba(0,0,0,.2)';
+      toast.textContent = btn.classList.contains('heart-active') ? '♥ Ajouté à votre sélection' : 'Retiré de votre sélection';
+      document.body.appendChild(toast);
+      setTimeout(function(){ toast.remove(); }, 2500);
+    });
+  });
+  </script>
+<script src="template.js"></script>
   <script src="../offre-bar.js"></script>
   <script src="../exit-intent.js"></script>
   <script src="product-bar.js"></script>

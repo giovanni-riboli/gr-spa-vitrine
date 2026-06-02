@@ -225,6 +225,17 @@
         <li><a href='revendeurs'>Nos magasins</a></li>
         <li><a href='blog'>Blog</a></li>
       </ul>
+      <div class="nav__mobile-sep"></div>
+      <div class="nav__mobile-icons">
+        <a class="nav__mobile-icon-btn" href='ma-selection.html' aria-label="Ma sélection" title="Ma sélection">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+          <span>Ma sélection</span>
+        </a>
+        <a class="nav__mobile-icon-btn" href='espace-pro.html' aria-label="Espace pro" title="Espace pro">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          <span>Espace pro</span>
+        </a>
+      </div>
       <a class='nav__mobile-cta' href='quiz.html'>Trouver mon spa →</a>
     </div>
   </header>
@@ -268,8 +279,10 @@
           <p>Nous vous envoyons le tableau complet + les fiches des modèles sélectionnés.</p>
         </div>
         <div class="cap-inputs">
-          <input type="text" id="capPrenom" placeholder="Prénom" autocomplete="given-name">
-          <input type="email" id="capEmail" placeholder="Email" autocomplete="email">
+          <input type="text" id="capPrenom" placeholder="Prénom *" autocomplete="given-name" required>
+          <input type="tel" id="capTel" placeholder="Téléphone *" autocomplete="tel" inputmode="tel" required>
+          <input type="text" id="capCP" placeholder="Code postal *" maxlength="5" inputmode="numeric" required>
+          <input type="email" id="capEmail" placeholder="Email *" autocomplete="email" required>
           <button class="btn-cap-comp" onclick="envoyerComparaison()">Envoyer →</button>
         </div>
         <div class="comp-capture-success" id="capSuccess" style="display:none">
@@ -296,6 +309,10 @@
     let allProduits = [];
     let selected = []; // tableau de slugs
     let filtreActif = 'tous';
+
+    // Pré-sélectionner depuis ?pre=slug ou ?pre=slug1,slug2,slug3
+    const _preParam = new URLSearchParams(window.location.search).get('pre');
+    if (_preParam) selected = _preParam.split(',').filter(Boolean).slice(0, 3);
 
     // Charger depuis Supabase
     async function charger() {
@@ -467,17 +484,25 @@
 
     async function envoyerComparaison() {
       const prenom = document.getElementById('capPrenom').value.trim();
+      const tel = document.getElementById('capTel').value.trim();
+      const cp = document.getElementById('capCP').value.trim();
       const email = document.getElementById('capEmail').value.trim();
-      if (!email || !email.includes('@')) {
-        document.getElementById('capEmail').focus();
-        return;
-      }
+      if (!prenom) { document.getElementById('capPrenom').focus(); return; }
+      if (!tel) { document.getElementById('capTel').focus(); return; }
+      if (!cp || cp.length < 5) { document.getElementById('capCP').focus(); return; }
+      if (!email || !email.includes('@')) { document.getElementById('capEmail').focus(); return; }
 
+      const telClean = tel.replace(/\s/g,'').replace(/^0/,'33').replace(/^\+/,'');
       const prods = selected.map(s => allProduits.find(p => p.slug === s)).filter(Boolean);
       const nomsModeles = prods.map(p => p.nom).join(', ');
 
       const SUPABASE_URL = 'https://ohjzggceozamhdesecxi.supabase.co';
       const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oanpnZ2Nlb3phbWhkZXNlY3hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Njc5MDYsImV4cCI6MjA5MjM0MzkwNn0.wW-tqXBDUtKURR31bh3CUWIcuYMUJTZLqq2LLT1kJnA';
+
+      // Afficher confirmation immédiatement
+      document.getElementById('compCapture').querySelector('.cap-text').style.display = 'none';
+      document.getElementById('compCapture').querySelector('.cap-inputs').style.display = 'none';
+      document.getElementById('capSuccess').style.display = 'block';
 
       try {
         // Supabase
@@ -485,11 +510,10 @@
           method: 'POST',
           headers: { 'apikey': ANON_KEY, 'Authorization': `Bearer ${ANON_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
           body: JSON.stringify({
-            prenom: prenom || 'Non renseigné', email,
+            prenom: prenom || 'Non renseigné', email, telephone: '+' + telClean, code_postal: cp,
             source: 'comparateur',
             statut: 'nouveau',
             modeles_suggeres: selected,
-            description_courte: `Comparaison: ${nomsModeles}`,
             email_j1_envoye: false, email_j3_envoye: false, email_j7_envoye: false,
             whatsapp_relance_envoye: false, alerte_jc_envoyee: false
           })
@@ -504,22 +528,20 @@
             <a href="https://gr-spa-vitrine.netlify.app/produits/${p.slug}.html" style="display:inline-block;margin-top:8px;color:#c7a260;font-size:12px;text-decoration:none">Voir la fiche complète →</a>
           </div>`).join('');
 
-        await fetch('/.netlify/functions/send-email', {
+        // W6 — WhatsApp + Email via n8n
+        await fetch('https://n8n.gr-spa.com/webhook/comparateur-lead', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            from: 'Giovanni Riboli <contact@mail.gr-spa.com>',
-            to: [email],
-            subject: `${prenom ? prenom + ', votre' : 'Votre'} comparaison de spas Giovanni Riboli`,
-            html: `<!DOCTYPE html><html><head><style>body{margin:0;padding:20px;background:#1a2d3e;font-family:Arial,sans-serif}.c{max-width:580px;margin:0 auto;background:#253a4c;border-radius:12px;border-top:4px solid #c7a260;padding:32px}h1{color:#fff;font-size:22px;margin:0 0 8px}p{color:#ccd8e0;font-size:14px;line-height:1.7;margin:0 0 12px}.btn{display:inline-block;background:#c7a260;color:#1a2d3e;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:700;font-size:14px;margin-top:16px}.footer{text-align:center;margin-top:24px;font-size:11px;color:#4a6a82}</style></head><body><div class="c"><img src="https://gr-spa-vitrine.netlify.app/assets/logo-blanc.svg" width="120" style="margin-bottom:20px"><h1>Votre comparaison${prenom ? ' ' + prenom : ''}</h1><p>Vous avez comparé ${prods.length} modèles Giovanni Riboli. Voici un récapitulatif.</p>${lignesModeles}<p style="margin-top:20px">Des questions sur ces modèles ? Nos conseillers sont là pour vous aider.</p><a href="https://go.gr-spa.com/" class="btn">Parler à un conseiller →</a><div class="footer">Giovanni Riboli SAS — 17640 Vaux-sur-Mer</div></div></body></html>`
+            prenom: prenom || 'Non renseigné',
+            telephone: '+' + telClean,
+            email: email,
+            code_postal: cp,
+            modeles: nomsModeles
           })
         });
-
-        document.getElementById('compCapture').querySelector('.cap-text').style.display = 'none';
-        document.getElementById('compCapture').querySelector('.cap-inputs').style.display = 'none';
-        document.getElementById('capSuccess').style.display = 'block';
       } catch(e) {
-        document.getElementById('capSuccess').style.display = 'block';
+        // Silencieux — confirmation déjà affichée
       }
     }
 
@@ -553,6 +575,12 @@
         <a href='/financement'>Simulateur de financement</a>
         <a href='/quiz'>Configurateur</a>
         <a href='/quiz'>Quiz</a>
+      </div>
+      <div class="footer__nav">
+        <h4>Légal</h4>
+        <a href='/cgv'>Conditions de vente</a>
+        <a href='/mentions-legales'>Mentions légales</a>
+        <a href='/politique-confidentialite'>Vie privée</a>
       </div>
       <div class="footer__nav">
         <h4>Contact</h4>

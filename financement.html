@@ -238,15 +238,17 @@
       margin-bottom: 12px; text-align: center;
     }
     .capture-row {
-      display: flex; gap: 8px; margin-bottom: 8px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px; margin-bottom: 8px;
     }
     .capture-row input {
-      flex: 1; background: rgba(255,255,255,.08);
+      background: rgba(255,255,255,.08);
       border: 1px solid rgba(255,255,255,.12);
       border-radius: 6px; padding: 10px 12px;
       color: #fff; font-size: 13px;
       font-family: 'Inter', sans-serif;
-      outline: none; min-height: 40px;
+      outline: none; min-height: 40px; width: 100%;
     }
     .capture-row input::placeholder { color: rgba(255,255,255,.35); }
     .capture-row input:focus { border-color: #c7a260; }
@@ -256,6 +258,7 @@
       font-size: 13px; font-weight: 600; cursor: pointer;
       font-family: 'Inter', sans-serif; white-space: nowrap;
       transition: all .2s; min-height: 40px;
+      grid-column: 1 / -1; width: 100%;
     }
     .btn-capture:hover { background: #c7a260; color: #1a2d3e; }
     .capture-success {
@@ -363,6 +366,17 @@
         <li><a href='revendeurs'>Nos magasins</a></li>
         <li><a href='blog'>Blog</a></li>
       </ul>
+      <div class="nav__mobile-sep"></div>
+      <div class="nav__mobile-icons">
+        <a class="nav__mobile-icon-btn" href='ma-selection.html' aria-label="Ma sélection" title="Ma sélection">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+          <span>Ma sélection</span>
+        </a>
+        <a class="nav__mobile-icon-btn" href='espace-pro.html' aria-label="Espace pro" title="Espace pro">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          <span>Espace pro</span>
+        </a>
+      </div>
       <a class='nav__mobile-cta' href='quiz.html'>Trouver mon spa →</a>
     </div>
   </header>
@@ -466,19 +480,17 @@
         <div class="capture-form" id="captureForm">
           <h3>Sauvegardez votre simulation</h3>
           <div class="capture-row">
-            <input type="text" id="capturePrenom" placeholder="Prénom" autocomplete="given-name">
-            <input type="email" id="captureEmail" placeholder="Email" autocomplete="email">
-            <button class="btn-capture" onclick="saveSimulation()">Envoyer</button>
+            <input type="text" id="capturePrenom" placeholder="Prénom *" autocomplete="given-name" required>
+            <input type="tel" id="captureTel" placeholder="Téléphone *" autocomplete="tel" inputmode="tel" required>
+            <input type="text" id="captureCP" placeholder="Code postal *" maxlength="5" inputmode="numeric" required>
+            <input type="email" id="captureEmail" placeholder="Email *" autocomplete="email" required>
+            <button class="btn-capture" onclick="saveSimulation()">Recevoir ma simulation et être rappelé →</button>
           </div>
-          <div class="capture-success" id="captureSuccess">
-            ✓ Simulation envoyée ! Vérifiez votre email.
-          </div>
-          <p class="capture-note">Nous vous envoyons le récapitulatif + nos conseils financement.</p>
         </div>
-
-        <a href="https://go.gr-spa.com/" class="btn-devis-fin" target="_blank">
-          Obtenir un devis personnalisé →
-        </a>
+        <div class="capture-success" id="captureSuccess" style="display:none;">
+          ✅ Simulation envoyée avec succès !<br>
+          <span style="font-weight:300;font-size:12px;opacity:.85;">Vous allez recevoir votre récapitulatif par email et WhatsApp. Un conseiller Giovanni Riboli vous rappelle très prochainement.</span>
+        </div>
       </div>
 
     </div>
@@ -615,11 +627,18 @@
     // Capture email financement
     async function saveSimulation() {
       const prenom = document.getElementById('capturePrenom').value.trim();
+      const tel = document.getElementById('captureTel').value.trim();
+      const cp = document.getElementById('captureCP').value.trim();
       const email = document.getElementById('captureEmail').value.trim();
-      if (!email || !email.includes('@')) {
-        document.getElementById('captureEmail').focus();
-        return;
-      }
+      if (!prenom) { document.getElementById('capturePrenom').focus(); return; }
+      if (!tel) { document.getElementById('captureTel').focus(); return; }
+      if (!cp || cp.length < 5) { document.getElementById('captureCP').focus(); return; }
+      if (!email || !email.includes('@')) { document.getElementById('captureEmail').focus(); return; }
+      const telClean = tel.replace(/\s/g,'').replace(/^0/,'33').replace(/^\+/,'');
+
+      // Afficher la confirmation immédiatement — avant les appels réseau
+      document.getElementById('captureForm').style.display = 'none';
+      document.getElementById('captureSuccess').style.display = 'block';
 
       const montant = parseInt(document.getElementById('montant').value);
       const apport = parseInt(document.getElementById('apport').value);
@@ -644,6 +663,8 @@
           body: JSON.stringify({
             prenom: prenom || 'Non renseigné',
             email: email,
+            telephone: '+' + telClean,
+            code_postal: cp,
             source: 'financement',
             statut: 'nouveau',
             budget: montantFinance.toString(),
@@ -653,25 +674,31 @@
           })
         });
 
-        // 2. Envoyer l'email récapitulatif via Resend
-        await fetch('/.netlify/functions/send-email', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            from: 'Giovanni Riboli <contact@mail.gr-spa.com>',
-            to: [email],
-            subject: `${prenom ? prenom + ', votre' : 'Votre'} simulation de financement Giovanni Riboli`,
-            html: `<!DOCTYPE html><html><head><style>body{margin:0;padding:20px;background:#1a2d3e;font-family:Arial,sans-serif}.c{max-width:580px;margin:0 auto;background:#253a4c;border-radius:12px;border-top:4px solid #c7a260;padding:32px}h1{color:#fff;font-size:22px;margin:0 0 20px}p{color:#ccd8e0;font-size:14px;line-height:1.7;margin:0 0 12px}.card{background:#1e3044;border-radius:8px;padding:20px;margin:20px 0;border-left:3px solid #c7a260}.big{font-size:36px;font-weight:700;color:#c7a260}.label{font-size:12px;color:#8aafc8;margin-top:4px}.row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px}.row:last-child{border:none}.lbl{color:#8aafc8}.val{color:#fff;font-weight:600}.btn{display:inline-block;background:#c7a260;color:#1a2d3e;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:700;font-size:14px}.footer{text-align:center;margin-top:24px;font-size:11px;color:#4a6a82}</style></head><body><div class="c"><img src="https://gr-spa-vitrine.netlify.app/assets/logo-blanc.svg" width="120" style="margin-bottom:20px"><h1>Votre simulation${prenom ? ' ' + prenom : ''}</h1><p>Voici le récapitulatif de votre simulation de financement Giovanni Riboli.</p><div class="card"><div class="big">${mensualite}€<span style="font-size:16px;font-weight:400;color:#8aafc8">/mois</span></div><div class="label">Mensualité estimée</div></div><div class="row"><span class="lbl">Montant financé</span><span class="val">${montantFinance.toLocaleString('fr-FR')}€</span></div><div class="row"><span class="lbl">Durée</span><span class="val">${dureeActuelle} mois</span></div><div class="row"><span class="lbl">TAEG</span><span class="val">${tranche.taeg.toFixed(2).replace('.',',')}%</span></div><div class="row"><span class="lbl">Partenaire</span><span class="val">FranFinance — Code HABDER0426</span></div><p style="margin-top:20px">Prêt à concrétiser votre projet ? Nos conseillers sont disponibles en showroom.</p><a href="https://go.gr-spa.com/" class="btn">Parler à un conseiller →</a><div class="footer"><p>Giovanni Riboli SAS — 17640 Vaux-sur-Mer<br>Un crédit vous engage et doit être remboursé. Vérifiez vos capacités de remboursement.</p></div></div></body></html>`
-          })
-        });
+        // 1b. Déclencher W5 — WhatsApp responsable + prospect avec données simulation
+        var w5Resp = null;
+        try {
+          var w5R = await fetch('https://n8n.gr-spa.com/webhook/simulation-financement', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              prenom: prenom || 'Non renseigné',
+              telephone: '+' + telClean,
+              email: email,
+              code_postal: cp || null,
+              mensualite: mensualite,
+              montant_finance: montantFinance,
+              duree: dureeActuelle
+            })
+          });
+          w5Resp = await w5R.json().catch(() => null);
+        } catch(eW5) {}
 
-        // 3. Afficher le succès
-        document.getElementById('captureForm').style.display = 'none';
-        document.getElementById('captureSuccess').style.display = 'block';
+        // 2. Email envoyé par W5 via n8n/Resend directement
+
+        // 3. WhatsApp prospect envoyé par W5 via n8n
 
       } catch(e) {
-        // Afficher quand même le succès (pour éviter de bloquer l'UX)
-        document.getElementById('captureSuccess').style.display = 'block';
+        // Erreur silencieuse — la confirmation est déjà affichée
       }
     }
 
@@ -707,6 +734,12 @@
         <a href='/financement'>Simulateur de financement</a>
         <a href='/quiz'>Configurateur</a>
         <a href='/quiz'>Quiz</a>
+      </div>
+      <div class="footer__nav">
+        <h4>Légal</h4>
+        <a href='/cgv'>Conditions de vente</a>
+        <a href='/mentions-legales'>Mentions légales</a>
+        <a href='/politique-confidentialite'>Vie privée</a>
       </div>
       <div class="footer__nav">
         <h4>Contact</h4>

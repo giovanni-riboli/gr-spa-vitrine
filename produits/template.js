@@ -25,10 +25,19 @@
       var taglineEl = document.querySelector('.product-tagline');
       if (taglineEl && p.description_courte) taglineEl.textContent = p.description_courte;
 
-      var badge = document.querySelector('.gamme-badge');
+      var badge = document.querySelector('.gamme-badge--label') || document.querySelector('.gamme-badge');
+      var gammeLabel = { relax: 'Relax', energy: 'Energy', luxury: 'Luxury', nage: 'Spa de Nage' };
+      var gammeHref = { relax: '../gammes/relax', energy: '../gammes/energy', luxury: '../gammes/luxury', nage: '../gammes/spa-de-nage' };
       if (badge) {
-        var gammeLabel = { relax: 'Relax', energy: 'Energy', luxury: 'Luxury', nage: 'Spa de Nage' };
         badge.textContent = (gammeLabel[p.gamme] || p.gamme) + (p.ligne ? ' — ' + p.ligne.replace(/_/g, ' ').replace(/\b\w/g, function (c) { return c.toUpperCase(); }) : '');
+      }
+
+      // === BREADCRUMB ===
+      var bc = document.querySelector('.breadcrumb');
+      if (bc) {
+        var gLabel = gammeLabel[p.gamme] || p.gamme;
+        var gHref = gammeHref[p.gamme] || '#';
+        bc.innerHTML = '<a href="../index.html">Accueil</a> &rsaquo; <a href="' + gHref + '">Gamme ' + gLabel + '</a> &rsaquo; ' + p.nom;
       }
 
       // === QUICK SPECS ===

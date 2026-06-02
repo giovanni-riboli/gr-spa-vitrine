@@ -113,6 +113,8 @@
     .kanban-card[data-statut="gagne"] { border-left-color:var(--stat-gagne); }
     .kanban-card:hover { border-color:var(--accent); }
     .kanban-card.dragging { opacity:.5; }
+    .card-source { display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:600; padding:2px 7px; border-radius:10px; margin-bottom:6px; letter-spacing:.3px; }
+    .card-info-row { font-size:11px; color:var(--text-muted); margin-top:3px; line-height:1.4; }
     .kanban-card .card-name { font-size:13px; font-weight:600; color:#fff; margin-bottom:4px; }
     .kanban-card .card-info { font-size:11px; color:var(--text-muted); margin-bottom:4px; }
     .kanban-card .card-budget { display:inline-block; font-size:11px; color:var(--accent); font-weight:600; background:rgba(199,162,96,.1); padding:2px 8px; border-radius:4px; margin-top:4px; }
@@ -359,7 +361,15 @@
     const KANBAN_STATUTS = ['nouveau','contacte','rdv','gagne'];
     const STATUT_LABELS = { nouveau:'Nouveau', contacte:'Contacté', non_contacte:'Non contacté', archive:'Archivé', rdv:'RDV Planifié', gagne:'Gagné' };
     const NEXT_STATUT = { nouveau:'contacte', contacte:'rdv', rdv:'gagne' };
-    const BUDGET_LABELS = { 'moins_5k':'< 5 000€', '5k_8k':'5-8 000€', '8k_15k':'8-15 000€', '15k_plus':'> 15 000€' };
+    const BUDGET_LABELS = { 'moins_5k':'< 5 000€', '5k_8k':'5-8 000€', '8k_15k':'8-15 000€', '15k_plus':'> 15 000€', 'moins_7k':'< 7 000€', '7k_15k':'7-15 000€', '8k_15k':'8-15 000€', '15k_25k':'15-25 000€', 'plus_25k':'> 25 000€' };
+    const SOURCE_CONFIG = {
+      'quiz':           { icon: '🎯', label: 'Quiz',        color: '#60a5fa' },
+      'financement':    { icon: '💰', label: 'Financement', color: '#34d399' },
+      'comparateur':    { icon: '🔍', label: 'Comparateur', color: '#a78bfa' },
+      'fiche_produit':  { icon: '🛁', label: 'Fiche produit', color: '#c7a260' },
+      'ma_selection':   { icon: '💝', label: 'Ma sélection', color: '#f472b6' },
+      'landing-magasin':{ icon: '📅', label: 'RDV magasin',  color: '#fb923c' },
+    };
     const DELAI_LABELS = { urgent:'Urgent', '1_3_mois':'1-3 mois', '3_6_mois':'3-6 mois', 'juste_regarder':'Pas pressé' };
 
     function toggleSidebar() {
@@ -529,13 +539,21 @@
         document.getElementById('count-' + statut).textContent = cards.length;
         const next = NEXT_STATUT[statut];
         col.innerHTML = cards.map(l => `
-          <div class="kanban-card" draggable="true" data-id="${l.id}" data-statut="${l.statut}" ondragstart="onDragStart(event)">
+          <div class="kanban-card" draggable="true" data-id="${l.id}" data-statut="${l.statut}" ondragstart="onDragStart(event)" onclick="showLead(l)">
+            ${(() => {
+              const sc = SOURCE_CONFIG[l.source] || { icon: '📋', label: l.source || 'Inconnu', color: '#9ca3af' };
+              return `<div class="card-source" style="background:${sc.color}22;color:${sc.color}">${sc.icon} ${sc.label}</div>`;
+            })()}
             <div class="card-name">${esc(l.prenom || 'Inconnu')} · ${esc(l.code_postal || '-')}</div>
-            <div class="card-budget">${BUDGET_LABELS[l.budget] || esc(l.budget || '-')}</div>
-            <div class="card-gamme">${esc(l.gamme_recommandee || '-')}</div>
+            ${l.source === 'financement' && l.budget ? `<div class="card-info-row">💳 Simulation : ${BUDGET_LABELS[l.budget] || l.budget}</div>` : ''}
+            ${l.source === 'quiz' && l.budget ? `<div class="card-info-row">💶 ${BUDGET_LABELS[l.budget] || l.budget} · ${l.delai || ''}</div>` : ''}
+            ${l.source === 'comparateur' && l.modeles_suggeres ? `<div class="card-info-row">🔍 ${Array.isArray(l.modeles_suggeres) ? l.modeles_suggeres.join(', ') : l.modeles_suggeres}</div>` : ''}
+            ${l.source === 'fiche_produit' && l.modeles_suggeres ? `<div class="card-info-row">🛁 ${Array.isArray(l.modeles_suggeres) ? l.modeles_suggeres[0] : l.modeles_suggeres}</div>` : ''}
+            ${l.source === 'ma_selection' && l.modeles_suggeres ? `<div class="card-info-row">💝 ${Array.isArray(l.modeles_suggeres) ? l.modeles_suggeres.slice(0,2).join(', ') : l.modeles_suggeres}</div>` : ''}
+            ${l.source === 'landing-magasin' ? `<div class="card-info-row">📅 ${l.magasin_nom || 'RDV showroom'}</div>` : ''}
             <div class="card-actions">
               <span class="card-date">${timeAgo(l.created_at)}</span>
-              ${next ? `<button class="btn-advance" onclick="advanceLead('${l.id}','${next}')">→ ${STATUT_LABELS[next]}</button>` : ''}
+              ${next ? `<button class="btn-advance" onclick="event.stopPropagation();advanceLead('${l.id}','${next}')">→ ${STATUT_LABELS[next]}</button>` : ''}
             </div>
           </div>
         `).join('');
