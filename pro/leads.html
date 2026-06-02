@@ -98,7 +98,8 @@
     .kanban-card.dragging{opacity:.5}
     @media(max-width:768px){
       .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-      .table-wrap table { min-width: 600px; }
+      .table-wrap table { min-width: 0; width: 100%; }
+      .table-wrap th, .table-wrap td { white-space: nowrap; padding: 8px 10px; font-size: 12px; }
     }
 
     .card-source{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;margin-bottom:6px;letter-spacing:.3px}
