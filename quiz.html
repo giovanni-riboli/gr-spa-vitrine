@@ -376,6 +376,7 @@
         @media (max-width: 560px) {
             .options.cols-2, .options.cols-3 { grid-template-columns: 1fr; }
             .quiz-container { padding: 140px 16px 80px; }
+            ..product-card { flex-direction: column; }
         }
 
     /* Sauvegarde abandon quiz */
@@ -1330,7 +1331,7 @@
       if (p.aromatherapie) equip.push('Aromathérapie');
       if (p.leds_rgb) equip.push('LEDs RGB');
       return `<a href="${r.url}" class="product-card ${r.featured ? 'featured' : ''}">
-        <img src="assets/produits/${slug}.jpg" alt="${r.name}" style="width:100%;height:140px;object-fit:contain;border-radius:8px;background:#f8f6f2;margin-bottom:12px" onerror="this.style.display='none'">
+        <img src="assets/produits/${slug}.jpg" alt="${r.name}" style="height:140px;object-fit:contain;border-radius:8px;background:#f8f6f2;margin-bottom:12px" onerror="this.style.display='none'">
         <div style="flex:1">
           ${r.featured ? '<span class="product-badge">Recommandé pour vous</span>' : ''}
           <span class="product-gamme">${r.gamme}</span>
