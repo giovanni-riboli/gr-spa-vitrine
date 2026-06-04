@@ -2067,3 +2067,20 @@ input { font-family: inherit; font-size: 16px !important; }
   .store-finder__recall-form input { min-width: unset; width: 100%; }
   .store-finder__recall-btn { width: 100%; }
 }
+
+/* ─── MEGA MENU — Corrections positionnement & fond nav ─── */
+/* Top dynamique selon présence de la sticky bar */
+body.offre-bar-open .mega-menu { top: 124px; }
+
+/* Nav fond blanc quand mega menu ouvert */
+.nav--mega-open {
+  background: #fff !important;
+  box-shadow: 0 1px 0 rgba(0,0,0,.06) !important;
+}
+.nav--mega-open .nav__logo-light { display: none !important; }
+.nav--mega-open .nav__logo-dark { display: block !important; }
+.nav--mega-open .nav__menu > li > a { color: #1a2d3e !important; }
+.nav--mega-open .nav__cta { color: #1a2d3e !important; border-color: #1a2d3e !important; }
+.nav--mega-open .nav__sel-btn,
+.nav--mega-open .nav__pro-btn,
+.nav--mega-open .nav__search-btn { color: #1a2d3e !important; }

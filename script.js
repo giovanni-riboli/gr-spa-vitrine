@@ -125,7 +125,20 @@ document.querySelectorAll('.gamme-card, .testimonial, .stats__item, .pourquoi__i
       document.querySelectorAll('.nav__menu > li').forEach(function(li) {
         li.classList.remove('mega-open');
       });
+      document.getElementById('nav').classList.remove('nav--mega-open');
     }
+  });
+
+  // Nav fond blanc quand mega menu ouvert
+  document.querySelectorAll('.nav__menu > li').forEach(function(li) {
+    li.addEventListener('mouseenter', function() {
+      if (li.querySelector('.mega-menu')) {
+        document.getElementById('nav').classList.add('nav--mega-open');
+      }
+    });
+    li.addEventListener('mouseleave', function() {
+      document.getElementById('nav').classList.remove('nav--mega-open');
+    });
   });
 })();
 
