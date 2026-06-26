@@ -557,6 +557,26 @@
       _bc.innerHTML = '<a href="../index.html">Accueil</a> &rsaquo; <a href="' + (_gammeHref[p.gamme] || '#') + '">Gamme ' + (_gammeLabel[p.gamme] || p.gamme) + '</a> &rsaquo; ' + p.nom;
     }
 
+    // === TAGLINE dynamique ===
+    var _taglineEl = document.querySelector('.product-tagline');
+    if (_taglineEl && p.tagline) _taglineEl.textContent = p.tagline;
+
+    // === DESCRIPTION dynamique — première product-section ===
+    if (p.description_courte) {
+      var _sections = document.querySelectorAll('.product-section');
+      if (_sections.length > 0) {
+        var _firstSec = _sections[0];
+        var _h2 = _firstSec.querySelector('h2');
+        if (_h2) {
+          var _oldPs = _firstSec.querySelectorAll('p');
+          _oldPs.forEach(function(el) { el.remove(); });
+          var _newP = document.createElement('p');
+          _newP.textContent = p.description_courte;
+          _firstSec.appendChild(_newP);
+        }
+      }
+    }
+
     // ============================================================
     // 1. QUICK-SPECS (buses, dimensions, places, isolation)
     // ============================================================
