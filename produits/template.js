@@ -23,7 +23,25 @@
       if (titleEl) titleEl.textContent = p.nom;
 
       var taglineEl = document.querySelector('.product-tagline');
-      if (taglineEl && p.description_courte) taglineEl.textContent = p.description_courte;
+      if (taglineEl && p.tagline) taglineEl.textContent = p.tagline;
+
+      // Description principale — remplace le contenu de la première product-section
+      if (p.description_courte) {
+        var sections = document.querySelectorAll('.product-section');
+        if (sections.length > 0) {
+          var firstSection = sections[0];
+          var h2 = firstSection.querySelector('h2');
+          if (h2) {
+            // Supprimer les anciens paragraphes
+            var oldPs = firstSection.querySelectorAll('p');
+            oldPs.forEach(function(el) { el.remove(); });
+            // Ajouter la description depuis Supabase
+            var newP = document.createElement('p');
+            newP.textContent = p.description_courte;
+            firstSection.appendChild(newP);
+          }
+        }
+      }
 
       var badge = document.querySelector('.gamme-badge--label') || document.querySelector('.gamme-badge');
       var gammeLabel = { relax: 'Relax', energy: 'Energy', luxury: 'Luxury', nage: 'Spa de Nage' };
