@@ -561,18 +561,25 @@
     var _taglineEl = document.querySelector('.product-tagline');
     if (_taglineEl && p.tagline) _taglineEl.textContent = p.tagline;
 
-    // === DESCRIPTION dynamique — première product-section ===
-    if (p.description_courte) {
+    // === TITRE + DESCRIPTION dynamiques — première product-section ===
+    if (p.description_courte || p.titre_description) {
       var _sections = document.querySelectorAll('.product-section');
       if (_sections.length > 0) {
         var _firstSec = _sections[0];
         var _h2 = _firstSec.querySelector('h2');
-        if (_h2) {
+        if (_h2 && p.titre_description) _h2.textContent = p.titre_description;
+        if (p.description_courte) {
           var _oldPs = _firstSec.querySelectorAll('p');
           _oldPs.forEach(function(el) { el.remove(); });
-          var _newP = document.createElement('p');
-          _newP.textContent = p.description_courte;
-          _firstSec.appendChild(_newP);
+          // Afficher chaque paragraphe séparé par \n\n
+          var _paras = p.description_courte.split('\n\n');
+          _paras.forEach(function(para) {
+            if (para.trim()) {
+              var _p = document.createElement('p');
+              _p.textContent = para.trim();
+              _firstSec.appendChild(_p);
+            }
+          });
         }
       }
     }
