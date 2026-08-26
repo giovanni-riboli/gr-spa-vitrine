@@ -2,28 +2,28 @@
    GIOVANNI RIBOLI — SCRIPT
    ============================================ */
 
-// --- NAV SCROLL ---
-const nav = document.getElementById('nav');
-const handleNavScroll = () => {
-  if (window.scrollY > 60) {
-    nav.classList.add('nav--scrolled');
-  } else {
-    nav.classList.remove('nav--scrolled');
-  }
-};
-window.addEventListener('scroll', handleNavScroll, { passive: true });
-handleNavScroll();
+// --- NAV SCROLL + MOBILE --- (skippé si nav.js a déjà tout initialisé)
+if (!window.GR_NAV_LOADED) {
+  const nav = document.getElementById('nav');
+  const handleNavScroll = () => {
+    if (window.scrollY > 60) {
+      nav.classList.add('nav--scrolled');
+    } else {
+      nav.classList.remove('nav--scrolled');
+    }
+  };
+  window.addEventListener('scroll', handleNavScroll, { passive: true });
+  handleNavScroll();
 
-// --- NAV MOBILE ---
-const burger = document.getElementById('navBurger');
-const mobileMenu = document.getElementById('navMobile');
-burger?.addEventListener('click', () => {
-  mobileMenu.classList.toggle('is-open');
-});
-// Fermer au clic sur un lien
-mobileMenu?.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => mobileMenu.classList.remove('is-open'));
-});
+  const burger = document.getElementById('navBurger');
+  const mobileMenu = document.getElementById('navMobile');
+  burger?.addEventListener('click', () => {
+    mobileMenu.classList.toggle('is-open');
+  });
+  mobileMenu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => mobileMenu.classList.remove('is-open'));
+  });
+}
 
 // --- COOKIE BANNER ---
 const cookieBanner = document.getElementById('cookieBanner');
@@ -76,8 +76,9 @@ document.querySelectorAll('.gamme-card, .testimonial, .stats__item, .pourquoi__i
 
 /* ============================================
    MEGA MENU JS — Giovanni Riboli
+   (skippé si nav.js a déjà tout initialisé)
    ============================================ */
-(function() {
+if (!window.GR_NAV_LOADED) (function() {
   const nav = document.getElementById('nav');
   const burger = document.getElementById('navBurger');
   const mobileOverlay = document.getElementById('navMobile');

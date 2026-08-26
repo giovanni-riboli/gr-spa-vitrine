@@ -4,24 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Giovanni Riboli — Votre retour</title>
-  <style>
-    body{margin:0;padding:20px;background:#1a2d3e;font-family:Arial,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh}
-    .card{background:#253a4c;border-radius:12px;padding:48px 40px;max-width:480px;width:100%;border-top:4px solid #c7a260;text-align:center}
-    img{width:140px;margin-bottom:24px}
-    h1{font-size:26px;color:#fff;margin:0 0 16px}
-    p{color:#ccd8e0;line-height:1.7;font-size:15px;margin:0 0 12px}
-    .spinner{border:3px solid #3a5570;border-top:3px solid #c7a260;border-radius:50%;width:32px;height:32px;animation:spin 1s linear infinite;margin:20px auto}
-    @keyframes spin{to{transform:rotate(360deg)}}
-    a{display:inline-block;margin-top:20px;background:#c7a260;color:#1a2d3e;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:700}
-  </style>
+  <link rel="stylesheet" href="/style.css">
 </head>
-<body>
-<div class="card">
+<body class="feedback-page">
+<div class="feedback-card">
   <img src="/assets/logo-blanc.svg" alt="Giovanni Riboli">
-  <div class="spinner" id="spinner"></div>
+  <div class="feedback-spinner" id="spinner"></div>
   <div id="content"></div>
 </div>
 <script>
+
 const params = new URLSearchParams(window.location.search);
 const id = params.get('id');
 const rep = params.get('rep');
@@ -65,52 +57,9 @@ async function process() {
 
 process();
 </script>
-  <footer class="footer" id="contact">
-    <div class="container footer__inner">
-      <div class="footer__brand">
-        <img src="./assets/logo-blanc.svg" alt="Giovanni Riboli" class="footer__logo">
-        <p class="footer__tagline">L'art du spa à domicile.</p>
-        <p class="footer__address">Giovanni Riboli SAS — France</p>
-      </div>
-      <div class="footer__nav">
-        <h4>Produits</h4>
-        <a href='/gammes/relax'>Gamme Relax</a>
-        <a href='/gammes/energy'>Gamme Energy</a>
-        <a href='/gammes/luxury'>Gamme Luxury</a>
-        <a href='/gammes/spa-de-nage'>Spa de Nage</a>
-        <a href='/comparateur'>Comparer les modèles</a>
-      </div>
-      <div class="footer__nav">
-        <h4>Découvrir</h4>
-        <a href='/a-propos'>Notre histoire</a>
-        <a href='/revendeurs'>Nos magasins</a>
-        <a href='/espace-pro'>Espace Pro</a>
-        <a href='/blog'>Blog</a>
-      </div>
-      <div class="footer__nav">
-        <h4>Outils</h4>
-        <a href='/financement'>Simulateur de financement</a>
-        <a href='/quiz'>Configurateur</a>
-        <a href='/quiz'>Quiz</a>
-      </div>
-      <div class="footer__nav">
-        <h4>Légal</h4>
-        <a href='/cgv'>Conditions de vente</a>
-        <a href='/mentions-legales'>Mentions légales</a>
-        <a href='/politique-confidentialite'>Vie privée</a>
-      </div>
-      <div class="footer__nav">
-        <h4>Contact</h4>
-        <a href='https://go.gr-spa.com/' target='_blank'>go.gr-spa.com</a>
-        <p class="footer__address-detail">2 Rue Paul Emile-Victor<br>17640 Vaux-sur-Mer</p>
-      </div>
-    </div>
-    <div class="footer__bottom">
-      <div class="container">
-        <p>&copy; 2026 Giovanni Riboli SAS — Tous droits réservés</p>
-      </div>
-    </div>
-  </footer>
+  <!-- FOOTER — composant JS -->
+  <div id="gr-footer"></div>
 
+  <script src="/footer.js"></script>
 </body>
 </html>

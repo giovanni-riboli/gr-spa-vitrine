@@ -9,52 +9,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <style>
-    .cgv-hero { background: #1a2d3e; padding: 8rem 5% 4rem; text-align: center; }
-    .cgv-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); color: #fff; font-weight: 300; margin-bottom: 1rem; }
-    .cgv-hero h1 em { color: #c7a260; font-style: normal; }
-    .cgv-hero p { font-family: 'Inter', sans-serif; font-size: 0.9rem; color: rgba(255,255,255,0.6); }
-    .cgv-body { max-width: 860px; margin: 0 auto; padding: 4rem 5% 6rem; }
-    .cgv-body h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; color: #1a2d3e; margin: 3rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #c7a260; }
-    .cgv-body h3 { font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600; color: #1a2d3e; margin: 2rem 0 0.75rem; }
-    .cgv-body p { font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 300; line-height: 1.9; color: #3a4a56; margin-bottom: 1rem; }
-    .cgv-body ul { font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 300; line-height: 1.9; color: #3a4a56; margin: 0.5rem 0 1rem 1.5rem; }
-    .cgv-body ul li { margin-bottom: 0.4rem; }
-    .cgv-body strong { font-weight: 600; color: #1a2d3e; }
-    .cgv-info-box { background: #f8f6f2; border-left: 4px solid #c7a260; border-radius: 0 8px 8px 0; padding: 1.5rem 1.75rem; margin: 2rem 0; }
-    .cgv-info-box p { margin: 0; font-size: 0.9rem; }
-    .cgv-info-box p + p { margin-top: 0.5rem; }
-    .cgv-mediateur { background: #1a2d3e; border-radius: 12px; padding: 2rem 2.5rem; margin: 3rem 0; color: #fff; }
-    .cgv-mediateur h3 { color: #c7a260; font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 500; margin: 0 0 1rem; border: none; padding: 0; }
-    .cgv-mediateur p { color: rgba(255,255,255,0.85); font-size: 0.9rem; margin-bottom: 0.5rem; }
-    .cgv-mediateur a { color: #c7a260; text-decoration: none; }
-    .cgv-update { font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #9aabba; text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e8e2d8; }
-    @media (max-width: 768px) {
-      .cgv-hero { padding: 7rem 5% 3rem; }
-      .cgv-body { padding: 2rem 5% 4rem; }
-    }
-  </style>
 </head>
 <body>
 
-  <header class="nav nav--solid" id="nav">
-    <div class="nav__inner">
-      <a class='nav__logo' href='/'>
-        <img src="assets/logo-noir.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-dark">
-        <img src="assets/logo-blanc.svg" alt="Giovanni Riboli" class="nav__logo-img nav__logo-light">
-      </a>
-      <ul class="nav__menu">
-        <li><a href="#">Nos spas</a></li>
-        <li><a href='comparateur.html'>Comparer</a></li>
-        <li><a href='financement.html'>Financement</a></li>
-        <li><a href='revendeurs'>Nos magasins</a></li>
-        <li><a href='blog'>Blog</a></li>
-      </ul>
-      <div class="nav__right">
-        <a class='nav__cta' href='quiz.html'>Trouver mon spa →</a>
-      </div>
-    </div>
-  </header>
+  <!-- NAV — composant JS -->
+  <div id="gr-nav"></div>
+  <script src="/nav.js"></script>
 
   <section class="cgv-hero">
     <h1>Conditions Générales<br><em>de Vente</em></h1>
@@ -156,39 +116,10 @@
 
   </article>
 
-  <footer class="footer" id="contact">
-    <div class="container footer__inner">
-      <div class="footer__brand">
-        <img src="./assets/logo-blanc.svg" alt="Giovanni Riboli" class="footer__logo">
-        <p class="footer__tagline">L'art du spa à domicile.</p>
-        <p class="footer__address">Giovanni Riboli SAS — France</p>
-      </div>
-      <div class="footer__nav">
-        <h4>Produits</h4>
-        <a href='/gammes/relax'>Gamme Relax</a>
-        <a href='/gammes/energy'>Gamme Energy</a>
-        <a href='/gammes/luxury'>Gamme Luxury</a>
-        <a href='/gammes/spa-de-nage'>Spa de Nage</a>
-      </div>
-      <div class="footer__nav">
-        <h4>Informations légales</h4>
-        <a href='/cgv'>Conditions Générales de Vente</a>
-        <a href='/mentions-legales'>Mentions légales</a>
-        <a href='/politique-confidentialite'>Politique de confidentialité</a>
-      </div>
-      <div class="footer__nav">
-        <h4>Contact</h4>
-        <a href='https://go.gr-spa.com/' target='_blank'>go.gr-spa.com</a>
-        <p class="footer__address-detail">2 Rue Paul Emile-Victor<br>17640 Vaux-sur-Mer</p>
-      </div>
-    </div>
-    <div class="footer__bottom">
-      <div class="container">
-        <p>&copy; 2026 NATIONALE DES EAUX (Giovanni Riboli) — Tous droits réservés</p>
-      </div>
-    </div>
-  </footer>
+  <!-- FOOTER — composant JS -->
+  <div id="gr-footer"></div>
 
   <script src="script.js"></script>
+  <script src="/footer.js"></script>
 </body>
 </html>
