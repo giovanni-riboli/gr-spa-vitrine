@@ -14,7 +14,7 @@
     try {
       const today = new Date().toISOString().split('T')[0];
       const res = await fetch(
-        `${SUPABASE_URL}/rest/v1/offres?actif=eq.true&date_debut=lte.${today}&date_fin=gte.${today}&select=titre,sous_titre,cta_texte,cta_url&limit=1`,
+        `${SUPABASE_URL}/rest/v1/offres_banners?actif=eq.true&date_debut=lte.${today}&date_fin=gte.${today}&select=titre,sous_titre,cta_texte,cta_url&limit=1`,
         { headers: { 'apikey': ANON_KEY, 'Authorization': `Bearer ${ANON_KEY}` } }
       );
       const offres = await res.json();

@@ -75,7 +75,7 @@
         <a class="nav__pro-btn nav__pro-btn--desktop" href='espace-pro.html' aria-label="Espace pro" title="Espace pro">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
         </a>
-        <button class="nav__search-btn" aria-label="Rechercher"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35" stroke-linecap="round"/></svg></button>
+        
       </div>
       <button class="nav__burger" id="navBurger" aria-label="Menu">
         <span></span><span></span><span></span>
@@ -145,6 +145,49 @@
       <div class="hero__scroll-line"></div>
     </div>
   </section>
+
+  <!-- OFFRE VEDETTE -->
+  <section class="offre-vedette" id="offre-vedette">
+    <div class="offre-vedette__visual">
+      <img id="ov-img" src="" alt="Offre en cours">
+    </div>
+    <div class="offre-vedette__content">
+      <p class="offre-vedette__eyebrow" id="ov-eyebrow"></p>
+      <h2 class="offre-vedette__title" id="ov-titre"></h2>
+      <div class="offre-vedette__separator"></div>
+      <p class="offre-vedette__subtitle" id="ov-sous-titre"></p>
+      <p class="offre-vedette__conditions" id="ov-conditions"></p>
+      <a class="btn btn--primary" id="ov-cta" href="#"></a>
+    </div>
+  </section>
+  <script>
+  (function() {
+    var SUPABASE_URL = 'https://ohjzggceozamhdesecxi.supabase.co';
+    var ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oanpnZ2Nlb3phbWhkZXNlY3hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Njc5MDYsImV4cCI6MjA5MjM0MzkwNn0.wW-tqXBDUtKURR31bh3CUWIcuYMUJTZLqq2LLT1kJnA';
+    var today = new Date().toISOString().split('T')[0];
+    fetch(
+      SUPABASE_URL + '/rest/v1/offres_details?actif=eq.true&date_debut=lte.' + today + '&date_fin=gte.' + today + '&select=*&limit=1',
+      { headers: { 'apikey': ANON_KEY, 'Authorization': 'Bearer ' + ANON_KEY } }
+    )
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (!data || !data.length) return;
+      var o = data[0];
+      if (!o.image_url) return;
+      document.getElementById('ov-img').src = o.image_url;
+      document.getElementById('ov-img').alt = o.titre || 'Offre en cours';
+      document.getElementById('ov-eyebrow').textContent = o.eyebrow || '';
+      document.getElementById('ov-titre').textContent = o.titre || '';
+      document.getElementById('ov-sous-titre').textContent = o.sous_titre || '';
+      document.getElementById('ov-conditions').textContent = o.conditions || '';
+      var cta = document.getElementById('ov-cta');
+      cta.textContent = o.cta_texte || 'En savoir plus';
+      cta.href = o.cta_url || '#';
+      document.getElementById('offre-vedette').classList.add('visible');
+    })
+    .catch(function() {});
+  })();
+  </script>
 
   <!-- CHIFFRES CLÉS -->
   <section class="stats">

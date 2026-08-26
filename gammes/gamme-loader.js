@@ -9,7 +9,7 @@
 
   if (typeof GAMME_KEY === 'undefined') return;
 
-  fetch(SUPABASE_URL + '/rest/v1/produits?gamme=eq.' + GAMME_KEY + '&actif=eq.true&select=slug,nom,ligne,description_courte,nb_places,nb_places_assises,nb_places_allongees,nb_buses,longueur_cm,largeur_cm,hauteur_cm&order=ligne,nom', {
+  fetch(SUPABASE_URL + '/rest/v1/produits?gamme=eq.' + GAMME_KEY + '&actif=eq.true&select=slug,nom,ligne,description_gamme,nb_places,nb_places_assises,nb_places_allongees,nb_buses,longueur_cm,largeur_cm,hauteur_cm&order=ligne,nom', {
     headers: { 'apikey': ANON_KEY, 'Authorization': 'Bearer ' + ANON_KEY }
   })
     .then(function (r) { return r.json(); })
@@ -54,7 +54,7 @@
           '</div>' +
           '<div class="model-card__content">' +
           '<h3 class="model-card__name"><a href="/produits/' + p.slug + '.html">' + p.nom + '</a></h3>' +
-          (p.description_courte ? '<p class="model-card__subtitle">' + p.description_courte + '</p>' : '') +
+          (p.description_gamme ? '<p class="model-card__subtitle">' + p.description_gamme + '</p>' : '') +
           '<div class="model-card__specs">' +
           (places ? '<div class="spec"><span class="spec__label">Places</span><span class="spec__value">' + places + '</span></div>' : '') +
           (p.nb_buses ? '<div class="spec"><span class="spec__label">Buses</span><span class="spec__value">' + p.nb_buses + '</span></div>' : '') +
