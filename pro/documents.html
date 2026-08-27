@@ -5,80 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Documents — Espace Pro Giovanni Riboli</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root { --bg-dark:#1a2d3e; --bg-card:#253a4c; --accent:#c7a260; --text-light:#ccd8e0; --text-muted:#7a8a9a; }
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:'Inter',sans-serif;background:#0f1e2c;color:var(--text-light);min-height:100vh;display:flex}
-    .sidebar{width:250px;background:var(--bg-dark);min-height:100vh;position:fixed;left:0;top:0;z-index:100;transition:transform .3s;border-right:1px solid rgba(255,255,255,.06)}
-    .sidebar .logo-area{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,.06)}
-    .sidebar .logo-area img{height:32px;filter:brightness(0) invert(1)}
-    .sidebar .logo-area .brand{font-size:13px;font-weight:600;color:var(--accent);margin-top:6px;letter-spacing:.5px}
-    .sidebar nav{padding:16px 0}
-    .sidebar nav a{display:flex;align-items:center;gap:10px;padding:12px 24px;color:rgba(255,255,255,.5);text-decoration:none;font-size:13px;font-weight:500;transition:all .2s;border-left:3px solid transparent}
-    .sidebar nav a:hover,.sidebar nav a.active{color:var(--accent);background:rgba(199,162,96,.06);border-left-color:var(--accent)}
-    .sidebar nav a svg{width:18px;height:18px;flex-shrink:0}
-    .main{margin-left:250px;flex:1;min-height:100vh}
-    .header{background:var(--bg-dark);border-bottom:1px solid rgba(255,255,255,.06);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
-    .header .title{font-size:15px;font-weight:600;color:#fff}
-    .header .user-area{display:flex;align-items:center;gap:16px;font-size:13px;color:var(--text-muted)}
-    .header .user-area strong{color:#fff}
-    .btn-logout{padding:8px 16px;background:none;border:1px solid rgba(255,255,255,.12);border-radius:6px;font-size:12px;font-family:'Inter',sans-serif;cursor:pointer;color:var(--text-muted);transition:all .2s}
-    .btn-logout:hover{border-color:var(--accent);color:var(--accent)}
-    .content{padding:32px}
-    .page-title{font-size:22px;font-weight:600;color:#fff;margin-bottom:6px}
-    .page-sub{font-size:13px;color:var(--text-muted);margin-bottom:28px}
-    .hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px}
-    .hamburger svg{width:24px;height:24px;color:#fff}
-    .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:90}
-
-    /* Filters */
-    .filters{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
-    .filter-btn{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid rgba(255,255,255,.1);background:none;color:var(--text-muted);font-family:'Inter',sans-serif;transition:all .2s}
-    .filter-btn.active,.filter-btn:hover{border-color:var(--accent);color:var(--accent);background:rgba(199,162,96,.08)}
-
-    /* Doc sections */
-    .section-label{font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin:28px 0 14px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.06)}
-    .doc-section{margin-bottom:8px}
-    .docs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
-    .doc-card{background:var(--bg-card);border-radius:10px;padding:16px 20px;display:flex;align-items:center;gap:14px;border:1px solid rgba(255,255,255,.04);transition:all .2s}
-    .doc-card:hover{border-color:rgba(199,162,96,.2)}
-    .doc-icon{font-size:24px;flex-shrink:0}
-    .doc-info{flex:1;min-width:0}
-    .doc-name{font-size:13px;font-weight:600;color:#fff;margin-bottom:3px}
-    .doc-meta{font-size:11px;color:var(--text-muted)}
-    .doc-actions{display:flex;gap:6px;flex-shrink:0;flex-direction:column}
-    .btn-view{font-size:11px;padding:5px 10px;border:1px solid rgba(255,255,255,.12);color:var(--text-light);border-radius:6px;text-decoration:none;text-align:center;font-weight:500;transition:.2s}
-    .btn-view:hover{border-color:var(--accent);color:var(--accent)}
-    .btn-dl{font-size:11px;padding:5px 10px;background:rgba(199,162,96,.1);border:1px solid rgba(199,162,96,.3);color:var(--accent);border-radius:6px;text-decoration:none;text-align:center;font-weight:600;transition:.2s}
-    .btn-dl:hover{background:rgba(199,162,96,.2)}
-
-    @media(max-width:768px){
-      .header{padding:12px 16px}
-      .filters{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;padding-bottom:8px;gap:6px}
-      .filter-btn{white-space:nowrap;min-height:44px;flex-shrink:0}
-      .btn-view,.btn-dl,.btn-logout{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
-      .doc-card{flex-wrap:wrap}
-      .doc-actions{flex-direction:row;width:100%;margin-top:8px}
-      .doc-actions a{flex:1;text-align:center}
-
-      .sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.overlay.open{display:block}
-      .main{margin-left:0}.hamburger{display:block}.content{padding:20px}
-      .docs-grid{grid-template-columns:1fr}
-    }
-  
-    .doc-category { margin-bottom: 32px; }
-    .cat-title { font-size: 14px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
-    .doc-card { display: flex; align-items: center; gap: 16px; background: var(--bg-card); border-radius: 10px; padding: 16px 20px; border: 1px solid rgba(255,255,255,.06); margin-bottom: 12px; }
-    .doc-card--coming { opacity: 0.5; }
-    .doc-icon { font-size: 28px; flex-shrink: 0; }
-    .doc-info { flex: 1; }
-    .doc-name { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 4px; }
-    .doc-meta { font-size: 12px; color: var(--text-muted); }
-    .btn-download { background: var(--accent); color: #1a2d3e; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600; white-space: nowrap; }
-    .btn-download:hover { opacity: 0.9; }
-    .btn-soon { background: rgba(255,255,255,.1); color: var(--text-muted); padding: 8px 16px; border-radius: 6px; font-size: 13px; white-space: nowrap; }
-    
-  </style>
+  <link rel="stylesheet" href="/pro/pro.css">
 </head>
 <body>
   <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
@@ -121,7 +48,6 @@
       <div style="margin-bottom:28px"><h2 style="font-size:12px;font-weight:700;color:#c7a260;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">📚 Catalogues 2026</h2><div style="display:flex;align-items:center;gap:16px;background:#253a4c;border-radius:10px;padding:16px 20px;border:1px solid rgba(255,255,255,.06);opacity:0.6;"><span style="font-size:28px;flex-shrink:0">⏳</span><div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">📚 Catalogues 2026</div><div style="font-size:12px;color:#8aafc8">Disponibles prochainement</div></div><span style="background:rgba(255,255,255,.1);color:#8aafc8;padding:10px 18px;border-radius:6px;font-size:13px;white-space:nowrap;flex-shrink:0">Bientôt</span></div></div>
     </div>
   </div>
-
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="auth.js"></script>
