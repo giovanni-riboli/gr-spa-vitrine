@@ -143,6 +143,15 @@ if (!window.GR_NAV_LOADED) (function() {
   });
 })();
 
+/* Article hero background image */
+(function() {
+  const hero = document.querySelector('.article-hero[data-bg]');
+  if (!hero) return;
+  const img = hero.getAttribute('data-bg');
+  if (!img) return;
+  hero.style.backgroundImage = 'url(' + img + ')';
+})();
+
 /* Scroll reveal - fade-up */
 (function() {
   const observer = new IntersectionObserver((entries) => {

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Pages principales -->
+  <url><loc>https://gr-spa.com/</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://gr-spa.com/quiz.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/comparateur.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/financement.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/revendeurs.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/a-propos.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/blog.html</loc><priority>0.7</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://gr-spa.com/cgv.html</loc><priority>0.3</priority><changefreq>yearly</changefreq></url>
+
+  <!-- Gammes -->
+  <url><loc>https://gr-spa.com/gammes/relax.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/gammes/energy.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/gammes/luxury.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/gammes/spa-de-nage.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+
+  <!-- Fiches produits -->
+  <url><loc>https://gr-spa.com/produits/r1.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/produits/r2.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/produits/r4.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/produits/r5.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/produits/rimini.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/produits/bari.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/produits/bolzano.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/produits/positano.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/produits/amalfi.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/produits/capri.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/produits/napoli.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/produits/torino.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/produits/signature-s.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/produits/napoli-luxe.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/produits/roma-luxe.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/produits/torino-luxe.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/produits/roma-xl.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/produits/napoli-xl.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/produits/signature-m.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/produits/signature-xl.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/produits/swimspa-1r39.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/produits/swimspa-1r50.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/produits/swimspa-2r.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/produits/roma.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+
+  <!-- Articles Blog -->
+  <url><loc>https://gr-spa.com/blog/bienfaits-hydrotherapie.html</loc><priority>0.7</priority><changefreq>yearly</changefreq></url>
+  <url><loc>https://gr-spa.com/blog/chromoterapie-couleurs-bien-etre.html</loc><priority>0.7</priority><changefreq>yearly</changefreq></url>
+  <url><loc>https://gr-spa.com/blog/comment-choisir-son-spa.html</loc><priority>0.7</priority><changefreq>yearly</changefreq></url>
+  <url><loc>https://gr-spa.com/blog/entretien-de-votre-spa.html</loc><priority>0.7</priority><changefreq>yearly</changefreq></url>
+  <url><loc>https://gr-spa.com/blog/giovanni-riboli-nouveaux-showrooms-2026.html</loc><priority>0.7</priority><changefreq>yearly</changefreq></url>
+  <url><loc>https://gr-spa.com/blog/offre-electrisante-panneau-solaire.html</loc><priority>0.7</priority><changefreq>yearly</changefreq></url>
+
+  <!-- Magasins directs -->
+  <url><loc>https://gr-spa.com/magasins/giovanni-riboli-montpellier.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/giovanni-riboli-toulouse.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/giovanni-riboli-bordeaux.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/giovanni-riboli-la-rochelle.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/giovanni-riboli-niort.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/giovanni-riboli-vaux-sur-mer.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+
+  <!-- Revendeurs -->
+  <url><loc>https://gr-spa.com/magasins/actua-piscine.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/aid-eau-piscine.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/ak-piscines-et-jardins.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/am-piscines.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/aquatech.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/azur-spa-design.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/bc-piscines-chateaubriant.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/cbp-concept.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/corse-piscine.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/cuinet-amenagement-exterieur.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/eau-divine.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/effervescence.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/fevre-viellard-paysage.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/ge3m.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/gr-altea-spas.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/gr-spa-bordeaux.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/gr-spa-mauguio.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/gr-spa-niort.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/gr-spa-saint-jory.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/gr-spa-vaux-sur-mer.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/jardispa.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/jl-piscines-nogent.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/l-ilot-fleurs.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/la-maison-du-spa.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/larcade-bois.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/les-spas-gaillards.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/maison-bali.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/maison-couleur.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/midot-piscine.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/my-abri.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/nature-et-paysage.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/nicolazi.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/o-concept.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/oceano-spa.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/passion-bien-etre.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/piscine-nouvelle-vague.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/piscines-du-vexin.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/pmv-piscines.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/riboli-spa-la-rochelle.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/sabiaux-dubrecq.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/sarl-axeldistri.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/sarl-stephane-abraham.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/spa-concept.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gr-spa.com/magasins/yevrozoyuz-gestoria-batimenta.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+
+</urlset>

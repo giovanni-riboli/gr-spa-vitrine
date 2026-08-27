@@ -1,6 +1,9 @@
 # ─── PAGES PRINCIPALES ───────────────────────────────────────────
 /                           /                           200
 /blog                       /blog                       200
+# Blog dynamique : /blog/:slug → article.html (fichiers .html physiques servis en priorité)
+/blog/:slug                 /blog/article.html          200
+/mentions-legales           /mentions-legales           200
 /contact                    /revendeurs                 301
 /notre-histoire             /a-propos                   301
 /nos-revendeurs             /revendeurs                 301
@@ -10,14 +13,14 @@
 /trouvez-votre-spa-ideal    /quiz                       301
 /fiches-techniques          /espace-pro                 301
 /fiches-commerciales        /espace-pro                 301
+/fiches-commerciales-cucina /espace-pro                 301
 /espace-revendeur           /espace-pro                 301
-/mentions-legales           /mentions-legales           200
 /politique-de-confidentialite /politique-confidentialite 301
 /informations-complementaires /                         301
 /les-catalogues             /espace-pro                 301
 /notices-dutilisation       /espace-pro                 301
 
-# Pages Webflow inexistantes → accueil
+# ─── PAGES FONCTIONNELLES WEBFLOW (supprimées) ───────────────────
 /access-denied              /                           301
 /checkout                   /                           301
 /connexion                  /espace-pro                 301
@@ -49,12 +52,14 @@
 /gamme-energy/capri         /produits/capri             301
 /gamme-energy/rimini        /produits/rimini            301
 
-# ─── FICHES PRODUITS — Gamme Massage/Luxury ─────────────────────
+# ─── FICHES PRODUITS — Gamme Massage → Energy/Luxury ─────────────
 /gamme-massage/napoli       /produits/napoli            301
 /gamme-massage/napoli-xl    /produits/napoli-xl         301
-/gamme-massage/roma         /produits/roma              301
+/gamme-massage/roma         /gammes/luxury              301
 /gamme-massage/roma-xl      /produits/roma-xl           301
 /gamme-massage/torino       /produits/torino            301
+
+# ─── FICHES PRODUITS — Gamme Thérapeutique → Luxury ─────────────
 /gamme-therapeutique/napoli-luxe   /produits/napoli-luxe   301
 /gamme-therapeutique/roma-luxe     /produits/roma-luxe     301
 /gamme-therapeutique/torino-luxe   /produits/torino-luxe   301
@@ -66,47 +71,65 @@
 /gamme-relax/le-d-3         /produits/r4                301
 
 # ─── FICHES PRODUITS — Spa de Nage ──────────────────────────────
-/spa-de-nage/spa-de-nage-1r3-9    /produits/swimspa-1r39   301
-/spa-de-nage/spa-de-nage-1r5-0    /produits/swimspa-1r50   301
-/spa-de-nage/spa-de-nage-positano /produits/positano        301
-/spa-de-nage/spa-de-nage-swimspa-2r /produits/swimspa-2r   301
+/spa-de-nage/spa-de-nage-1r3-9      /produits/swimspa-1r39   301
+/spa-de-nage/spa-de-nage-1r5-0      /produits/swimspa-1r50   301
+/spa-de-nage/spa-de-nage-positano   /produits/positano        301
+/spa-de-nage/spa-de-nage-swimspa-2r /produits/swimspa-2r      301
 
-# ─── BRASEROS (supprimés) ────────────────────────────────────────
+# ─── BRASEROS (gamme supprimée) ───────────────────────────────────
 /braseros/*                 /                           301
 
-# ─── PAGES LOCALES (ex Webflow) ──────────────────────────────────
-/spa-sur-bordeaux           /revendeurs/giovanni-riboli-bordeaux   301
-/spa-sur-montpellier        /revendeurs/giovanni-riboli-montpellier 301
-/spa-sur-paris              /                           301
+# ─── PAGES LOCALES SEO ────────────────────────────────────────────
+/spa-sur-bordeaux           /magasins/giovanni-riboli-bordeaux      301
+/spa-sur-montpellier        /magasins/giovanni-riboli-montpellier   301
+/spa-sur-paris              /revendeurs                             301
 
-# ─── PAGES REVENDEURS (par département → page revendeurs) ────────
-/revendeurs/*               /revendeurs                 301
-
-# ─── BLOG — articles existants ───────────────────────────────────
+# ─── BLOG — articles conservés (200) ─────────────────────────────
 /blog/comment-choisir-son-spa              /blog/comment-choisir-son-spa              200
-/blog/comment-entretenir-son-spa-au-quotidien /blog/entretien-de-votre-spa            301
+
+# ─── BLOG — articles → articles proches ──────────────────────────
+/blog/les-bienfaits-du-hammam              /blog/bienfaits-hydrotherapie              301
+/blog/les-bienfaits-du-sauna               /blog/bienfaits-hydrotherapie              301
+/blog/quest-ce-que-la-chromotherapie       /blog/chromoterapie-couleurs-bien-etre     301
+/blog/que-choisir-entre-un-spa-et-un-spa-de-nage /gammes/spa-de-nage                 301
+/blog/pourquoi-choisir-les-spas-giovanni-riboli  /blog                               301
+/blog/quest-ce-que-laromatherapie          /blog                                      301
+/blog/comment-entretenir-son-spa-au-quotidien    /blog/entretien-de-votre-spa         301
 /blog/comment-hiverner-son-spa             /blog/entretien-de-votre-spa               301
-/blog/comment-vidanger-son-spa-giovanni-riboli /blog/entretien-de-votre-spa           301
+/blog/comment-vidanger-son-spa-giovanni-riboli   /blog/entretien-de-votre-spa         301
+/blog/la-gamme-energy                      /gammes/energy                             301
 /blog/5-raisons-de-soffir-un-spa           /blog                                      301
-/blog/barbecue-vs-brasero-les-paris-sont-lances /blog                                 301
+/blog/barbecue-vs-brasero-les-paris-sont-lances  /blog                               301
 /blog/comment-entretenir-son-hammam        /blog                                      301
 /blog/comment-entretenir-son-sauna         /blog                                      301
-/blog/comment-hiverner-son-spa             /blog/entretien-de-votre-spa               301
 /blog/comment-utiliser-les-commandes-balboa /blog                                     301
 /blog/en-savoir-plus-sur-le-gr-pure        /blog                                      301
 /blog/foire-expo-de-la-rochelle            /blog                                      301
-/blog/la-gamme-energy                      /gammes/energy                             301
-/blog/les-bienfaits-du-hammam              /blog/bienfaits-hydrotherapie              301
-/blog/les-bienfaits-du-sauna               /blog/bienfaits-hydrotherapie              301
 
-# ─── CATCH-ALL ───────────────────────────────────────────────────
+# ─── CATÉGORIES ───────────────────────────────────────────────────
+/category/*                 /                           301
+
+# ─── REVENDEURS PAR DÉPARTEMENT ───────────────────────────────────
+/revendeurs/*               /revendeurs                 301
+
+# ─── PAGES MAGASINS — renommages internes ────────────────────────
+/magasins/aid-eau-piscine.html              /magasins/aideau-piscine.html                          301
+/magasins/ge3m.html                         /magasins/ge3m-tout-pour-leau.html                     301
+/magasins/jl-piscines-nogent.html           /magasins/jl-piscines.html                             301
+/magasins/l-ilot-fleurs.html                /magasins/lilot-fleurs.html                            301
+/magasins/maison-couleur.html               /magasins/maison-couleur-couleur-payage.html            301
+/magasins/o-concept.html                    /magasins/oconcept.html                                301
+/magasins/cuinet-amenagement-exterieur.html /magasins/cuinet-amenagement-exterieur-c-piscines.html  301
+/magasins/sarl-axeldistri.html              /magasins/sarl-axeldistri-alti-piscines.html            301
+/magasins/sabiaux-dubrecq.html              /magasins/maison-bali.html                             301
+/magasins/sabiaux-dubrecq-maison-bali.html  /magasins/maison-bali.html                             301
+/magasins/ets-coudray.html                  /magasins/bc-piscines-chateaubriant.html               301
+/magasins/gr-spa-bordeaux.html              /magasins/giovanni-riboli-bordeaux.html                301
+/magasins/gr-spa-mauguio.html               /magasins/giovanni-riboli-montpellier.html             301
+/magasins/gr-spa-niort.html                 /magasins/giovanni-riboli-niort.html                   301
+/magasins/gr-spa-saint-jory.html            /magasins/giovanni-riboli-toulouse.html                301
+/magasins/gr-spa-vaux-sur-mer.html          /magasins/giovanni-riboli-vaux-sur-mer.html            301
+/magasins/riboli-spa-la-rochelle.html       /magasins/giovanni-riboli-la-rochelle.html             301
+
+# ─── CATCH-ALL (toujours en dernier) ─────────────────────────────
 /*                          /                           301
-
-# ─── BLOG — articles manquants ───────────────────────────────────
-/blog/pourquoi-choisir-les-spas-giovanni-riboli     /blog                             301
-/blog/que-choisir-entre-un-spa-et-un-spa-de-nage    /gammes/spa-de-nage               301
-/blog/quest-ce-que-la-chromotherapie                /blog/chromoterapie-couleurs-bien-etre 301
-/blog/quest-ce-que-laromatherapie                   /blog                             301
-
-# ─── CATÉGORIES ──────────────────────────────────────────────────
-/category/*                                         /                                 301

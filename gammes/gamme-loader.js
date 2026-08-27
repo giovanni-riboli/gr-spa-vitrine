@@ -48,7 +48,7 @@
 
         return '<article class="model-card">' +
           '<div class="model-card__image">' +
-          '<img src="/assets/produits/' + p.slug + '.jpg" alt="' + p.nom + '" ' +
+          '<img src="/assets/produits/' + p.slug + '.webp" alt="' + p.nom + '" ' +
           'style="width:100%;height:100%;object-fit:contain;background:#f8f6f2;" ' +
           'onerror="this.parentNode.innerHTML=\'<div class=model-card__placeholder><span>' + p.nom + '</span></div>\'">' +
           '</div>' +

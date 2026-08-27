@@ -418,7 +418,6 @@ input { font-family: inherit; font-size: 16px !important; }
   margin-bottom: 12px;
   line-height: 1.3;
 }
-.gamme-card--large .gamme-card__title { font-size: 30px; }
 .gamme-card__body { font-size: 14px; color: var(--text-light); line-height: 1.7; margin-bottom: 20px; }
 
 .gammes__cta { text-align: center; margin-top: 48px; }
@@ -798,7 +797,16 @@ a#ov-cta { background: var(--gold); }
   padding: calc(var(--nav-h) + var(--offre-bar-h) + 5rem) 0 5rem;
   color: #fff;
   text-align: center;
+  position: relative;
 }
+.gamme-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,rgba(26,45,61,0.72) 0%,rgba(37,58,76,0.55) 60%,rgba(74,122,155,0.35) 100%);
+  pointer-events: none;
+}
+.gamme-hero .container { position: relative; z-index: 2; }
 .gamme-hero__eyebrow {
   font-family: 'Inter', sans-serif;
   font-size: .75rem;
@@ -2133,7 +2141,7 @@ body.offre-bar-open .mega-menu { top: calc(var(--nav-h) + var(--offre-bar-h)); }
 .nav--mega-open .nav__menu > li > a { color: #1a2d3e !important; }
 .nav--mega-open .nav__cta { color: #1a2d3e !important; border-color: #1a2d3e !important; }
 .nav--mega-open .nav__sel-btn,
-.nav--mega-open .nav__pro-btn,
+.nav--mega-open .nav__pro-btn { color: #1a2d3e !important; }
 
 
 
@@ -2142,7 +2150,9 @@ body.offre-bar-open .mega-menu { top: calc(var(--nav-h) + var(--offre-bar-h)); }
    ───────────────────────────────────────────────────────── */
 .article-hero {
   background: linear-gradient(135deg,#1a2d3d 0%,#253a4c 60%,#4a7a9b 100%);
-  height: 380px;
+  background-size: cover;
+  background-position: center;
+  height: 400px;
   display: flex;
   align-items: flex-end;
   padding: 0 5% 3rem;
@@ -2155,6 +2165,9 @@ body.offre-bar-open .mega-menu { top: calc(var(--nav-h) + var(--offre-bar-h)); }
   background: linear-gradient(to top,rgba(13,46,69,0.85) 0%,rgba(13,46,69,0.2) 60%,transparent 100%);
 }
 .article-hero__content { position: relative; z-index: 2; max-width: 800px; }
+.article-hero .breadcrumb { color: rgba(255,255,255,0.5); }
+.article-hero .breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; }
+.article-hero .breadcrumb a:hover { color: #c7a260; }
 .article-cat {
   font-family: 'Inter', sans-serif;
   font-weight: 600;
@@ -2211,7 +2224,8 @@ body.offre-bar-open .mega-menu { top: calc(var(--nav-h) + var(--offre-bar-h)); }
   border-radius: 12px;
   padding: 2.5rem;
   text-align: center;
-  margin: 3rem 0;
+  max-width: 760px;
+  margin: 3rem auto;
 }
 .article-cta h3 {
   font-family: 'Cormorant Garamond', serif;
@@ -2507,7 +2521,7 @@ body.offre-bar-open .mega-menu { top: calc(var(--nav-h) + var(--offre-bar-h)); }
   font-weight: 500;
 }
 .store-filters {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 40px 24px 0;
   display: flex;
@@ -2767,3 +2781,236 @@ body.offre-bar-open .mega-menu { top: calc(var(--nav-h) + var(--offre-bar-h)); }
 #loading { text-align: center; padding: 200px 24px; font-family: 'Inter', sans-serif; color: #999; }
 #error-msg { display: none; text-align: center; padding: 200px 24px; font-family: 'Inter', sans-serif; color: #c0392b; }
 #page-content { display: none; }
+
+/* ─────────────────────────────────────────────────────────
+   PAGES MAGASINS — badge, variantes hero, info-card, carte
+   ──────────────────────────────────────────────────────── */
+
+/* Badge type (sur fond navy du shop-hero) */
+.shop-badge {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.42rem 1.2rem;
+  border-radius: 2px;
+  margin-bottom: 1.5rem;
+  line-height: 1;
+}
+.shop-hero--revendeur .shop-badge {
+  color: #7bb3cc;
+  border: 1.5px solid #7bb3cc;
+}
+.shop-hero--propre .shop-badge {
+  color: var(--gold);
+  border: 1.5px solid var(--gold);
+}
+
+/* Boutons hero */
+.shop-hero__actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+.btn-shop {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.9rem 2.2rem;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+}
+.btn-shop--navy {
+  background: var(--blue);
+  color: #fff;
+  border-color: var(--blue);
+}
+.btn-shop--navy:hover { background: var(--blue-dark); border-color: var(--blue-dark); }
+.btn-shop--gold {
+  background: var(--gold);
+  color: #fff;
+  border-color: var(--gold);
+}
+.btn-shop--gold:hover { background: var(--gold-light); border-color: var(--gold-light); }
+.btn-shop--outline {
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255,255,255,0.5);
+}
+.btn-shop--outline:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: #fff;
+}
+
+/* Section infos + carte */
+.shop-info {
+  display: flex;
+  gap: 3rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  align-items: flex-start;
+}
+.shop-info-card {
+  background: #fff;
+  border: 1px solid #e8e4db;
+  border-radius: 3px;
+  padding: 2rem 2.5rem;
+  min-width: 340px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 16px rgba(37,58,76,0.05);
+}
+.shop-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid #f0ebe2;
+}
+.shop-info-item:last-child { border-bottom: none; padding-bottom: 0; }
+.shop-info-item:first-child { padding-top: 0; }
+.shop-info-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9ca3af;
+}
+.shop-info-value {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: var(--blue-dark);
+  font-weight: 400;
+  line-height: 1.5;
+}
+.shop-info-link {
+  text-decoration: none;
+  color: var(--blue-dark);
+  transition: color 0.2s;
+}
+.shop-info-link:hover { color: var(--gold); }
+.shop-map {
+  flex: 1;
+  height: 380px;
+  border-radius: 3px;
+  min-height: 280px;
+  background: #e8e6e2;
+}
+
+/* Formulaire contact */
+.shop-contact {
+  background: #f8f6f2;
+  padding: 5rem 2rem;
+}
+.shop-contact-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+.shop-contact-inner h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 400;
+  color: var(--blue-dark);
+  margin: 0 0 2.5rem;
+}
+.shop-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: left;
+}
+.shop-form input,
+.shop-form textarea {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  background: #fff;
+  color: var(--blue-dark);
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+.shop-form input:focus,
+.shop-form textarea:focus { border-color: var(--gold); }
+.shop-form textarea { resize: vertical; min-height: 120px; }
+
+/* Gammes section */
+.shop-gammes {
+  padding: 5rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+.shop-gammes h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 400;
+  color: var(--blue-dark);
+  margin: 0 0 2.5rem;
+}
+.shop-gammes-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+.shop-gamme-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 2rem 1rem;
+  background: #fff;
+  border: 1px solid #e8e4db;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.shop-gamme-card:hover {
+  border-color: var(--gold);
+  box-shadow: 0 4px 20px rgba(199,162,96,0.12);
+  transform: translateY(-2px);
+}
+.shop-gamme-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--blue-dark);
+  margin: 0;
+}
+.shop-gamme-card p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Mobile */
+@media (max-width: 860px) {
+  .shop-info { flex-direction: column; padding: 2.5rem 1.25rem; gap: 1.5rem; }
+  .shop-info-card { min-width: unset; width: 100%; padding: 1.5rem; }
+  .shop-map { height: 260px; width: 100%; }
+  .shop-gammes-grid { grid-template-columns: repeat(2, 1fr); }
+  .shop-hero__actions { gap: 0.75rem; }
+  .btn-shop { padding: 0.8rem 1.5rem; font-size: 0.78rem; }
+}

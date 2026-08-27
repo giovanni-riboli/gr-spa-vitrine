@@ -9,10 +9,51 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Blog — Actualités & Conseils | Giovanni Riboli">
+  <meta property="og:description" content="Conseils d'entretien, guides d'achat et actualités Giovanni Riboli.">
+  <meta property="og:url" content="https://gr-spa.com/blog">
+  <meta property="og:image" content="https://gr-spa.com/assets/hero-ambiance.webp">
+  <link rel="canonical" href="https://gr-spa.com/blog">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/assets/favicon.ico">
+  <!-- JSON-LD Blog -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Blog Giovanni Riboli",
+    "description": "Conseils d'entretien, guides d'achat et actualités autour de l'univers du spa.",
+    "url": "https://gr-spa.com/blog",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Giovanni Riboli",
+      "url": "https://gr-spa.com",
+      "logo": { "@type": "ImageObject", "url": "https://gr-spa.com/assets/logo-blanc.svg" }
+    }
+  }
+  </script>
+  <style>
+    /* Skeleton cards */
+    .blog-card--skeleton .blog-card__img { background: linear-gradient(90deg,#e8e4dd 25%,#d8d2c8 50%,#e8e4dd 75%); background-size:200% 100%; animation:shimmer 1.5s infinite; }
+    .blog-card--skeleton .blog-card__cat,
+    .blog-card--skeleton .blog-card__title,
+    .blog-card--skeleton .blog-card__date,
+    .blog-card--skeleton .blog-card__excerpt { background:linear-gradient(90deg,#e8e4dd 25%,#d8d2c8 50%,#e8e4dd 75%); background-size:200% 100%; animation:shimmer 1.5s infinite; border-radius:3px; color:transparent; }
+    .blog-card--skeleton .blog-card__link { display:none; }
+    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+    /* Message vide */
+    .blog-empty { text-align:center; padding:5rem 2rem; color:#888; font-family:'Inter',sans-serif; }
+    .blog-empty p { font-size:1.05rem; }
+  </style>
 </head>
 <body>
 
-  <!-- NAV — composant JS -->
+  <!-- NAV -->
   <div id="gr-nav"></div>
   <script>window.GR_NAV_TRANSPARENT = true;</script>
   <script src="/nav.js"></script>
@@ -20,100 +61,225 @@
   <!-- HERO -->
   <section class="page-hero">
     <div class="container">
-      <p class="page-hero__eyebrow" style="color: #c7a260; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.5rem;">Blog</p>
-      <h1 style="color: #fff; font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.1; margin: 0;">Actualités &amp; Conseils</h1>
-      <p style="color: rgba(255,255,255,0.7); font-family: 'Inter', sans-serif; font-weight: 300; font-size: 1.1rem; margin-top: 1.5rem;">Guides, tendances et coulisses de l'univers Giovanni Riboli.</p>
+      <p class="page-hero__eyebrow" style="color:#c7a260;font-family:'Inter',sans-serif;font-weight:500;font-size:.85rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:1.5rem;">Blog</p>
+      <h1 style="color:#fff;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2.5rem,5vw,4.5rem);line-height:1.1;margin:0;">Actualités &amp; Conseils</h1>
+      <p style="color:rgba(255,255,255,0.7);font-family:'Inter',sans-serif;font-weight:300;font-size:1.1rem;margin-top:1.5rem;">Guides, tendances et coulisses de l'univers Giovanni Riboli.</p>
     </div>
   </section>
 
-  <!-- ARTICLES -->
-  <section style="padding: 5rem 0 6rem; background: #f8f6f2;">
+  <!-- FILTRE CATÉGORIES -->
+  <section style="background:#f8f6f2;padding:2.5rem 0 0;">
     <div class="container">
-      <div class="blog-grid">
+      <div id="category-filter" style="display:flex;flex-wrap:wrap;gap:.5rem;"></div>
+    </div>
+  </section>
 
-        <!-- Article 1 -->
-        <article class="blog-card">
-          <div class="blog-card__img"><span>[ Photo — spa en terrasse ]</span></div>
+  <!-- GRILLE ARTICLES -->
+  <section style="padding:2.5rem 0 6rem;background:#f8f6f2;">
+    <div class="container">
+      <div id="blog-grid" class="blog-grid">
+        <!-- Skeletons pendant le chargement -->
+        <article class="blog-card blog-card--skeleton">
+          <div class="blog-card__img"></div>
           <div class="blog-card__body">
-            <span class="blog-card__cat">Guide</span>
-            <h2 class="blog-card__title">Comment choisir son spa&nbsp;: notre guide complet</h2>
-            <p class="blog-card__date">28 mars 2026</p>
-            <p class="blog-card__excerpt">Taille, nombre de places, jets, isolation… Tous les critères pour trouver le spa qui correspond à votre mode de vie.</p>
-            <a href="blog/comment-choisir-son-spa.html" class="blog-card__link">Lire l'article →</a>
+            <span class="blog-card__cat">⬛⬛⬛</span>
+            <h2 class="blog-card__title">⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛</h2>
+            <p class="blog-card__date">⬛⬛⬛⬛⬛⬛</p>
+            <p class="blog-card__excerpt">⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛</p>
+            <a class="blog-card__link"></a>
           </div>
         </article>
-
-        <!-- Article 2 -->
-        <article class="blog-card">
-          <div class="blog-card__img" style="background:linear-gradient(135deg,#1a2d3d 0%,#253a4c 60%,#4a7a9b 100%)"><span>[ Photo — hydrothérapie ]</span></div>
+        <article class="blog-card blog-card--skeleton">
+          <div class="blog-card__img"></div>
           <div class="blog-card__body">
-            <span class="blog-card__cat">Bien-être</span>
-            <h2 class="blog-card__title">Les bienfaits de l'hydrothérapie au quotidien</h2>
-            <p class="blog-card__date">15 mars 2026</p>
-            <p class="blog-card__excerpt">Détente musculaire, amélioration du sommeil, réduction du stress&nbsp;: découvrez ce que la science dit de l'hydrothérapie.</p>
-            <a href="blog/bienfaits-hydrotherapie.html" class="blog-card__link">Lire l'article →</a>
+            <span class="blog-card__cat">⬛⬛⬛</span>
+            <h2 class="blog-card__title">⬛⬛⬛⬛⬛⬛⬛⬛</h2>
+            <p class="blog-card__date">⬛⬛⬛⬛⬛</p>
+            <p class="blog-card__excerpt">⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛</p>
+            <a class="blog-card__link"></a>
           </div>
         </article>
-
-        <!-- Article 3 -->
-        <article class="blog-card">
-          <div class="blog-card__img" style="background:linear-gradient(135deg,#c7a260 0%,#253a4c 100%)"><span>[ Photo — panneau solaire ]</span></div>
+        <article class="blog-card blog-card--skeleton">
+          <div class="blog-card__img"></div>
           <div class="blog-card__body">
-            <span class="blog-card__cat">Offre</span>
-            <h2 class="blog-card__title">Offre Électrisante&nbsp;: un panneau solaire offert avec votre spa</h2>
-            <p class="blog-card__date">1<sup>er</sup> mars 2026</p>
-            <p class="blog-card__excerpt">Profitez de notre offre exclusive&nbsp;: pour tout achat d'un spa, un panneau solaire vous est offert. Économies garanties.</p>
-            <a href="blog/offre-electrisante-panneau-solaire.html" class="blog-card__link">Lire l'article →</a>
+            <span class="blog-card__cat">⬛⬛</span>
+            <h2 class="blog-card__title">⬛⬛⬛⬛⬛⬛⬛⬛⬛</h2>
+            <p class="blog-card__date">⬛⬛⬛⬛</p>
+            <p class="blog-card__excerpt">⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛</p>
+            <a class="blog-card__link"></a>
           </div>
         </article>
-
-        <!-- Article 4 -->
-        <article class="blog-card">
-          <div class="blog-card__img" style="background:linear-gradient(135deg,#253a4c 0%,#3a5a6c 100%)"><span>[ Photo — entretien spa ]</span></div>
-          <div class="blog-card__body">
-            <span class="blog-card__cat">Entretien</span>
-            <h2 class="blog-card__title">Entretien de votre spa&nbsp;: les bons gestes</h2>
-            <p class="blog-card__date">18 février 2026</p>
-            <p class="blog-card__excerpt">Filtration, pH, nettoyage de la coque… Les gestes simples pour maintenir votre spa en parfait état toute l'année.</p>
-            <a href="blog/entretien-de-votre-spa.html" class="blog-card__link">Lire l'article →</a>
-          </div>
-        </article>
-
-        <!-- Article 5 -->
-        <article class="blog-card">
-          <div class="blog-card__img" style="background:linear-gradient(135deg,#1a2d3d 0%,#c7a260 100%)"><span>[ Photo — showroom ]</span></div>
-          <div class="blog-card__body">
-            <span class="blog-card__cat">Actualité</span>
-            <h2 class="blog-card__title">Giovanni Riboli ouvre 3 nouveaux showrooms en 2026</h2>
-            <p class="blog-card__date">5 février 2026</p>
-            <p class="blog-card__excerpt">Lyon, Bordeaux, Strasbourg&nbsp;: trois nouvelles adresses pour découvrir nos spas et bénéficier de conseils personnalisés.</p>
-            <a href="blog/giovanni-riboli-nouveaux-showrooms-2026.html" class="blog-card__link">Lire l'article →</a>
-          </div>
-        </article>
-
-        <!-- Article 6 -->
-        <article class="blog-card">
-          <div class="blog-card__img" style="background:linear-gradient(135deg,#4a7a9b 0%,#253a4c 60%,#c7a260 100%)"><span>[ Photo — chromothérapie ]</span></div>
-          <div class="blog-card__body">
-            <span class="blog-card__cat">Bien-être</span>
-            <h2 class="blog-card__title">Chromothérapie&nbsp;: comment les couleurs influencent votre bien-être</h2>
-            <p class="blog-card__date">20 janvier 2026</p>
-            <p class="blog-card__excerpt">Rouge, bleu, vert… Chaque couleur agit sur le corps et l'esprit. Découvrez les principes de la chromothérapie intégrée à nos spas.</p>
-            <a href="blog/chromoterapie-couleurs-bien-etre.html" class="blog-card__link">Lire l'article →</a>
-          </div>
-        </article>
-
       </div>
 
-      <!-- PAGINATION -->
-      <nav class="blog-pagination" aria-label="Pagination">
-        <span class="active">1</span>
+      <!-- Pagination -->
+      <nav class="blog-pagination" aria-label="Pagination" id="blog-pagination" style="display:none;">
+        <button id="prev-page" onclick="changePage(-1)" aria-label="Page précédente">‹</button>
+        <span id="page-indicator">1</span>
+        <button id="next-page" onclick="changePage(1)" aria-label="Page suivante">›</button>
       </nav>
     </div>
   </section>
 
-  <!-- FOOTER — composant JS -->
+  <!-- FOOTER -->
   <div id="gr-footer"></div>
+
+  <script>
+  (function() {
+    var SUPABASE_URL = 'https://ohjzggceozamhdesecxi.supabase.co';
+    var ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oanpnZ2Nlb3phbWhkZXNlY3hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Njc5MDYsImV4cCI6MjA5MjM0MzkwNn0.wW-tqXBDUtKURR31bh3CUWIcuYMUJTZLqq2LLT1kJnA';
+    var PAGE_SIZE = 9;
+    var currentPage = 1;
+    var currentCat = null;
+    var allArticles = [];
+
+    function formatDate(dateStr) {
+      var d = new Date(dateStr + 'T00:00:00');
+      return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
+    function buildCard(a) {
+      var imgStyle = a.photo_url
+        ? 'background-image:url(' + a.photo_url + ');background-size:cover;background-position:center;'
+        : 'background:linear-gradient(135deg,#1a2d3d 0%,#253a4c 60%,#4a7a9b 100%);';
+
+      return '<article class="blog-card">' +
+        '<div class="blog-card__img" style="' + imgStyle + '"></div>' +
+        '<div class="blog-card__body">' +
+          '<span class="blog-card__cat">' + (a.categorie || '') + '</span>' +
+          '<h2 class="blog-card__title">' + a.titre + '</h2>' +
+          '<p class="blog-card__date">' + formatDate(a.date_publication) + '</p>' +
+          '<p class="blog-card__excerpt">' + (a.extrait || '') + '</p>' +
+          '<a href="/blog/' + a.slug + '" class="blog-card__link">Lire l\'article →</a>' +
+        '</div>' +
+        '</article>';
+    }
+
+    function buildCategories(articles) {
+      var cats = {};
+      articles.forEach(function(a) { if (a.categorie) cats[a.categorie] = true; });
+      var cats = Object.keys(cats).sort();
+      if (!cats.length) return;
+
+      var container = document.getElementById('category-filter');
+      var html = '<button class="cat-btn cat-btn--active" onclick="filterCat(null,this)">Tous</button>';
+      cats.forEach(function(c) {
+        html += '<button class="cat-btn" onclick="filterCat(\'' + c + '\',this)">' + c + '</button>';
+      });
+      container.innerHTML = html;
+    }
+
+    window.filterCat = function(cat, btn) {
+      currentCat = cat;
+      currentPage = 1;
+      document.querySelectorAll('.cat-btn').forEach(function(b) { b.classList.remove('cat-btn--active'); });
+      if (btn) btn.classList.add('cat-btn--active');
+      renderPage();
+    };
+
+    function renderPage() {
+      var filtered = currentCat
+        ? allArticles.filter(function(a) { return a.categorie === currentCat; })
+        : allArticles;
+
+      var total = filtered.length;
+      var totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      var start = (currentPage - 1) * PAGE_SIZE;
+      var page = filtered.slice(start, start + PAGE_SIZE);
+
+      var grid = document.getElementById('blog-grid');
+      if (!page.length) {
+        grid.innerHTML = '<div class="blog-empty"><p>Aucun article dans cette catégorie.</p></div>';
+      } else {
+        grid.innerHTML = page.map(buildCard).join('');
+      }
+
+      // Pagination
+      var nav = document.getElementById('blog-pagination');
+      if (totalPages > 1) {
+        nav.style.display = '';
+        document.getElementById('page-indicator').textContent = currentPage + ' / ' + totalPages;
+        document.getElementById('prev-page').disabled = currentPage === 1;
+        document.getElementById('next-page').disabled = currentPage === totalPages;
+      } else {
+        nav.style.display = 'none';
+      }
+    }
+
+    window.changePage = function(delta) {
+      currentPage += delta;
+      renderPage();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    async function loadArticles() {
+      try {
+        var r = await fetch(
+          SUPABASE_URL + '/rest/v1/articles?actif=eq.true&select=slug,titre,date_publication,extrait,photo_url,categorie&order=date_publication.desc',
+          { headers: { 'apikey': ANON_KEY, 'Authorization': 'Bearer ' + ANON_KEY } }
+        );
+        var data = await r.json();
+        if (!Array.isArray(data) || !data.length) {
+          document.getElementById('blog-grid').innerHTML = '<div class="blog-empty"><p>Aucun article disponible pour le moment.</p></div>';
+          return;
+        }
+        allArticles = data;
+        buildCategories(data);
+        renderPage();
+      } catch(e) {
+        console.error('Erreur chargement blog:', e);
+        document.getElementById('blog-grid').innerHTML = '<div class="blog-empty"><p>Impossible de charger les articles. Réessayez plus tard.</p></div>';
+      }
+    }
+
+    loadArticles();
+  })();
+  </script>
+
+  <!-- Styles filtres catégories (inline pour ne pas modifier style.css) -->
+  <style>
+  .cat-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: .75rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: .45rem 1.1rem;
+    border: 1.5px solid #c7a260;
+    background: transparent;
+    color: #c7a260;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .cat-btn:hover, .cat-btn--active {
+    background: #c7a260;
+    color: #fff;
+  }
+  .blog-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    font-family: 'Inter', sans-serif;
+  }
+  .blog-pagination button {
+    background: none;
+    border: 1.5px solid #c7a260;
+    color: #c7a260;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 2px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .blog-pagination button:hover:not(:disabled) { background: #c7a260; color: #fff; }
+  .blog-pagination button:disabled { opacity: .35; cursor: default; }
+  #page-indicator { font-size: .85rem; color: #555; }
+  </style>
 
   <script src="script.js"></script>
   <script src="selection.js"></script>

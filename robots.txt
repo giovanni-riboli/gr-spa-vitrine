@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /pro/
+Disallow: /feedback.html
+Disallow: /netlify/
+
+Sitemap: https://gr-spa.com/sitemap.xml

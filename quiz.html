@@ -4,11 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trouvez votre spa idéal — Giovanni Riboli</title>
+  <meta name="description" content="Répondez à 7 questions et découvrez le spa Giovanni Riboli fait pour vous : gamme, modèles recommandés et votre magasin le plus proche.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@23.1.0/build/css/intlTelInput.css">
   <link rel="stylesheet" href="/quiz.css">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Trouvez votre spa idéal — Giovanni Riboli">
+  <meta property="og:url" content="https://gr-spa.com/quiz.html">
+  <meta property="og:image" content="https://gr-spa.com/assets/quiz-spa-installe.webp">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/assets/favicon.ico">
+  <link rel="canonical" href="https://gr-spa.com/quiz.html">
 </head>
 <body>
 
@@ -753,7 +764,7 @@
       if (p.aromatherapie) equip.push('Aromathérapie');
       if (p.leds_rgb) equip.push('LEDs RGB');
       return `<a href="${r.url}" class="product-card ${r.featured ? 'featured' : ''}">
-        <img src="assets/produits/${slug}.jpg" alt="${r.name}" style="height:140px;object-fit:contain;border-radius:8px;background:#f8f6f2;margin-bottom:12px" onerror="this.style.display='none'">
+        <img src="assets/produits/${slug}.webp" alt="${r.name}" style="height:140px;object-fit:contain;border-radius:8px;background:#f8f6f2;margin-bottom:12px" onerror="this.style.display='none'">
         <div style="flex:1">
           ${r.featured ? '<span class="product-badge">Recommandé pour vous</span>' : ''}
           <span class="product-gamme">${r.gamme}</span>

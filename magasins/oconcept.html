@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O'CONCEPT — Giovanni Riboli</title>
+    <meta name="description" content="O'CONCEPT, revendeur agréé Giovanni Riboli à FONTENAY LE COMTE. Spas et spas de nage haut de gamme.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="O'CONCEPT — Giovanni Riboli">
+    <meta property="og:description" content="O'CONCEPT, revendeur agréé Giovanni Riboli à FONTENAY LE COMTE. Spas et spas de nage haut de gamme.">
+    <meta property="og:url" content="https://gr-spa.com/magasins/oconcept.html">
+    <meta property="og:image" content="https://gr-spa.com/assets/hero-ambiance.webp">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <link rel="shortcut icon" href="/assets/favicon.ico">
+    <link rel="canonical" href="https://gr-spa.com/magasins/oconcept.html">
+</head>
+<body>
+
+    <div id="gr-nav"></div>
+    <script src="/nav.js"></script>
+
+    <!-- HERO -->
+    <section class="shop-hero" id="shop-hero">
+        <div class="shop-hero__breadcrumb breadcrumb">
+            <a href="/revendeurs">Nos magasins</a> / <span id="breadcrumb-nom">O'CONCEPT</span>
+        </div>
+        <span class="shop-badge" id="shop-badge"></span>
+        <h1 id="magasin-nom-h1">O'CONCEPT</h1>
+        <p class="subtitle" id="magasin-ville-subtitle">FONTENAY LE COMTE — Département 85</p>
+        <div class="shop-hero__actions">
+            <a href="tel:0614441734" id="btn-appeler" class="btn-shop">
+                📞&nbsp;Appeler
+            </a>
+            <a href="#shop-contact" class="btn-shop btn-shop--outline">
+                Planifier ma visite
+            </a>
+        </div>
+    </section>
+
+    <!-- INFOS + CARTE -->
+    <section class="shop-info">
+        <div class="shop-info-card">
+            <div class="shop-info-item">
+                <span class="shop-info-label">Adresse</span>
+                <span class="shop-info-value" id="magasin-adresse">20 RUE KEBLER, 85200 FONTENAY LE COMTE</span>
+            </div>
+            <div class="shop-info-item">
+                <span class="shop-info-label">Téléphone</span>
+                <a class="shop-info-value shop-info-link" id="magasin-tel-link" href="tel:0614441734">
+                    <span id="magasin-tel">06-14-44-17-34</span>
+                </a>
+            </div>
+            <div class="shop-info-item">
+                <span class="shop-info-label">Email</span>
+                <a class="shop-info-value shop-info-link" id="magasin-email-link" href="mailto:contact@o-concept.fr">
+                    <span id="magasin-email">contact@o-concept.fr</span>
+                </a>
+            </div>
+            <div class="shop-info-item">
+                <span class="shop-info-label">Votre conseiller</span>
+                <span class="shop-info-value" id="magasin-responsable">MYLENE</span>
+            </div>
+        </div>
+        <div id="shopMap" class="shop-map"></div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="shop-contact" id="shop-contact">
+        <div class="shop-contact-inner">
+            <h2>Contactez <span id="contact-nom">O'CONCEPT</span></h2>
+            <form class="shop-form" action="#">
+                <input type="text" name="prenom" placeholder="Prénom" required>
+                <input type="text" name="nom" placeholder="Nom" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="tel" name="telephone" placeholder="Téléphone">
+                <textarea name="message" rows="5" placeholder="Votre message…" required></textarea>
+                <button type="submit" class="btn-submit">Envoyer ma demande</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- GAMMES -->
+    <section class="shop-gammes">
+        <h2>Nos gammes disponibles</h2>
+        <div class="shop-gammes-grid">
+            <a class="shop-gamme-card" href="/gammes/relax"><h3>Relax</h3><p>Découvrir</p></a>
+            <a class="shop-gamme-card" href="/gammes/energy"><h3>Energy</h3><p>Découvrir</p></a>
+            <a class="shop-gamme-card" href="/gammes/luxury"><h3>Luxury</h3><p>Découvrir</p></a>
+            <a class="shop-gamme-card" href="/gammes/spa-de-nage"><h3>Spa de nage</h3><p>Découvrir</p></a>
+        </div>
+    </section>
+
+    <div id="gr-footer"></div>
+
+    <script>const MAGASIN_SLUG = 'oconcept';</script>
+    <script src="/magasin-loader.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIhhwEmidNOgH7GGmUSOXJlqq8aJ2cKeE&callback=initShopMapCallback"></script>
+    <script src="../offre-bar.js"></script>
+    <script src="../exit-intent.js"></script>
+    <script src="/footer.js"></script>
+</body>
+</html>

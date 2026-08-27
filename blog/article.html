@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- SEO dynamique — titre et description injectés par JS -->
+  <title>Blog | Giovanni Riboli</title>
+  <meta name="description" content="">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <!-- Open Graph — injectés par JS -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Giovanni Riboli — Spas & Spas de Nage">
+  <meta property="og:title" content="">
+  <meta property="og:description" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+  <link rel="canonical" href="">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/assets/favicon.ico">
+  <!-- marked.js : rendu Markdown côté client -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@9/marked.min.js"></script>
+  <style>
+    /* Styles spécifiques au contenu Markdown rendu */
+    .article-body h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+      font-weight: 500;
+      color: #1a2d3d;
+      margin: 2.5rem 0 1rem;
+      padding-top: 0.5rem;
+    }
+    .article-body h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #253a4c;
+      margin: 2rem 0 0.75rem;
+    }
+    .article-body ul, .article-body ol {
+      margin: 1rem 0 1.5rem 1.5rem;
+    }
+    .article-body li { margin-bottom: 0.5rem; }
+    .article-body strong { color: #1a2d3d; }
+    .article-body em { font-style: italic; }
+    /* Skeleton loading */
+    .skeleton { background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 4px; }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <div id="gr-nav"></div>
+  <script>window.GR_NAV_TRANSPARENT = true;</script>
+  <script src="/nav.js"></script>
+
+  <!-- HERO ARTICLE -->
+  <section id="article-hero" class="article-hero">
+    <div class="article-hero__content">
+      <div class="breadcrumb">
+        <a href="/">Accueil</a> &rsaquo; <a href="/blog">Blog</a> &rsaquo; <span id="cat-crumb">…</span>
+      </div>
+      <span class="article-cat" id="hero-cat"></span>
+      <h1 id="hero-title" style="min-height:3rem;"></h1>
+      <p class="article-hero__date" id="hero-date"></p>
+    </div>
+  </section>
+
+  <!-- CONTENU ARTICLE (Markdown → HTML) -->
+  <article class="article-body" id="article-content">
+    <p class="skeleton" style="height:1rem;width:80%;margin-bottom:.75rem;"></p>
+    <p class="skeleton" style="height:1rem;width:65%;margin-bottom:.75rem;"></p>
+    <p class="skeleton" style="height:1rem;width:72%;margin-bottom:.75rem;"></p>
+  </article>
+
+  <!-- CTA (affiché après chargement) -->
+  <div class="article-cta" id="article-cta" style="display:none;">
+    <h3>Envie de passer à l'action ?</h3>
+    <p>Découvrez nos spas en showroom et bénéficiez des conseils personnalisés de nos experts Giovanni Riboli.</p>
+    <a href="/quiz.html">Trouver mon spa →</a>
+  </div>
+
+  <!-- 404 -->
+  <div id="article-404" style="display:none;text-align:center;padding:6rem 2rem;background:#f8f6f2;">
+    <p style="font-family:'Inter',sans-serif;font-size:.8rem;letter-spacing:3px;text-transform:uppercase;color:#c7a260;margin-bottom:1.5rem;">Erreur 404</p>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:300;color:#1a2d3d;margin-bottom:1rem;">Article introuvable</h2>
+    <p style="font-family:'Inter',sans-serif;color:#666;margin-bottom:2.5rem;">Cet article n'existe pas ou a été retiré.</p>
+    <a href="/blog" style="display:inline-block;padding:.9rem 2rem;background:#c7a260;color:#fff;font-family:'Inter',sans-serif;font-size:.85rem;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;border-radius:2px;">← Retour au blog</a>
+  </div>
+
+  <!-- NAVIGATION ARTICLE -->
+  <nav class="article-nav">
+    <a href="/blog">← Retour au blog</a>
+    <a href="/revendeurs.html">Trouver un showroom →</a>
+  </nav>
+
+  <!-- FOOTER -->
+  <div id="gr-footer"></div>
+
+  <script>
+  (function() {
+    var SUPABASE_URL = 'https://ohjzggceozamhdesecxi.supabase.co';
+    var ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oanpnZ2Nlb3phbWhkZXNlY3hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3Njc5MDYsImV4cCI6MjA5MjM0MzkwNn0.wW-tqXBDUtKURR31bh3CUWIcuYMUJTZLqq2LLT1kJnA';
+
+    // Lecture du slug depuis le pathname (/blog/mon-article)
+    function getSlug() {
+      var parts = window.location.pathname.replace(/\/$/, '').split('/');
+      var last = parts[parts.length - 1];
+      // Ignorer si c'est le fichier article.html lui-même
+      if (!last || last === 'article.html' || last === 'article') return null;
+      return last;
+    }
+
+    function setMeta(name, content) {
+      var el = document.querySelector('meta[name="' + name + '"]');
+      if (!el) { el = document.createElement('meta'); el.name = name; document.head.appendChild(el); }
+      el.content = content;
+    }
+
+    function setOg(prop, content) {
+      var el = document.querySelector('meta[property="' + prop + '"]');
+      if (el) el.content = content;
+    }
+
+    function formatDate(dateStr) {
+      // dateStr : "2026-03-28"
+      var d = new Date(dateStr + 'T00:00:00');
+      return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
+    function show404() {
+      document.getElementById('article-hero').style.display = 'none';
+      document.getElementById('article-content').style.display = 'none';
+      document.getElementById('article-cta').style.display = 'none';
+      document.getElementById('article-404').style.display = 'block';
+      document.title = 'Article introuvable | Giovanni Riboli';
+    }
+
+    function renderArticle(a) {
+      var dateFormatted = formatDate(a.date_publication);
+
+      // — Hero —
+      document.getElementById('cat-crumb').textContent = a.categorie || 'Blog';
+      document.getElementById('hero-cat').textContent = a.categorie || '';
+      document.getElementById('hero-title').textContent = a.titre;
+      document.getElementById('hero-date').textContent = dateFormatted;
+      if (a.photo_url) {
+        document.getElementById('article-hero').style.backgroundImage = 'url(' + a.photo_url + ')';
+      }
+
+      // — Contenu Markdown → HTML —
+      var html = marked.parse(a.contenu || '');
+      document.getElementById('article-content').innerHTML = html;
+
+      // — CTA —
+      document.getElementById('article-cta').style.display = '';
+
+      // — SEO dynamique —
+      var pageUrl = 'https://gr-spa.com/blog/' + a.slug;
+      var ogImage = a.photo_url || 'https://gr-spa.com/assets/hero-ambiance.webp';
+
+      document.title = a.titre + ' | Giovanni Riboli';
+      setMeta('description', a.extrait || '');
+      setOg('og:title', a.titre);
+      setOg('og:description', a.extrait || '');
+      setOg('og:url', pageUrl);
+      setOg('og:image', ogImage);
+      document.querySelector('link[rel="canonical"]').href = pageUrl;
+
+      // — JSON-LD Article Schema —
+      var schema = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": a.titre,
+        "description": a.extrait || '',
+        "image": ogImage,
+        "datePublished": a.date_publication,
+        "dateModified": a.date_publication,
+        "inLanguage": "fr-FR",
+        "author": {
+          "@type": "Organization",
+          "name": "Giovanni Riboli",
+          "url": "https://gr-spa.com"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Giovanni Riboli",
+          "url": "https://gr-spa.com",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://gr-spa.com/assets/logo-blanc.svg"
+          }
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": pageUrl
+        }
+      };
+      var ld = document.createElement('script');
+      ld.type = 'application/ld+json';
+      ld.textContent = JSON.stringify(schema);
+      document.head.appendChild(ld);
+    }
+
+    async function loadArticle() {
+      var slug = getSlug();
+      if (!slug) { show404(); return; }
+
+      try {
+        var r = await fetch(
+          SUPABASE_URL + '/rest/v1/articles?slug=eq.' + encodeURIComponent(slug) + '&actif=eq.true&select=*&limit=1',
+          { headers: { 'apikey': ANON_KEY, 'Authorization': 'Bearer ' + ANON_KEY } }
+        );
+        var data = await r.json();
+        if (!data || data.length === 0) { show404(); return; }
+        renderArticle(data[0]);
+      } catch(e) {
+        console.error('Erreur chargement article:', e);
+        show404();
+      }
+    }
+
+    loadArticle();
+  })();
+  </script>
+
+  <script src="../script.js"></script>
+  <script src="../offre-bar.js"></script>
+  <script src="/footer.js"></script>
+</body>
+</html>

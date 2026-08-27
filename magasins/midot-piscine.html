@@ -4,88 +4,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIDOT PISCINE — Giovanni Riboli</title>
-    <meta name="description" content="Revendeur Giovanni Riboli — MIDOT PISCINE à MONTBOZON. Spas et spas de nage haut de gamme.">
+    <meta name="description" content="MIDOT PISCINE, revendeur agréé Giovanni Riboli à MONTBOZON. Spas et spas de nage haut de gamme.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MIDOT PISCINE — Giovanni Riboli">
+    <meta property="og:description" content="MIDOT PISCINE, revendeur agréé Giovanni Riboli à MONTBOZON. Spas et spas de nage haut de gamme.">
+    <meta property="og:url" content="https://gr-spa.com/magasins/midot-piscine.html">
+    <meta property="og:image" content="https://gr-spa.com/assets/hero-ambiance.webp">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../style.css">
-    
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <link rel="shortcut icon" href="/assets/favicon.ico">
+    <link rel="canonical" href="https://gr-spa.com/magasins/midot-piscine.html">
 </head>
 <body>
 
-  <!-- NAV — composant JS -->
-  <div id="gr-nav"></div>
-  <script src="/nav.js"></script>
+    <div id="gr-nav"></div>
+    <script src="/nav.js"></script>
 
     <!-- HERO -->
-    <section class="shop-hero">
-        <div class="breadcrumb">
-            <a href='/revendeurs'>Nos magasins</a> / MIDOT PISCINE
+    <section class="shop-hero" id="shop-hero">
+        <div class="shop-hero__breadcrumb breadcrumb">
+            <a href="/revendeurs">Nos magasins</a> / <span id="breadcrumb-nom">MIDOT PISCINE</span>
         </div>
-        <h1>MIDOT PISCINE</h1>
-        <p class="subtitle">Revendeur agréé Giovanni Riboli</p>
+        <span class="shop-badge" id="shop-badge"></span>
+        <h1 id="magasin-nom-h1">MIDOT PISCINE</h1>
+        <p class="subtitle" id="magasin-ville-subtitle">MONTBOZON — Département 70</p>
+        <div class="shop-hero__actions">
+            <a href="tel:0755597416" id="btn-appeler" class="btn-shop">
+                📞&nbsp;Appeler
+            </a>
+            <a href="#shop-contact" class="btn-shop btn-shop--outline">
+                Planifier ma visite
+            </a>
+        </div>
     </section>
 
-    <!-- INFOS -->
+    <!-- INFOS + CARTE -->
     <section class="shop-info">
-        <div class="shop-info-left">
-            <h2>Informations</h2>
-            <p class="store-detail">9 RUE DERRIERE LES MURS<br>70230 MONTBOZON</p>
-            <p class="store-detail">📞 <a href="tel:0755597416">07-55-59-74-16</a></p>
-            <p class="store-detail">✉️ <a href="mailto:piscine@midot.fr">piscine@midot.fr</a></p>
-            <p class="store-detail">👤 Sebastien MIDOT</p>
+        <div class="shop-info-card">
+            <div class="shop-info-item">
+                <span class="shop-info-label">Adresse</span>
+                <span class="shop-info-value" id="magasin-adresse">9 RUE DERRIERE LES MURS, 70230 MONTBOZON</span>
+            </div>
+            <div class="shop-info-item">
+                <span class="shop-info-label">Téléphone</span>
+                <a class="shop-info-value shop-info-link" id="magasin-tel-link" href="tel:0755597416">
+                    <span id="magasin-tel">07-55-59-74-16</span>
+                </a>
+            </div>
+            <div class="shop-info-item">
+                <span class="shop-info-label">Email</span>
+                <a class="shop-info-value shop-info-link" id="magasin-email-link" href="mailto:piscine@midot.fr">
+                    <span id="magasin-email">piscine@midot.fr</span>
+                </a>
+            </div>
+            <div class="shop-info-item">
+                <span class="shop-info-label">Votre conseiller</span>
+                <span class="shop-info-value" id="magasin-responsable">MELANIE</span>
+            </div>
         </div>
-        <div class="shop-info-right">
-            <div id="shopMap" style="width:100%;height:360px;border-radius:4px;"></div>
-    <script>
-    function initShopMap_midot_piscine() {
-        var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({address: "9 RUE DERRIERE LES MURS 70230 MONTBOZON, France"}, function(results, status) {
-            if (status === 'OK') {
-                var map = new google.maps.Map(document.getElementById('shopMap'), {
-                    center: results[0].geometry.location, zoom: 14,
-                    styles:[{featureType:'poi',elementType:'all',stylers:[{visibility:'off'}]},{featureType:'water',elementType:'geometry',stylers:[{color:'#e8f0f4'}]},{featureType:'landscape',elementType:'geometry',stylers:[{color:'#f8f6f2'}]}]
-                });
-                new google.maps.Marker({position:results[0].geometry.location,map:map,icon:{path:google.maps.SymbolPath.CIRCLE,scale:10,fillColor:'#c7a260',fillOpacity:1,strokeColor:'#ffffff',strokeWeight:2}});
-            }
-        });
-    }
-    </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIhhwEmidNOgH7GGmUSOXJlqq8aJ2cKeE&callback=initShopMap_midot_piscine"></script>
+        <div id="shopMap" class="shop-map"></div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="shop-contact" id="shop-contact">
+        <div class="shop-contact-inner">
+            <h2>Contactez <span id="contact-nom">MIDOT PISCINE</span></h2>
+            <form class="shop-form" action="#">
+                <input type="text" name="prenom" placeholder="Prénom" required>
+                <input type="text" name="nom" placeholder="Nom" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="tel" name="telephone" placeholder="Téléphone">
+                <textarea name="message" rows="5" placeholder="Votre message…" required></textarea>
+                <button type="submit" class="btn-submit">Envoyer ma demande</button>
+            </form>
         </div>
     </section>
 
     <!-- GAMMES -->
     <section class="shop-gammes">
         <h2>Nos gammes disponibles</h2>
-        <div class="gammes-grid">
-            <a class='gamme-card' href='/gammes/relax'>
-                <h3>Relax</h3>
-                <p>Découvrir</p>
-            </a>
-            <a class='gamme-card' href='/gammes/energy'>
-                <h3>Energy</h3>
-                <p>Découvrir</p>
-            </a>
-            <a class='gamme-card' href='/gammes/luxury'>
-                <h3>Luxury</h3>
-                <p>Découvrir</p>
-            </a>
-            <a class='gamme-card' href='/gammes/spa-de-nage'>
-                <h3>Spa de nage</h3>
-                <p>Découvrir</p>
-            </a>
+        <div class="shop-gammes-grid">
+            <a class="shop-gamme-card" href="/gammes/relax"><h3>Relax</h3><p>Découvrir</p></a>
+            <a class="shop-gamme-card" href="/gammes/energy"><h3>Energy</h3><p>Découvrir</p></a>
+            <a class="shop-gamme-card" href="/gammes/luxury"><h3>Luxury</h3><p>Découvrir</p></a>
+            <a class="shop-gamme-card" href="/gammes/spa-de-nage"><h3>Spa de nage</h3><p>Découvrir</p></a>
         </div>
     </section>
 
-  <!-- FOOTER — composant JS -->
-  <div id="gr-footer"></div>
+    <div id="gr-footer"></div>
 
-  <script src="../script.js"></script>
-<script>const MAGASIN_SLUG='midot-piscine';</script>
-<script src="/magasin-loader.js"></script>
-  <script src="../selection.js"></script>
-  <script src="../offre-bar.js"></script>
-  <script src="../exit-intent.js"></script>
-  <script src="/footer.js"></script>
+    <script>const MAGASIN_SLUG = 'midot-piscine';</script>
+    <script src="/magasin-loader.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIhhwEmidNOgH7GGmUSOXJlqq8aJ2cKeE&callback=initShopMapCallback"></script>
+    <script src="../offre-bar.js"></script>
+    <script src="../exit-intent.js"></script>
+    <script src="/footer.js"></script>
 </body>
 </html>
