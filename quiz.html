@@ -321,12 +321,12 @@
   // Capture UTMs
   (function() {
     const p = new URLSearchParams(window.location.search);
-    quizData.utm_source = p.get('utm_source');
-    quizData.utm_medium = p.get('utm_medium');
-    quizData.utm_campaign = p.get('utm_campaign');
-    quizData.utm_content = p.get('utm_content');
-    quizData.gclid = p.get('gclid');
-    quizData.fbclid = p.get('fbclid');
+    quizData.utm_source   = p.get('utm_source')   || sessionStorage.getItem('gr_utm_source')   || null;
+    quizData.utm_medium   = p.get('utm_medium')   || sessionStorage.getItem('gr_utm_medium')   || null;
+    quizData.utm_campaign = p.get('utm_campaign') || sessionStorage.getItem('gr_utm_campaign') || null;
+    quizData.utm_content  = p.get('utm_content')  || sessionStorage.getItem('gr_utm_content')  || null;
+    quizData.gclid  = p.get('gclid')  || sessionStorage.getItem('gr_gclid')  || null;
+    quizData.fbclid = p.get('fbclid') || sessionStorage.getItem('gr_fbclid') || null;
     if (quizData.gclid) quizData.source = 'google_ads';
     else if (quizData.fbclid) quizData.source = 'meta_ads';
     else if (quizData.utm_source) quizData.source = quizData.utm_source;
@@ -698,21 +698,21 @@
       );
 
       // 1. Envoyer dans Supabase
-      const supaRes = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
+      // UUID généré côté client → return=minimal (pas de RETURNING, RLS anon ne requiert pas SELECT)
+      const leadId = crypto.randomUUID();
+      await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
         method: 'POST',
         headers: {
           'apikey': SUPABASE_ANON,
           'Authorization': `Bearer ${SUPABASE_ANON}`,
           'Content-Type': 'application/json',
-          'Prefer': 'return=representation'
+          'Prefer': 'return=minimal'
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({ id: leadId, ...payload })
       });
-      const supaData = await supaRes.json();
-      const leadId = Array.isArray(supaData) && supaData[0] ? supaData[0].id : null;
 
       // 2. Déclencher le workflow n8n immédiatement
-      const n8nPayload = { ...payload, id: leadId };
+      const n8nPayload = { id: leadId, ...payload };
       fetch('https://n8n.gr-spa.com/webhook/nouveau-lead-gr-spa', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
