@@ -51,7 +51,6 @@
                 '<div class="mega-menu__col-title">Découvrir</div>' +
                 '<ul>' +
                   '<li><a href="/a-propos">Notre histoire</a></li>' +
-                  '<li><a href="/a-propos#engagements">Nos engagements</a></li>' +
                   '<li><a href="/quiz">Trouver mon spa</a></li>' +
                   '<li><a href="/comparateur">Comparer les modèles</a></li>' +
                   '<li><a href="/financement">Simuler le financement</a></li>' +
@@ -72,7 +71,7 @@
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>' +
           '<span id="selectionBadge" style="display:none;position:absolute;top:-4px;right:-4px;background:#c7a260;color:#1a2d3e;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;align-items:center;justify-content:center;font-family:\'Inter\',sans-serif;">0</span>' +
         '</a>' +
-        '<a class="nav__pro-btn nav__pro-btn--desktop" href="/espace-pro" aria-label="Espace pro" title="Espace pro">' +
+        '<a class="nav__pro-btn nav__pro-btn--desktop" href="https://pro.gr-spa.com" aria-label="Espace pro" title="Espace pro">' +
           '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>' +
         '</a>' +
       '</div>' +
@@ -117,7 +116,7 @@
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>' +
           '<span>Ma sélection</span>' +
         '</a>' +
-        '<a class="nav__mobile-icon-btn" href="/espace-pro" aria-label="Espace pro" title="Espace pro">' +
+        '<a class="nav__mobile-icon-btn" href="https://pro.gr-spa.com" aria-label="Espace pro" title="Espace pro">' +
           '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>' +
           '<span>Espace pro</span>' +
         '</a>' +

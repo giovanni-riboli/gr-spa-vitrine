@@ -3,7 +3,10 @@
 /blog                       /blog                       200
 # Blog dynamique : /blog/:slug → article.html (fichiers .html physiques servis en priorité)
 /blog/:slug                 /blog/article.html          200
-/mentions-legales           /mentions-legales           200
+# Fiches produits : template unique — /produits/:slug → fiche.html
+/produits/:slug             /produits/fiche.html        200
+/mentions-legales           /mentions-legales.html      200
+/politique-confidentialite  /politique-confidentialite.html 200
 /contact                    /revendeurs                 301
 /notre-histoire             /a-propos                   301
 /nos-revendeurs             /revendeurs                 301
@@ -16,6 +19,7 @@
 /fiches-commerciales-cucina /espace-pro                 301
 /espace-revendeur           /espace-pro                 301
 /politique-de-confidentialite /politique-confidentialite 301
+/politique-cookies            /politique-cookies.html     200
 /informations-complementaires /                         301
 /les-catalogues             /espace-pro                 301
 /notices-dutilisation       /espace-pro                 301
@@ -51,6 +55,10 @@
 /gamme-energy/bolzano       /produits/bolzano           301
 /gamme-energy/capri         /produits/capri             301
 /gamme-energy/rimini        /produits/rimini            301
+/gamme-energy/positano      /produits/positano          301
+/gamme-energy/napoli        /produits/napoli            301
+/gamme-energy/torino        /produits/torino            301
+/gamme-relax/r5             /produits/r5                301
 
 # ─── FICHES PRODUITS — Gamme Massage → Energy/Luxury ─────────────
 /gamme-massage/napoli       /produits/napoli            301
@@ -130,6 +138,14 @@
 /magasins/gr-spa-saint-jory.html            /magasins/giovanni-riboli-toulouse.html                301
 /magasins/gr-spa-vaux-sur-mer.html          /magasins/giovanni-riboli-vaux-sur-mer.html            301
 /magasins/riboli-spa-la-rochelle.html       /magasins/giovanni-riboli-la-rochelle.html             301
+
+# ─── ESPACE PRO → pro.gr-spa.com ────────────────────────────────
+/espace-pro.html            https://pro.gr-spa.com      301
+/espace-pro                 https://pro.gr-spa.com      301
+
+# ─── PAGES INTERNES (non publiques) ──────────────────────────────
+/design-charter             /                           301
+/design-charter.html        /                           301
 
 # ─── CATCH-ALL (toujours en dernier) ─────────────────────────────
 /*                          /                           301

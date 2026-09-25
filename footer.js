@@ -22,14 +22,13 @@
         '<a href="/gammes/energy">Gamme Energy</a>' +
         '<a href="/gammes/luxury">Gamme Luxury</a>' +
         '<a href="/gammes/spa-de-nage">Spa de Nage</a>' +
-        '<a href="/comparateur">Comparer les modèles</a>' +
       '</div>' +
 
       '<div class="footer__nav">' +
         '<h4>Découvrir</h4>' +
         '<a href="/a-propos">Notre histoire</a>' +
         '<a href="/revendeurs">Nos magasins</a>' +
-        '<a href="/espace-pro">Espace Pro</a>' +
+        '<a href="https://pro.gr-spa.com">Espace Pro</a>' +
         '<a href="/blog">Blog</a>' +
       '</div>' +
 
@@ -45,6 +44,8 @@
         '<a href="/cgv">Conditions de vente</a>' +
         '<a href="/mentions-legales">Mentions légales</a>' +
         '<a href="/politique-confidentialite">Vie privée</a>' +
+        '<a href="/politique-cookies">Politique cookies</a>' +
+        '<a href="#" id="cookieSettings">Gérer mes cookies</a>' +
       '</div>' +
 
       '<div class="footer__nav">' +
@@ -60,5 +61,31 @@
       '</div>' +
     '</div>' +
     '</footer>';
+
+  // ─── Bandeau cookie (injecté sur toutes les pages) ───────────────
+  if (!document.getElementById('cookieBanner')) {
+    var banner = document.createElement('div');
+    banner.className = 'cookie-banner';
+    banner.id = 'cookieBanner';
+    banner.innerHTML =
+      '<div class="cookie-banner__inner">' +
+        '<div class="cookie-banner__text">' +
+          '<p><strong>Nous utilisons des cookies</strong> pour améliorer votre expérience et mesurer notre trafic. Vous pouvez accepter ou personnaliser vos préférences.</p>' +
+        '</div>' +
+        '<div class="cookie-banner__actions">' +
+          '<button class="btn btn--outline btn--sm" id="cookieCustomize">Personnaliser</button>' +
+          '<button class="btn btn--ghost-dark btn--sm" id="cookieRefuse">Refuser</button>' +
+          '<button class="btn btn--primary btn--sm" id="cookieAccept">Tout accepter</button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(banner);
+  }
+
+  // ─── Chargement cookie-manager.js ──────────────────────────────
+  if (!document.querySelector('script[src*="cookie-manager"]')) {
+    var cm = document.createElement('script');
+    cm.src = '/cookie-manager.js';
+    document.body.appendChild(cm);
+  }
 
 })();
